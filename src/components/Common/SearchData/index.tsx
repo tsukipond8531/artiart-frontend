@@ -1,11 +1,12 @@
 //@ts-nocheck
+"use client"
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { HeadingH4 } from "../Heading";
-import { Para12, Para14, Para16 } from "../Paragraph";
-import tra1 from "../../../../../public/assets/images/tra1.jpg"
+import { Para12, Para14, Para16 } from '../../Common/Paragraph';
+import tra1 from "../../../../public/assets/images/tra1.jpg"
 const SearchData = () => {
   
  

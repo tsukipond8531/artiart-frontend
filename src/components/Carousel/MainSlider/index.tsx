@@ -1,9 +1,9 @@
 "use client"
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import tra1 from "../../../../../public/assets/images/tra1.jpg";
-import tra2 from "../../../../../public/assets/images/tra2.jpg";
-import tra3 from "../../../../../public/assets/images/tra3.jpg";
+import tra1 from "../../../../public/assets/images/tra1.jpg";
+import tra2 from "../../../../public/assets/images/tra2.jpg";
+import tra3 from "../../../../public/assets/images/tra3.jpg";
 import { HeadingH5 } from "../../Common/Heading";
 
 const MainSlider = () => {

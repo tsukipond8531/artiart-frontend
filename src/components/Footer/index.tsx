@@ -4,10 +4,10 @@ import Container from '../Common/Container'
 import { FaLongArrowAltRight } from 'react-icons/fa'
 import { FaArrowRight } from 'react-icons/fa6'
 import { SiAmericanexpress } from 'react-icons/si'
-import ae from "../../../../public/assets/images/ae.svg"
-import apple from "../../../../public/assets/images/apple.svg"
-import master from "../../../../public/assets/images/master.svg"
-import visa from "../../../../public/assets/images/visa.svg"
+import ae from "../../../public/assets/images/ae.svg"
+import apple from "../../../public/assets/images/apple.svg"
+import master from "../../../public/assets/images/master.svg"
+import visa from "../../../public/assets/images/visa.svg"
 import Image from 'next/image'
 
 const Footer = () => {

@@ -3,9 +3,9 @@ import React from 'react';
 import ProductCard from '../../Common/ProductCard';
 import { HeadingH5 } from '../../Common/Heading';
 import Container from '../../Common/Container';
-import tra1 from "../../../../../public/assets/images/tra1.jpg";
-import tra2 from "../../../../../public/assets/images/tra2.jpg";
-import tra3 from "../../../../../public/assets/images/tra3.jpg";
+import tra1 from "../../../../public/assets/images/tra1.jpg";
+import tra2 from "../../../../public/assets/images/tra2.jpg";
+import tra3 from "../../../../public/assets/images/tra3.jpg";
 import Button from '../../Common/Button';
 
 const Product = () => {
