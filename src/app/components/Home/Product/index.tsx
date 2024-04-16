@@ -1,28 +1,33 @@
-import React from 'react'
-import Container from '../../common/Container'
-import { HeadingH4 } from '../../common/Heading'
+// Product.js
+import React from 'react';
+import ProductCard from '../../Common/ProductCard';
+import { HeadingH5 } from '../../Common/Heading';
+import Container from '../../Common/Container';
 import tra1 from "../../../../../public/assets/images/tra1.jpg";
 import tra2 from "../../../../../public/assets/images/tra2.jpg";
-import Image from 'next/image';
+import tra3 from "../../../../../public/assets/images/tra3.jpg";
+import Button from '../../Common/Button';
 
 const Product = () => {
   return (
-    <Container className='mt-10 md:mt-32'>
-    <HeadingH4 title={"Features"}/>
-    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-10'>
-    <div className="w-full relative">
-      <div className="hover-switch relative w-full">
-        <div className="absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-500 ease-in-out opacity-100 hover:opacity-0">
-          <Image className='Imagecard' src={tra2} alt='tra' width="200" height="200" />
-        </div>
-        <div className="absolute inset-1/2 -translate-x-1/2 -translate-y-1/2">
-          <Image className='Imagecard' src={tra1} alt='tra' width="200" height="200" />
-        </div>
+    <Container className='mt-10 md:mt-32 '>
+      <HeadingH5 title={"Feature"} />
+      <ProductCard
+        productItems={[
+          { image: tra1, title: "asdas", price: 123, oldPrice: 123 },
+          { image: tra2, title: "asda", price: 12, oldPrice: 123 },
+          { image: tra3, title: "asd", price: 123, oldPrice: 123 },
+          { image: tra2, title: "asd", price: 123, oldPrice: 123 },
+          { image: tra1, title: "asd", price: 123, oldPrice: 123 },
+          { image: tra3, title: "asd", price: 123, oldPrice: 123 },
+          { image: tra1, title: "asd", price: 123, oldPrice: 123 },
+        ]}
+      />
+      <div className='text-center mt-5 mb-5'>
+      <Button className='bg-black text-white ' title="View ALL"/>
       </div>
-    </div>
-    </div>
-</Container>
-  )
-}
+    </Container>
+  );
+};
 
-export default Product
+export default Product;

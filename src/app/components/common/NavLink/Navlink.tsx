@@ -11,22 +11,15 @@ import DropDown from '../DropDown';
 const Navlink = ({ onDropdownClose }) => {
 
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
-  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
 
   const toggleDropDown = () => {
     setIsDropDownOpen(!isDropDownOpen);
-    if (isMegaMenuOpen) setIsMegaMenuOpen(false);
   };
 
-  const toggleMegaMenu = () => {
-    setIsMegaMenuOpen(!isMegaMenuOpen);
-    if (isDropDownOpen) setIsDropDownOpen(false);
-  };
+
 
   const handleClose = () => {
     setIsDropDownOpen(false);
-    setIsMegaMenuOpen(false);
-    if (onDropdownClose) onDropdownClose(); // Close mobile menu
   };
 
 
@@ -37,9 +30,8 @@ const Navlink = ({ onDropdownClose }) => {
         Home
       </Link>
       <Link className='font-semibold' href="/" onClick={handleClose}>
-        All Product
+        All Products
       </Link>
-      <div>
       <DropDown
          onLinkClick={handleClose}
          toggleMenu={toggleDropDown}
@@ -55,19 +47,19 @@ const Navlink = ({ onDropdownClose }) => {
           array={[
             {
               items: [
-                { id: "1",  title: "Mug", href: "/chairman" },
-                { id: "2", title: "Bottle", href: "/about" },
-                { id: "3", title: "Glass",href: "/team" },
+                { id: "1",  title: "Suction Mugs", href: "/" },
+                { id: "2", title: "Suction Bottles", href: "/" },
+                { id: "3", title: "Insulated Suction Flasks", href: "/" },
+                { id: "4", title: "Insulated Suction Mugs", href: "/" },
               ],
             },
           ]}
         />
-      </div>
 
-      <Link className='font-semibold' href="/gallery" onClick={handleClose}>
-        Coporate Orders
+      <Link className='font-semibold' href="/" onClick={handleClose}>
+        Corporate Orders
       </Link>
-      <Link className='font-semibold' href="/contact" onClick={handleClose} >
+      <Link className='font-semibold' href="/" onClick={handleClose} >
         About Us
       </Link>
     </>

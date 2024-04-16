@@ -5,7 +5,7 @@ import React from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { HeadingH4 } from "../Heading";
 import { Para12, Para14, Para16 } from "../Paragraph";
-
+import tra1 from "../../../../../public/assets/images/tra1.jpg"
 const SearchData = () => {
   
  
@@ -51,17 +51,15 @@ const SearchData = () => {
       
       <div className="max-h-[500px] overflow-auto pr-2 bg-white rounded-md p-2">
               <div className="mt-5 mb-6">
-                <Link href={`/`} className="text-black hover:text-primary-orange-400 relative">
-                  <div className="border p-2 pt-5 mb-2 flex items-center rounded-md shadow cursor-pointer hover:border-primary-orange-200 duration-300 transition">
-                    <Para16
-                      className="rounded-md font-medium bg-white w-20 text-center absolute md:left-3 -top-4 text-primary-orange-400"
-                      title="Visa"
-                    />
+                <Link href={`/`} className="text-black hover:text-gray-500 relative">
+                  <div className="border gap-2 p-2 pt-3 mb-2 flex items-center rounded-md shadow cursor-pointer hover:border-gray-500 duration-300 transition">
+                    <div>
+                      <Image src={tra1} width={150} height={150} className="rounded-md" alt="search"/>
+                    </div>
                     <div className="flex gap-3 w-11/12">
-                    
                       <div>
-                        <HeadingH4 title={"Pakistan"} />
-                        <Para14 className="pl-1" title={truncateText("Islamabad", 160)} />
+                        <HeadingH4 title={"Cubilia"} />
+                        <Para14 className="pl-1" title={truncateText("Cubilia mollis massa nibh nisi dui auctor eu vehicula mi placerat dictum habitasse sollicitudin egestas consectetuer tempor. Pra", 160)} />
                       </div>
                     </div>
                     <Link href={`/`} className="hover:text-black mx-auto">

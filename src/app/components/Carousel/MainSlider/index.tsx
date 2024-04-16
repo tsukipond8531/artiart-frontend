@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import tra1 from "../../../../../public/assets/images/tra1.jpg";
 import tra2 from "../../../../../public/assets/images/tra2.jpg";
 import tra3 from "../../../../../public/assets/images/tra3.jpg";
-import { HeadingH5 } from "../../common/Heading";
+import { HeadingH5 } from "../../Common/Heading";
 
 const MainSlider = () => {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -27,6 +27,7 @@ const MainSlider = () => {
       title: "Germany",
       description: "Lorem ipsum dolor sit amet...",
     },
+    // Add more slides as needed
   ];
 
   
@@ -56,7 +57,7 @@ const MainSlider = () => {
                 layout="fill"
               />
               <div className="content pt-20 md:pt-10">
-                <HeadingH5 className={""} title={"Artiart"} />
+                <HeadingH5 className={"text-yellow100"} title={"TRAVELS"} />
                 <h2>{slide.title}</h2>
                 <p>{slide.description}</p>
               </div>
@@ -67,7 +68,7 @@ const MainSlider = () => {
           <button onClick={prevSlide}>{"<"}</button>
           <button onClick={nextSlide}>{">"}</button>
         </div>
-
+        
       </div>
     </>
   );

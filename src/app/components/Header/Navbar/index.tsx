@@ -3,18 +3,19 @@
 import React, { useEffect, useState } from "react";
 import { IoIosArrowUp } from "react-icons/io";
 import { TbMenu2 } from "react-icons/tb";
+
 import { IoSearchSharp } from "react-icons/io5";
-import {Modal } from "antd";
-import Logo from "../../common/Logo";
-import Navlink from "../../common/NavLink/Navlink";
-import SearchData from "../../common/SearchData";
-import Button from "../../common/Button";
-import Container from "../../common/Container";
+import { Modal } from "antd";
+import Logo from "../../Common/Logo";
+import Navlink from "../../Common/NavLink/Navlink";
+import Button from "../../Common/Button";
+import SearchData from "../../Common/SearchData";
+import Container from "../../Common/Container";
+import { HeadingH5, HeadingH6 } from "../../Common/Heading";
 import Link from "next/link";
-import { FaUser } from "react-icons/fa6";
-import { CiShoppingCart } from "react-icons/ci";
-import { FaShoppingCart } from "react-icons/fa";
-import { HeadingH6 } from "../../common/Heading";
+import { CiUser } from "react-icons/ci";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { FaRegUser } from "react-icons/fa6";
 
 const Navbar: React.FC = () => {
   const [scrollingUp, setScrollingUp] = useState(true);
@@ -59,7 +60,7 @@ const Navbar: React.FC = () => {
   
   return (
     <>
-    <div className="text-center p-3 border-b">
+    <div className="p-3 text-center border-b">
       <HeadingH6 title={"Welcome to our store"}/>
     </div>
       <nav
@@ -68,16 +69,16 @@ const Navbar: React.FC = () => {
         }`}
       >
         <Container>
-        <div className=" flex justify-between items-center  py-4 pt-2 pb-2 ">
-          <div className=" z-10">
+        <div className=" flex justify-between py-4 pt-2 pb-2 ">
+          <div className="relative z-10">
             <Logo />
           </div>
           <div className="lg:flex  lg:gap-10 items-center hidden ">
             <Navlink onDropdownClose={closeMobileMenu} />
           </div>
           <div className="flex gap-2">
-            <div className="flex items-center gap-4 md:gap-5">
-              <Button className="bg-transparent text-black group "  onClick={() => setOpen(true)} title={<IoSearchSharp className="text-black " size={25} /> }/>
+            <div className="flex items-center gap-2 md:gap-5">
+              <Button className="bg-transparent text-black group"  onClick={() => setOpen(true)} title={<IoSearchSharp className="text-black" size={25} /> }/>
               <Modal
                 open={open}
                 onOk={() => setOpen(false)}
@@ -87,13 +88,13 @@ const Navbar: React.FC = () => {
               >
                 <SearchData />
               </Modal>
-              <Link href="/"><FaUser  size={20}/></Link>
-              <Link href="/"><FaShoppingCart   size={20} /></Link>
+           <Link href={"/"}><FaRegUser size={20} /></Link>
+           <Link href={"/"}><AiOutlineShoppingCart size={20} /></Link>
             </div>
-            <div className="lg:hidden ">
+            <div className="lg:hidden mt-[9px]">
               <button
                 onClick={toggleMobileMenu}
-                className="inline-flex items-center  text-black  rounded-lg p-2 hover:bg-primary-orange-300 transition duration-300"
+                className="inline-flex items-center  text-black  rounded-lg p-2 hover:bg-primary-orange-300 hover:text-white transition duration-300"
               >
                 {mobileMenuOpen ? (
                   <IoIosArrowUp size={25} className="text-2xl mt-[5px]" />
@@ -109,14 +110,14 @@ const Navbar: React.FC = () => {
                   <div className="space-y-4  flex-col flex z-50">
                     <Navlink onDropdownClose={closeMobileMenu} />
                   </div>
-               
+                 
                 </div>
               )}
             </div>
           </div>
         </div>
         </Container>
-        
+      
       </nav>
     </>
   );

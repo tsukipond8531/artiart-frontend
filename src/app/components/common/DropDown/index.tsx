@@ -69,8 +69,9 @@ const DropDown: React.FC<DropDownProps> = ({
               {arrayItem.items.map((item, itemIndex) => (
                 <div  key={itemIndex}>
                   <Link href={item.href} key={itemIndex} >
-                    <div className="flex gap-3 md:gap-5 justify-between items-center rounded-md hover:bg-gray-200  hover:text-black px-2 py-2">
+                    <div className=" gap-3 md:gap-5 items-center rounded-md hover:bg-gray-300  px-2 py-2">
                       {item.title}
+                   
                     </div>
                   </Link>
                 </div>

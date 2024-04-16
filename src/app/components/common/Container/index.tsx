@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 
 interface ContainerProps {
-  children?: ReactNode;
   className?: string;
+  children?: ReactNode;
 }
 
 const Container: React.FC<ContainerProps> = ({ children, className }) => {
