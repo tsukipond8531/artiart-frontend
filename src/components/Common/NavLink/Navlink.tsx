@@ -59,7 +59,7 @@ const Navlink = ({ onDropdownClose }) => {
       <Link className='font-semibold' href="/" onClick={handleClose}>
         Corporate Orders
       </Link>
-      <Link className='font-semibold' href="/" onClick={handleClose} >
+      <Link className='font-semibold' href="/about" onClick={handleClose} >
         About Us
       </Link>
     </>
