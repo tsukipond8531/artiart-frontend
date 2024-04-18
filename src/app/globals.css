@@ -3,3 +3,114 @@
 @tailwind utilities;
 
 
+
+/* css slider */
+.slider{
+    height: 60vh;
+    position: relative;
+  }
+  .slider .list .item{
+    position: absolute;
+    inset: 0 0 0 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: .5s;
+  }
+  .slider .list .item img{
+    width: 100%;
+    height: 50%;
+    object-fit: cover;
+  }
+  .slider .list .item::after{
+    content: '';
+    width: 100%;
+    height: 90%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-image: linear-gradient(
+        to top, #ffffff 5%, transparent
+    );
+  }
+  .slider .list .item .content{
+    position: absolute;
+    left: 10%;
+    top: 5%;
+    width: 500px;
+    max-width: 80%;
+    z-index: 1;
+  }
+  .slider .list .item .content p:nth-child(1){
+    text-transform: uppercase;
+    letter-spacing: 10px;
+  }
+  .slider .list .item .content h2{
+    font-size: 60px;
+    margin: 0;
+  }
+  .slider .list .item.active{
+    opacity: 1;
+    z-index: 10;
+  }
+  @keyframes showContent {
+    to{
+        transform: translateY(0);
+        filter: blur(0);
+        opacity: 1;
+    }
+  }
+  .slider .list .item.active p:nth-child(1),
+  .slider .list .item.active h2,
+  .slider .list .item.active p:nth-child(3){
+    transform: translateY(30px);
+    filter: blur(20px);
+    opacity: 0;
+    animation: showContent .5s .7s ease-in-out 1 forwards;
+  }
+  .slider .list .item.active h2{
+    animation-delay: 1s;
+  }
+  .slider .list .item.active p:nth-child(3){
+    animation-duration: 1.3s;
+  }
+  .arrows{
+    position: absolute;
+    top: 30%;
+    right: 50px;
+    z-index: 10;
+  }
+  .arrows button{
+    background-color: rgba(168, 161, 161, 0.333);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    color: #eee;
+    transition: .5s;
+  }
+  .arrows button:hover{
+    background-color: #eee;
+    color: black;
+  }
+  
+  @media screen and (max-width: 678px) {
+    .thumbnail{
+        justify-content: start;
+    }
+    .slider .list .item .content h2{
+        font-size: 20px !important;
+    }
+    .arrows{
+        top: 10%;
+    }
+  }
+
+
+  .label-floating input:not(:placeholder-shown) {
+    padding-top: 1.4rem;
+  }
+  .label-floating input:not(:placeholder-shown) ~ label {
+    font-size: 0.6rem;
+    transition: all 0.2s ease-in-out;
+    color: #1f9d55;
+  }

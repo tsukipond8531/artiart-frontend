@@ -29,7 +29,7 @@ const Navlink = ({ onDropdownClose }) => {
       <Link className='font-semibold' href="/" onClick={handleClose}>
         Home
       </Link>
-      <Link className='font-semibold' href="/" onClick={handleClose}>
+      <Link className='font-semibold' href="/products" onClick={handleClose}>
         All Products
       </Link>
       <DropDown
@@ -47,19 +47,19 @@ const Navlink = ({ onDropdownClose }) => {
           array={[
             {
               items: [
-                { id: "1",  title: "Suction Mugs", href: "/" },
-                { id: "2", title: "Suction Bottles", href: "/" },
-                { id: "3", title: "Insulated Suction Flasks", href: "/" },
-                { id: "4", title: "Insulated Suction Mugs", href: "/" },
+                { id: "1",  title: "Suction Mugs", href: "/products" },
+                { id: "2", title: "Suction Bottles", href: "/products" },
+                { id: "3", title: "Insulated Suction Flasks", href: "/products" },
+                { id: "4", title: "Insulated Suction Mugs", href: "/products" },
               ],
             },
           ]}
         />
 
-      <Link className='font-semibold' href="/" onClick={handleClose}>
+      <Link className='font-semibold' href="/corporate" onClick={handleClose}>
         Corporate Orders
       </Link>
-      <Link className='font-semibold' href="/" onClick={handleClose} >
+      <Link className='font-semibold' href="/about" onClick={handleClose} >
         About Us
       </Link>
     </>

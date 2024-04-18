@@ -1,9 +1,7 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import { IoIosArrowUp } from "react-icons/io";
 import { TbMenu2 } from "react-icons/tb";
-
 import { IoSearchSharp } from "react-icons/io5";
 import { Modal } from "antd";
 import Logo from "../../Common/Logo";
@@ -11,11 +9,11 @@ import Navlink from "../../Common/NavLink/Navlink";
 import Button from "../../Common/Button";
 import SearchData from "../../Common/SearchData";
 import Container from "../../Common/Container";
-import { HeadingH5, HeadingH6 } from "../../Common/Heading";
 import Link from "next/link";
-import { CiUser } from "react-icons/ci";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa6";
+import { HeadingH6 } from "components/Common/Heading";
+
 
 const Navbar: React.FC = () => {
   const [scrollingUp, setScrollingUp] = useState(true);
@@ -28,7 +26,6 @@ const Navbar: React.FC = () => {
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
   };
-
 
   const handleScroll = () => {
     if (window.scrollY < 5) {
@@ -45,10 +42,10 @@ const Navbar: React.FC = () => {
     };
   }, []);
 
+
   // Define the styles for default and scrolled states
   const defaultStyle = "bg-white/100"; // Full opacity or no blur in dark mode
   const scrolledStyle = "bg-white/30 backdrop-blur-md"; // Reduced opacity and blur in dark mode
-
   const [isModalOpen, setIsModalOpen] = useState([false, false]);
   const toggleModal = (idx: any, target: any) => {
     setIsModalOpen((p) => {
@@ -57,17 +54,14 @@ const Navbar: React.FC = () => {
     });
   };
 
-  
+
   return (
     <>
     <div className="p-3 text-center border-b">
       <HeadingH6 title={"Welcome to our store"}/>
     </div>
-      <nav
-        className={` text-black  sticky top-0  z-20 shadow-xl  ${
-          scrollingUp ? defaultStyle : scrolledStyle
-        }`}
-      >
+
+      <nav className={` text-black  sticky top-0  z-20 shadow-xl  ${scrollingUp ? defaultStyle : scrolledStyle}`}>
         <Container>
         <div className=" flex justify-between py-4 pt-2 pb-2 ">
           <div className="relative z-10">
@@ -88,8 +82,8 @@ const Navbar: React.FC = () => {
               >
                 <SearchData />
               </Modal>
-           <Link href={"/"}><FaRegUser size={20} /></Link>
-           <Link href={"/"}><AiOutlineShoppingCart size={20} /></Link>
+           <Link href={"/account"}><FaRegUser size={20} /></Link>
+           <Link href={"/cart"}><AiOutlineShoppingCart size={20} /></Link>
             </div>
             <div className="lg:hidden mt-[9px]">
               <button
@@ -116,8 +110,7 @@ const Navbar: React.FC = () => {
             </div>
           </div>
         </div>
-        </Container>
-      
+        </Container> 
       </nav>
     </>
   );

@@ -1,65 +1,14 @@
-"use client"
-
-import ProductCard from "components/ProductCard/ProductCard";
-import Image from '../../../public/assets/images/waterBottle.png'
-
-const products: any[] = [
-  {
-    ImgUrl: Image,
-    title: "Product 1",
-    strikThroughPrice: "$100",
-    price: "$80"
-  },
-  {
-    ImgUrl: Image,
-    title: "Product 2",
-    strikThroughPrice: "$120",
-    price: "$100"
-  },
-  {
-    ImgUrl: Image,
-    title: "Product 3",
-    strikThroughPrice: "$90",
-    price: "$70"
-  },
-  {
-    ImgUrl: Image,
-    title: "Product 3",
-    strikThroughPrice: "$90",
-    price: "$70"
-  },
-
-  {
-    ImgUrl: Image,
-    title: "Product 1",
-    strikThroughPrice: "$100",
-    price: "$80"
-  },
-  {
-    ImgUrl: Image,
-    title: "Product 2",
-    strikThroughPrice: "$120",
-    price: "$100"
-  },
-  {
-    ImgUrl: Image,
-    title: "Product 3",
-    strikThroughPrice: "$90",
-    price: "$70"
-  },
-  {
-    ImgUrl: Image,
-    title: "Product 3",
-    strikThroughPrice: "$90",
-    price: "$70"
-  }
-];
+import Container from "components/Common/Container";
+import tra1 from "../../../public/assets/images/tra1.jpg"
+import tra2 from "../../../public/assets/images/tra2.jpg"
+import tra3 from "../../../public/assets/images/tra3.jpg"
+import ProductCard from "components/Common/ProductCard";
 
 
 export default function Products() {
   return (
     <>
-      <div className="w-full h-full">
+      <Container>
 
         <div className="w-[92%] m-auto">
           <h3 className="text-xl font-bold mt-10 mb-20">Artiart</h3>
@@ -70,9 +19,8 @@ export default function Products() {
               <div>Availability </div>
               <div>Price </div>
             </div>
-
-
-            <div className="flex justify-end gap-10" >     <p>Sort by:</p>
+            <div className="flex justify-end gap-10" > 
+              <p>Sort by:</p>
               <div>Best Selling </div>
               <div className="">20 products </div></div>
 
@@ -80,25 +28,24 @@ export default function Products() {
 
           {/* Cards */}
 
-          <div className="flex  mb-4 gap-5 flex-wrap">
-            {products.map((item: any, index: number) => (
-              <div key={index} className="w-[20%] flex-grow ">
-                <ProductCard
-                  ImgUrl={item.ImgUrl}
-                  title={item.title}
-                  strikThroughPrice={item.strikThroughPrice}
-                  price={item.price}
-                />
-              </div>
-            ))}
-          </div>
+          <ProductCard
+        productItems={[
+          { image: tra1, title: "asdas", price: 123, oldPrice: 123 },
+          { image: tra2, title: "asda", price: 12, oldPrice: 123 },
+          { image: tra3, title: "asd", price: 123, oldPrice: 123 },
+          { image: tra2, title: "asd", price: 123, oldPrice: 123 },
+          { image: tra1, title: "asd", price: 123, oldPrice: 123 },
+          { image: tra3, title: "asd", price: 123, oldPrice: 123 },
+          { image: tra1, title: "asd", price: 123, oldPrice: 123 },
+        ]}
+      />
 
 
         </div>
 
 
 
-      </div>
+      </Container>
     </>
   );
 }
