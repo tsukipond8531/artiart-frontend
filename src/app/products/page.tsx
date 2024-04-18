@@ -30,13 +30,13 @@ export default function Products() {
 
           <ProductCard
         productItems={[
-          { image: tra1, title: "asdas", price: 123, oldPrice: 123 },
-          { image: tra2, title: "asda", price: 12, oldPrice: 123 },
-          { image: tra3, title: "asd", price: 123, oldPrice: 123 },
-          { image: tra2, title: "asd", price: 123, oldPrice: 123 },
-          { image: tra1, title: "asd", price: 123, oldPrice: 123 },
-          { image: tra3, title: "asd", price: 123, oldPrice: 123 },
-          { image: tra1, title: "asd", price: 123, oldPrice: 123 },
+          { image: tra1,image2:tra2, title: "asdas", price: 123, oldPrice: 123 },
+          { image: tra2,image2:tra2, title: "asda", price: 12, oldPrice: 123 },
+          { image: tra3,image2:tra2, title: "asd", price: 123, oldPrice: 123 },
+          { image: tra2,image2:tra2, title: "asd", price: 123, oldPrice: 123 },
+          { image: tra1,image2:tra2, title: "asd", price: 123, oldPrice: 123 },
+          { image: tra3,image2:tra2, title: "asd", price: 123, oldPrice: 123 },
+          { image: tra1,image2:tra2, title: "asd", price: 123, oldPrice: 123 },
         ]}
       />
 

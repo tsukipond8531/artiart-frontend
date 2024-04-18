@@ -11,7 +11,9 @@ const Account = () => {
     <>
     <Container className='mt-10 md:mt-20'>
         <HeadingH3 title={"Account"}/>
-        <Button className='underline' icon={<CiUser size={20} />}  title={"Log out"}/>
+        <button className={` flex items-center gap-2 p-2 underline  rounded-md`}>
+        <CiUser size={20} /> Log out
+        </button>
         <History/>
     </Container> 
     </>

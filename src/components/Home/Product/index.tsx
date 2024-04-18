@@ -1,4 +1,3 @@
-// Product.js
 import React from 'react';
 import ProductCard from '../../Common/ProductCard';
 import { HeadingH5 } from '../../Common/Heading';
@@ -14,13 +13,13 @@ const Product = () => {
       <HeadingH5 title={"Feature"} />
       <ProductCard
         productItems={[
-          { image: tra1, title: "asdas", price: 123, oldPrice: 123 },
-          { image: tra2, title: "asda", price: 12, oldPrice: 123 },
-          { image: tra3, title: "asd", price: 123, oldPrice: 123 },
-          { image: tra2, title: "asd", price: 123, oldPrice: 123 },
-          { image: tra1, title: "asd", price: 123, oldPrice: 123 },
-          { image: tra3, title: "asd", price: 123, oldPrice: 123 },
-          { image: tra1, title: "asd", price: 123, oldPrice: 123 },
+          { image: tra1,image2:tra2, title: "asdas", price: 123, oldPrice: 123 },
+          { image: tra2,image2:tra2, title: "asda", price: 12, oldPrice: 123 },
+          { image: tra3,image2:tra2, title: "asd", price: 123, oldPrice: 123 },
+          { image: tra2,image2:tra2, title: "asd", price: 123, oldPrice: 123 },
+          { image: tra1,image2:tra2, title: "asd", price: 123, oldPrice: 123 },
+          { image: tra3,image2:tra2, title: "asd", price: 123, oldPrice: 123 },
+          { image: tra1,image2:tra2, title: "asd", price: 123, oldPrice: 123 },
         ]}
       />
       <div className='text-center mt-5 mb-5'>

@@ -82,7 +82,7 @@ const CartTable: React.FC = () => {
                     </div>
                 </div>
 
-                <div className='text-end border-t-2 mt-10 pt-5 space-y-2'>
+                <div className='text-end  border-t-2 mt-10 pt-5 space-y-2'>
                     <div className='flex gap-5 justify-end items-center'>
                         <Para16 className='font-semibold' title={"Subtotal"}/>
                         <Para16 className='font-normal' icon="Dhs. " title={subtotal.toFixed(2)} endicon=" AED"/>
