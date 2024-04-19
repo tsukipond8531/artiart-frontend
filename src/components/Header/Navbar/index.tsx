@@ -61,7 +61,7 @@ const Navbar: React.FC = () => {
       <HeadingH6 title={"Welcome to our store"}/>
     </div>
 
-      <nav className={` text-black  sticky top-0  z-20 shadow-xl  ${scrollingUp ? defaultStyle : scrolledStyle}`}>
+      <nav className={` text-black  sticky top-0  z-20 shadow-md  ${scrollingUp ? defaultStyle : scrolledStyle}`}>
         <Container>
         <div className=" flex justify-between py-4 pt-2 pb-2 ">
           <div className="relative z-10">

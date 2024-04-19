@@ -1,10 +1,10 @@
 import React from "react";
 
 interface InputProps {
-  type: string;
-  name: string;
-  placeholder: string;
-  label: string;
+  type?: string;
+  name?: string;
+  placeholder?: string;
+  label?: string;
 }
 
 const Input: React.FC<InputProps> = ({ type, name, placeholder, label }): JSX.Element => {
