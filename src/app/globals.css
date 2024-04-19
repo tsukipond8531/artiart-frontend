@@ -104,5 +104,8 @@
         top: 10%;
     }
   }
-
+  input[type="radio"]:checked + span {
+    display: block;
+  }
+  
 

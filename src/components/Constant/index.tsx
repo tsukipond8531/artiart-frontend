@@ -10,3 +10,12 @@ export const serviceimages=[
     {id:2, image:tra2},
     {id:3, image:tra3},
   ]
+
+  export const list=[
+    {id:1, detail:"BPA Free & Non Toxic"},
+    {id:1, detail:"Capacity: 350 ml"},
+    {id:1, detail:"Material: Inside Plastic, Outside Plastic"},
+    {id:1, detail:"Spill Proof"},
+    {id:1, detail:"Suction Technology"},
+    {id:1, detail:"Temperature Retention for upto 2 hours"},
+  ]
