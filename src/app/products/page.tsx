@@ -13,7 +13,7 @@ const products: any[] = [
   {
     ImgUrl: Image,
     title: "Product 2",
-    strikThroughPrice: "$120",
+
     price: "$100"
   },
   {
