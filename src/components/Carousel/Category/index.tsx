@@ -39,7 +39,7 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ categories }) => {
             <div className="space-y-2 flex flex-col items-center">
               <div className="border w-44 h-44 rounded-full">
                 <Image
-                  className="rounded-full w-44 h-44"
+                  className="rounded-full object-contain w-44 h-44"
                   width={150}
                   height={150}
                   src={category.image}
