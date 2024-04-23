@@ -12,20 +12,20 @@ const MainSlider = () => {
     {
       id: 1,
       src: tra1,
-      title: "UAE",
-      description: "Lorem ipsum dolor sit amet...",
+      title: "Suction Mugs",
+      description: "Browse our latest products",
     },
     {
       id: 2,
       src: tra2,
-      title: "Canada",
-      description: "Lorem ipsum dolor sit amet...",
+      title: "Suction Bottles",
+      description: "Browse our latest products",
     },
     {
       id: 3,
       src: tra3,
-      title: "Germany",
-      description: "Lorem ipsum dolor sit amet...",
+      title: "Insulated Suction Flasks",
+      description: "Browse our latest products",
     },
     // Add more slides as needed
   ];
@@ -57,7 +57,7 @@ const MainSlider = () => {
                 layout="fill"
               />
               <div className="content pt-20 md:pt-10">
-                <HeadingH5 className={"text-yellow100"} title={"TRAVELS"} />
+                <HeadingH5 className={"text-yellow100"} title={"ArtiArt"} />
                 <h2>{slide.title}</h2>
                 <p>{slide.description}</p>
               </div>
