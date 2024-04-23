@@ -6,7 +6,7 @@
 
 /* css slider */
 .slider{
-    height: 60vh;
+    height: 100vh;
     position: relative;
   }
   .slider .list .item{
@@ -28,9 +28,9 @@
     position: absolute;
     left: 0;
     bottom: 0;
-    background-image: linear-gradient(
+    /* background-image: linear-gradient(
         to top, #ffffff 5%, transparent
-    );
+    ); */
   }
   .slider .list .item .content{
     position: absolute;

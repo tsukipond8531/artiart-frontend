@@ -6,6 +6,7 @@ import { HeadingH4 } from 'components/Common/Heading';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 import Link from 'next/link';
+import { Para14 } from 'components/Common/Paragraph';
 
 interface Category {
   id: number;
@@ -31,7 +32,7 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ categories }) => {
   });
 
   return (
-    <Container>
+    <Container className='mt-10 md:mt-32'>
       <div ref={sliderRef} className="keen-slider">
         {categories.map((category) => (
           <Link href={"/products"} className="keen-slider__slide" key={category.id}>
@@ -45,7 +46,7 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ categories }) => {
                   alt={category.name}
                 />
               </div>
-              <HeadingH4 title={category.name} />
+              <Para14 className='font-semibold' title={category.name} />
             </div>
           </Link>
         ))}

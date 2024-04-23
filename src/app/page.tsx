@@ -1,8 +1,14 @@
 import CategorySlider from "components/Carousel/Category";
 import MainSlider from "components/Carousel/MainSlider";
 import Product from "components/Home/Product";
-import tra1 from "../../public/assets/images/tra1.jpg"
-import tra2 from "../../public/assets/images/tra2.jpg"
+import tra1 from "../../public/assets/images/art/art1.png"
+import tra2 from "../../public/assets/images/art/art2.png"
+import tra3 from "../../public/assets/images/art/art3.png"
+import tra4 from "../../public/assets/images/art/art4.png"
+import tra5 from "../../public/assets/images/art/art5.png"
+import tra6 from "../../public/assets/images/art/art6.png"
+import tra7 from "../../public/assets/images/art/art7.png"
+import tra8 from "../../public/assets/images/art/art8.png"
 interface Category {
   id: number;
   name: string;
@@ -10,17 +16,15 @@ interface Category {
 }
 export default function Home() {
   const categories: Category[] = [
-    { id: 1, name: 'Category 1', image: tra1 },
-    { id: 2, name: 'Category 2', image: tra2 },
-    { id: 1, name: 'Category 1', image: tra1 },
-    { id: 2, name: 'Category 2', image: tra2 },
-    { id: 1, name: 'Category 1', image: tra1 },
-    { id: 2, name: 'Category 2', image: tra2 },
-    { id: 1, name: 'Category 1', image: tra1 },
-    { id: 2, name: 'Category 2', image: tra2 },
-    { id: 1, name: 'Category 1', image: tra1 },
-    { id: 2, name: 'Category 2', image: tra2 },
-    // Add more categories as needed
+    { id: 1, name: 'Suction Mugs', image: tra1 },
+    { id: 2, name: 'Suction Bottles', image: tra2 },
+    { id: 1, name: 'Insulated Suction Flasks', image: tra3 },
+    { id: 2, name: 'Insulated Suction Mugs', image: tra4 },
+    { id: 1, name: 'Suction Mugs', image: tra5 },
+    { id: 2, name: 'Suction Bottles', image: tra6 },
+    { id: 1, name: 'Insulated Suction Flasks', image: tra7 },
+    { id: 2, name: 'Insulated Suction Mugs', image: tra8 },
+
   ];
   return (
    <>
