@@ -1,12 +1,15 @@
 import Container from 'components/Common/Container'
 import { HeadingH2, HeadingH3, HeadingH6 } from 'components/Common/Heading'
 import { Para14 } from 'components/Common/Paragraph'
+import Footer from 'components/layout/Footer'
+import Navbar from 'components/layout/Header/Navbar'
 import React from 'react'
 
 
 const AboutUs = () => {
   return (
     <>
+    <Navbar/>
         <Container className='mt-10 md:mt-20'>
         <div className='max-w-screen-md mx-auto space-y-5 '>
             <HeadingH2 className='' title={"About Us"}/>
@@ -26,6 +29,7 @@ const AboutUs = () => {
             <Para14 title={"For the company which is having strong customer traffic in the internet channel, Artiart can collaborate and tailor-made joint promotion and marketing program for our products in their channel by adding a flair of Quality in Comfort."}/>
         </div>
         </Container> 
+<Footer/>
     </>
   )
 }

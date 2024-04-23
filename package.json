@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev ",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -13,10 +13,9 @@
     "framer-motion": "^11.0.28",
     "keen-slider": "^6.8.6",
     "next": "14.2.1",
-    "react": "^18",
-    "react-dom": "^18",
     "react-icons": "^5.1.0",
-    "vercel": "^32.3.0"
+    "vercel": "^32.3.0",
+    "video-react": "^0.16.0"
   },
   "devDependencies": {
     "@types/node": "^20.12.7",

@@ -2,12 +2,15 @@ import Button from 'components/Common/Button'
 import { HeadingH3 } from 'components/Common/Heading'
 import Input from 'components/Common/Input'
 import { Para14 } from 'components/Common/Paragraph'
+import Footer from 'components/layout/Footer'
+import Navbar from 'components/layout/Header/Navbar'
 import Link from 'next/link'
 import React from 'react'
 
 const Forgot = () => {
   return (
     <>
+    <Navbar/>
          <div className='max-w-screen-sm m-auto p-2 sm:p-10 md:p-20 mt-10'>
     <HeadingH3 className='text-center ' title={"Reset your password"}/>
     <Para14 className='text-center mb-10' title={"We will send you an email to reset your password"}/>
@@ -20,6 +23,7 @@ const Forgot = () => {
     </form>
 
    </div> 
+<Footer/>
     </>
   )
 }

@@ -4,11 +4,14 @@ import Container from 'components/Common/Container'
 import { HeadingH2, HeadingH3, HeadingH4, HeadingH5, HeadingH6 } from 'components/Common/Heading'
 import Input from 'components/Common/Input'
 import SelectInput from 'components/Common/Selectinput'
+import Footer from 'components/layout/Footer'
+import Navbar from 'components/layout/Header/Navbar'
 import React from 'react'
 
 const Checkout = () => {
   return (
     <>
+    <Navbar/>
     <Container className='mt-10 md:mt-20'>
     <HeadingH6 className='border-b-2 font-bold lg:pb-3' title={"Billing details"}/>
         <div className='mt-10 grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5'>
@@ -47,7 +50,7 @@ const Checkout = () => {
           </Col>
           {/* <Col xl={{order:1,span:24}} lg={{order:1,span:24}} md={{order:1,span:24}} sm={{order:1,span:24}} xs={{order:1,span:24}}>
             <Form.Item >
-              <Input type='text' name='Name' placeholder='Enter Name' label='Name' />
+            <Input type='text' name='Name' placeholder='Enter Name' label='Name' />
             </Form.Item>
           </Col> */}
           <Col xl={{order:1,span:24}} lg={{order:1,span:24}} md={{order:1,span:24}} sm={{order:1,span:24}} xs={{order:1,span:24}}>
@@ -123,6 +126,7 @@ const Checkout = () => {
         </div>
         </div>
     </Container>
+          <Footer/>
     </>
   )
 }

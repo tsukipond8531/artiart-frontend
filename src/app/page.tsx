@@ -9,6 +9,9 @@ import tra5 from "../../public/assets/images/art/art5.png"
 import tra6 from "../../public/assets/images/art/art6.png"
 import tra7 from "../../public/assets/images/art/art7.png"
 import tra8 from "../../public/assets/images/art/art8.png"
+import Navbar from "components/layout/Header/Navbar";
+import Footer from "components/layout/Footer";
+import VideoMain from "components/Common/MainVideo";
 interface Category {
   id: number;
   name: string;
@@ -28,11 +31,14 @@ export default function Home() {
   ];
   return (
    <>
-   <MainSlider/>
+   <Navbar/>
+   <VideoMain/>
+   {/* <MainSlider/> */}
    <CategorySlider
    categories={categories}
    />
    <Product/>
+   <Footer/>
    </>
   );
 }

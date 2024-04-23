@@ -1,11 +1,14 @@
 import Container from 'components/Common/Container'
 import { HeadingH2, HeadingH3, HeadingH5 } from 'components/Common/Heading'
 import { Para14 } from 'components/Common/Paragraph'
+import Footer from 'components/layout/Footer'
+import Navbar from 'components/layout/Header/Navbar'
 import React from 'react'
 
 const Policy = () => {
   return (
     <>
+    <Navbar/>
          <Container className='mt-10 md:mt-20'>
         <div className='max-w-screen-md mx-auto space-y-5 '>
             <HeadingH2 className='' title={"Shipping policy"}/>
@@ -22,6 +25,7 @@ const Policy = () => {
 
        </div>
         </Container> 
+<Footer/>
     </>
   )
 }

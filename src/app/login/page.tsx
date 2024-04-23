@@ -2,11 +2,15 @@ import Button from 'components/Common/Button'
 import Container from 'components/Common/Container'
 import { HeadingH3, HeadingH4 } from 'components/Common/Heading'
 import Input from 'components/Common/Input'
+import Footer from 'components/layout/Footer'
+import Navbar from 'components/layout/Header/Navbar'
 import Link from 'next/link'
 import React from 'react'
 
 const Login:React.FC = () => {
   return (
+    <>
+    <Navbar/>
    <div className='max-w-screen-sm m-auto p-2 sm:p-10 md:p-20 mt-10'>
     <HeadingH3 className='text-center mb-10' title={"Login"}/>
     <form className=' space-y-4'>
@@ -22,7 +26,10 @@ const Login:React.FC = () => {
     </form>
 
    </div>
+   <Footer/>
+    </>
   )
+
 }
 
 export default Login

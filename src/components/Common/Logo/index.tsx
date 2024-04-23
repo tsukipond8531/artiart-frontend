@@ -1,13 +1,12 @@
 import Link from 'next/link';
 import React from 'react';
-import logo from "../../../../public/assets/images/logo.png";
-import Image from "next/image";
 import { HeadingH3, HeadingH4 } from '../Heading';
-
-const Logo:React.FC = () => {
+import Image from 'next/image';
+import logo from "../../../../public/assets/images/logo.jpeg"
+const Logo: React.FC<{ className?: string }> = ({ className }) => {
   return (
-    <Link  href="/">
-      <HeadingH4 className={`text-black`} title={'artiartuae'}/>
+    <Link className={className} href="/">
+      <Image width={120} height={120} src={logo} alt='logo'/>
     </Link>
   );
 };

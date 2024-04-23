@@ -225,5 +225,12 @@ html, body{
   input[type="radio"]:checked + span {
     display: block;
   }
-  
-
+  .ant-layout .ant-layout-sider{
+    background-color:white !important ;
+  }
+.ant-layout .ant-layout-sider-children{
+    height: 100vh !important;
+  }
+  media-control-bar{
+    display: none !important;
+  }

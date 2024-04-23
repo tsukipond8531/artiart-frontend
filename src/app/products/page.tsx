@@ -17,11 +17,14 @@ import art77 from "../../../public/assets/images/art/art77.jpg";
 import art8 from "../../../public/assets/images/art/art8.png";
 import art88 from "../../../public/assets/images/art/art88.jpg";
 import ProductCard from "components/Common/ProductCard";
+import Footer from "components/layout/Footer";
+import Navbar from "components/layout/Header/Navbar";
 
 
 export default function Products() {
   return (
     <>
+    <Navbar/>
       <Container>
 
         <div className="w-[92%] m-auto">
@@ -53,7 +56,7 @@ export default function Products() {
           { image: art7,image2:art77, title: "DOCTOR SUCTION MUG (OFFICE)", price: 99, oldPrice: 169,link:"/detail" },
           { image: art8,image2:art88, title: "DUMBO TRAVEL MUG (OUTDOORS)", price: 99,link:"/detail" },
         ]}
-      />
+        />
 
 
         </div>
@@ -61,6 +64,7 @@ export default function Products() {
 
 
       </Container>
+      <Footer/>
     </>
   );
 }
