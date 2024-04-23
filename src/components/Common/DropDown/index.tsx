@@ -27,7 +27,7 @@ const DropDown: React.FC<DropDownProps> = ({
   icon,
   onLinkClick,
   BtnClass,
-  textSize = 'font-semibold mt-0',
+  textSize = 'poppins-thin mt-0',
   alignment = 'left-0',
   toggleMenu,
   isOpen,
@@ -51,7 +51,7 @@ const DropDown: React.FC<DropDownProps> = ({
     <div className={`inline-block ${textSize}`}>
       <button
         onClick={toggleMenu}
-        className={`inline-flex font-semibold ${BtnClass}`}
+        className={`inline-flex poppins-thin ${BtnClass}`}
       >
         {text}
         {icon}
