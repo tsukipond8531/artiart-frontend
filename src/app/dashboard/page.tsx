@@ -3,7 +3,9 @@ import React from 'react'
 
 const Dashboard = () => {
   return (
-    <DashboardProvider/>
+    <DashboardProvider>
+      Dashboard Home
+    </DashboardProvider>
   )
 }
 

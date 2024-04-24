@@ -11,7 +11,7 @@ import { Button, Layout, Menu, theme } from 'antd';
 import Logo from 'components/Common/Logo';
 
 const { Header, Sider, Content } = Layout;
-const DashboardProvider = () => {
+const DashboardProvider = ({children}:any) => {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -65,7 +65,7 @@ const DashboardProvider = () => {
           borderRadius: borderRadiusLG,
         }}
       >
-        Content
+        {children}
       </Content>
     </Layout>
   </Layout>
