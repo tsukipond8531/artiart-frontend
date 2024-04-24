@@ -38,7 +38,7 @@ const Product = () => {
         ]}
       />
       <div className='text-center mt-5 mb-5'>
-      <Button className='bg-black text-white ' title="View ALL"/>
+      <Button className='bg-black text-white px-5 ' title="View ALL"/>
       </div>
     </Container>
   );

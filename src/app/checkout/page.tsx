@@ -94,24 +94,24 @@ const Checkout = () => {
         <table className="min-w-full divide-y divide-gray-200 lg:mt-8 ">
           <thead className=''>
             <tr className='border-b-gray-200 border px-3'>
-              <th scope="col" className="px-6 py-3 text-start text-[17px] text-gray-800 font-semibold ">Product</th>
-              <th scope="col" className="px-6 py-3 text-start text-[17px] text-gray-800 font-semibold ">Subtotal</th>
+              <th scope="col" className="px-6 py-3 text-start text-[17px] text-gray-800 poppins-thin ">Product</th>
+              <th scope="col" className="px-6 py-3 text-start text-[17px] text-gray-800 poppins-thin ">Subtotal</th>
             </tr>
           </thead>
           <tbody >
             <tr className="odd:bg-white hover:bg-gray-100 border-b-gray-200 border  ">
-              <td className="px-6 py-4 whitespace-nowrap text-[14px] font-semibold text-gray-800">ARTIST STEEL SUCTION BOTTLE - Light Grey 
+              <td className="px-6 py-4 whitespace-nowrap text-[14px] poppins-thin text-gray-800">ARTIST STEEL SUCTION BOTTLE - Light Grey 
 × 1</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">45</td>            
             </tr>
 
             <tr className="odd:bg-white hover:bg-gray-100 border-b-gray-200 border">
-              <td className="px-6 py-4 whitespace-nowrap text-[14px] font-semibold text-gray-800">Subtotal</td>
+              <td className="px-6 py-4 whitespace-nowrap text-[14px] poppins-thin text-gray-800">Subtotal</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">27</td>           
             </tr>
 
             <tr className="odd:bg-white hover:bg-gray-100 border-b-gray-200 border">
-              <td className="px-6 py-4 whitespace-nowrap text-[14px] font-semibold text-gray-800">Total</td>
+              <td className="px-6 py-4 whitespace-nowrap text-[14px] poppins-thin text-gray-800">Total</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">31</td>
             </tr>
           </tbody>

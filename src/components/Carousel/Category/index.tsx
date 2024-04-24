@@ -46,7 +46,7 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ categories }) => {
                   alt={category.name}
                 />
               </div>
-              <Para14 className='font-semibold' title={category.name} />
+              <Para14 className='poppins-thin' title={category.name} />
             </div>
           </Link>
         ))}

@@ -27,12 +27,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ productItems }) => {
               <Image src={array.image2} width={500} height={500} className="h-80 w-full object-contain rounded-t-xl absolute top-0 opacity-0 group-hover:opacity-100 transition-all duration-500   " alt='image' />
             </div>
             <div className="px-4 py-3 w-full">
-              <p className="text-lg font-bold text-black truncate block capitalize">{array.title}</p>
-              <div className="flex items-center">
-                <p className="text-lg font-semibold text-black cursor-auto my-3">Dhs. <span>{array.price}</span> AED</p>
+              <p className="text-[14px] poppins-thin text-black truncate block capitalize">{array.title}</p>
+              <div className="flex items-center justify-between">
+                <p className="text-[14px] poppins-thin text-black cursor-auto my-3">Dhs. <span>{array.price}</span> AED</p>
                 {array.oldPrice ? (
-                  <del>
-                    <p className="text-sm text-gray-600 cursor-auto ml-2">Dhs. <span>{array.oldPrice}</span> AED</p>
+                  <del className=''>
+                    <p className="text-sm text-gray-600 cursor-auto ">Dhs. <span>{array.oldPrice}</span> AED</p>
                   </del>
                 ) : null}
               </div>
