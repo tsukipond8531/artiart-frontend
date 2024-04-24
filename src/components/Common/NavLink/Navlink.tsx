@@ -26,10 +26,10 @@ const Navlink = ({ onDropdownClose }) => {
 
   return (
     <>
-      <Link className='poppins-thin' href="/" onClick={handleClose}>
+      <Link className='poppins-thin text-14' href="/" onClick={handleClose}>
         Home
       </Link>
-      <Link className='poppins-thin' href="/products" onClick={handleClose}>
+      <Link className='poppins-thin text-14' href="/products" onClick={handleClose}>
         All Products
       </Link>
       <DropDown
@@ -56,10 +56,10 @@ const Navlink = ({ onDropdownClose }) => {
           ]}
         />
 
-      <Link className='poppins-thin' href="/corporate" onClick={handleClose}>
+      <Link className='poppins-thin text-14 ' href="/corporate" onClick={handleClose}>
         Corporate Orders
       </Link>
-      <Link className='poppins-thin' href="/about" onClick={handleClose} >
+      <Link className='poppins-thin text-14' href="/about" onClick={handleClose} >
         About Us
       </Link>
     </>

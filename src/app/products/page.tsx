@@ -28,7 +28,7 @@ export default function Products() {
       <Container>
 
         <div className="w-[92%] m-auto">
-          <h3 className="text-xl font-bold mt-10 mb-20">Artiart</h3>
+          <h3 className="text-xl-h3  mt-10 mb-20">Artiart</h3>
           {/* filter container */}
           <div className="flex justify-between flex-wrap mb-10" >
             <div className="flex gap-10 border-sky-2"  >

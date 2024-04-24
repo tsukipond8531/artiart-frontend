@@ -59,20 +59,20 @@ const Navbar: React.FC = () => {
   return (
     <>
     <div className="p-3 text-center border-b">
-      <HeadingH6 title={"Welcome to our store"}/>
+      <HeadingH6 className="text-10-important" title={"Welcome to our store"}/>
     </div>
 
       <nav className={` text-black  sticky top-0  z-20 shadow-md  ${scrollingUp ? defaultStyle : scrolledStyle}`}>
         <Container>
-        <div className=" flex justify-between py-4 pt-2 pb-2 ">
+        <div className=" flex py-4 pt-2 pb-2 lg:gap-20">
           <div className="relative z-10">
             <Logo />
           </div>
-          <div className="lg:flex  lg:gap-10 items-center hidden ">
+          <div className="lg:flex lg:gap-10 items-center hidden ">
             <Navlink onDropdownClose={closeMobileMenu} />
           </div>
-          <div className="flex gap-2">
-            <div className="flex items-center gap-2 md:gap-5">
+          <div className="flex gap-2 ml-auto">
+            <div className="flex items-center  gap-2 md:gap-5">
               <Button className="bg-transparent text-black group"  onClick={() => setOpen(true)} title={<IoSearchSharp className="text-black" size={25} /> }/>
               <Modal
                 open={open}
