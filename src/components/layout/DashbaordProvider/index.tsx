@@ -9,6 +9,7 @@ import {
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 import Logo from 'components/Common/Logo';
+import AddProductForm from 'components/AddProducts/Products';
 
 const { Header, Sider, Content } = Layout;
 const DashboardProvider = () => {
@@ -65,7 +66,7 @@ const DashboardProvider = () => {
           borderRadius: borderRadiusLG,
         }}
       >
-        Content
+        <AddProductForm/>
       </Content>
     </Layout>
   </Layout>
