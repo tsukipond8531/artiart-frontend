@@ -1,6 +1,5 @@
 "use client"
 import Container from "components/Common/Container";
-
 import art1 from "../../../public/assets/images/art/art1.png";
 import art11 from "../../../public/assets/images/art/art11.jpg";
 import art2 from "../../../public/assets/images/art/art2.png";
@@ -25,6 +24,9 @@ import { Para14 } from "components/Common/Paragraph";
 import { Checkbox } from 'antd';
 import type { CheckboxProps } from 'antd';
 import Input from "components/Common/Input";
+import Drawerfilter from "components/Common/Drawer";
+import { IoFilter } from "react-icons/io5";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 
 export default function Products() {
@@ -89,8 +91,51 @@ export default function Products() {
     </div>
   </div>
   <div className="md:hidden  mb-4">
-    <p>Filter</p>
-    <p>Tap here to show filters</p>
+    <div className="flex justify-between items-center">
+    <Drawerfilter  icon={<IoFilter size={20} />} title="Filter and sort"  DrawerContent={<>
+
+      <Drawerfilter className="justify-between" title="Availabillity" endicon={<FaArrowRightLong size={20} />} DrawerContent={<>
+       <div className="space-y-3">
+              <div className="p-2 flex justify-between items-center border-b-2">
+                <Para14 endicon={" selected"} title={"0"} />
+                <div className="underline cursor-pointer">Reset</div>
+              </div>
+              <div>
+                <Checkbox onChange={onChange}><Para14 title={"In stock "} endicon={""}/></Checkbox>
+              </div>
+              <div>
+                <Checkbox onChange={onChange}><Para14 title={"Out of Stock"} endicon={""}/></Checkbox>
+              </div>
+            </div>
+      </>}/>
+
+      <Drawerfilter className="justify-between" title="Price" endicon={<FaArrowRightLong size={20} />} DrawerContent={<>
+        <div className="space-y-3">
+              <div className="p-2 flex justify-between items-center border-b-2">
+                <Para14 endicon={"200.00"} title={" The highest price is Dhs. "} />
+                <div className="underline cursor-pointer">Reset</div>
+              </div>
+              <div className="flex gap-2">
+                <Input type='number' name='From' placeholder='Enter Price' label='From'/>
+                <Input type='number' name='To' placeholder='Enter Price' label='To'/>
+              </div>
+            </div>
+      </>}/>
+      <div className="mt-3 flex justify-between">
+        <p className="underline text-[18px] ">Sort by:</p>
+        <select className="w-24 h-8 block   rounded-lg ring-0 overflow-hidden border-none  disabled:opacity-50 disabled:pointer-events-none">
+          <option selected>Feature</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+        </select>
+      </div>
+
+
+      </>} />
+      <Para14 className="space-x-2 gap-2" title={" 20 "} icon={" Prosucts"}/>
+    </div>
+
   </div>
 </div>
 
