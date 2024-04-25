@@ -72,7 +72,7 @@ const Thumbnail:React.FC = () => {
       {
           serviceimages.map((array, index)=>(
                     <div className="keen-slider__slide "key={index}>
-                        <Image className='w-full object-cover h-28' src={array.image} width={150} height={150} alt='images'/>      
+                        <Image className='w-full object-contain md:h-28' src={array.image} width={150} height={150} alt='images'/>      
                     </div>
                 )) }
       </div>
