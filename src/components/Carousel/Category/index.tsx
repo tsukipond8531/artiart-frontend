@@ -37,9 +37,9 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ categories }) => {
         {categories.map((category) => (
           <Link href={"/products"} className="keen-slider__slide" key={category.id}>
             <div className="space-y-2 flex flex-col items-center">
-              <div className="border w-20 h-20 md:w-44 md:h-44 rounded-full">
+              <div className="border object-contain w-20 h-20 md:w-44 md:h-44 rounded-full">
                 <Image
-                  className="rounded-full object-contain w-20 h-20 md:w-44 md:h-44"
+                  className="rounded-full bg-contain w-20 h-20 md:w-44 md:h-44"
                   width={150}
                   height={150}
                   src={category.image}

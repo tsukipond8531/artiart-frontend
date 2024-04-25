@@ -92,9 +92,15 @@ export default function Products() {
   </div>
   <div className="md:hidden  mb-4">
     <div className="flex justify-between items-center">
-    <Drawerfilter  icon={<IoFilter size={20} />} title="Filter and sort"  DrawerContent={<>
+    <Drawerfilter  icon={<IoFilter size={20} />} title="Filter and sort" footer={<>
+    <div className="flex justify-between flex-wrap ga-2">
+    <button className="underline">Remove All</button>
+    <button className="bg-black h-12 text-white px-10 ">Apply</button>
+    </div>
 
-      <Drawerfilter className="justify-between" title="Availabillity" endicon={<FaArrowRightLong size={20} />} DrawerContent={<>
+    </>}  DrawerContent={<>
+
+      <Drawerfilter className=" " title="Availabillity" endicon={<FaArrowRightLong size={20} />} DrawerContent={<>
        <div className="space-y-3">
               <div className="p-2 flex justify-between items-center border-b-2">
                 <Para14 endicon={" selected"} title={"0"} />
@@ -109,7 +115,7 @@ export default function Products() {
             </div>
       </>}/>
 
-      <Drawerfilter className="justify-between" title="Price" endicon={<FaArrowRightLong size={20} />} DrawerContent={<>
+      <Drawerfilter className="mt-3" title="Price" endicon={<FaArrowRightLong size={20} />} DrawerContent={<>
         <div className="space-y-3">
               <div className="p-2 flex justify-between items-center border-b-2">
                 <Para14 endicon={"200.00"} title={" The highest price is Dhs. "} />

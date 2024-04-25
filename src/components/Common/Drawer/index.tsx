@@ -8,9 +8,10 @@ interface DrawerFilterProps {
   title?: string;
   endicon?: any;
   className?: string; // Making className optional
+  footer?: any;
 }
 
-const Drawerfilter: React.FC<DrawerFilterProps> = ({ DrawerContent,icon,title,endicon,className }) => {
+const Drawerfilter: React.FC<DrawerFilterProps> = ({ DrawerContent,icon,title,endicon,className,footer }) => {
   const [open, setOpen] = useState<boolean>(false);
 
   const showDrawer = () => {
@@ -23,14 +24,15 @@ const Drawerfilter: React.FC<DrawerFilterProps> = ({ DrawerContent,icon,title,en
 
   return (
     <>
-    <div className={`flex space-y-5 text-[18px] ${className}`} onClick={showDrawer}>
-    <button className={`flex  items-center gap-2 underline `} >
+    <div className={`flex justify-between items-center text-[18px] ${className}`} onClick={showDrawer}>
+    <button className={`flex justify-center  items-center gap-2 underline `} >
         {icon}{title}
       </button>
       {endicon}
     </div>
      
       <Drawer
+      footer={footer}
         title={<IoClose size={25} className='cursor-pointer' onClick={onClose} />}
         closable={false}
         onClose={onClose}
