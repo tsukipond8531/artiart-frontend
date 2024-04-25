@@ -71,7 +71,7 @@ const Navbar: React.FC = () => {
           <div className="lg:flex lg:gap-10 items-center hidden ">
             <Navlink onDropdownClose={closeMobileMenu} />
           </div>
-          <div className="flex gap-2 ml-auto">
+          <div className="flex gap-2 ml-auto items-center justify-center">
             <div className="flex items-center  gap-2 md:gap-5">
               <Button className="bg-transparent text-black group"  onClick={() => setOpen(true)} title={<IoSearchSharp className="text-black" size={25} /> }/>
               <Modal
@@ -89,12 +89,12 @@ const Navbar: React.FC = () => {
             <div className="lg:hidden mt-[9px]">
               <button
                 onClick={toggleMobileMenu}
-                className="inline-flex items-center  text-black  rounded-lg p-2 hover:bg-primary-orange-300 hover:text-white transition duration-300"
+                className="inline-flex items-center  text-black  rounded-lg  hover:bg-primary-orange-300 hover:text-white transition duration-300"
               >
                 {mobileMenuOpen ? (
-                  <IoIosArrowUp size={25} className="text-2xl mt-[5px]" />
+                  <IoIosArrowUp size={25}  />
                 ) : (
-                  <TbMenu2 size={25} className="text-2xl mt-[5px]" />
+                  <TbMenu2 size={25}  />
                 )}
               </button>
               {mobileMenuOpen  && (
