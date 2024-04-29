@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -10,13 +10,66 @@ import {
 import { Button, Layout, Menu, theme } from 'antd';
 import Logo from 'components/Common/Logo';
 import AddProductForm from 'components/AddProducts/Products';
+import Allproducts from 'components/AddProducts/Allproducts';
+import CategoryForm from 'components/AddCategory/Products';
+import Categories from 'components/AddCategory/Category';
+
+
 
 const { Header, Sider, Content } = Layout;
 const DashboardProvider = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+  const {token: { colorBgContainer, borderRadiusLG },} = theme.useToken();
+  const [selecteMenu, setselecteMenu] = useState<string >("Add All Products");
+  const [category, setCategory] = useState<any[]>();
+  const [products, setProducts] = useState<any[]>();
+
+  const handleAddProductsClick = (menu: string) => {
+
+    setselecteMenu(menu)
+  
+  };
+  const menuArray= [
+    {
+      key: '1',
+      icon: <UserOutlined />,
+      label: 'Add Products',
+      onClick: ()=>handleAddProductsClick("Add Products"),
+    },
+    {
+      key: '2',
+      icon: <VideoCameraOutlined />,
+      label: 'Add Category',
+      onClick: ()=>handleAddProductsClick("Add Category"),
+
+      
+    },
+    {
+      key: '3',
+      icon: <UploadOutlined />,
+      label: 'nav 3',
+    },
+  ]
+
+  console.log(selecteMenu, "selecteMenu")
+  const useCategoryHandler = async () => {
+    const response = await fetch(
+      "https://artiart-server-phi.vercel.app/api/getAllcategories"
+    );
+    const Categories = await response.json();
+    setCategory(Categories);
+  };
+
+  const productHandler = async () => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllproducts`);
+    const Allproducts = await response.json();
+    setProducts(Allproducts.products);
+  };
+
+  useEffect(()=>{
+    useCategoryHandler()
+    productHandler()
+  },[selecteMenu])
   return (
     <Layout>
     <Sider trigger={null} collapsible collapsed={collapsed} className='w-full'>
@@ -25,23 +78,9 @@ const DashboardProvider = () => {
       <Menu
         mode="inline"
         defaultSelectedKeys={['1']}
-        items={[
-          {
-            key: '1',
-            icon: <UserOutlined />,
-            label: 'nav 1',
-          },
-          {
-            key: '2',
-            icon: <VideoCameraOutlined />,
-            label: 'nav 2',
-          },
-          {
-            key: '3',
-            icon: <UploadOutlined />,
-            label: 'nav 3',
-          },
-        ]}
+        items={
+          menuArray.map((item)=> (item))   
+      }
       />
     </Sider>
     <Layout>
@@ -66,7 +105,14 @@ const DashboardProvider = () => {
           borderRadius: borderRadiusLG,
         }}
       >
-        <AddProductForm/>
+        
+        {selecteMenu == "Add Products" ? <AddProductForm  setselecteMenu={setselecteMenu}/>  : 
+        selecteMenu =="Add Category"  ? 
+        <Categories Categories={category} setCategory={setCategory} setselecteMenu={setselecteMenu}/>  : 
+        selecteMenu ==="Add All Products" ? <Allproducts  Categories={products} setCategory={setProducts} setselecteMenu={setselecteMenu}/> : 
+        <CategoryForm setselecteMenu={setselecteMenu}/> 
+        
+        }
       </Content>
     </Layout>
   </Layout>

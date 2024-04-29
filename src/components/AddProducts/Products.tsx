@@ -1,145 +1,322 @@
-// components/AddProductForm.tsx
-'use client'
-import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
-import * as Yup from 'yup';
-import React, { Component, useEffect, useState } from 'react';
-import Uploadfile from 'components/AddProducts/Uploadfile'
-import Image from 'next/image';
-import axios, { AxiosResponse } from 'axios';
+"use client";
+import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
+import React, { useState, useEffect, DragEvent, SetStateAction } from "react";
 
+import Uploadfile from "components/AddProducts/Uploadfile";
+import Image from "next/image";
+import axios, { AxiosResponse, AxiosRequestConfig } from "axios";
+import { Product } from "types/interfaces";
+import { inputFields, validationSchema, initialValues } from "Data/data";
+import { RxCross2 } from "react-icons/rx";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { useRouter } from 'next/navigation'
 
+const AddProductForm = ({setselecteMenu}: any) => {
+  const [category, setCategory] = useState<any[]>();
+  const [imagesUrl, setImagesUrl] = useState<any[]>([]);
+  const [selectedFile, setSelectedFiles] = useState<any[] | null>(null);
+  const [posterimageUrl, setposterimageUrl] = useState<any[] | null>();
+  const [hoverImage, sethoverImage] = useState<any[] | null | undefined>();
+  const router = useRouter()
+  
+console.log(setselecteMenu, "setselecteMenu")
+  const onSubmit = async (values: Product, { resetForm }: any) => {
+    try {
+      console.log("function triggered");
+      let posterImageUrl = posterimageUrl && posterimageUrl[0];
+      let hoverImageUrl = hoverImage && hoverImage[0];
 
-interface Product {
-  name: string;
-  description: string;
-  price: string;
-  category: string;
-  colors: { colorName: string }[];
-  modelDetails: { name: string; detail: string }[]; // Array of objects with name and email properties
-  spacification: { specsDetails: string }[];
-  discountPrice: string;
-}
+      console.log(posterImageUrl, "posterimageUrl");
+      if (!posterImageUrl || !hoverImageUrl || !(imagesUrl.length > 0))
+        throw new Error("Please select relevant Images");
+      let newValue = {
+        ...values,
+        posterImageUrl,
+        imageUrl: imagesUrl,
+        hoverImageUrl,
+      };
+      console.log(newValue, "newValue");
 
-const AddProductForm = () => {
-  const [category, setCategory] = useState<any[]>([])
-  const [imagesUrl, setImagesUrl] = useState<any[]>([])
-
-  const initialValues: Product = {
-    name: '',
-    description: '',
-    price: '',
-    category: '',
-    colors: [{ colorName: "" }],
-    modelDetails: [{
-      name: '',
-      detail: '',
-    },
-    ],
-    spacification: [{ specsDetails: "" }],
-    discountPrice: '',
+      const response = await axios.post(
+        "https://artiart-server-phi.vercel.app/api/addProduct",
+        newValue
+      );
+      console.log(response, "response");
+      resetForm();
+    } catch (err) {
+      console.log(err, "err");
+    }
   };
 
-  const validationSchema = Yup.object({
-    name: Yup.string().required('Required'),
-    description: Yup.string().required('Required'),
-    price: Yup.string().required('Required'),
-    category: Yup.string().required('Required'),
-    // imageUrl: Yup.string().required('Required'),
-    discountPrice: Yup.string(),
-  });
-
-  const onSubmit = async(values: Product) => {
-    console.log('function triggered')
-    let posterImageUrl= imagesUrl[0]
-    console.log(posterImageUrl, "posterimageUrl")
-  let newValue = {...values,posterImageUrl,imagesUrl }
-  console.log(newValue, "newValue")
-
-  const response= await axios.post('https://artiart-server-phi.vercel.app/api/addProduct', newValue)
-  console.log(response, "response")
-  };
-
-  const inputFields = [
-    { name: "name", type: 'text' },
-    { name: "description", type: 'text' },
-    { name: "price", type: 'number' },
-    { name: "category", type: 'text' },
-    { name: "discountPrice", type: 'number' },
-  ];
-
-  console.log(imagesUrl, "imagesUrl")
   const useCategoryHandler = async () => {
-
-    const response = await fetch("https://artiart-server-phi.vercel.app/api/getAllcategories");
+    const response = await fetch(
+      "https://artiart-server-phi.vercel.app/api/getAllcategories"
+    );
     const Categories = await response.json();
-    setCategory(Categories)
-
-  }
-
+    setCategory(Categories);
+  };
 
   useEffect(() => {
-    useCategoryHandler()
-  }, [])
+    useCategoryHandler();
+  }, []);
 
+  const uploadPhotosToBackend = async (files: any[]): Promise<any[]> => {
+    const formData = new FormData();
+    console.log(files, "files");
+
+    if (files.length < 0) throw new Error("No files found");
+
+    try {
+      for (const file of files) {
+        formData.append("image", file);
+      }
+
+      const response: AxiosResponse<any> = await axios.post(
+        "https://artiart-server-phi.vercel.app/api/addProductImage",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      // Handle the response from the backend
+      console.log("Response:", response.data.productsImageUrl);
+      return response.data?.productsImageUrl;
+    } catch (error) {
+      // Handle any errors that occur during the request
+      console.log("Error:", error);
+      // Optionally, you can throw the error to propagate it up to the component level
+      throw error;
+    }
+  };
+
+  const handleDrop = async (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const files = Array.from(e.dataTransfer.files);
+    setSelectedFiles(files);
+    console.log("files", files);
+    try {
+      let response = await uploadPhotosToBackend(files);
+      setImagesUrl((prev) => [...prev, ...response]);
+
+      console.log("Photos uploaded successfully");
+    } catch (error) {
+      console.error("Failed to upload photos:", error);
+    }
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file: any = e.target.files;
+    console.log("file", file);
+    setSelectedFiles(file);
+    try {
+      const response = await uploadPhotosToBackend(file);
+      setImagesUrl((prev) => [...prev, ...response]);
+      console.log("Photos uploaded successfully");
+    } catch (error) {
+      console.error("Failed to upload photos:", error);
+    }
+  };
+
+  const singlehandleDrop = async (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    let file: any = e.dataTransfer.files[0];
+    console.log("file", file);
+
+    const files = [file];
+
+    console.log("files", files);
+    try {
+      let response = await uploadPhotosToBackend(files);
+      console.log(response, "response");
+      setposterimageUrl(response);
+
+      console.log("Photos uploaded successfully");
+    } catch (error) {
+      console.error("Failed to upload photos:", error);
+    }
+  };
+
+  const signlehandleFileChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file: any = e?.target?.files;
+    console.log("file", file);
+    try {
+      if (!file) throw new Error("file not found");
+      const response = await uploadPhotosToBackend(file);
+      setposterimageUrl(response);
+      console.log("Photos uploaded successfully");
+    } catch (error) {
+      console.error("Failed to upload photos:", error);
+    }
+  };
+
+  const HoversinglehandleDrop = async (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    let file: any = e.dataTransfer.files[0];
+    const files = [file];
+
+    console.log("files", files);
+    try {
+      let response = await uploadPhotosToBackend(files);
+      console.log(response, "response");
+      sethoverImage(response);
+
+      console.log("Photos uploaded successfully");
+    } catch (error) {
+      console.error("Failed to upload photos:", error);
+    }
+  };
+
+  const HoversignlehandleFileChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    console.log("function triggered");
+    const file: any = e.target.files;
+    // const files = Array.from(file);
+    console.log("file", file);
+    try {
+      if (!file) throw new Error("file not found");
+
+      const response = await uploadPhotosToBackend(file);
+      sethoverImage(response);
+      console.log("Photos uploaded successfully");
+    } catch (error) {
+      console.log("Failed to upload photos:", error);
+    }
+  };
+
+  const ImageRemoveHandler = async (
+    imagePublicId: string,
+    setterFunction: any
+  ) => {
+    const requestConfig: AxiosRequestConfig = {
+      data: { imageUrl: imagePublicId },
+    };
+
+    try {
+      const response = await axios.delete(
+        `https://artiart-server-phi.vercel.app/api/removeProductImage`,
+        requestConfig
+      );
+      console.log("Image removed successfully:", response.data);
+      setterFunction([]);
+    } catch (error) {
+      console.error("Failed to remove image:", error);
+    }
+  };
+
+  const ImageRemoved = async (imagePublicId: string, setterFunction: any) => {
+    const requestConfig: AxiosRequestConfig = {
+      data: { imageUrl: imagePublicId },
+    };
+
+    try {
+      const response = await axios.delete(
+        `https://artiart-server-phi.vercel.app/api/removeProductImage`,
+        requestConfig
+      );
+      console.log("Image removed successfully:", response.data);
+      setterFunction((prev: any) =>
+        prev.filter((item: any) => item.public_id != imagePublicId)
+      );
+    } catch (error) {
+      console.error("Failed to remove image:", error);
+    }
+  };
+
+  console.log(imagesUrl, "imagesUrl");
 
   return (
     <div className="max-w-md mx-auto mt-8">
-      <h2 className="text-2xl font-bold mb-4">Add New Product</h2>
-
-      <Uploadfile setImagesUrl={setImagesUrl} />
+      
+      <p className="text-2xl font-black mb-4 flex items-center justify-center gap-2
+       hover:bg-gray-200 w-fit p-2 cursor-pointer"  onClick={() =>{setselecteMenu('Add All Products')}}> <IoMdArrowRoundBack />  Back</p>
+      <h2 className="text-2xl font-black mb-4">Add New Product</h2>
       <div>
+        {posterimageUrl && posterimageUrl.length > 0 ? (
+          <div className="flex gap-2 border-3 flex-wrap mb-3  ">
+            {posterimageUrl.map((item: any, index) => {
+              return (
+                <div className="group" key={index}>
+                  <div className="flex justify-end invisible group-hover:visible ">
+                    <RxCross2
+                      className="cursor-pointer"
+                      onClick={() => {
+                        ImageRemoveHandler(item.public_id, setposterimageUrl);
+                      }}
+                    />
+                  </div>
+                  <Image
+                    key={index}
+                    className="cursor-pointer"
+                    width={30}
+                    height={30}
+                    src={item.imageUrl}
+                    alt={`productImage-${index}`}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <>
+            <p className="mb-3">Add a poster Image</p>
 
+            <Uploadfile
+              setImagesUrl={setImagesUrl}
+              handleFileChange={signlehandleFileChange}
+              handleDrop={singlehandleDrop}
+            />
+          </>
+        )}
       </div>
-      {imagesUrl && imagesUrl.length > 0 ?
-        <div className='flex gap-2 border-3 flex-wrap mt-3 '>
-          {imagesUrl.map((item: any, index) => {
-            return (
-              <Image
-                key={index}
-                className="cursor-pointer"
-                width={30}
-                height={30}
-                src={item.imageUrl}
-                alt={`productImage-${index}`}
-              />
-            )
-          })}
 
-        </div>
-        : null
-      }
-
-      <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+      >
         {({ values }) => (
           <Form>
             {inputFields.map((inputField, index) => (
               <div key={index} className="mb-4">
-                <label className="block text-sm font-medium mb-1">{inputField.name.charAt(0).toLocaleUpperCase() + inputField.name.slice(1)}</label>
-                <Field type={inputField.type} name={inputField.name} className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
-                <ErrorMessage name={inputField.name} component="div" className="text-red-500" />
+                <label className="block text-sm font-medium mb-1">
+                  {inputField.name.charAt(0).toLocaleUpperCase() +
+                    inputField.name.slice(1)}
+                </label>
+                <Field
+                  type={inputField.type}
+                  name={inputField.name}
+                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                />
+                <ErrorMessage
+                  name={inputField.name}
+                  component="div"
+                  className="text-red-500"
+                />
               </div>
             ))}
 
-            {/* <select
-        name="colorss"
-        value={values.category}
-        style={{ display: "block" }}
-      >
-        <option value="" label="Select a color">
-          Select a color{" "}
-        </option>
-        <option value="red" label="red">
-          {" "}
-          red
-        </option>
-        <option value="blue" label="blue">
-          blue
-        </option>
-        
-        <option value="green" label="green">
-          green
-        </option>
-      </select> */}
+            <Field as="select" name="category" className="mb-4">
+              <option value="">Select an option</option>
+
+              {category && category.length > 0
+                ? category.map((item: any, index) => {
+                    return (
+                      <option value={item._id} label={item.name}>
+                        {item.name}
+                      </option>
+                    );
+                  })
+                : null}
+            </Field>
 
             <div className="mb-4">
               <FieldArray name="modelDetails">
@@ -147,26 +324,49 @@ const AddProductForm = () => {
                   <div>
                     {values.modelDetails.map((model, index) => (
                       <div key={index} className="row mb-4">
-
                         <div className="col mb-4">
-                          <Field type="text" name={`modelDetails[${index}].name`} placeholder="Name" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
-                          <ErrorMessage name={`modelDetails[${index}].name`} component="div" className="text-red-500" />
+                          <Field
+                            type="text"
+                            name={`modelDetails[${index}].name`}
+                            placeholder="Name"
+                            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                          />
+                          <ErrorMessage
+                            name={`modelDetails[${index}].name`}
+                            component="div"
+                            className="text-red-500"
+                          />
                         </div>
                         <div className="col mb-4">
-                          <Field type="text" name={`modelDetails[${index}].detail`} placeholder="Detail" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
-                          <ErrorMessage name={`modelDetails[${index}].detail`} component="div" className="text-red-500" />
+                          <Field
+                            type="text"
+                            name={`modelDetails[${index}].detail`}
+                            placeholder="Detail"
+                            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                          />
+                          <ErrorMessage
+                            name={`modelDetails[${index}].detail`}
+                            component="div"
+                            className="text-red-500"
+                          />
                         </div>
                         <div className="col text-red-500">
-                          <button type="button" onClick={() => remove(index)}>Remove</button>
+                          <button type="button" onClick={() => remove(index)}>
+                            Remove
+                          </button>
                         </div>
                       </div>
                     ))}
-                    <button type="button" onClick={() => push({ name: '', detail: '' })}>Add Model Detail</button>
+                    <button
+                      type="button"
+                      onClick={() => push({ name: "", detail: "" })}
+                    >
+                      Add Model Detail
+                    </button>
                   </div>
                 )}
               </FieldArray>
             </div>
-
 
             <div className="mb-4">
               <FieldArray name="colors">
@@ -174,22 +374,36 @@ const AddProductForm = () => {
                   <div>
                     {values.colors.map((model, index) => (
                       <div key={index} className="row mb-4">
-
                         <div className="col mb-4">
-                          <Field type="text" name={`colors[${index}].colorName`} placeholder="colors" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
-                          <ErrorMessage name={`colors[${index}].colorName`} component="div" className="text-red-500" />
+                          <Field
+                            type="text"
+                            name={`colors[${index}].colorName`}
+                            placeholder="colors"
+                            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                          />
+                          <ErrorMessage
+                            name={`colors[${index}].colorName`}
+                            component="div"
+                            className="text-red-500"
+                          />
                         </div>
                         <div className="col text-red-500">
-                          <button type="button" onClick={() => remove(index)}>Remove</button>
+                          <button type="button" onClick={() => remove(index)}>
+                            Remove
+                          </button>
                         </div>
                       </div>
                     ))}
-                    <button type="button" onClick={() => push({ colorName: '' })}>Add colors</button>
+                    <button
+                      type="button"
+                      onClick={() => push({ colorName: "" })}
+                    >
+                      Add colors
+                    </button>
                   </div>
                 )}
               </FieldArray>
             </div>
-
 
             <div className="mb-4">
               <FieldArray name="spacification">
@@ -197,25 +411,119 @@ const AddProductForm = () => {
                   <div>
                     {values.spacification.map((model, index) => (
                       <div key={index} className="row mb-4">
-
                         <div className="col mb-4">
-                          <Field type="text" name={`spacification[${index}].specsDetails`} placeholder="Please Spacification" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
-                          <ErrorMessage name={`spacification[${index}].specsDetails`} component="div" className="text-red-500" />
+                          <Field
+                            type="text"
+                            name={`spacification[${index}].specsDetails`}
+                            placeholder="Please Spacification"
+                            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                          />
+                          <ErrorMessage
+                            name={`spacification[${index}].specsDetails`}
+                            component="div"
+                            className="text-red-500"
+                          />
                         </div>
                         <div className="col text-red-500">
-                          <button type="button" onClick={() => remove(index)}>Remove</button>
+                          <button type="button" onClick={() => remove(index)}>
+                            Remove
+                          </button>
                         </div>
                       </div>
                     ))}
-                    <button type="button" onClick={() => push({ specsDetails: '' })}>Add spacification</button>
+                    <button
+                      type="button"
+                      onClick={() => push({ specsDetails: "" })}
+                    >
+                      Add spacification
+                    </button>
                   </div>
                 )}
               </FieldArray>
             </div>
 
+            <div className="mb-4">
+              {hoverImage && hoverImage.length > 0 ? (
+                <div className="flex gap-2 border-3 flex-wrap mb-3  ">
+                  {hoverImage.map((item: any, index) => {
+                    return (
+                      <div className="group" key={index}>
+                        <div className="flex justify-end invisible group-hover:visible ">
+                          <RxCross2
+                            className="cursor-pointer"
+                            onClick={() => {
+                              ImageRemoveHandler(item.public_id, sethoverImage);
+                            }}
+                          />
+                        </div>
+                        <Image
+                          key={index}
+                          className="cursor-pointer"
+                          width={30}
+                          height={30}
+                          src={item.imageUrl}
+                          alt={`productImage-${index}`}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <>
+                  <p className="mb-3 font-black">Add a Hover Image</p>
+
+                  <Uploadfile
+                    setImagesUrl={sethoverImage}
+                    handleDrop={HoversinglehandleDrop}
+                    handleFileChange={HoversignlehandleFileChange}
+                  />
+                </>
+              )}
+            </div>
+            <p className="mb-3 font-black">Add a Products Images</p>
 
             <div className="mb-4">
-              <button type="submit" className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Add Product</button>
+              <Uploadfile
+                setImagesUrl={setImagesUrl}
+                handleFileChange={handleFileChange}
+                handleDrop={handleDrop}
+              />
+            </div>
+
+            {imagesUrl && imagesUrl.length > 0 ? (
+              <div className="flex gap-2 border-3 flex-wrap mb-3  ">
+                {imagesUrl.map((item: any, index) => {
+                  return (
+                    <div className="group" key={index}>
+                      <div className="flex justify-end invisible group-hover:visible ">
+                        <RxCross2
+                          className="cursor-pointer"
+                          onClick={() => {
+                            ImageRemoved(item.public_id, setImagesUrl);
+                          }}
+                        />
+                      </div>
+                      <Image
+                        key={index}
+                        className="cursor-pointer"
+                        width={30}
+                        height={30}
+                        src={item.imageUrl}
+                        alt={`productImage-${index}`}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            ) : null}
+
+            <div className="mb-4">
+              <button
+                type="submit"
+                className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+              >
+                Add Product
+              </button>
             </div>
           </Form>
         )}
