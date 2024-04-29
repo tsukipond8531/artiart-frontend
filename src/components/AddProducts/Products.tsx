@@ -50,7 +50,7 @@ console.log(setselecteMenu, "setselecteMenu")
 
 
   useEffect(() => {
-    const useCategoryHandler = async () => {
+    const CategoryHandler = async () => {
       const response = await fetch(
         "https://artiart-server-phi.vercel.app/api/getAllcategories"
       );
@@ -58,7 +58,7 @@ console.log(setselecteMenu, "setselecteMenu")
       setCategory(Categories);
     };
   
-    useCategoryHandler();
+    CategoryHandler();
   }, []);
 
   const uploadPhotosToBackend = async (files: any[]): Promise<any[]> => {
