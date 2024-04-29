@@ -146,7 +146,7 @@ export default function Products() {
 </div>
 
           {/* Cards */}
-
+{/* 
           <ProductCard
         productItems={[
           { image: art1,image2:art11, title: "ANTELOPE TRAVEL BOTTLE (GYM, OUTDOORS)", price: 99, link:"/detail" },
@@ -158,7 +158,7 @@ export default function Products() {
           { image: art7,image2:art77, title: "DOCTOR SUCTION MUG (OFFICE)", price: 99, oldPrice: 169,link:"/detail" },
           { image: art8,image2:art88, title: "DUMBO TRAVEL MUG (OUTDOORS)", price: 99,link:"/detail" },
         ]}
-        />
+        /> */}
 
 
       </Container>
