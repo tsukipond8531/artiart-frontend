@@ -19,7 +19,7 @@ const Login:React.FC = () => {
 
     <Link className='underline text-[14px]' href={"/forgot"}>Forgot your password?</Link>
     
-    <div className=' flex flex-col justify-center items-center space-y-3'>
+    <div className=' flex flex-col justify-center items-center space-y-3 lg:pt-10'>
         <Button className='bg-black text-white p-3 w-full md:w-28 rounded-none' title={"Sign In"}/>
         <Link className='underline text-[14px]' href={"/register"}>Create account</Link>
     </div>

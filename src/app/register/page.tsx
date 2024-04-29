@@ -17,8 +17,8 @@ const register:React.FC = () => {
     <Input type='text' name='lastName' placeholder='Enter Last Name' label='Last Name'/>
     <Input type='email' name='email' placeholder='Email' label='Email'/>
     <Input type='password' name='password' placeholder='Enter Password' label='Password'/>
-    <div className=' flex flex-col justify-center items-center space-y-3'>
-        <Button className='bg-black text-white p-3 rounded-none w-full md:w-28' title={"Create"}/>
+    <div className=' flex flex-col justify-center items-center space-y-3 lg:pt-8'>
+        <Button className='bg-black text-white p-3 rounded-none w-full md:w-28 ' title={"Create"}/>
     </div>
     </form>
 
