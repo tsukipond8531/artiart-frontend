@@ -20,7 +20,7 @@ export const Para16: React.FC<ParaProps> = ({ title, icon, className,endicon }) 
 export const Para14: React.FC<ParaProps> = ({ title, icon, className,endicon }) => {
   return (
    
-      <p className={`text-14 gap-2 ${className}`}>
+      <p className={`text-14 gap-2  ${className}`}>
         {icon}{title}{endicon}
       </p>
     

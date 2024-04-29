@@ -1,4 +1,5 @@
-import React from 'react';
+"use client"
+import React, { useEffect, useState } from 'react';
 import ProductCard from '../../Common/ProductCard';
 import { HeadingH5 } from '../../Common/Heading';
 import Container from '../../Common/Container';
@@ -20,25 +21,30 @@ import art8 from "../../../../public/assets/images/art/art8.png";
 import art88 from "../../../../public/assets/images/art/art88.jpg";
 
 import Button from '../../Common/Button';
+import axios from 'axios';
 
 const Product = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://artiart-server-phi.vercel.app/api/getAllproducts');
+        setProducts(response.data.products);
+        console.log('Product Data:', response.data.products);
+      } catch (error) {
+        console.log('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <Container className='mt-10 md:mt-32 '>
       <HeadingH5 title={"Feature"} />
-      <ProductCard
-        productItems={[
-          { image: art1,image2:art11, title: "ANTELOPE TRAVEL BOTTLE (GYM, OUTDOORS)", price: 99, link:"/detail" },
-          { image: art2,image2:art22, title: " ARTIST TRAVEL BOTTLE (OUTDOORS)", price: 89, oldPrice: 129,link:"/detail" },
-          { image: art3,image2:art33, title: " BUTTERFLY BOTTLE  WITH TEA FILTER (GYM, OUTDOORS)", price: 129,link:"/detail" },
-          { image: art4,image2:art44, title: "BUTTERFLY BOTTLE  WITH TEA FILTER (GYM, OUTDOORS)", price: 149,link:"/detail" },
-          { image: art5,image2:art55, title: "CLOUD BOTTLE WITH INFUSER (GYM, OUTDOORS)", price: 99, oldPrice: 69,link:"/detail" },
-          { image: art6,image2:art66, title: "DEER  TRAVEL CUP (OUTDOORS)", price: 89,link:"/detail" },
-          { image: art7,image2:art77, title: "DOCTOR SUCTION MUG (OFFICE)", price: 99, oldPrice: 169,link:"/detail" },
-          { image: art8,image2:art88, title: "DUMBO TRAVEL MUG (OUTDOORS)", price: 99,link:"/detail" },
-        ]}
-      />
+      <ProductCard productItems={products} />
       <div className='text-center mt-5 mb-5'>
-      <Button className='bg-black text-white ' title="View ALL"/>
+      <Button className='bg-black text-white px-5 ' title="View ALL"/>
       </div>
     </Container>
   );

@@ -3,36 +3,47 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 interface ProductItem {
-  image?: any;
-  image2?: any;
-  title: string;
+  imageUrl?: { imageUrl: string; public_id: string }[];
+  hoverImageUrl?: { imageUrl: string; public_id: string };
+  name: string;
   price: number;
-  oldPrice?: number;
-  link?: any;
+  discountPrice?: number;
+  _id?: any;
 }
 
 interface ProductCardProps {
   productItems: ProductItem[];
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ productItems }) => {
+const generateSlug = (name: string): string => {
+  if (!name) return ''; // Check if name is undefined or null
+  return name
+    .toLowerCase()
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/[^a-z0-9-]/g, ''); // Remove non-alphanumeric characters except hyphens
+};
 
+const ProductCard: React.FC<ProductCardProps> = ({ productItems }) => {
   return (
-    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0 sm:gap-2 md:gap-5'>
-      {productItems.length > 0 && productItems.map((array, index) => (
-        <div className=" bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl mt-5 mb-5 group" key={index}>
-          <Link href={array.link} >
-            <div className='relative overflow-hidden rounded-t-xl '>
-              <Image src={array.image} width={500} height={500} className="h-80 w-full object-contain rounded-t-xl  " alt='image' />
-              <Image src={array.image2} width={500} height={500} className="h-80 w-full object-contain rounded-t-xl absolute top-0 opacity-0 group-hover:opacity-100 transition-all duration-500   " alt='image' />
+    <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-2 md:gap-5'>
+      {productItems.length > 0 && productItems.map((product, index) => (
+        <div className="bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl mt-5 mb-5 group" key={index}>
+         <Link href={`/detail/${generateSlug(product.name)}-${product._id}`}> {/* Use generated slug from product name and ID */}
+            <div className='relative overflow-hidden rounded-t-xl'>
+              {product.imageUrl && (
+                <Image src={product.imageUrl[0].imageUrl} width={500} height={500} className="h-20 md:h-80 w-full object-contain rounded-t-xl" alt='image' />
+              )}
+              {product.hoverImageUrl && (
+                <Image src={product.hoverImageUrl.imageUrl} width={500} height={500} className="h-20 md:h-80 w-full object-contain rounded-t-xl absolute top-0 opacity-0 group-hover:opacity-100 transition-all duration-500" alt='image' />
+              )}
             </div>
             <div className="px-4 py-3 w-full">
-              <p className="text-lg font-bold text-black truncate block capitalize">{array.title}</p>
-              <div className="flex items-center">
-                <p className="text-lg font-semibold text-black cursor-auto my-3">Dhs. <span>{array.price}</span> AED</p>
-                {array.oldPrice ? (
-                  <del>
-                    <p className="text-sm text-gray-600 cursor-auto ml-2">Dhs. <span>{array.oldPrice}</span> AED</p>
+              <p className="text-[14px] poppins-thin text-black truncate block capitalize">{product.name}</p>
+              <div className="flex items-center flex-wrap justify-between">
+                <p className="text-[14px] poppins-thin text-black cursor-auto my-3">Dhs. <span>{product.price}</span> AED</p>
+                {product.discountPrice ? (
+                  <del className=''>
+                    <p className="text-sm text-gray-600 cursor-auto ">Dhs. <span>{product.discountPrice}</span> AED</p>
                   </del>
                 ) : null}
               </div>

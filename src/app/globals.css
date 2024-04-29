@@ -234,3 +234,39 @@ html, body{
   media-control-bar{
     display: none !important;
   }
+  .ant-popover .ant-popover-title{
+    min-width: 300px !important;
+  }
+  .ant-popover .ant-popover-inner{
+    min-width: 300px !important;
+    z-index: 10 !important;
+  }
+  .ant-popover-placement-bottom, .ant-popover-placement-bottomLeft, .ant-popover-placement-bottomRight{
+    z-index: 10 !important;
+    /* width: 23% !important; */
+  }
+  .ant-popover-placement-top, .ant-popover-placement-topLeft, .ant-popover-placement-topRight{
+    /* width: 23% !important; */
+    z-index: 10 !important;
+  
+  }
+  
+@media (max-width: 800px) {
+  .ant-picker-panel-layout {
+      flex-direction: column !important;
+  }
+}
+
+@media (max-width: 800px) {
+  .ant-picker-panel-layout .ant-picker-presets {
+      max-width: 100% !important;
+      min-height: 10rem !important;
+  }
+}
+
+@media (max-width: 800px) {
+  .ant-picker-panel-layout .ant-picker-panels,
+  .ant-picker-panel-layout .ant-picker-datetime-panel {
+      flex-direction: column !important;
+  }
+}

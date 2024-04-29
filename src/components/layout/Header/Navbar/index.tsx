@@ -59,20 +59,20 @@ const Navbar: React.FC = () => {
   return (
     <>
     <div className="p-3 text-center border-b">
-      <HeadingH6 title={"Welcome to our store"}/>
+      <HeadingH6 className="text-10-important" title={"Welcome to our store"}/>
     </div>
 
       <nav className={` text-black  sticky top-0  z-20 shadow-md  ${scrollingUp ? defaultStyle : scrolledStyle}`}>
         <Container>
-        <div className=" flex justify-between py-4 pt-2 pb-2 ">
+        <div className=" flex py-4 pt-2 pb-2 lg:gap-20">
           <div className="relative z-10">
             <Logo />
           </div>
-          <div className="lg:flex  lg:gap-10 items-center hidden ">
+          <div className="lg:flex lg:gap-10 items-center hidden ">
             <Navlink onDropdownClose={closeMobileMenu} />
           </div>
-          <div className="flex gap-2">
-            <div className="flex items-center gap-2 md:gap-5">
+          <div className="flex gap-2 ml-auto items-center justify-center">
+            <div className="flex items-center  gap-2 md:gap-5">
               <Button className="bg-transparent text-black group"  onClick={() => setOpen(true)} title={<IoSearchSharp className="text-black" size={25} /> }/>
               <Modal
                 open={open}
@@ -89,12 +89,12 @@ const Navbar: React.FC = () => {
             <div className="lg:hidden mt-[9px]">
               <button
                 onClick={toggleMobileMenu}
-                className="inline-flex items-center  text-black  rounded-lg p-2 hover:bg-primary-orange-300 hover:text-white transition duration-300"
+                className="inline-flex items-center  text-black  rounded-lg  hover:bg-primary-orange-300 hover:text-white transition duration-300"
               >
                 {mobileMenuOpen ? (
-                  <IoIosArrowUp size={25} className="text-2xl mt-[5px]" />
+                  <IoIosArrowUp size={25}  />
                 ) : (
-                  <TbMenu2 size={25} className="text-2xl mt-[5px]" />
+                  <TbMenu2 size={25}  />
                 )}
               </button>
               {mobileMenuOpen  && (

@@ -17,7 +17,7 @@ import Categories from 'components/AddCategory/Category';
 
 
 const { Header, Sider, Content } = Layout;
-const DashboardProvider = () => {
+const DashboardProvider = ({children}:any) => {
   const [collapsed, setCollapsed] = useState(false);
   const {token: { colorBgContainer, borderRadiusLG },} = theme.useToken();
   const [selecteMenu, setselecteMenu] = useState<string >("Add All Products");

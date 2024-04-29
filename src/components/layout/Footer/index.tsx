@@ -17,7 +17,7 @@ const Footer = () => {
     
     <div className='mt-10 md:mt-32 border  '>
         <Container className='text-center mt-10'>
-        <Para18 className='font-semibold'  title={"Subscribe to our emails"}/>    
+        <Para18 className='poppins-thin'  title={"Subscribe to our emails"}/>    
             <form className="max-w-md mx-auto mt-5 mb-20">   
             <div className="relative">
                 <input type="search" id="default-search" className="block w-full p-4 ps-10 text-sm  border border-gray-300 rounded-lg bg-gray-50 " placeholder="Search......." required />
