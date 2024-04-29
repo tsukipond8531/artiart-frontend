@@ -23,6 +23,9 @@ const DashboardProvider = ({ children }: any) => {
   const [selecteMenu, setselecteMenu] = useState<string>("Add All Products");
   const [category, setCategory] = useState<any[]>();
   const [products, setProducts] = useState<any[]>();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [productloading, setProductloading] = useState<boolean>(false);
+
 
   const handleAddProductsClick = (menu: string) => {
     setselecteMenu(menu);
@@ -52,19 +55,38 @@ const DashboardProvider = ({ children }: any) => {
 
   useEffect(() => {
     const CategoryHandler = async () => {
-      const response = await fetch(
-        "https://artiart-server-phi.vercel.app/api/getAllcategories"
-      );
-      const Categories = await response.json();
-      setCategory(Categories);
+try{
+  setLoading(true)
+  const response = await fetch(
+    "https://artiart-server-phi.vercel.app/api/getAllcategories"
+  );
+  const Categories = await response.json();
+  setCategory(Categories);
+  setLoading(false)
+
+}catch(err){
+console.log('err', err)
+  setLoading(false)
+
+
+}
+
     };
   
     const productHandler = async () => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllproducts`
-      );
-      const Allproducts = await response.json();
-      setProducts(Allproducts.products);
+      try{
+        setProductloading(true)
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllproducts`);
+        const Allproducts = await response.json();
+        setProducts(Allproducts.products);
+
+        setProductloading(false)
+
+      }catch(err){
+console.log("error Occured")
+setProductloading(false)
+      }
+
     };
     CategoryHandler();
     productHandler();
@@ -114,12 +136,15 @@ const DashboardProvider = ({ children }: any) => {
               Categories={category}
               setCategory={setCategory}
               setselecteMenu={setselecteMenu}
+              loading={loading}
+
             />
           ) : selecteMenu === "Add All Products" ? (
             <Allproducts
               Categories={products}
               setCategory={setProducts}
               setselecteMenu={setselecteMenu}
+              loading={productloading}
             />
           ) : (
             <CategoryForm setselecteMenu={setselecteMenu} />

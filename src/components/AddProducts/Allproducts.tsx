@@ -3,8 +3,9 @@ import { Table, Button } from "antd";
 import Image from "next/image";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import axios from "axios";
+import Loader from "components/Loader/Loader";
 
-function Category({ Categories, setCategory, setselecteMenu }: any) {
+function Category({ Categories, setCategory, setselecteMenu, loading }: any) {
   const handleDelete = async (key: any) => {
     try {
       let reponse = await axios.delete(
@@ -57,6 +58,11 @@ function Category({ Categories, setCategory, setselecteMenu }: any) {
   return (
     <div>
       {/* Categories */}
+{
+  loading 
+  ? <div className="flex justify-center mt-10"><Loader/></div>  :
+
+<>
 
       <div className="flex justify-between mb-4">
         <p>Products</p>
@@ -77,6 +83,11 @@ function Category({ Categories, setCategory, setselecteMenu }: any) {
       ) : (
         "No Products found"
       )}
+</>
+
+}
+
+
     </div>
   );
 }

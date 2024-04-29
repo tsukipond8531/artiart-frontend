@@ -10,6 +10,8 @@ import { inputFields, validationSchema, initialValues } from "Data/data";
 import { RxCross2 } from "react-icons/rx";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useRouter } from 'next/navigation'
+import Loader from "components/Loader/Loader";
+
 
 const AddProductForm = ({setselecteMenu}: any) => {
   const [category, setCategory] = useState<any[]>();
@@ -17,12 +19,15 @@ const AddProductForm = ({setselecteMenu}: any) => {
   const [selectedFile, setSelectedFiles] = useState<any[] | null>(null);
   const [posterimageUrl, setposterimageUrl] = useState<any[] | null>();
   const [hoverImage, sethoverImage] = useState<any[] | null | undefined>();
+  const [loading, setloading] = useState<boolean>(false);
+
   const router = useRouter()
   
-console.log(setselecteMenu, "setselecteMenu")
+
   const onSubmit = async (values: Product, { resetForm }: any) => {
     try {
-      console.log("function triggered");
+   
+      setloading(true)
       let posterImageUrl = posterimageUrl && posterimageUrl[0];
       let hoverImageUrl = hoverImage && hoverImage[0];
 
@@ -43,8 +48,12 @@ console.log(setselecteMenu, "setselecteMenu")
       );
       console.log(response, "response");
       resetForm();
+      setloading(false)
+
     } catch (err) {
       console.log(err, "err");
+      setloading(false)
+  
     }
   };
 
@@ -523,7 +532,9 @@ console.log(setselecteMenu, "setselecteMenu")
                 type="submit"
                 className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
               >
-                Add Product
+               {loading ? <Loader /> : "Add Product" }
+                
+                
               </button>
             </div>
           </Form>
