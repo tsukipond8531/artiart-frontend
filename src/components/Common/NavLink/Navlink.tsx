@@ -62,6 +62,9 @@ const Navlink = ({ onDropdownClose }) => {
       <Link className='poppins-thin text-14' href="/about" onClick={handleClose} >
         About Us
       </Link>
+      <Link className='poppins-thin text-14' href="/contact" onClick={handleClose} >
+        Contact
+      </Link>
     </>
   );
 };
