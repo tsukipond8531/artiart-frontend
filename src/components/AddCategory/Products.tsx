@@ -1,4 +1,4 @@
-// components/AddProductForm.tsx
+
 "use client";
 import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
 import React, { useState, useEffect, DragEvent, SetStateAction } from "react";
@@ -69,7 +69,7 @@ const AddProductForm = ({setselecteMenu}: any) => {
   };
   
 
-  const useCategoryHandler = async () => {
+  const CategoryHandler = async () => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllcategories`
     );
@@ -78,7 +78,7 @@ const AddProductForm = ({setselecteMenu}: any) => {
   };
 
   useEffect(() => {
-    useCategoryHandler();
+    CategoryHandler();
   }, []);
 
   const uploadPhotosToBackend = async (files: any[]): Promise<any[]> => {

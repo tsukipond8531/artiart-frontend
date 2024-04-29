@@ -48,15 +48,16 @@ console.log(setselecteMenu, "setselecteMenu")
     }
   };
 
-  const useCategoryHandler = async () => {
-    const response = await fetch(
-      "https://artiart-server-phi.vercel.app/api/getAllcategories"
-    );
-    const Categories = await response.json();
-    setCategory(Categories);
-  };
 
   useEffect(() => {
+    const useCategoryHandler = async () => {
+      const response = await fetch(
+        "https://artiart-server-phi.vercel.app/api/getAllcategories"
+      );
+      const Categories = await response.json();
+      setCategory(Categories);
+    };
+  
     useCategoryHandler();
   }, []);
 
@@ -310,7 +311,7 @@ console.log(setselecteMenu, "setselecteMenu")
               {category && category.length > 0
                 ? category.map((item: any, index) => {
                     return (
-                      <option value={item._id} label={item.name}>
+                      <option value={item._id} label={item.name} key={index}>
                         {item.name}
                       </option>
                     );
