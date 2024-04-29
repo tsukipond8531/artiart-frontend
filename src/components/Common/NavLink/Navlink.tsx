@@ -47,10 +47,13 @@ const Navlink = ({ onDropdownClose }) => {
           array={[
             {
               items: [
-                { id: "1",  title: "Suction Mugs", href: "/products" },
-                { id: "2", title: "Suction Bottles", href: "/products" },
+                { id: "1",  title: "Suction Mugs", href: "" },
+                { id: "2", title: "Suction Bottle", href: "/products" },
                 { id: "3", title: "Insulated Suction Flasks", href: "/products" },
                 { id: "4", title: "Insulated Suction Mugs", href: "/products" },
+                { id: "5", title: "Party Glass", href: "/products" },
+                { id: "6", title: "Tea Pot", href: "/products" },
+                { id: "7", title: "Suction Coffee Cups", href: "/products" },
               ],
             },
           ]}
