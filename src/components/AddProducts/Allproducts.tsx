@@ -25,7 +25,7 @@ function Category({ Categories, setCategory, setselecteMenu, loading }: any) {
       key: "posterImageUrl",
       render: (text: any, record: any) => (
         <Image
-          src={record.posterImageUrl.imageUrl}
+          src={record.posterImageUrl?.imageUrl}
           alt={`Image of ${record.name}`}
           width={50}
           height={50}
