@@ -44,7 +44,7 @@ import { serviceimages } from 'components/Constant'
       })
     }
   }
-const Thumbnail:React.FC = ({Images}:any) => {
+const Thumbnail= ({Images}:any) => {
     const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
         initial: 0,
       })

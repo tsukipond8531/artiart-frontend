@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Thumbnail from "components/Carousel/Thumbnail";
+
 import Container from "components/Common/Container";
 import { HeadingH3, HeadingH6 } from "components/Common/Heading";
 import { Para12, Para14, Para16 } from "components/Common/Paragraph";
@@ -22,12 +23,12 @@ const buttons: ButtonOption[] = [
   { value: "blue", label: "Blue" },
 ];
 
-const ProductDetail: React.FC = ({parsedProduct}:any | null) => {
+const ProductDetail= ({parsedProduct}:any) => {
   const [count, setCount] = useState<number>(1);
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
   console.log(parsedProduct, "parsedProduct")
   console.log(parsedProduct, "parsedProduct")
-  const Image = parsedProduct.imageUrl
+  const Image:any = parsedProduct.imageUrl
 
   const handleChange = (e: RadioChangeEvent) => {
     setSelectedValue(e.target.value);
