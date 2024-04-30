@@ -6,6 +6,7 @@ interface ButtonProps {
   onClick?: () => void;
   value?: any;
   icon?:any; // Adjusting the type for onClick to match a function that doesn't return anything
+type?:any
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -14,9 +15,10 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   value,
   icon,
+  type
 }) => {
   return (
-    <button  onClick={onClick} value={value} className={`${className}  p-2  rounded-md`}>
+    <button  onClick={onClick} value={value} type={type} className={`${className}  p-2  rounded-md`}>
       {title}{icon}
     </button>
   );

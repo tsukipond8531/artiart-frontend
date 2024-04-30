@@ -44,11 +44,6 @@ const DashboardProvider = ({ children }: any) => {
       label: "Add Category",
       onClick: () => handleAddProductsClick("Add Category"),
     },
-    {
-      key: "3",
-      icon: <UploadOutlined />,
-      label: "nav 3",
-    },
   ];
 
 

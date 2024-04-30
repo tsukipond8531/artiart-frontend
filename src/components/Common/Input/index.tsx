@@ -5,9 +5,11 @@ interface InputProps {
   name?: string;
   placeholder?: string;
   label?: string;
+  onChange: any,
+  value: any
 }
 
-const Input: React.FC<InputProps> = ({ type, name, placeholder, label }): JSX.Element => {
+const Input: React.FC<InputProps> = ({ type, name, placeholder, label, onChange, value }): JSX.Element => {
   return (
       <div className="relative">
         <input
@@ -22,6 +24,8 @@ const Input: React.FC<InputProps> = ({ type, name, placeholder, label }): JSX.El
             autofill:pt-6
             autofill:pb-2"
           placeholder={placeholder}
+          onChange={onChange}
+          value={value}
         />
         <label
           htmlFor="hs-floating-input-email"
