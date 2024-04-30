@@ -44,7 +44,7 @@ import { serviceimages } from 'components/Constant'
       })
     }
   }
-const Thumbnail:React.FC = () => {
+const Thumbnail:React.FC = ({Images}:any) => {
     const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
         initial: 0,
       })
@@ -62,17 +62,18 @@ const Thumbnail:React.FC = () => {
     <>
      <div ref={sliderRef} className="keen-slider">
             {
-                serviceimages.map((array, index)=>(
+                Images.map((array:any, index:any)=>(
                     <div className="keen-slider__slide w-full h-auto  shadow-md "key={index}>
-                        <Image className='w-full object-contain bg-contain rounded-md bg-bottom h-96 ' src={array.image} width={1440} height={768} alt='images'/>
+                        <Image className='w-full object-contain bg-contain rounded-md bg-bottom h-96 ' src={array.imageUrl} width={1440} height={768} alt='images'/>
                     </div>
                 ))}
       </div>
       <div ref={thumbnailRef} className="keen-slider thumbnail mt-2 rounded-lg">
       {
-          serviceimages.map((array, index)=>(
+          Images.map((array:any, index:any)=>(
                     <div className="keen-slider__slide "key={index}>
-                        <Image className='w-full object-contain md:h-28' src={array.image} width={150} height={150} alt='images'/>      
+                        <Image className='w-full object-contain md:h-28' src={array.imageUrl
+} width={150} height={150} alt='images'/>      
                     </div>
                 )) }
       </div>

@@ -25,6 +25,13 @@ export const inputFields = [
     discountPrice: Yup.string(),
   });
 
+
+  export const loginValidationSchema = Yup.object({
+    name: Yup.string().required('Required'),
+    password: Yup.string().required('Required'),
+
+  });
+
   export const categoryValidationSchema = Yup.object({
     name: Yup.string().required('Required'),
 
@@ -44,3 +51,9 @@ export const inputFields = [
   export const categoryInitialValues: Category = {
     name: ''
   };
+
+  
+ export const loginInitialValue = {
+  name: '',
+  password:'' 
+};

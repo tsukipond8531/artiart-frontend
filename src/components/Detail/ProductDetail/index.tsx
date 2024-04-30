@@ -11,24 +11,6 @@ import Button from "components/Common/Button";
 import { list } from "components/Constant";
 import DetailTable from "components/Table/DetailTable";
 
-import art1 from "../../../../public/assets/images/art/art1.png";
-import art11 from "../../../../public/assets/images/art/art11.jpg";
-import art2 from "../../../../public/assets/images/art/art2.png";
-import art22 from "../../../../public/assets/images/art/art22.jpg";
-import art3 from "../../../../public/assets/images/art/art3.png";
-import art33 from "../../../../public/assets/images/art/art33.webp";
-import art4 from "../../../../public/assets/images/art/art4.png";
-import art44 from "../../../../public/assets/images/art/art44.jpg";
-import art5 from "../../../../public/assets/images/art/art5.png";
-import art55 from "../../../../public/assets/images/art/art55.jpg";
-import art6 from "../../../../public/assets/images/art/art6.png";
-import art66 from "../../../../public/assets/images/art/art66.jpg";
-import art7 from "../../../../public/assets/images/art/art7.png";
-import art77 from "../../../../public/assets/images/art/art77.jpg";
-import art8 from "../../../../public/assets/images/art/art8.png";
-import art88 from "../../../../public/assets/images/art/art88.jpg";
-import ProductCard from "components/Common/ProductCard";
-
 type ButtonOption = {
   value: string;
   label: string;
@@ -40,9 +22,12 @@ const buttons: ButtonOption[] = [
   { value: "blue", label: "Blue" },
 ];
 
-const ProductDetail: React.FC = () => {
+const ProductDetail: React.FC = ({parsedProduct}:any | null) => {
   const [count, setCount] = useState<number>(1);
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
+  console.log(parsedProduct, "parsedProduct")
+  console.log(parsedProduct, "parsedProduct")
+  const Image = parsedProduct.imageUrl
 
   const handleChange = (e: RadioChangeEvent) => {
     setSelectedValue(e.target.value);
@@ -63,22 +48,25 @@ const ProductDetail: React.FC = () => {
 
   return (
     <>
+    {!parsedProduct ? null :  
       <Container className="mt-10 md:mt-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5 ">
           <div className="">
-            <Thumbnail />
+            <Thumbnail Images={Image} />
           </div>
           <div className=" p-2 sm:p-4 md:p-8 max-w-screen-sm mx-0 md:mx-10 lg:mx-20 mt-5 md:mt-0 space-y-3">
             <Para12 title={"ARTIART INDIA"} />
             <HeadingH3 title={"ANTELOPE TRAVEL BOTTLE (GYM, OUTDOORS)"} />
             <div className="flex flex-wrap md:flex-nowrap gap-0 md:gap-3 items-center">
+              {parsedProduct.discountPrice ? 
               <Para16
                 className="line-through"
                 icon={"Dhs.  "}
-                title={"129.00"}
+                title={parsedProduct.price                }
                 endicon={"  AED"}
-              />
-              <Para16 icon={"Dhs.  "} title={"100.00"} endicon={"  AED"} />
+              /> : null
+}
+              <Para16 icon={"Dhs.  "} title={parsedProduct.price} endicon={"  AED"} />
               <div className="border rounded-xl bg-blue-600 px-3 py-1 text-white">
                 Sale
               </div>
@@ -92,19 +80,19 @@ const ProductDetail: React.FC = () => {
             </p>
             <Para14 title={"Color"} />
             <div className="flex gap-2 mb-4">
-              {buttons.map((button) => (
+              {parsedProduct.colors && parsedProduct.colors.map((button:any, index:any) => (
                 <Radio
-                  key={button.value}
-                  value={button.value}
+                  key={index}
+                  value={button.colorName}
                   checked={selectedValue === button.value}
                   onChange={handleChange}
                   className={`${
-                    selectedValue === button.value
+                    selectedValue === button.colorName
                       ? "bg-blue-600 text-white" // Tailwind classes for selected radio button
                       : "bg-white text-blue-600 border border-blue-600"
                   } py-2 px-4 rounded-lg focus:outline-none hover:bg-blue-100 cursor-pointer`} // Styling for buttons
                 >
-                  {button.label}
+                  {button.colorName}
                 </Radio>
               ))}
             </div>
@@ -132,21 +120,21 @@ const ProductDetail: React.FC = () => {
             <div className="p-2 space-y-4">
             <ul className="list-disc">
               {
-                list.map((array,index)=>(
-                  <li key={index}>{array.detail}</li>
+                parsedProduct.spacification && parsedProduct.spacification.map((array:any,index:any)=>(
+                  <li key={index}>{array.specsDetails}</li>
                 ))
               }
             </ul>
-            <Para14 title={"The round finished scratch resistant surface offers an easy, one-handed drinking experience. The broad rubberized grip forming the rim adds to the premium appeal of the mug. The wide mouth of the mug facilitates cleaning the interior with ease which makes its durable and sturdy design is perfect for daily use."}/>
-            <DetailTable
-            keypoint={[
-              {name:"Model Name:	", detail: "Zebra Suction Mug"},
-              {name:"Product Code	", detail: "DRIN117"},
-              {name:"PRODUCT DIMENSIONS:", detail: "162 * 77* 77 mm"},
-              {name:"Material", detail: "	PP . TPR . Silicon"},
-              {name:"Feature", detail: "	No Spill Suction Mug"},
-            ]}
-            />
+            <Para14 title={parsedProduct.description && parsedProduct.description}/>
+            {
+              parsedProduct.modelDetails ? 
+              <DetailTable
+              keypoint={
+                parsedProduct.modelDetails
+            }
+              />
+            : null}
+            
             </div>
         
           </div>
@@ -155,6 +143,7 @@ const ProductDetail: React.FC = () => {
         <HeadingH3 title={"You may also like"}/>
          
       </Container>
+}
     </>
   );
 };

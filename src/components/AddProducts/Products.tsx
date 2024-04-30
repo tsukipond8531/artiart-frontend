@@ -9,7 +9,6 @@ import { Product } from "types/interfaces";
 import { inputFields, validationSchema, initialValues } from "Data/data";
 import { RxCross2 } from "react-icons/rx";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { useRouter } from 'next/navigation'
 import Loader from "components/Loader/Loader";
 
 
@@ -21,7 +20,6 @@ const AddProductForm = ({setselecteMenu}: any) => {
   const [hoverImage, sethoverImage] = useState<any[] | null | undefined>();
   const [loading, setloading] = useState<boolean>(false);
 
-  const router = useRouter()
   
 
   const onSubmit = async (values: Product, { resetForm }: any) => {
