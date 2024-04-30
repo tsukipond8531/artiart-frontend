@@ -28,7 +28,7 @@ const ProductDetail= ({parsedProduct}:any) => {
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
   console.log(parsedProduct, "parsedProduct")
   console.log(parsedProduct, "parsedProduct")
-  const Image:any = parsedProduct.imageUrl
+  const Image:any = parsedProduct?.imageUrl
 
   const handleChange = (e: RadioChangeEvent) => {
     setSelectedValue(e.target.value);
