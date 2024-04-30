@@ -5,8 +5,8 @@ interface InputProps {
   name?: string;
   placeholder?: string;
   label?: string;
-  onChange: any,
-  value: any
+  onChange?: any,
+  value?: any
 }
 
 const Input: React.FC<InputProps> = ({ type, name, placeholder, label, onChange, value }): JSX.Element => {
