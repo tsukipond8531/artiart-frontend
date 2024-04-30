@@ -2,10 +2,10 @@ import React from "react";
 
 interface ButtonProps {
   title?: any;
-  className?: string; // Making className optional
+  className?: string; 
   onClick?: () => void;
   value?: any;
-  icon?:any; // Adjusting the type for onClick to match a function that doesn't return anything
+  icon?:any;
 type?:any
 }
 
