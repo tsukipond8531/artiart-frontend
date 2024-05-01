@@ -3,17 +3,19 @@ import React, { useEffect, useState } from "react";
 import { IoIosArrowUp } from "react-icons/io";
 import { TbMenu2 } from "react-icons/tb";
 import { IoSearchSharp } from "react-icons/io5";
-import { Modal } from "antd";
+import { Checkbox, Modal } from "antd";
 
 import Link from "next/link";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { FaRegUser } from "react-icons/fa6";
+import { FaArrowRightLong, FaRegUser } from "react-icons/fa6";
 import { HeadingH6 } from "components/Common/Heading";
 import Container from "components/Common/Container";
 import Logo from "components/Common/Logo";
 import Navlink from "components/Common/NavLink/Navlink";
 import Button from "components/Common/Button";
 import SearchData from "components/Common/SearchData";
+import Drawerfilter from "components/Common/Drawer";
+import { Para14 } from "components/Common/Paragraph";
 
 
 const Navbar: React.FC = () => {
@@ -72,6 +74,7 @@ const Navbar: React.FC = () => {
             <Navlink onDropdownClose={closeMobileMenu} />
           </div>
           <div className="flex gap-2 ml-auto items-center justify-center">
+
             <div className="flex items-center  gap-2 md:gap-5">
               <Button className="bg-transparent text-black group"  onClick={() => setOpen(true)} title={<IoSearchSharp className="text-black" size={25} /> }/>
               <Modal
@@ -86,28 +89,42 @@ const Navbar: React.FC = () => {
            <Link href={"/account"}><FaRegUser size={20} /></Link>
            <Link href={"/cart"}><AiOutlineShoppingCart size={20} /></Link>
             </div>
-            <div className="lg:hidden mt-[9px]">
-              <button
-                onClick={toggleMobileMenu}
-                className="inline-flex items-center  text-black  rounded-lg  hover:bg-primary-orange-300 hover:text-white transition duration-300"
-              >
-                {mobileMenuOpen ? (
-                  <IoIosArrowUp size={25}  />
-                ) : (
-                  <TbMenu2 size={25}  />
-                )}
-              </button>
-              {mobileMenuOpen  && (
-                <div
-                  className={`absolute -z-10 inset-x-0  h-screen origin-top rounded-b-2xl px-6 pb-6 pt-10 bg-white
-                    `}
-                >
-                  <div className="space-y-4  flex-col flex z-50">
-                    <Navlink onDropdownClose={closeMobileMenu} />
-                  </div>
-                 
+            <div className="lg:hidden">
+
+            <Drawerfilter className=" " icon={<TbMenu2 size={25}  />} DrawerContent={<>
+            <div className="flex flex-col space-y-2">
+            <Link className='poppins-thin text-14' href="/">
+                Home
+              </Link>
+              <Link className='poppins-thin text-14' href="/products">
+                All Products
+              </Link>
+              <Drawerfilter className="poppins-thin text-14  " title="Shop" endicon={<FaArrowRightLong size={20} />} DrawerContent={<>
+                <div className="flex flex-col space-y-2">
+                <Link className='poppins-thin text-14' href="/products">
+                Suction Mugs
+              </Link>
+              <Link className='poppins-thin text-14' href="/products">
+              Suction Bottle
+              </Link>
+              <Link className='poppins-thin text-14' href="/products">
+              Insulated Suction Flasks
+              </Link>
+              
                 </div>
-              )}
+                </>}/>
+              <Link className='poppins-thin text-14' href="/corporate">
+                Corporate Order
+              </Link>
+              <Link className='poppins-thin text-14' href="/about">
+                About Us
+              </Link>
+              <Link className='poppins-thin text-14' href="/contact">
+                Contact
+              </Link>
+            </div>
+             </>}/>
+    
             </div>
           </div>
         </div>
