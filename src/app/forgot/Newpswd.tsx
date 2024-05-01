@@ -8,6 +8,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Toaster from "components/Toaster/Toaster";
+import Loader from "components/Loader/Loader";
+
 
 
 
@@ -18,6 +20,8 @@ function Newpswd({ email }: NewPasswordProps) {
   const router = useRouter();
 
   const [error, setError] = useState<string | null | undefined>();
+  const [loading, setloading] = useState<boolean | null | undefined>(false);
+
 
   const [formData, setFormData] = useState({
     newPassword: "",
@@ -38,6 +42,7 @@ function Newpswd({ email }: NewPasswordProps) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
+    setloading(true)
     if (!formData.newPassword || !formData.password) return setError("All fields are rquired");
     if (formData.newPassword !== formData.password) return setError("confirm and new password should be same");
     if (!email) return null;
@@ -47,18 +52,23 @@ function Newpswd({ email }: NewPasswordProps) {
         { password: formData.password, email: email }
       );
       console.log(user.data);
-      Toaster("success", "You have sucessfully login")
+      Toaster("success", "You Password has been sucessfully reseted !")
+
       setTimeout(()=>{
         router.push("/");
       },1000)
+    setloading(false)
+
     } catch (err: any) {
       console.log(err, "err");
       setError(err.message);
+    setloading(false)
+
     }
   };
   return (
     <div className="max-w-screen-sm m-auto p-2 sm:p-10 md:p-20 mt-10">
-      <form className=" space-y-4" onClick={handleSubmit}>
+      <form className=" space-y-4" onSubmit={handleSubmit}>
         <Input
           type="text"
           name="password"
@@ -81,7 +91,7 @@ function Newpswd({ email }: NewPasswordProps) {
         <div className=" flex flex-col justify-center items-center space-y-3">
           <Button
             className="bg-black text-white w-full md:w-28 p-3 rounded-none"
-            title={"Submit"}
+            title={ loading ? <Loader color= '#fff'/>  : "Submit"}
           />
           <Link className="underline text-[14px]" href={"/login"}>
             Cancel

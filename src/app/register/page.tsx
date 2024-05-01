@@ -8,9 +8,15 @@ import Footer from "components/layout/Footer";
 import Navbar from "components/layout/Header/Navbar";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Loader from "components/Loader/Loader";
+import Toaster from "components/Toaster/Toaster";
+
+
 const Register: React.FC = () => {
   const router = useRouter()
   const [error, setError] = useState<string | null | undefined>()
+  const [loading, setloading] = useState<boolean | null | undefined>(false);
+
   
   // Initialize state for form data
   const [formData, setFormData] = useState({
@@ -33,14 +39,26 @@ const Register: React.FC = () => {
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("")
+    setloading(true)
+
     if(!formData.firstName || !formData.lastName || !formData.email || !formData.password) return  setError('All fields are rquired')
    try{
     let user = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/signup`,formData)
+    setloading(false)
+    Toaster("success", "You have sucessfully Register!")
+    Toaster("success", "You have sucessfully login")
+    setTimeout(()=>{
     router.push('/login')
+
+
+    },1000)
+
     console.log(user, "user")
 
    }catch(err:any){
     console.log(err, "err")
+    setloading(false)
+
     setError(err.message || JSON.stringify(err))
 
 
@@ -96,7 +114,7 @@ const Register: React.FC = () => {
           <div className="flex flex-col justify-center items-center space-y-3 lg:pt-8">
             <Button
               className="bg-black text-white p-3 rounded-none w-full md:w-28"
-              title={"Create"}
+              title={loading ? <Loader color= '#fff'/>  :"Create"}
               type="submit"
             />
           </div>

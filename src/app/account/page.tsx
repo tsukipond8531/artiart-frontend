@@ -8,6 +8,7 @@ import Navbar from 'components/layout/Header/Navbar'
 import ProtectedRoute from 'hooks/AuthHook'
 import { CiUser } from 'react-icons/ci'
 import { useRouter } from "next/navigation"; 
+import Toaster from "components/Toaster/Toaster";
 
 
 function Account() {
@@ -16,7 +17,12 @@ function Account() {
   const tokenRemoveHandler = ()=>{
     const ISSERVER = typeof window === "undefined"
     !ISSERVER ? localStorage.removeItem("2guysToken") : null
+      Toaster("success", "You have sucessfully logout")
+      setTimeout(()=>{
       router.push("/login");
+  
+      },1000)
+  
     
 
   }

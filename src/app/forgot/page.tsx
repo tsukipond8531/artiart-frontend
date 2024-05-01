@@ -11,11 +11,15 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import Newpswd from "../forgot/Newpswd";
+import Loader from "components/Loader/Loader";
+
 
 const Forgot = () => {
   const router = useRouter();
   const [error, setError] = useState<string | null | undefined>();
   const [forgotEmail, setforgotEmail] = useState<boolean>(false);
+  const [loading, setloading] = useState<boolean | null | undefined>(false);
+
 
   const [formData, setFormData] = useState({
     email: "",
@@ -34,6 +38,7 @@ const Forgot = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
+    setloading(true)
     if (!formData.email) return setError("All fields are rquired");
     try {
       let user: any = await axios.post(
@@ -41,10 +46,14 @@ const Forgot = () => {
         formData
       );
       console.log(user, 'user')
+      setloading(false)
       setforgotEmail(true)
+
     } catch (err: any) {
       console.log(err, "err");
       setError(err.message);
+    setloading(false)
+
     }
   };
 
@@ -54,11 +63,8 @@ const Forgot = () => {
       {!forgotEmail ? 
       <div className="max-w-screen-sm m-auto p-2 sm:p-10 md:p-20 mt-10">
         <HeadingH3 className="text-center " title={"Reset your password"} />
-        <Para14
-          className="text-center mb-10"
-          title={"We will send you an email to reset your password"}
-        />
-        <form className=" space-y-4" onClick={handleSubmit}>
+
+        <form className=" space-y-4" onSubmit={handleSubmit}>
           <Input
             type="email"
             name="email"
@@ -71,7 +77,7 @@ const Forgot = () => {
           <div className=" flex flex-col justify-center items-center space-y-3">
             <Button
               className="bg-black text-white w-full md:w-28 p-3 rounded-none"
-              title={"Submit"}
+              title={loading ? <Loader color= '#fff'/> :"Submit"}
             />
             <Link className="underline text-[14px]" href={"/login"}>
               Cancel

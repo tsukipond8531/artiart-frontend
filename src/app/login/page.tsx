@@ -10,6 +10,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Toaster from "components/Toaster/Toaster";
+import Loader from "components/Loader/Loader";
 
 
 
@@ -23,6 +24,9 @@ const Login: React.FC = () => {
   });
 
   const [error, setError] = useState<string | null | undefined>();
+  const [loading, setloading] = useState<boolean | null | undefined>(false);
+
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
    
@@ -34,14 +38,16 @@ const Login: React.FC = () => {
 
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError('')
+    setError('');
+    setloading(false)
     if(!formData.email || !formData.password) return  setError('All fields are rquired')
    try{
     let user:any = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/login`,formData)
     console.log(user.data, "user token")
     const ISSERVER = typeof window === "undefined"
     !ISSERVER ? localStorage.setItem('2guysToken', user.data.token) : null
-    
+    setloading(false)
+
       Toaster("success", "You have sucessfully login")
       setTimeout(()=>{
       router.push('/')
@@ -51,6 +57,8 @@ const Login: React.FC = () => {
 
    }catch(err:any){
     console.log(err, "err")
+    setloading(false)
+
     setError(err.message)
    }
   };
@@ -90,11 +98,11 @@ const Login: React.FC = () => {
           <div className="flex flex-col justify-center items-center space-y-3 lg:pt-10">
             <Button
               className="bg-black text-white p-3 w-full md:w-28 rounded-none"
-              title={"Sign In"}
+              title={loading ? <Loader color= '#fff'/>  : "Sign In"}
               type="submit"
             />
             <Link className="underline text-[14px]" href={"/register"}>
-              Create account
+Create account
             </Link>
           </div>
         </form>
