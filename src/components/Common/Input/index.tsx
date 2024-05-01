@@ -6,16 +6,17 @@ interface InputProps {
   placeholder?: string;
   label?: string;
   onChange?: any,
+  id?:any
   value?: any
 }
 
-const Input: React.FC<InputProps> = ({ type, name, placeholder, label, onChange, value }): JSX.Element => {
+const Input: React.FC<InputProps> = ({ type, name, placeholder, label, onChange, value, id }): JSX.Element => {
   return (
       <div className="relative">
         <input
           type={type}
           name={name}
-          id="hs-floating-input-email"
+          id= {id ? id: "hs-floating-input-email"}
           className="peer p-4 block w-full border-2  border-gray-200  text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none
             focus:pt-6
             focus:pb-2

@@ -10,6 +10,7 @@ import Navbar from "components/layout/Header/Navbar";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Toaster from "components/Toaster/Toaster";
 
 
 
@@ -38,9 +39,13 @@ const Login: React.FC = () => {
     if(!formData.email || !formData.password) return  setError('All fields are rquired')
    try{
     let user:any = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/login`,formData)
-    console.log(user.token, "user token")
-    localStorage.setItem('Token', user.token)
+    console.log(user.data, "user token")
+    localStorage.setItem('2guysToken', user.data.token)
+    Toaster("success", "You have sucessfully login")
+    setTimeout(()=>{
     router.push('/')
+
+    },1000)
 
    }catch(err:any){
     console.log(err, "err")
@@ -57,6 +62,7 @@ const Login: React.FC = () => {
           <Input
             type="email"
             name="email"
+            id="email"
             placeholder="Email"
             label="Email"
             value={formData.email}
@@ -69,6 +75,8 @@ const Login: React.FC = () => {
             label="Password"
             value={formData.password}
             onChange={handleChange}
+            id="password"
+
           />
 {error? <div className="flex justify-center text-red-600">
   {error}

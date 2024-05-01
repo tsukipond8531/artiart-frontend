@@ -12,6 +12,7 @@ import tra8 from "../../public/assets/images/art/art8.png"
 import Navbar from "components/layout/Header/Navbar";
 import Footer from "components/layout/Footer";
 import VideoMain from "components/Common/MainVideo";
+
 interface Category {
   id: number;
   name: string;
@@ -31,6 +32,7 @@ export default function Home() {
   ];
   return (
    <>
+
    <Navbar/>
    <VideoMain/>
    {/* <MainSlider/> */}

@@ -30,7 +30,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ productItems }) => {
       {productItems.length > 0 && productItems.map((product, index) => (
         <div className="bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl mt-5 mb-5 group" key={index}>
          <Link
-          // href={`/detail/${generateSlug(product.name)}-${product._id}`}
           href={{
             pathname: `/detail/${generateSlug(product.name)}-${product._id}`,
             query: { product: JSON.stringify(product) }
