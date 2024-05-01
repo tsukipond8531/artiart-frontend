@@ -15,8 +15,10 @@ function Account() {
   const router = useRouter();
 
   const tokenRemoveHandler = ()=>{
-    localStorage.removeItem("2guysToken")
-    router.push("/login");
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem("2guysToken")
+      router.push("/login");
+    }
 
   }
   return (
