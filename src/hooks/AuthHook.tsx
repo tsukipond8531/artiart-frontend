@@ -40,6 +40,7 @@ function ProtectedRoute(WrappedComponent:any) {
       );
     } else {
     
+
       return <WrappedComponent {...props} />;
     }
   };
