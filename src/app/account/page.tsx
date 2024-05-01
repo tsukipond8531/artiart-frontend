@@ -1,7 +1,6 @@
 'use client'
 
 import History from 'components/Account/history'
-import Button from 'components/Common/Button'
 import Container from 'components/Common/Container'
 import { HeadingH3 } from 'components/Common/Heading'
 import Footer from 'components/layout/Footer'
@@ -15,10 +14,10 @@ function Account() {
   const router = useRouter();
 
   const tokenRemoveHandler = ()=>{
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem("2guysToken")
+    const ISSERVER = typeof window === "undefined"
+    !ISSERVER ? localStorage.removeItem("2guysToken") : null
       router.push("/login");
-    }
+    
 
   }
   return (

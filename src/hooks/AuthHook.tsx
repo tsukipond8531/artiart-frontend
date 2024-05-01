@@ -9,14 +9,11 @@ function ProtectedRoute(WrappedComponent:any) {
   const Wrapper=(props: any) => {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
-    let token = localStorage.getItem("2guysToken"); 
-    if (typeof window !== 'undefined') {
-      token = localStorage.getItem("2guysToken"); 
-    
-    }
-
+   
     useEffect(() => {
+      let token = localStorage.getItem("2guysToken"); 
       console.log(token, "token")
+
       if (!token) {
         // Redirect to login page if token is not present
         router.push("/login");
