@@ -39,7 +39,7 @@ const Login: React.FC = () => {
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
-    setloading(false)
+    setloading(true)
     if(!formData.email || !formData.password) return  setError('All fields are rquired')
    try{
     let user:any = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/login`,formData)
