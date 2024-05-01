@@ -9,8 +9,11 @@ function ProtectedRoute(WrappedComponent:any) {
   const Wrapper=(props: any) => {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
-    const token = localStorage.getItem("2guysToken"); 
-
+    let token = localStorage.getItem("2guysToken"); 
+    if (typeof window !== 'undefined') {
+      token = localStorage.getItem("2guysToken"); 
+    
+    }
 
     useEffect(() => {
       console.log(token, "token")

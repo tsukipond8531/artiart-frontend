@@ -39,12 +39,15 @@ const Login: React.FC = () => {
    try{
     let user:any = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/login`,formData)
     console.log(user.data, "user token")
-    localStorage.setItem('2guysToken', user.data.token)
-    Toaster("success", "You have sucessfully login")
-    setTimeout(()=>{
-    router.push('/')
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('2guysToken', user.data.token)
+      Toaster("success", "You have sucessfully login")
+      setTimeout(()=>{
+      router.push('/')
+  
+      },1000)
+    }
 
-    },1000)
 
    }catch(err:any){
     console.log(err, "err")
