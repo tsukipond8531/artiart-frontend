@@ -6,7 +6,7 @@ import Navbar from 'components/layout/Header/Navbar'
 import Link from 'next/link'
 import React from 'react'
 
-const Cart:React.FC = () => {
+const Cart:React.FC = ({ cartItems }:any) => {
   return (
     <>
     <Navbar/>
@@ -15,7 +15,7 @@ const Cart:React.FC = () => {
             <HeadingH4 title={"Your cart"}/>
             <Link className='underline' href={"/products"}>Continue shopping</Link>
         </div>
-        <CartTable/>
+        <CartTable />
     </Container>
 <Footer/>
     </>

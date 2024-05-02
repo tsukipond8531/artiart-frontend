@@ -1,4 +1,6 @@
+//@ts-nocheck
 "use client";
+
 import React, { useState } from "react";
 import Thumbnail from "components/Carousel/Thumbnail";
 
@@ -6,7 +8,7 @@ import Container from "components/Common/Container";
 import { HeadingH3, HeadingH6 } from "components/Common/Heading";
 import { Para12, Para14, Para16 } from "components/Common/Paragraph";
 import Link from "next/link";
-import { Radio, RadioChangeEvent } from "antd";
+import { Radio, RadioChangeEvent, message } from "antd";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import Button from "components/Common/Button";
 import { list } from "components/Constant";
@@ -22,13 +24,15 @@ const buttons: ButtonOption[] = [
   { value: "green", label: "Green" },
   { value: "blue", label: "Blue" },
 ];
-
-const ProductDetail= ({parsedProduct}:any) => {
+const ProductDetail = ({ parsedProduct, addToCart }: any) => {
   const [count, setCount] = useState<number>(1);
-  const [selectedValue, setSelectedValue] = useState<string | null>(null);
-  console.log(parsedProduct, "parsedProduct")
-  console.log(parsedProduct, "parsedProduct")
-  const Image:any = parsedProduct?.imageUrl
+  const [selectedValue, setSelectedValue] = useState<string | null>(
+    parsedProduct.colors && parsedProduct.colors.length > 0
+      ? parsedProduct.colors[0].colorName
+      : null
+  );
+
+  const Image: any = parsedProduct?.imageUrl;
 
   const handleChange = (e: RadioChangeEvent) => {
     setSelectedValue(e.target.value);
@@ -39,14 +43,50 @@ const ProductDetail= ({parsedProduct}:any) => {
   };
 
   const decrement = () => {
-    setCount((prevCount) => {
-      if (prevCount > 1) {
-        return prevCount - 1;
-      }
-      return prevCount;
-    });
+    setCount((prevCount) => (prevCount > 1 ? prevCount - 1 : prevCount));
   };
 
+  const handleAddToCart = () => {
+    if (!selectedValue || !parsedProduct) {
+      // Handle error: No color selected or product details missing
+      return;
+    }
+  
+    const newCartItem = {
+      id: parsedProduct.id,
+      name: parsedProduct.name,
+      price: parsedProduct.price,
+      discountPrice: parsedProduct.discountPrice,
+      imageUrl: parsedProduct.imageUrl,
+      color: selectedValue,
+      count: count,
+      totalPrice: parsedProduct.price * count,
+      discount: parsedProduct.discount,
+      discountedPrice: parsedProduct.discountPrice * count,
+      discountedTotalPrice: parsedProduct.discountPrice * count,
+    };
+  
+    // Fetch existing cart items from local storage or initialize an empty array
+    let existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
+  
+    // Check if the product already exists in the cart
+    const existingItemIndex = existingCart.findIndex(
+      (item: any) => item.id === parsedProduct.id && item.color === selectedValue
+    );
+  
+    if (existingItemIndex !== -1) {
+      // If the product already exists, update its quantity
+      existingCart[existingItemIndex].count += count;
+    } else {
+      // If the product doesn't exist, add it to the cart
+      existingCart.push(newCartItem);
+    }
+  
+    // Update local storage with the updated cart
+    localStorage.setItem("cart", JSON.stringify(existingCart));
+    message.success('Product added to cart successfully!');
+  };
+  
   return (
     <>
     {!parsedProduct ? null :  
@@ -56,14 +96,14 @@ const ProductDetail= ({parsedProduct}:any) => {
             <Thumbnail Images={Image} />
           </div>
           <div className=" p-2 sm:p-4 md:p-8 max-w-screen-sm mx-0 md:mx-10 lg:mx-20 mt-5 md:mt-0 space-y-3">
-            <Para12 title={"ARTIART INDIA"} />
-            <HeadingH3 title={"ANTELOPE TRAVEL BOTTLE (GYM, OUTDOORS)"} />
+            <Para12 title={"ARTIART"} />
+            <HeadingH3 title={parsedProduct.name} />
             <div className="flex flex-wrap md:flex-nowrap gap-0 md:gap-3 items-center">
               {parsedProduct.discountPrice ? 
               <Para16
                 className="line-through"
                 icon={"Dhs.  "}
-                title={parsedProduct.price                }
+                title={parsedProduct.price}
                 endicon={"  AED"}
               /> : null
 }
@@ -116,8 +156,10 @@ const ProductDetail= ({parsedProduct}:any) => {
                 onClick={increment}
               />
             </div>
-            <Button className="border w-full rounded-none border-black hover:border-2" title={"Add to Cart"} />
-            <Button className={"bg-black w-full  rounded-none text-white"} title={"Buy it now"} />
+            <Button className="border w-full rounded-none border-black hover:border-2"  onClick={handleAddToCart} title={"Add to Cart"} />
+
+            <Button className={"bg-black w-full  rounded-none text-white"}  title={"Buy it now"} />
+
             <div className="p-2 space-y-4">
             <ul className="list-disc">
               {
@@ -141,7 +183,7 @@ const ProductDetail= ({parsedProduct}:any) => {
           </div>
   
         </div>
-        <HeadingH3 title={"You may also like"}/>
+        {/* <HeadingH3 title={"You may also like"}/> */}
          
       </Container>
 }
