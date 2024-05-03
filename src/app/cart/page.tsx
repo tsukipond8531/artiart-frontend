@@ -1,3 +1,4 @@
+"use client"
 import Container from 'components/Common/Container'
 import { HeadingH4 } from 'components/Common/Heading'
 import CartTable from 'components/Table/CartTable'

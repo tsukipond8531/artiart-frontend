@@ -76,17 +76,17 @@ const CartTable: React.FC = () => {
                     <div className="p-1.5 min-w-full inline-block align-middle">
                         <div className="overflow-hidden">
                             <table className="min-w-full divide-y divide-gray-200">
-                                <thead>
+                                <thead className=''>
                                     <tr>
-                                        <th scope="col" className="px-6 py-3 text-start text-[12px] font-normal text-gray-500 uppercase">PRODUCT</th>
-                                        <th scope="col" className="px-6 py-3 text-start text-[12px] font-normal text-gray-500 uppercase">QUANTITY</th>
-                                        <th scope="col" className="px-6 py-3 text-start text-[12px] font-normal text-gray-500 uppercase">TOTAL</th>
+                                        <th scope="col" className="px-6 py-3 text-start text-[12px] font-normal text-gray-500 uppercase w-4/6">PRODUCT</th>
+                                        <th scope="col" className="px-6 py-3 text-start text-[12px] font-normal text-gray-500 uppercase w-2/6">QUANTITY</th>
+                                        <th scope="col" className="px-6 py-3 text-start text-[12px] font-normal text-gray-500 uppercase w-2/6">TOTAL</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200">
                                 {cartproduct.map((array: any, index: number) => (
                                     <tr key={index}>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm">
+                                        <td className="px-6 py-4  text-sm ">
                                             <div className='flex items-center gap-2 sm:gap-3 md:gap-4'>
                                                 <Image className='rounded-md' src={array.imageUrl[0].imageUrl} width={150} height={150} alt='cart image'/>
                                                 <div className='space-y-2'>
@@ -96,8 +96,8 @@ const CartTable: React.FC = () => {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm">
-                                            <div className='flex gap-2 justify-center items-center'>
+                                        <td className="px-6 py-4  text-sm ">
+                                            <div className='flex gap-2 items-center'>
                                                 <div className='border-2 p-2 flex justify-center items-center gap-1 w-28'>
                                                     <FiMinus className='cursor-pointer' size={20} onClick={() => decrement(index)} />
                                                     <input className='w-14 hover:border hover:scale-105 text-center' type="text" value={counts[index]} readOnly />
@@ -106,7 +106,7 @@ const CartTable: React.FC = () => {
                                                 <MdDeleteOutline onClick={() => removeItemFromCart(index)} className='cursor-pointer' size={20} />
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm"><Para14 icon={"Dhs. "} title={array.totalPrice}/></td>
+                                        <td className="px-6 py-4  text-sm"><Para14 icon={"Dhs. "} title={array.totalPrice}/></td>
                                     </tr>
                                 ))}
                                 </tbody>

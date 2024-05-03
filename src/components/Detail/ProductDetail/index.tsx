@@ -1,9 +1,7 @@
 //@ts-nocheck
-"use client";
-
+"use client"
 import React, { useState } from "react";
 import Thumbnail from "components/Carousel/Thumbnail";
-
 import Container from "components/Common/Container";
 import { HeadingH3, HeadingH6 } from "components/Common/Heading";
 import { Para12, Para14, Para16 } from "components/Common/Paragraph";
@@ -11,7 +9,6 @@ import Link from "next/link";
 import { Radio, RadioChangeEvent, message } from "antd";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import Button from "components/Common/Button";
-import { list } from "components/Constant";
 import DetailTable from "components/Table/DetailTable";
 
 type ButtonOption = {
@@ -24,26 +21,23 @@ const buttons: ButtonOption[] = [
   { value: "green", label: "Green" },
   { value: "blue", label: "Blue" },
 ];
-const ProductDetail = ({ parsedProduct, addToCart }: any) => {
-  const [count, setCount] = useState<number>(1);
-  const [selectedValue, setSelectedValue] = useState<string | null>(
-    parsedProduct.colors && parsedProduct.colors.length > 0
-      ? parsedProduct.colors[0].colorName
-      : null
-  );
+const ProductDetail = ({ parsedProduct }: any) => {
+  const [count, setCount] = useState<any>(1);
+  const initialSelectedValue = parsedProduct && parsedProduct.colors && parsedProduct.colors.length > 0
+    ? parsedProduct.colors[0].colorName
+    : null;
+  const [selectedValue, setSelectedValue] = useState(initialSelectedValue);
 
-  const Image: any = parsedProduct?.imageUrl;
-
-  const handleChange = (e: RadioChangeEvent) => {
+  const handleChange = (e: any) => {
     setSelectedValue(e.target.value);
   };
 
   const increment = () => {
-    setCount((prevCount) => prevCount + 1);
+    setCount((prevCount: number) => prevCount + 1);
   };
 
   const decrement = () => {
-    setCount((prevCount) => (prevCount > 1 ? prevCount - 1 : prevCount));
+    setCount((prevCount: number) => (prevCount > 1 ? prevCount - 1 : prevCount));
   };
 
   const handleAddToCart = () => {
@@ -51,29 +45,25 @@ const ProductDetail = ({ parsedProduct, addToCart }: any) => {
       // Handle error: No color selected or product details missing
       return;
     }
-  
+
     const newCartItem = {
       id: parsedProduct.id,
       name: parsedProduct.name,
       price: parsedProduct.price,
-      discountPrice: parsedProduct.discountPrice,
       imageUrl: parsedProduct.imageUrl,
       color: selectedValue,
       count: count,
       totalPrice: parsedProduct.price * count,
-      discount: parsedProduct.discount,
-      discountedPrice: parsedProduct.discountPrice * count,
-      discountedTotalPrice: parsedProduct.discountPrice * count,
     };
-  
+
     // Fetch existing cart items from local storage or initialize an empty array
     let existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
-  
+
     // Check if the product already exists in the cart
     const existingItemIndex = existingCart.findIndex(
       (item: any) => item.id === parsedProduct.id && item.color === selectedValue
     );
-  
+
     if (existingItemIndex !== -1) {
       // If the product already exists, update its quantity
       existingCart[existingItemIndex].count += count;
@@ -81,7 +71,7 @@ const ProductDetail = ({ parsedProduct, addToCart }: any) => {
       // If the product doesn't exist, add it to the cart
       existingCart.push(newCartItem);
     }
-  
+
     // Update local storage with the updated cart
     localStorage.setItem("cart", JSON.stringify(existingCart));
     message.success('Product added to cart successfully!');
@@ -123,18 +113,18 @@ const ProductDetail = ({ parsedProduct, addToCart }: any) => {
             <div className="flex gap-2 mb-4">
               {parsedProduct.colors && parsedProduct.colors.map((button:any, index:any) => (
                 <Radio
-                  key={index}
-                  value={button.colorName}
-                  checked={selectedValue === button.value}
-                  onChange={handleChange}
-                  className={`${
+                key={index}
+                value={button.colorName}
+                checked={selectedValue === button.value}
+                onChange={handleChange}
+                className={`${
                     selectedValue === button.colorName
-                      ? "bg-blue-600 text-white" // Tailwind classes for selected radio button
-                      : "bg-white text-blue-600 border border-blue-600"
-                  } py-2 px-4 rounded-lg focus:outline-none hover:bg-blue-100 cursor-pointer`} // Styling for buttons
-                >
-                  {button.colorName}
-                </Radio>
+                    ? "bg-blue-600 text-white"
+                    : "bg-white text-blue-600 border border-blue-600"
+                } py-2 px-4 rounded-lg focus:outline-none hover:bg-blue-100 cursor-pointer`}
+            >
+                {button.colorName}
+            </Radio>
               ))}
             </div>
             <Para14 title={"Quantity"} />
