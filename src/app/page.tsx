@@ -1,3 +1,4 @@
+"use client"
 import CategorySlider from "components/Carousel/Category";
 import MainSlider from "components/Carousel/MainSlider";
 import Product from "components/Home/Product";
@@ -12,6 +13,8 @@ import tra8 from "../../public/assets/images/art/art8.png"
 import Navbar from "components/layout/Header/Navbar";
 import Footer from "components/layout/Footer";
 import VideoMain from "components/Common/MainVideo";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface Category {
   id: number;
@@ -30,6 +33,21 @@ export default function Home() {
     { id: 2, name: 'Insulated Suction Mugs', image: tra8 },
 
   ];
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://artiart-server-phi.vercel.app/api/getAllproducts');
+        setProducts(response.data.products);
+        console.log('Product Data:', response.data.products);
+      } catch (error) {
+        console.log('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
    <>
 
@@ -39,7 +57,7 @@ export default function Home() {
    <CategorySlider
    categories={categories}
    />
-   <Product/>
+   <Product productItems={products}/>
    <Footer/>
    </>
   );
