@@ -16,7 +16,7 @@ import Loader from "components/Loader/Loader";
 
 
 
-const dashboardLogin: React.FC = () => {
+const DashboardLogin= () => {
   const router = useRouter()
 
   const [formData, setFormData] = useState({
@@ -107,5 +107,5 @@ Toaster("success", "You have sucessfully login")
   );
 };
 
-export default dashboardLogin;
+export default DashboardLogin;
 

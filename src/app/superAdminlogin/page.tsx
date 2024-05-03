@@ -15,7 +15,7 @@ import Loader from "components/Loader/Loader";
 
 
 
-const dashboardLogin: React.FC = () => {
+const DashboardLogin: React.FC = () => {
   const router = useRouter()
 
   const [formData, setFormData] = useState({
@@ -105,5 +105,5 @@ const dashboardLogin: React.FC = () => {
   );
 };
 
-export default dashboardLogin;
+export default DashboardLogin;
 

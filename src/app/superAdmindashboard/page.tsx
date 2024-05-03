@@ -17,7 +17,7 @@ import ProtectedRoute from 'hooks/AuthHookSuperAdmin'
 
 
 
-const dashboardLogin= () => {
+const DashboardLogin= () => {
   const router = useRouter()
   const [selecteMenu, setselecteMenu] = useState<string | null | undefined>('AllAdmins');
   const [isLogin, setIsLogin] = useState<boolean | null | undefined>(false);
@@ -63,5 +63,5 @@ const dashboardLogin= () => {
   );
 };
 
-export default ProtectedRoute(dashboardLogin);
+export default ProtectedRoute(DashboardLogin);
 
