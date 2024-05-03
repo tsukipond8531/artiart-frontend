@@ -1,6 +1,7 @@
+'use client'
 import DashboardProvider from 'components/layout/DashbaordProvider'
 import React from 'react'
-
+import ProtectedRoute from 'hooks/AuthHookAdmin'
 const Dashboard = () => {
   return (
     <DashboardProvider>
@@ -9,4 +10,5 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default ProtectedRoute(Dashboard)
+

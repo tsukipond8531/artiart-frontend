@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, Button } from "antd";
 import Image from "next/image";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import { RiDeleteBin6Line } from "react-icons/ri";  
 import axios from "axios";
 import Loader from "components/Loader/Loader";
 

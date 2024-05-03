@@ -8,9 +8,10 @@ interface InputProps {
   onChange?: any,
   id?:any
   value?: any
+  checked?:any
 }
 
-const Input: React.FC<InputProps> = ({ type, name, placeholder, label, onChange, value, id }): JSX.Element => {
+const Input: React.FC<InputProps> = ({ type, name, placeholder, label, onChange, value, id,checked }): JSX.Element => {
   return (
       <div className="relative">
         <input
@@ -27,7 +28,9 @@ const Input: React.FC<InputProps> = ({ type, name, placeholder, label, onChange,
           placeholder={placeholder}
           onChange={onChange}
           value={value}
+          checked={checked}
         />
+  
         <label
           htmlFor="hs-floating-input-email"
           className="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent  origin-[0_0] peer-disabled:opacity-50 peer-disabled:pointer-events-none
