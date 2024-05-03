@@ -28,6 +28,8 @@ const ProductDetail = ({ parsedProduct }: any) => {
     : null;
   const [selectedValue, setSelectedValue] = useState(initialSelectedValue);
 
+  const Image: any = parsedProduct?.imageUrl;
+
   const handleChange = (e: any) => {
     setSelectedValue(e.target.value);
   };
