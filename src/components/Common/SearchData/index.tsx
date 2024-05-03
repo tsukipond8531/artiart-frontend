@@ -1,20 +1,45 @@
 //@ts-nocheck
-"use client"
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { HeadingH4 } from "../Heading";
 import { Para12, Para14, Para16 } from '../../Common/Paragraph';
 import tra1 from "../../../../public/assets/images/tra1.jpg"
+import axios from "axios";
+
 const SearchData = () => {
-  
- 
-    const truncateText = (text, maxLength) => {
-      return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+  const [searchTerm, setSearchTerm] = useState(""); // State to hold the search term
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://artiart-server-phi.vercel.app/api/getAllproducts');
+        setProducts(response.data.products);
+      } catch (error) {
+        console.log('Error fetching data:', error);
+      }
     };
   
- 
+    fetchData();
+  }, []);
+
+  // Filter products based on search term
+  const filteredProducts = products.filter(product => {
+    return product.name.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
+  const truncateText = (text, maxLength) => {
+    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+  };
+  const generateSlug = (name: string): string => {
+    if (!name) return ''; // Check if name is undefined or null
+    return name
+      .toLowerCase()
+      .replace(/\s+/g, '-') // Replace spaces with hyphens
+      .replace(/[^a-z0-9-]/g, ''); // Remove non-alphanumeric characters except hyphens
+  };
 
   return (
     <>
@@ -41,6 +66,8 @@ const SearchData = () => {
           id="default-search"
           className="block w-full p-4 pl-10 bg-white text-black text-sm border-2  rounded ring-primary-orange-200"
           placeholder="Search"
+          value={searchTerm} // Bind input value to searchTerm state
+          onChange={(e) => setSearchTerm(e.target.value)} // Update searchTerm state on input change
         />
         <button
           type="submit"
@@ -50,27 +77,40 @@ const SearchData = () => {
         </button>
       </form>
       
-      <div className="max-h-[500px] overflow-auto pr-2 bg-white rounded-md p-2">
-              <div className="mt-5 mb-6">
-                <Link href={`/`} className="text-black hover:text-gray-500 relative">
+      {searchTerm && ( // Render products only when there is a search term
+        <div className="max-h-[400px] overflow-y-scroll  pr-2 bg-white rounded-md p-2">
+          {filteredProducts.length > 0 ? ( // Render products only if there are filtered products
+            filteredProducts.map((product, index) => (
+              <div key={index} className="mt-5 mb-6">
+                <Link  href={{
+            pathname: `/detail/${generateSlug(product.name)}-${product._id}`,
+            query: { product: JSON.stringify(product) }
+          }}
+           className="text-black hover:text-gray-500 relative">
                   <div className="border gap-2 p-2 pt-3 mb-2 flex items-center rounded-md shadow cursor-pointer hover:border-gray-500 duration-300 transition">
                     <div>
-                      <Image src={tra1} width={150} height={150} className="rounded-md" alt="search"/>
+                    {product.posterImageUrl && (
+                      <Image src={product.posterImageUrl.imageUrl} width={100} height={100} className="rounded-md" alt="search" />
+                    )}
                     </div>
                     <div className="flex gap-3 w-11/12">
                       <div>
-                        <HeadingH4 title={"Cubilia"} />
-                        <Para14 className="pl-1" title={truncateText("Cubilia mollis massa nibh nisi dui auctor eu vehicula mi placerat dictum habitasse sollicitudin egestas consectetuer tempor. Pra", 160)} />
+                        <HeadingH4 title={product.name} />
+                        <Para14 className="pl-1" title={truncateText(product.description, 160)} />
                       </div>
                     </div>
-                    <Link href={`/`} className="hover:text-black mx-auto">
+                    <div  className="hover:text-black mx-auto">
                       <FaArrowRight size={25} />
-                    </Link>
+                    </div>
                   </div>
                 </Link>
               </div>
-              
-      </div>
+            ))
+          ) : (
+            <p>No products found</p> // Display message if no products are found
+          )}
+        </div>
+      )}
     </>
   );
 };
