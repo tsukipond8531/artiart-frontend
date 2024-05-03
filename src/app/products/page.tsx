@@ -1,8 +1,7 @@
+//@ts-nocheck
 "use client"
 import Container from "components/Common/Container";
 
-
-import ProductCard from "components/Common/ProductCard";
 import Footer from "components/layout/Footer";
 import Navbar from "components/layout/Header/Navbar";
 import Popoverlist from "components/Common/Popover";
@@ -13,12 +12,68 @@ import Input from "components/Common/Input";
 import Drawerfilter from "components/Common/Drawer";
 import { IoFilter } from "react-icons/io5";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import ProductCard from "components/Common/ProductCard";
 
 
 export default function Products() {
   const onChange: CheckboxProps['onChange'] = (e) => {
   console.log(`checked = ${e.target.checked}`);
 };
+const [products, setProducts] = useState([]);
+const [minPrice, setMinPrice] = useState("");
+const [maxPrice, setMaxPrice] = useState("");
+const [highestPrice, setHighestPrice] = useState(0);
+const [selectedProductCount, setSelectedProductCount] = useState(3);  
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('https://artiart-server-phi.vercel.app/api/getAllproducts');
+      const products = response.data.products;
+      setProducts(products);
+      setHighestPrice(findHighestPrice(products));
+    } catch (error) {
+      console.log('Error fetching data:', error);
+    }
+  };
+
+  fetchData();
+}, []);
+
+const findHighestPrice = (products) => {
+  let maxPrice = 0;
+  products.forEach((product) => {
+    if (product.price > maxPrice) {
+      maxPrice = product.price;
+    }
+  });
+  return maxPrice;
+};
+
+const handleResetPrice = () => {
+  setMinPrice('');
+  setMaxPrice('');
+};
+
+const filteredProducts = products.filter(product => {
+  if (minPrice && maxPrice) {
+    return product.price >= parseFloat(minPrice) && product.price <= parseFloat(maxPrice);
+  } else if (minPrice) {
+    return product.price >= parseFloat(minPrice);
+  } else if (maxPrice) {
+    return product.price <= parseFloat(maxPrice);
+  }
+  return true;
+}).slice(0, selectedProductCount);
+
+const handleSelectProductCount = (e) => {
+  setSelectedProductCount(parseInt(e.target.value));
+};
+const totalProducts = products.length;
+
+
   return (
     <>
     <Navbar/>
@@ -48,43 +103,54 @@ export default function Products() {
             </div>
           }
         />
-        <Popoverlist
-          title="Price"
-          content={
-            <div className="space-y-3">
-              <div className="p-2 flex justify-between items-center border-b-2">
-                <Para14 endicon={"200.00"} title={" The highest price is Dhs. "} />
-                <div className="underline cursor-pointer">Reset</div>
-              </div>
-              <div className="flex gap-2">
-                <Input type='number' name='From' placeholder='Enter Price' label='From'/>
-                <Input type='number' name='To' placeholder='Enter Price' label='To'/>
-              </div>
-            </div>
-          }
+       <Popoverlist
+  title="Price"
+  content={
+    <div className="space-y-3">
+      <div className="p-2 flex justify-between items-center border-b-2">
+        <Para14 endicon={`${highestPrice}.00`} title={" The highest price is Dhs. "} />
+        <div className="underline cursor-pointer" onClick={handleResetPrice}>Reset</div>
+      </div>
+      <div className="flex gap-2">
+        {/* Update Input components to allow users to enter min and max price */}
+        <Input
+          type='number'
+          name='From'
+          placeholder='Enter Minimum Price'
+          label='From'
+          value={minPrice}
+          onChange={(e) => setMinPrice(e.target.value)}
         />
+        <Input
+          type='number'
+          name='To'
+          placeholder='Enter Maximum Price'
+          label='To'
+          value={maxPrice}
+          onChange={(e) => setMaxPrice(e.target.value)}
+        />
+      </div>
+    </div>
+  }
+/>
+
       </div>
       <div className="flex justify-between gap-10">
         <p>Sort by:</p>
-        <select className="md:w-28 block w-full border-gray-200 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none">
-          <option selected>Feature</option>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-        </select>
-        <div className="">20 products</div>
+        <select value={selectedProductCount} onChange={handleSelectProductCount} className="md:w-28 block w-full border-gray-200 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none">
+                {[1, 2, 3, 4, 5].map((num) => (
+                  <option key={num} value={num}>{num}</option>
+                ))}
+              </select>
+        <div className="">{totalProducts} products</div>
       </div>
     </div>
   </div>
   <div className="md:hidden  mb-4">
     <div className="flex justify-between items-center">
-    <Drawerfilter  icon={<IoFilter size={20} />} title="Filter and sort" footer={<>
-    <div className="flex justify-between flex-wrap ga-2">
-    <button className="underline">Remove All</button>
-    <button className="bg-black h-12 text-white px-10 ">Apply</button>
-    </div>
-
-    </>}  DrawerContent={<>
+    <Drawerfilter  icon={<IoFilter size={20} />} title="Filter and sort" 
+    
+     DrawerContent={<>
 
       <Drawerfilter className=" " title="Availabillity" endicon={<FaArrowRightLong size={20} />} DrawerContent={<>
        <div className="space-y-3">
@@ -103,37 +169,48 @@ export default function Products() {
 
       <Drawerfilter className="mt-3" title="Price" endicon={<FaArrowRightLong size={20} />} DrawerContent={<>
         <div className="space-y-3">
-              <div className="p-2 flex justify-between items-center border-b-2">
-                <Para14 endicon={"200.00"} title={" The highest price is Dhs. "} />
-                <div className="underline cursor-pointer">Reset</div>
+              <div className="p-2 flex flex-wrap justify-between items-center border-b-2">
+              <Para14 endicon={`${highestPrice}.00`} title={" The highest price is Dhs. "} />
+              <div className="underline cursor-pointer" onClick={handleResetPrice}>Reset</div>
               </div>
               <div className="flex gap-2">
-                <Input type='number' name='From' placeholder='Enter Price' label='From'/>
-                <Input type='number' name='To' placeholder='Enter Price' label='To'/>
-              </div>
+              {/* Update Input components to allow users to enter min and max price */}
+              <Input
+                type='number'
+                name='From'
+                placeholder='Enter Minimum Price'
+                label='From'
+                value={minPrice}
+                onChange={(e) => setMinPrice(e.target.value)}
+              />
+              <Input
+                type='number'
+                name='To'
+                placeholder='Enter Maximum Price'
+                label='To'
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(e.target.value)}
+              />
+            </div>
             </div>
       </>}/>
       <div className="mt-3 flex justify-between">
         <p className="underline text-[18px] ">Sort by:</p>
-        <select className="w-24 h-8 block   rounded-lg ring-0 overflow-hidden border-none  disabled:opacity-50 disabled:pointer-events-none">
-          <option selected>Feature</option>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-        </select>
+        <select value={selectedProductCount} onChange={handleSelectProductCount} className="w-24 h-8 block   rounded-lg ring-0 overflow-hidden border-none  disabled:opacity-50 disabled:pointer-events-none">
+                {[1, 2, 3, 4, 5].map((num) => (
+                  <option key={num} value={num}>{num}</option>
+                ))}
+              </select>
       </div>
 
 
       </>} />
-      <Para14 className="space-x-2 gap-2" title={" 20 "} icon={" Prosucts"}/>
+      <div className="">{totalProducts} products</div>
     </div>
-
   </div>
 </div>
 
-
-
-
+<ProductCard productItems={filteredProducts}/>
       </Container>
       <Footer/>
     </>
