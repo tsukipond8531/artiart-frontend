@@ -1,9 +1,6 @@
 'use client'
 
 import React, { useState,useEffect } from "react";
-import Button from "components/Common/Button";
-import { HeadingH3 } from "components/Common/Heading";
-import Input from "components/Common/Input";
 import Footer from "components/layout/Footer";
 import Navbar from "components/layout/Header/Navbar";
 
@@ -17,10 +14,12 @@ import ProtectedRoute from 'hooks/AuthHookSuperAdmin'
 
 
 
+
 const DashboardLogin= () => {
   const router = useRouter()
   const [selecteMenu, setselecteMenu] = useState<string | null | undefined>('AllAdmins');
   const [isLogin, setIsLogin] = useState<boolean | null | undefined>(false);
+ 
 
 
   useEffect(()=>{
@@ -49,7 +48,7 @@ const DashboardLogin= () => {
     <>
       <Navbar />
       <div className="mt-4 p-4">
-       {isLogin ? <div><p className="underline flex justify-end cursor-pointer" onClick={()=>{tokenRemoveHandler()}}>log out</p></div> : null} 
+       {isLogin ? <div className=" flex justify-end mb-4"><p className="underline cursor-pointer" onClick={()=>{tokenRemoveHandler()}}>log out</p></div> : null} 
         {selecteMenu == "AllAdmins" ?
 <AllAdmins setselecteMenu={setselecteMenu}/>
          :

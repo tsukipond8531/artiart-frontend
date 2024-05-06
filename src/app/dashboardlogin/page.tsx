@@ -12,12 +12,18 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Toaster from "components/Toaster/Toaster";
 import Loader from "components/Loader/Loader";
+import { useAppDispatch} from "components/Others/HelperRedux";
+import { loggedInUserAction } from '../../redux/slices/AdminsSlice';
+
+
 
 
 
 
 const DashboardLogin= () => {
   const router = useRouter()
+  const dispatch = useAppDispatch();
+
 
   const [formData, setFormData] = useState({
     email: "",
@@ -50,7 +56,10 @@ const DashboardLogin= () => {
     const ISSERVER = typeof window === "undefined"
     !ISSERVER ? localStorage.setItem('2guysAdminToken', user.data.token) : null
     setloading(false)
-Toaster("success", "You have sucessfully login")
+    dispatch(loggedInUserAction(user.data.user))
+
+    Toaster("success", "You have sucessfully login")
+
       setTimeout(()=>{
       router.push('/dashboard')
       },1000)

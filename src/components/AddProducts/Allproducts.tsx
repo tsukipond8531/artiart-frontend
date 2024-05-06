@@ -5,7 +5,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import axios from "axios";
 import Loader from "components/Loader/Loader";
 
-function Category({ Categories, setCategory, setselecteMenu, loading }: any) {
+function Category({ Categories, setCategory, setselecteMenu, loading,canAddProduct,canDeleteProduct }: any) {
   const handleDelete = async (key: any) => {
     try {
       let reponse = await axios.delete(
@@ -47,9 +47,11 @@ function Category({ Categories, setCategory, setselecteMenu, loading }: any) {
       key: "action",
       render: (text: any, record: any) => (
         <RiDeleteBin6Line
-          className="cursor-pointer text-red-500"
+          className={`cursor-pointer text-red-500 ${
+            !canDeleteProduct && 'cursor-not-allowed text-gray-400'
+          }`}
           size={20}
-          onClick={() => handleDelete(record._id)}
+          onClick={() => {if(canDeleteProduct){handleDelete(record._id)}}}
         />
       ),
     },
@@ -68,9 +70,14 @@ function Category({ Categories, setCategory, setselecteMenu, loading }: any) {
         <p>Products</p>
         <div>
           <p
-            className="cursor-pointer p-2 hover:bg-gray-200 flex justify-center"
+            // className="cursor-pointer p-2 hover:bg-gray-200 flex justify-center"
+            className={`cursor-pointer p-2 ${ canAddProduct &&'hover:bg-gray-200'} flex justify-center ${
+              !canAddProduct && 'cursor-not-allowed text-gray-400'
+            }`}
             onClick={() => {
-              setselecteMenu("Add Products");
+              if(canAddProduct){
+                setselecteMenu("Add Products");
+              }
 
             }}
           >

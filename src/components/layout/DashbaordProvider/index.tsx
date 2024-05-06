@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
@@ -13,6 +12,13 @@ import AddProductForm from "components/AddProducts/Products";
 import Allproducts from "components/AddProducts/Allproducts";
 import CategoryForm from "components/AddCategory/Products";
 import Categories from "components/AddCategory/Category";
+import {useAppSelector } from "components/Others/HelperRedux";
+import Toaster from "components/Toaster/Toaster";
+import { useRouter } from "next/navigation";
+import ProtectedRoute from "hooks/AuthHookAdmin";
+
+
+
 
 const DashboardProvider = ({ children }: any) => {
   const { Header, Sider, Content } = Layout;
@@ -25,7 +31,15 @@ const DashboardProvider = ({ children }: any) => {
   const [products, setProducts] = useState<any[]>();
   const [loading, setLoading] = useState<boolean>(false);
   const [productloading, setProductloading] = useState<boolean>(false);
+  const [isLogin, setIsLogin] = useState<boolean | null | undefined>(false);
+  const router = useRouter()
 
+
+
+   const { loggedInUser } = useAppSelector(state => state.usersSlice);
+
+
+  console.log(loggedInUser, "loggedInUser")
 
   const handleAddProductsClick = (menu: string) => {
     setselecteMenu(menu);
@@ -45,6 +59,16 @@ const DashboardProvider = ({ children }: any) => {
       onClick: () => handleAddProductsClick("Add Category"),
     },
   ];
+
+  
+  useEffect(()=>{
+    const token = localStorage.getItem("2guysAdminToken");
+    if (!token) {
+      setIsLogin(false)
+      return;
+    }
+    setIsLogin(true)
+  },[])
 
 
 
@@ -86,6 +110,16 @@ setProductloading(false)
     CategoryHandler();
     productHandler();
   }, [selecteMenu]);
+
+  const tokenRemoveHandler = ()=>{
+    const ISSERVER = typeof window === "undefined"
+    !ISSERVER ? localStorage.removeItem("2guysAdminToken") : null
+      Toaster("success", "You have sucessfully logout")
+      setTimeout(()=>{
+      router.push("/dashboardlogin");
+  
+      },1000)
+    }
   return (
     <Layout>
       <Sider
@@ -124,6 +158,8 @@ setProductloading(false)
             borderRadius: borderRadiusLG,
           }}
         >
+       {isLogin ? <div className="flex justify-end mb-4"><p className=" w-fit underline cursor-pointer" onClick={()=>{tokenRemoveHandler()}}>log out</p></div> : null} 
+
           {selecteMenu == "Add Products" ? (
             <AddProductForm setselecteMenu={setselecteMenu} />
           ) : selecteMenu == "Add Category" ? (
@@ -132,6 +168,9 @@ setProductloading(false)
               setCategory={setCategory}
               setselecteMenu={setselecteMenu}
               loading={loading}
+              canAddCategory={loggedInUser.canAddCategory}
+              canDeleteCategory={loggedInUser.canDeleteCategory}
+
 
             />
           ) : selecteMenu === "Add All Products" ? (
@@ -140,6 +179,9 @@ setProductloading(false)
               setCategory={setProducts}
               setselecteMenu={setselecteMenu}
               loading={productloading}
+              canAddProduct={loggedInUser.canAddProduct}
+              canDeleteProduct={loggedInUser.canDeleteProduct}
+
             />
           ) : (
             <CategoryForm setselecteMenu={setselecteMenu} />
@@ -150,4 +192,4 @@ setProductloading(false)
   );
 };
 
-export default DashboardProvider;
+export default ProtectedRoute(DashboardProvider);

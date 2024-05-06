@@ -6,7 +6,7 @@ import axios from "axios";
 import Loader from "components/Loader/Loader";
 
 
-function Category({ Categories, setCategory, setselecteMenu, loading }: any) {
+function Category({ Categories, setCategory, setselecteMenu, loading, canAddCategory,canDeleteCategory }: any) {
   const handleDelete = async (key: any) => {
     try {
       let reponse = await axios.delete(
@@ -48,9 +48,12 @@ function Category({ Categories, setCategory, setselecteMenu, loading }: any) {
       key: "action",
       render: (text: any, record: any) => (
         <RiDeleteBin6Line
-          className="cursor-pointer text-red-500"
+        className={`cursor-pointer text-red-500 ${
+          !canDeleteCategory && 'cursor-not-allowed text-gray-400'
+        }`}
+          // className="cursor-pointer text-red-500"
           size={20}
-          onClick={() => handleDelete(record._id)}
+          onClick={() =>{if(canDeleteCategory){handleDelete(record._id)} }}
         />
       ),
     },
@@ -68,7 +71,7 @@ function Category({ Categories, setCategory, setselecteMenu, loading }: any) {
       <div className="flex justify-between mb-4">
         <p>Categories</p>
         <div>
-          <p
+          {/* <p
             className="cursor-pointer hover:bg-[#ccc]-100 p-2 "
             onClick={() => {
               setselecteMenu("Categories");
@@ -76,7 +79,21 @@ function Category({ Categories, setCategory, setselecteMenu, loading }: any) {
             }}
           >
             Add Category
-          </p>
+          </p> */}
+
+          <p
+  className={`cursor-pointer hover:bg-[#ccc]-100 p-2 ${
+    !canAddCategory && 'cursor-not-allowed text-gray-400'
+  }`}
+  onClick={() => {
+    if (canAddCategory) {
+      setselecteMenu("Categories");
+      console.log("function called");
+    }
+  }}
+>
+  Add Category
+</p>
         </div>
       </div>
       {Categories && Categories.length > 0 ? (

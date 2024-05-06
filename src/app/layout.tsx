@@ -1,8 +1,12 @@
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
 import { ToastContainer } from 'react-toastify';
+import "./globals.css";
 import 'react-toastify/dist/ReactToastify.css';
+import { Providers } from '../Providers'
+
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -16,6 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <Providers>
+
     <html lang="en">
       <body className={inter.className}>
         {children}
@@ -23,5 +29,7 @@ export default function RootLayout({
 
         </body>
     </html>
+    </Providers>
+
   );
 }
