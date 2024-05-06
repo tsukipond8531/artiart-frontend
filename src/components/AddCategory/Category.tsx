@@ -48,7 +48,7 @@ function Category({ Categories, setCategory, setselecteMenu, loading, canAddCate
       key: "action",
       render: (text: any, record: any) => (
         <RiDeleteBin6Line
-        className={`cursor-pointer text-red-500 ${
+        className={`cursor-pointer ${canDeleteCategory && 'text-red-500'} ${
           !canDeleteCategory && 'cursor-not-allowed text-gray-400'
         }`}
           // className="cursor-pointer text-red-500"
@@ -82,7 +82,7 @@ function Category({ Categories, setCategory, setselecteMenu, loading, canAddCate
           </p> */}
 
           <p
-  className={`cursor-pointer hover:bg-[#ccc]-100 p-2 ${
+  className={`${canAddCategory && 'cursor-pointer'} hover:bg-[#ccc]-100 p-2 ${
     !canAddCategory && 'cursor-not-allowed text-gray-400'
   }`}
   onClick={() => {
