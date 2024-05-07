@@ -30,7 +30,7 @@ const AddProductForm = ({setselecteMenu}: any) => {
       setloading(true)
       let posterImageUrl = posterimageUrl && posterimageUrl[0];
       let hoverImageUrl = hoverImage && hoverImage[0];
-
+let createdAt = Date.now()
       console.log(posterImageUrl, "posterimageUrl");
       if (!posterImageUrl || !hoverImageUrl || !(imagesUrl.length > 0))
         throw new Error("Please select relevant Images");
@@ -39,6 +39,7 @@ const AddProductForm = ({setselecteMenu}: any) => {
         posterImageUrl,
         imageUrl: imagesUrl,
         hoverImageUrl,
+        createdAt
       };
       console.log(newValue, "newValue");
 

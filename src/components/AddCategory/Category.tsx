@@ -4,6 +4,8 @@ import Image from "next/image";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import axios from "axios";
 import Loader from "components/Loader/Loader";
+import { FaRegEye } from "react-icons/fa6";
+
 
 
 function Category({ Categories, setCategory, setselecteMenu, loading, canAddCategory,canDeleteCategory }: any) {
@@ -39,10 +41,48 @@ function Category({ Categories, setCategory, setselecteMenu, loading, canAddCate
       key: "name",
     },
     {
-      title: "Created At",
+      title: "Date",
       dataIndex: "createdAt",
-      key: "createdAt",
+      key: "date",
+      render: (text:any, record:any) => {
+        const createdAt = new Date(record.createdAt);
+        const formattedDate = `${createdAt.getFullYear()}-${String(
+          createdAt.getMonth() + 1
+        ).padStart(2, "0")}-${String(createdAt.getDate()).padStart(2, "0")}`;
+        return <span>{formattedDate}</span>;
+      },
     },
+    {
+      title: "Time",
+      dataIndex: "createdAt",
+      key: "time",
+      render: (text:any, record:any) => {
+        const createdAt = new Date(record.createdAt);
+        const formattedTime = `${String(createdAt.getHours()).padStart(
+          2,
+          "0"
+        )}:${String(createdAt.getMinutes()).padStart(2, "0")}
+  
+        `;
+        return <span>{formattedTime}</span>;
+      },
+    },
+    // {
+    //   title: "Preview",
+    //   key: "Preview",
+    //   render: (text: any, record: any) => {
+    //     const handleClick = () => {
+    //       console.log(record, "record")
+    //       const queryParams = new URLSearchParams({
+    //         product: JSON.stringify(record)
+    //       }).toString();
+    //       const url = `/detail/-${record._id}?${queryParams}`;
+    //       window.open(url, '_blank');
+    //     };
+    //     return <FaRegEye className="cursor-pointer" onClick={handleClick} />
+
+    //   },
+    // },
     {
       title: "Action",
       key: "action",
@@ -97,7 +137,7 @@ className={`${canAddCategory && 'cursor-pointer'} p-2 ${ canAddCategory &&'hover
         </div>
       </div>
       {Categories && Categories.length > 0 ? (
-        <Table dataSource={Categories} columns={columns} />
+        <Table dataSource={Categories} columns={columns}  pagination={false}/>
       ) : (
         "No Categories found"
       )}

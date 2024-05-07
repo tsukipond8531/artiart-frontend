@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import Loader from 'components/Loader/Loader';
 
 interface ProductItem {
   imageUrl: { imageUrl: string; public_id: string }[];
@@ -14,6 +15,8 @@ interface ProductItem {
 
 interface ProductCardProps {
   productItems: ProductItem[];
+  productsLoading: boolean
+
 }
 
 const generateSlug = (name: string): string => {
@@ -24,10 +27,14 @@ const generateSlug = (name: string): string => {
     .replace(/[^a-z0-9-]/g, ''); // Remove non-alphanumeric characters except hyphens
 };
 
-const ProductCard: React.FC<ProductCardProps> = ({ productItems }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ productItems,productsLoading }) => {
   return (
+    <>
+    {productsLoading ? <div className='flex justify-center items-center'><Loader/></div> 
+    
+    : 
     <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-2 md:gap-5'>
-      {productItems.length > 0 && productItems.map((product, index) => (
+ {     productItems.length > 0 && productItems.map((product, index) => (
         <div className="bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl mt-5 mb-5 group" key={index}>
          <Link
           href={{
@@ -45,12 +52,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ productItems }) => {
               )}
             </div>
             <div className="px-4 py-3 w-full">
-              <p className="text-[14px] poppins-thin text-black truncate block capitalize">{product.name}</p>
+              <p className="text-[20px] poppins-thin text-black truncate block capitalize">{product.name}</p>
               <div className="flex items-center flex-wrap justify-between">
-                <p className="text-[14px] poppins-thin text-black cursor-auto my-3">Dhs. <span>{product.price}</span> AED</p>
+                <p className="text-[15px] poppins-thin text-black cursor-auto my-3"><span>{product.price}</span> د.إ</p>
                 {product.discountPrice ? (
                   <del className=''>
-                    <p className="text-sm text-gray-600 cursor-auto ">Dhs. <span>{product.discountPrice}</span> AED</p>
+                    <p className="text-[15px] text-gray-600 cursor-auto font-i"> <span className='text-lg'>{product.discountPrice}</span> د.إ</p>
                   </del>
                 ) : null}
               </div>
@@ -59,6 +66,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ productItems }) => {
         </div>
       ))}
     </div>
+    }
+    </>
+
   );
 };
 

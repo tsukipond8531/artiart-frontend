@@ -34,15 +34,20 @@ export default function Home() {
 
   ];
   const [products, setProducts] = useState([]);
+  const [productsLoading, setProductsloading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://artiart-server-phi.vercel.app/api/getAllproducts');
+        setProductsloading(true)
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllproducts`);
         setProducts(response.data.products);
         console.log('Product Data:', response.data.products);
       } catch (error) {
         console.log('Error fetching data:', error);
+      } finally{
+        setProductsloading(true)
+
       }
     };
 
@@ -57,7 +62,7 @@ export default function Home() {
    <CategorySlider
    categories={categories}
    />
-   <Product productItems={products}/>
+   <Product productItems={products} productsLoading={productsLoading}/>
    <Footer/>
    </>
   );
