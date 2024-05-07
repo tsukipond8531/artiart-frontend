@@ -15,6 +15,8 @@ import {
 import { RxCross2 } from "react-icons/rx";
 import Loader from "components/Loader/Loader";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import Toaster from "components/Toaster/Toaster";
+
 
 
 const AddProductForm = ({setselecteMenu}: any) => {
@@ -23,27 +25,6 @@ const AddProductForm = ({setselecteMenu}: any) => {
   const [posterimageUrl, setposterimageUrl] = useState<any[] | null>();
   const [loading, setloading] = useState<boolean>(false);
 
-
-//   const onSubmit = async (values: Category) => {
-//     try {
-//       setloading(true);
-
-//       console.log("function triggered");
-//       let posterImageUrl = posterimageUrl && posterimageUrl[0];
-
-//       console.log(posterImageUrl, "posterimageUrl");
-//       if (!posterImageUrl) throw new Error("Please select relevant Images");
-//       let newValue = { ...values, posterImageUrl };
-//       console.log(newValue, "newValue");
-// const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/AddCategory`,newValue);
-//       console.log(response, "response");
-//       setloading(false);
-
-//     } catch (err) {
-//       console.log("error occured", err);
-//       setloading(false);
-//     }
-//   };
 
   const onSubmit = async (values: Category, { resetForm }:any) => {
     try {
@@ -60,7 +41,8 @@ const AddProductForm = ({setselecteMenu}: any) => {
       console.log(response, "response");
       setloading(false);
   
-      // Reset the form after successful submission
+      Toaster("success", "Category has been sucessufully Created !");
+
       resetForm();
     } catch (err) {
       console.log("error occurred", err);
@@ -176,6 +158,7 @@ const AddProductForm = ({setselecteMenu}: any) => {
             <p className="text-2xl font-black mb-4 flex items-center justify-center gap-2
        hover:bg-gray-200 w-fit p-2 cursor-pointer"  onClick={() =>{setselecteMenu('Add Category')}}> <IoMdArrowRoundBack />  Back</p>
       <h2 className="text-2xl font-black mb-4">Add New Category</h2>
+      
       <div>
         {posterimageUrl && posterimageUrl.length > 0 ? (
           <div className="flex gap-2 border-3 flex-wrap mb-3  ">

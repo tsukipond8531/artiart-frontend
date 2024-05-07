@@ -70,7 +70,6 @@ function Category({ Categories, setCategory, setselecteMenu, loading,canAddProdu
         <p>Products</p>
         <div>
           <p
-            // className="cursor-pointer p-2 hover:bg-gray-200 flex justify-center"
             className={`${canAddProduct && 'cursor-pointer'} p-2 ${ canAddProduct &&'hover:bg-gray-200'} flex justify-center ${
               !canAddProduct && 'cursor-not-allowed text-gray-400'
             }`}

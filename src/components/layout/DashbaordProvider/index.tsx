@@ -168,8 +168,8 @@ setProductloading(false)
               setCategory={setCategory}
               setselecteMenu={setselecteMenu}
               loading={loading}
-              canAddCategory={loggedInUser.canAddCategory}
-              canDeleteCategory={loggedInUser.canDeleteCategory}
+              canAddCategory={loggedInUser && loggedInUser.canAddCategory}
+              canDeleteCategory={ loggedInUser && loggedInUser.canDeleteCategory}
 
 
             />
@@ -179,8 +179,8 @@ setProductloading(false)
               setCategory={setProducts}
               setselecteMenu={setselecteMenu}
               loading={productloading}
-              canAddProduct={loggedInUser.canAddProduct}
-              canDeleteProduct={loggedInUser.canDeleteProduct}
+              canAddProduct={loggedInUser && loggedInUser.canAddProduct}
+              canDeleteProduct={loggedInUser && loggedInUser.canDeleteProduct}
 
             />
           ) : (

@@ -82,7 +82,7 @@ function Category({ Categories, setCategory, setselecteMenu, loading, canAddCate
           </p> */}
 
           <p
-  className={`${canAddCategory && 'cursor-pointer'} hover:bg-[#ccc]-100 p-2 ${
+className={`${canAddCategory && 'cursor-pointer'} p-2 ${ canAddCategory &&'hover:bg-gray-200'} flex justify-center ${
     !canAddCategory && 'cursor-not-allowed text-gray-400'
   }`}
   onClick={() => {

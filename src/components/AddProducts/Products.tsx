@@ -10,6 +10,8 @@ import { inputFields, validationSchema, initialValues } from "Data/data";
 import { RxCross2 } from "react-icons/rx";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import Loader from "components/Loader/Loader";
+import Toaster from "components/Toaster/Toaster";
+
 
 
 const AddProductForm = ({setselecteMenu}: any) => {
@@ -40,11 +42,11 @@ const AddProductForm = ({setselecteMenu}: any) => {
       };
       console.log(newValue, "newValue");
 
-      const response = await axios.post(
-        "https://artiart-server-phi.vercel.app/api/addProduct",
-        newValue
+  const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/addProduct`,newValue
       );
       console.log(response, "response");
+      Toaster("success", "Product has been sucessufully Created !");
+
       resetForm();
       setloading(false)
 
@@ -59,7 +61,7 @@ const AddProductForm = ({setselecteMenu}: any) => {
   useEffect(() => {
     const CategoryHandler = async () => {
       const response = await fetch(
-        "https://artiart-server-phi.vercel.app/api/getAllcategories"
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllcategories`
       );
       const Categories = await response.json();
       setCategory(Categories);
@@ -80,7 +82,7 @@ const AddProductForm = ({setselecteMenu}: any) => {
       }
 
       const response: AxiosResponse<any> = await axios.post(
-        "https://artiart-server-phi.vercel.app/api/addProductImage",
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/addProductImage`,
         formData,
         {
           headers: {
@@ -210,7 +212,7 @@ const AddProductForm = ({setselecteMenu}: any) => {
 
     try {
       const response = await axios.delete(
-        `https://artiart-server-phi.vercel.app/api/removeProductImage`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/removeProductImage`,
         requestConfig
       );
       console.log("Image removed successfully:", response.data);
@@ -227,7 +229,7 @@ const AddProductForm = ({setselecteMenu}: any) => {
 
     try {
       const response = await axios.delete(
-        `https://artiart-server-phi.vercel.app/api/removeProductImage`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/removeProductImage`,
         requestConfig
       );
       console.log("Image removed successfully:", response.data);
