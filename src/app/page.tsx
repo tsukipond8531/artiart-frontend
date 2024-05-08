@@ -46,7 +46,7 @@ export default function Home() {
       } catch (error) {
         console.log('Error fetching data:', error);
       } finally{
-        setProductsloading(true)
+        setProductsloading(false)
 
       }
     };
