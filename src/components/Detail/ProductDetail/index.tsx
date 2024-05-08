@@ -138,6 +138,8 @@ const ProductDetail = ({ parsedProduct }: any) => {
                 ? `bg-blue-100 text-black`
                 : `bg-${button.colorName}-500 text-black border border-${button.colorName}-600`
             }`}
+
+            style={{backgroundColor: selectedValue === button.colorName ? "#c8d9ed" : button.colorName}}
         >
           
             {button.colorName.charAt(0).toUpperCase() + button.colorName.slice(1)}
