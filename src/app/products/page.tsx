@@ -32,6 +32,8 @@ const [loading , setLoading] = useState<boolean>(false)
 const searchParams = useSearchParams()
 const search = searchParams.get('Category')
 const parsedCategory = search ? JSON.parse(search) : null;
+const id = parsedCategory && parsedCategory._id ? parsedCategory._id : null
+
 
 useEffect(() => {
   const fetchData = async () => {
@@ -53,7 +55,7 @@ useEffect(() => {
   };
 
   fetchData();
-}, [parsedCategory._id]);
+}, [id]);
 
 const findHighestPrice = (products) => {
   let maxPrice = 0;
