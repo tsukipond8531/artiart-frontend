@@ -3,12 +3,15 @@ import Link from 'next/link';
 import { HeadingH5 } from '../Heading';
 
 interface DropDownProps {
-  array: Array<{
+  array:
+  
+  Array<{
     Category: string;
     items: Array<{
-      title: string;
-      subtitle: string;
-      href: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      _id:string
     }>;
   }>;
   text: string;
@@ -67,10 +70,18 @@ const DropDown: React.FC<DropDownProps> = ({
             >
               <HeadingH5 className="mb-3" title={arrayItem.Category} />
               {arrayItem.items.map((item, itemIndex) => (
-                <div  key={itemIndex}>
-                  <Link href={item.href} key={itemIndex} >
+                <div  key={item._id}>
+                  <Link
+                  
+                  href={{
+                    pathname: "/products",
+                    query: { Category: JSON.stringify(item) }
+                  }}
+                  
+                  
+                  key={itemIndex} >
                     <div className=" gap-3 md:gap-5 items-center rounded-md hover:bg-gray-300  px-2 py-2">
-                      {item.title}
+                      {item.name}
                    
                     </div>
                   </Link>

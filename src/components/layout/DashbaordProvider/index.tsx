@@ -89,7 +89,7 @@ const DashboardProvider = ({ children }: any) => {
 try{
   setLoading(true)
   const response = await fetch(
-    "https://artiart-server-phi.vercel.app/api/getAllcategories"
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllcategories`
   );
   const Categories = await response.json();
   setCategory(Categories);

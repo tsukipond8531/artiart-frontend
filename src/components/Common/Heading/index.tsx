@@ -9,6 +9,7 @@ interface HeadingProps {
 }
 
 export const HeadingH1: React.FC<HeadingProps> = ({ icon, title, title1, className, spanclass }) => {
+
   return (
     
       <span className={`xl:text-xl-h1 lg:text-lg-h1 text-md-h1 poppins-thin gap-3 ${className}`}>

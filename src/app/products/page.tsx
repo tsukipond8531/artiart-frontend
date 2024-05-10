@@ -15,6 +15,8 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductCard from "components/Common/ProductCard";
+import { useSearchParams } from 'next/navigation'
+
 
 
 export default function Products() {
@@ -26,21 +28,32 @@ const [minPrice, setMinPrice] = useState("");
 const [maxPrice, setMaxPrice] = useState("");
 const [highestPrice, setHighestPrice] = useState(0);
 const [selectedProductCount, setSelectedProductCount] = useState(3);  
+const [loading , setLoading] = useState<boolean>(false)
+const searchParams = useSearchParams()
+const search = searchParams.get('Category')
+const parsedCategory = search ? JSON.parse(search) : null;
 
 useEffect(() => {
   const fetchData = async () => {
     try {
+      setLoading(true)
       const response = await axios.get('https://artiart-server-phi.vercel.app/api/getAllproducts');
       const products = response.data.products;
-      setProducts(products);
-      setHighestPrice(findHighestPrice(products));
+      if ((parsedCategory && parsedCategory._id) && (products && products.length > 0)) {
+        let filteredArray = products.filter((item) => item.category === parsedCategory._id);
+        setProducts(filteredArray);
+        setHighestPrice(findHighestPrice(products));
+      }
     } catch (error) {
       console.log('Error fetching data:', error);
+    }
+    finally{
+      setLoading(false)
     }
   };
 
   fetchData();
-}, []);
+}, [parsedCategory._id]);
 
 const findHighestPrice = (products) => {
   let maxPrice = 0;
@@ -72,6 +85,8 @@ const handleSelectProductCount = (e) => {
   setSelectedProductCount(parseInt(e.target.value));
 };
 const totalProducts = products.length;
+
+console.log(products, "products")
 
 
   return (
@@ -210,7 +225,7 @@ const totalProducts = products.length;
   </div>
 </div>
 
-<ProductCard productItems={filteredProducts}/>
+<ProductCard productItems={filteredProducts} productsLoading={loading}/>
       </Container>
       <Footer/>
     </>

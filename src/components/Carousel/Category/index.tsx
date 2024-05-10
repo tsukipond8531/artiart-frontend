@@ -7,18 +7,24 @@ import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 import Link from 'next/link';
 import { Para12, Para14 } from 'components/Common/Paragraph';
+import Loader from "components/Loader/Loader";
+
 
 interface Category {
-  id: number;
+  _id: number;
   name: string;
-  image: string;
+  posterImageUrl: any;
+  createdAt:any
+  updatedAt:any
+
 }
 
 interface CategorySliderProps {
-  categories: Category[];
+  categories: Category[] | undefined;
+  loading:boolean
 }
 
-const CategorySlider: React.FC<CategorySliderProps> = ({ categories }) => {
+const CategorySlider: React.FC<CategorySliderProps> = ({ categories,loading }) => {
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
     breakpoints: {
       '(min-width: 320px)': {
@@ -34,15 +40,23 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ categories }) => {
   return (
     <Container className='mt-10 md:mt-32'>
       <div ref={sliderRef} className="keen-slider">
-        {categories.map((category) => (
-          <Link href={"/products"} className="keen-slider__slide" key={category.id}>
+
+        {
+        loading ? <div className='flex justify-center items-center'><Loader/></div> 
+        : 
+
+        categories && categories.map((category) => (
+          <Link  href={{
+            pathname: "/products",
+            query: { Category: JSON.stringify(category) }
+          }} className="keen-slider__slide" key={category._id}>
             <div className="space-y-2 flex flex-col items-center">
               <div className="border object-contain w-20 h-20 md:w-44 md:h-44 rounded-full">
                 <Image
                   className="rounded-full bg-contain w-20 h-20 md:w-44 md:h-44"
                   width={150}
                   height={150}
-                  src={category.image}
+                  src={category.posterImageUrl.imageUrl}
                   alt={category.name}
                 />
               </div>
