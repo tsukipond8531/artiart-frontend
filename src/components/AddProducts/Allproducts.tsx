@@ -1,14 +1,15 @@
 import React from "react";
-import { Table, Button } from "antd";
+import { Table} from "antd";
 import Image from "next/image";
 import { RiDeleteBin6Line } from "react-icons/ri";  
 import axios from "axios";
 import Loader from "components/Loader/Loader";
-import Link from 'next/link';
 import { useRouter } from "next/navigation";
 import { FaRegEye } from "react-icons/fa6";
+import { LiaEdit } from "react-icons/lia";
 
-function Category({ Categories, setCategory, setselecteMenu, loading,canAddProduct,canDeleteProduct }: any) {
+
+function Category({ Categories, setCategory, setselecteMenu, loading,canAddProduct,canDeleteProduct,setEditProduct }: any) {
   const router = useRouter()
   
   const handleDelete = async (key: any) => {
@@ -22,51 +23,6 @@ function Category({ Categories, setCategory, setselecteMenu, loading,canAddProdu
       console.log("Deleting record with key:", err);
     }
   };
-
-
-  console.log(Categories)
-  // const columns = [
-  //   {
-  //     title: "Image",
-  //     dataIndex: "posterImageUrl",
-  //     key: "posterImageUrl",
-  //     render: (text: any, record: any) => (
-  //       <Image
-  //         src={record.posterImageUrl?.imageUrl}
-  //         alt={`Image of ${record.name}`}
-  //         width={50}
-  //         height={50}
-  //       />
-  //     ),
-  //   },
-  //   {
-  //     title: "Name",
-  //     dataIndex: "name",
-  //     key: "name",
-  //   },
-  //   {
-  //     title: "Created At",
-  //     dataIndex: "createdAt",
-  //     key: "createdAt",
-  //     render: (text: any, record: any) => (
-  //    console.log(record.name, "record name")
-  //     ),
-  //   },
-  //   {
-  //     title: "Action",
-  //     key: "action",
-  //     render: (text: any, record: any) => (
-  //       <RiDeleteBin6Line
-  //         className={`cursor-pointer${canDeleteProduct && 'text-red-500'} ${
-  //           !canDeleteProduct && 'cursor-not-allowed text-gray-400'
-  //         }`}
-  //         size={20}
-  //         onClick={() => {if(canDeleteProduct){handleDelete(record._id)}}}
-  //       />
-  //     ),
-  //   },
-  // ];
-
 
 
   const columns = [
@@ -133,6 +89,20 @@ function Category({ Categories, setCategory, setselecteMenu, loading,canAddProdu
       },
     },
     {
+      title: "Edit",
+      key: "Edit",
+      render: (text:any, record:any) => (
+        <LiaEdit 
+          className={"cursor-pointer"}
+          size={20}
+          onClick={() => {
+            setEditProduct(record)
+            setselecteMenu("Add Products")
+          }}
+        />
+      ),
+    },
+    {
       title: "Action",
       key: "action",
       render: (text:any, record:any) => (
@@ -169,6 +139,7 @@ function Category({ Categories, setCategory, setselecteMenu, loading,canAddProdu
             onClick={() => {
               if(canAddProduct){
                 setselecteMenu("Add Products");
+                setEditProduct(undefined)
               }
 
             }}
@@ -178,7 +149,7 @@ function Category({ Categories, setCategory, setselecteMenu, loading,canAddProdu
         </div>
       </div>
       {Categories && Categories.length > 0 ? (
-        <Table dataSource={Categories} columns={columns} />
+        <Table dataSource={Categories} columns={columns} rowKey="_id" pagination={false}/>
       ) : (
         "No Products found"
       )}

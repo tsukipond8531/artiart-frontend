@@ -1,28 +1,35 @@
 "use client";
+import React, { useState, useEffect, DragEvent, SetStateAction,useLayoutEffect } from "react";
 import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
-import React, { useState, useEffect, DragEvent, SetStateAction } from "react";
 
 import Uploadfile from "components/AddProducts/Uploadfile";
 import Image from "next/image";
 import axios, { AxiosResponse, AxiosRequestConfig } from "axios";
-import { Product } from "types/interfaces";
+import { Product,ProductWithImages } from "types/interfaces";
 import { inputFields, validationSchema, initialValues } from "Data/data";
 import { RxCross2 } from "react-icons/rx";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import Loader from "components/Loader/Loader";
 import Toaster from "components/Toaster/Toaster";
 
+interface ADDPRODUCTFORMPROPS {
+  setselecteMenu : React.Dispatch<SetStateAction<any>>,
+  setEditProduct: React.Dispatch<SetStateAction<ProductWithImages | undefined>>
+  EditInitialValues?: any | undefined,
+  EditProductValue?:Product | undefined
+  
+}
+
+const AddProductForm = ({setselecteMenu, setEditProduct ,EditInitialValues, EditProductValue}:ADDPRODUCTFORMPROPS ) => {
 
 
-const AddProductForm = ({setselecteMenu}: any) => {
   const [category, setCategory] = useState<any[]>();
   const [imagesUrl, setImagesUrl] = useState<any[]>([]);
   const [selectedFile, setSelectedFiles] = useState<any[] | null>(null);
   const [posterimageUrl, setposterimageUrl] = useState<any[] | null>();
   const [hoverImage, sethoverImage] = useState<any[] | null | undefined>();
   const [loading, setloading] = useState<boolean>(false);
-
-  
+  const [productInitialValue,setProductInitialValue] = useState< any | null | undefined>(EditProductValue)
 
   const onSubmit = async (values: Product, { resetForm }: any) => {
     try {
@@ -32,8 +39,10 @@ const AddProductForm = ({setselecteMenu}: any) => {
       let hoverImageUrl = hoverImage && hoverImage[0];
 let createdAt = Date.now()
       console.log(posterImageUrl, "posterimageUrl");
-      if (!posterImageUrl || !hoverImageUrl || !(imagesUrl.length > 0))
+      if (!posterImageUrl || !hoverImageUrl || !(imagesUrl.length > 0)){
         throw new Error("Please select relevant Images");
+
+      }
       let newValue = {
         ...values,
         posterImageUrl,
@@ -41,15 +50,23 @@ let createdAt = Date.now()
         hoverImageUrl,
         createdAt
       };
-      console.log(newValue, "newValue");
 
-  const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/addProduct`,newValue
-      );
+      let updateFlag = EditProductValue && EditInitialValues ? true : false
+      let addProductUrl = updateFlag ? `/api/updateProduct/${EditInitialValues._id} ` : null ;
+      let url = `${process.env.NEXT_PUBLIC_BASE_URL}${updateFlag ? addProductUrl : "/api/addProduct"}`
+
+
+  const response = await axios.post(url,newValue);
       console.log(response, "response");
-      Toaster("success", "Product has been sucessufully Created !");
-
+      Toaster("success", updateFlag ?"Product has been sucessufully Updated !" :"Product has been sucessufully Created !");
+      setProductInitialValue(null)
+      if(updateFlag){
+        setEditProduct(undefined)
+        setselecteMenu("Add All Products")
+      }
       resetForm();
       setloading(false)
+
 
     } catch (err) {
       console.log(err, "err");
@@ -58,14 +75,37 @@ let createdAt = Date.now()
     }
   };
 
+  useLayoutEffect(() => {
+    const CategoryHandler = async () => {
+      try{
+if(!EditInitialValues) return 
+        const {posterImageUrl, hoverImageUrl, imageUrl,_id, createdAt,updatedAt,__v, ...EditInitialProductValues} =EditInitialValues as any
+        imageUrl ? setImagesUrl(imageUrl) : null;
+        sethoverImage([hoverImageUrl])
+        posterImageUrl ? setposterimageUrl([posterImageUrl]) : null;
+      }catch(err){
+        console.log(err, "err")
+      }
+    };
+  
+    CategoryHandler();
+  }, []);
 
+
+  console.log(EditProductValue, "EditProductValue")
+  
   useEffect(() => {
     const CategoryHandler = async () => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllcategories`
-      );
-      const Categories = await response.json();
-      setCategory(Categories);
+      try{
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllcategories`
+        );
+        const Categories = await response.json();
+        setCategory(Categories);
+
+      }catch(err){
+        console.log(err, "err")
+      }
     };
   
     CategoryHandler();
@@ -242,8 +282,6 @@ let createdAt = Date.now()
     }
   };
 
-  console.log(imagesUrl, "imagesUrl");
-
   return (
     <div className="max-w-md mx-auto mt-8">
       
@@ -290,7 +328,7 @@ let createdAt = Date.now()
       </div>
 
       <Formik
-        initialValues={initialValues}
+        initialValues={productInitialValue? productInitialValue : initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >

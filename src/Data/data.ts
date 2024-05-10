@@ -22,7 +22,6 @@ export const inputFields = [
     description: Yup.string().required('Required'),
     price: Yup.string().required('Required'),
     category: Yup.string().required('Required'),
-    discountPrice: Yup.string(),
   });
 
 
@@ -36,6 +35,8 @@ export const inputFields = [
     name: Yup.string().required('Required'),
 
   });
+
+  
 
  export const initialValues: Product = {
     name: '',

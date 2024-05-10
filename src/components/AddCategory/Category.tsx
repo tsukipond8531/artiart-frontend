@@ -4,11 +4,12 @@ import Image from "next/image";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import axios from "axios";
 import Loader from "components/Loader/Loader";
-import { FaRegEye } from "react-icons/fa6";
+import { LiaEdit } from "react-icons/lia";
 
 
 
-function Category({ Categories, setCategory, setselecteMenu, loading, canAddCategory,canDeleteCategory }: any) {
+
+function Category({ Categories, setCategory, setselecteMenu, loading, canAddCategory,canDeleteCategory ,seteditCategory}: any) {
   const handleDelete = async (key: any) => {
     try {
       let reponse = await axios.delete(
@@ -20,6 +21,8 @@ function Category({ Categories, setCategory, setselecteMenu, loading, canAddCate
       console.log("Deleting record with key:", err);
     }
   };
+
+
 
   const columns = [
     {
@@ -67,22 +70,21 @@ function Category({ Categories, setCategory, setselecteMenu, loading, canAddCate
         return <span>{formattedTime}</span>;
       },
     },
-    // {
-    //   title: "Preview",
-    //   key: "Preview",
-    //   render: (text: any, record: any) => {
-    //     const handleClick = () => {
-    //       console.log(record, "record")
-    //       const queryParams = new URLSearchParams({
-    //         product: JSON.stringify(record)
-    //       }).toString();
-    //       const url = `/detail/-${record._id}?${queryParams}`;
-    //       window.open(url, '_blank');
-    //     };
-    //     return <FaRegEye className="cursor-pointer" onClick={handleClick} />
+    {
+      title: "Edit",
+      key: "Edit",
+      render: (text:any, record:any) => (
+        <LiaEdit 
+          className={"cursor-pointer"}
+          size={20}
+          onClick={() => {
+            seteditCategory(record)
+            setselecteMenu("CategoryForm")
+          }}
+        />
+      ),
+    },
 
-    //   },
-    // },
     {
       title: "Action",
       key: "action",
@@ -101,9 +103,6 @@ function Category({ Categories, setCategory, setselecteMenu, loading, canAddCate
 
   return (
     <div>
-      {/* Categories */}
-
-
       {
         loading ?<div className="flex justify-center mt-10"><Loader/></div> : 
 
@@ -111,25 +110,18 @@ function Category({ Categories, setCategory, setselecteMenu, loading, canAddCate
       <div className="flex justify-between mb-4">
         <p>Categories</p>
         <div>
-          {/* <p
-            className="cursor-pointer hover:bg-[#ccc]-100 p-2 "
-            onClick={() => {
-              setselecteMenu("Categories");
-              console.log("function called");
-            }}
-          >
-            Add Category
-          </p> */}
+
 
           <p
 className={`${canAddCategory && 'cursor-pointer'} p-2 ${ canAddCategory &&'hover:bg-gray-200'} flex justify-center ${
     !canAddCategory && 'cursor-not-allowed text-gray-400'
   }`}
   onClick={() => {
+    seteditCategory(null  )
     if (canAddCategory) {
       setselecteMenu("Categories");
-      console.log("function called");
     }
+
   }}
 >
   Add Category
@@ -137,12 +129,12 @@ className={`${canAddCategory && 'cursor-pointer'} p-2 ${ canAddCategory &&'hover
         </div>
       </div>
       {Categories && Categories.length > 0 ? (
-        <Table dataSource={Categories} columns={columns}  pagination={false}/>
+        <Table dataSource={Categories} columns={columns}  pagination={false}  rowKey="_id"/>
       ) : (
         "No Categories found"
       )}
       
-      </>
+      </> 
       }
 
     </div>

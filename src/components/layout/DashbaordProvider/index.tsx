@@ -16,8 +16,7 @@ import {useAppSelector } from "components/Others/HelperRedux";
 import Toaster from "components/Toaster/Toaster";
 import { useRouter } from "next/navigation";
 import ProtectedRoute from "hooks/AuthHookAdmin";
-
-
+import {Product, ProductWithImages} from 'types/interfaces'
 
 
 const DashboardProvider = ({ children }: any) => {
@@ -33,24 +32,38 @@ const DashboardProvider = ({ children }: any) => {
   const [productloading, setProductloading] = useState<boolean>(false);
   const [isLogin, setIsLogin] = useState<boolean | null | undefined>(false);
   const router = useRouter()
+  const [editProduct, setEditProduct] = useState<ProductWithImages | undefined>()
+  const [editCategory, seteditCategory] = useState<any>()
+
+  
 
 
-
-   const { loggedInUser } = useAppSelector(state => state.usersSlice);
-
-
-  console.log(loggedInUser, "loggedInUser")
+   const { loggedInUser }:any = useAppSelector(state => state.usersSlice);
 
   const handleAddProductsClick = (menu: string) => {
     setselecteMenu(menu);
   };
+ 
+
+  console.log(editCategory, "editCategory")
+ const EditInitialValues: any = {
+    name: editProduct?.name,
+    description: editProduct?.description,
+    price: editProduct?.price,
+    colors: editProduct?.colors,
+    modelDetails: editProduct?.modelDetails,
+    spacification: editProduct?.spacification,
+    discountPrice: editProduct?.discountPrice,
+    category: editProduct && editProduct?.category
+  };
+
 
   const menuArray = [
     {
       key: "1",
       icon: <UserOutlined />,
       label: "Add Products",
-      onClick: () => handleAddProductsClick("Add Products"),
+      onClick: () => handleAddProductsClick("Add All Products"),
     },
     {
       key: "2",
@@ -69,7 +82,6 @@ const DashboardProvider = ({ children }: any) => {
     }
     setIsLogin(true)
   },[])
-
 
 
   useEffect(() => {
@@ -161,7 +173,7 @@ setProductloading(false)
        {isLogin ? <div className="flex justify-end mb-4"><p className=" w-fit underline cursor-pointer" onClick={()=>{tokenRemoveHandler()}}>log out</p></div> : null} 
 
           {selecteMenu == "Add Products" ? (
-            <AddProductForm setselecteMenu={setselecteMenu} />
+            <AddProductForm setselecteMenu={setselecteMenu} setEditProduct={setEditProduct} EditInitialValues={editProduct} EditProductValue={EditInitialValues.name !== undefined  || EditInitialValues.category !== undefined   ? EditInitialValues : undefined }/>
           ) : selecteMenu == "Add Category" ? (
             <Categories
               Categories={category}
@@ -170,6 +182,7 @@ setProductloading(false)
               loading={loading}
               canAddCategory={loggedInUser && loggedInUser.canAddCategory}
               canDeleteCategory={ loggedInUser && loggedInUser.canDeleteCategory}
+              seteditCategory={seteditCategory} 
 
 
             />
@@ -181,10 +194,11 @@ setProductloading(false)
               loading={productloading}
               canAddProduct={loggedInUser && loggedInUser.canAddProduct}
               canDeleteProduct={loggedInUser && loggedInUser.canDeleteProduct}
+              setEditProduct={setEditProduct}
 
             />
           ) : (
-            <CategoryForm setselecteMenu={setselecteMenu} />
+            <CategoryForm setselecteMenu={setselecteMenu} seteditCategory={seteditCategory} editCategory={editCategory} />
           )}
         </Content>
       </Layout>

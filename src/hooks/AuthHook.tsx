@@ -5,10 +5,12 @@ import { useRouter } from "next/navigation";
 import Loader from "components/Loader/Loader";
 
 
+
 function ProtectedRoute(WrappedComponent:any) {
   const Wrapper=(props: any) => {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
+
    
     useEffect(() => {
       let token = localStorage.getItem("2guysToken"); 

@@ -17,13 +17,18 @@ import Loader from "components/Loader/Loader";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import Toaster from "components/Toaster/Toaster";
 
+interface editCategoryNameType {
+name: string
+}
 
-
-const AddProductForm = ({setselecteMenu}: any) => {
+const AddProductForm = ({setselecteMenu,seteditCategory, editCategory}: any) => {
   const [category, setCategory] = useState<any[]>();
+  let CategoryName = editCategory && editCategory.name ? {name: editCategory.name} : null
+  let CategorImageUrl = editCategory && editCategory.posterImageUrl  ?  editCategory.posterImageUrl : null
 
-  const [posterimageUrl, setposterimageUrl] = useState<any[] | null>();
+  const [posterimageUrl, setposterimageUrl] = useState<any[] | null>(CategorImageUrl ? [CategorImageUrl]: null);
   const [loading, setloading] = useState<boolean>(false);
+  const[editCategoryName, setEditCategoryName] = useState<editCategoryNameType | null | undefined>(CategoryName)
 
 
   const onSubmit = async (values: Category, { resetForm }:any) => {
@@ -32,16 +37,20 @@ const AddProductForm = ({setselecteMenu}: any) => {
   
       console.log("function triggered");
       let posterImageUrl = posterimageUrl && posterimageUrl[0];
-  
-      console.log(posterImageUrl, "posterimageUrl");
+;
       if (!posterImageUrl) throw new Error("Please select relevant Images");
       let newValue = { ...values, posterImageUrl };
-      console.log(newValue, "newValue");
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/AddCategory`, newValue);
+
+      let updateFlag = editCategoryName  ? true : false
+      let addProductUrl = updateFlag ? `/api/updateCategory/${editCategory._id} ` : null ;
+      let url = `${process.env.NEXT_PUBLIC_BASE_URL}${updateFlag ? addProductUrl : "/api/AddCategory"}`
+
+      const response = await axios.post(url, newValue);
       console.log(response, "response");
       setloading(false);
-  
-      Toaster("success", "Category has been sucessufully Created !");
+      Toaster("success", updateFlag ? "Category has been sucessufully updated !" :"Category has been sucessufully Created !");
+      updateFlag ?  setselecteMenu("Add Category") : null
+      updateFlag ?  seteditCategory(null) : null
 
       resetForm();
     } catch (err) {
@@ -95,8 +104,6 @@ const AddProductForm = ({setselecteMenu}: any) => {
       throw error;
     }
   };
-
-  console.log(process.env.NEXT_PUBLIC_BASE_URL, "baseUrl");
 
   const singlehandleDrop = async (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -199,7 +206,7 @@ const AddProductForm = ({setselecteMenu}: any) => {
       </div>
 
       <Formik
-        initialValues={categoryInitialValues}
+        initialValues={editCategoryName ? editCategoryName:  categoryInitialValues}
         validationSchema={categoryValidationSchema}
         onSubmit={onSubmit}
       >

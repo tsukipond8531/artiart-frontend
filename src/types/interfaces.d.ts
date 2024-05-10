@@ -13,7 +13,7 @@ export interface Product {
   price: string;
   category: string;
   colors: { colorName: string }[];
-  modelDetails: { name: string; detail: string }[]; // Array of objects with name and email properties
+  modelDetails: { name: string; detail: string }[]; 
   spacification: { specsDetails: string }[];
   discountPrice: string;
   category: string
@@ -23,3 +23,18 @@ export interface Category {
   name: string;
 
 }
+
+
+interface CloudinaryImage {
+  public_id: string | undefined;
+  imageUrl: string | undefined; 
+  _id: string | undefined;
+}
+interface Images {
+  posterImageUrl: string | undefined,
+  hoverImageUrl:string | undefined, 
+  imageUrl:CloudinaryImage []
+
+}
+
+interface ProductWithImages extends Product, Images {}
