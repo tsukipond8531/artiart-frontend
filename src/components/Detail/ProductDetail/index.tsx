@@ -112,31 +112,18 @@ const ProductDetail = ({ parsedProduct }: any) => {
               calculated at checkout.
             </p>
             <Para14 title={"Color"} />
-            <div className="flex gap-2 mb-4">
+            <div className="flex gap-2 mb-4 flex-wrap w-full">
               {parsedProduct.colors && parsedProduct.colors.map((button:any, index:any) => (
-            //     <Radio
-            //     key={index}
-            //     value={button.colorName}
-            //     checked={selectedValue === button.value}
-            //     onChange={handleChange}
-            //     className={`${
-            //         selectedValue === button.colorName
-            //         ? "bg-blue-600 text-white"
-            //         : `bg-${button.colorName} text-blue-600 border border-blue-600`
-            //     } py-2 px-4 rounded-lg focus:outline-none hover:bg-blue-100 cursor-pointer`}
-            // >
-            //     {button.colorName}
-            // </Radio>
-
+    
             <Radio
             key={index}
             value={button.colorName}
             checked={selectedValue === button.colorName} // Compare with button.colorName instead of button.value
             onChange={handleChange}
-            className={`py-2 px-4 rounded-lg focus:outline-none hover:bg-blue-100 cursor-pointer ${
-                selectedValue === button.colorName // Compare with button.colorName
-                ? `bg-blue-100 text-black`
-                : `bg-${button.colorName}-500 text-black border border-${button.colorName}-600`
+            className={`py-2 px-4 rounded-lg focus:outline-none whitespace-nowrap hover:bg-blue-100 cursor-pointer ${
+                selectedValue === button.colorName 
+                ? `bg-blue-100 ${"text-black"}`
+                : `bg-${button.colorName}-500  ${button.colorName.toLowerCase() =="black" || button.colorName.toLowerCase() =="#000" ? "text-white" :  "text-black"} border border-${button.colorName}-600`
             }`}
 
             style={{backgroundColor: selectedValue === button.colorName ? "#c8d9ed" : button.colorName}}
