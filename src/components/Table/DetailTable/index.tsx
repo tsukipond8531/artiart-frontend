@@ -17,10 +17,10 @@ const DetailTable: React.FC<DetailTableProps> = ({ keypoint }) => {
       <tbody className="divide-y divide-gray-200">
         {keypoint.map((array, index) => (
           <tr className="hover:bg-gray-100" key={index}>
-            <td className="px-6 py-4 whitespace-nowrap text-sm font-normal text-black">
+            <td className="px-6 py-4 whitespace-wrap text-sm font-normal text-black">
               {array.name}
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
+            <td className="px-6 py-4 whitespace-wrap text-sm text-black">
               {array.detail}
             </td>
           </tr>
