@@ -63,13 +63,13 @@ const DropDown: React.FC<DropDownProps> = ({
         <div
           className={`fixed ${alignment} z-20 rounded-md shadow bg-white`}
         >
-          {array.map((arrayItem, index) => (
+          {array && array.map((arrayItem, index) => (
             <div key={index} 
             // ref={dropdownRef}
             onClick={onLinkClick}
             >
               <HeadingH5 className="mb-3" title={arrayItem.Category} />
-              {arrayItem.items.map((item, itemIndex) => (
+              {arrayItem.items && arrayItem.items.map((item, itemIndex) => (
                 <div  key={item._id}>
                   <Link
                   

@@ -42,7 +42,7 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ categories,loading }) =
       <div ref={sliderRef} className="keen-slider">
 
         {
-        loading ? <div className='flex justify-center items-center'><Loader/></div> 
+        loading ? <div className='flex justify-center items-center w-full'><Loader/></div> 
         : 
 
         categories && categories.map((category) => (
