@@ -37,6 +37,8 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ categories,loading }) =
     slides: { perView: 1 },
   });
 
+  
+
   return (
     <Container className='mt-10 md:mt-32'>
       <div ref={sliderRef} className="keen-slider">
