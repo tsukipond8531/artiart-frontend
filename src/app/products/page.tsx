@@ -1,6 +1,6 @@
 //@ts-nocheck
 "use client"
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect} from 'react';
 
 import Container from "components/Common/Container";
 
@@ -229,10 +229,8 @@ const totalProducts = products.length;
     </div>
   </div>
 </div>
-<Suspense fallback={<div>Loading...</div>}>
 
           <ProductCard productItems={filteredProducts} productsLoading={loading} />
-        </Suspense>
       </Container>
       <Footer/>
     </>
