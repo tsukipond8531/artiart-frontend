@@ -5,6 +5,8 @@ import { ToastContainer } from 'react-toastify';
 import "./globals.css";
 import 'react-toastify/dist/ReactToastify.css';
 import { Providers } from '../Providers'
+import React, { Suspense } from 'react';
+
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -24,8 +26,11 @@ export default function RootLayout({
 
     <html lang="en">
       <body className={inter.className}>
+    <Suspense>
+
         {children}
         <ToastContainer />
+        </Suspense>
 
         </body>
     </html>

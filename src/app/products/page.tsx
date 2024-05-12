@@ -1,5 +1,7 @@
 //@ts-nocheck
 "use client"
+import React, { useState, useEffect, Suspense } from 'react';
+
 import Container from "components/Common/Container";
 
 import Footer from "components/layout/Footer";
@@ -12,17 +14,15 @@ import Input from "components/Common/Input";
 import Drawerfilter from "components/Common/Drawer";
 import { IoFilter } from "react-icons/io5";
 import { FaArrowRightLong } from "react-icons/fa6";
-import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductCard from "components/Common/ProductCard";
 import { useSearchParams } from 'next/navigation'
 
 
 
-export default function Products() {
-  const onChange: CheckboxProps['onChange'] = (e) => {
-  console.log(`checked = ${e.target.checked}`);
-};
+export default function Products({ params }: { params: any }) {
+
+
 const [products, setProducts] = useState([]);
 const [minPrice, setMinPrice] = useState("");
 const [maxPrice, setMaxPrice] = useState("");
@@ -55,7 +55,9 @@ useEffect(() => {
   };
 
   fetchData();
-}, [id]);
+}, []);
+
+console.log(params, "params")
 
 const findHighestPrice = (products) => {
   let maxPrice = 0;
@@ -65,6 +67,10 @@ const findHighestPrice = (products) => {
     }
   });
   return maxPrice;
+};
+
+const onChange: CheckboxProps['onChange'] = (e) => {
+  console.log(`checked = ${e.target.checked}`);
 };
 
 const handleResetPrice = () => {
@@ -88,16 +94,13 @@ const handleSelectProductCount = (e) => {
 };
 const totalProducts = products.length;
 
-console.log(products, "products")
-
-
   return (
     <>
+
     <Navbar/>
       <Container>
 
           <h3 className="text-xl font-bold mt-10 mb-20">Artiart</h3>
-          {/* filter container */}
           <div>
   <div className="hidden md:block">
     <div className="flex justify-between flex-wrap mb-10">
@@ -226,8 +229,10 @@ console.log(products, "products")
     </div>
   </div>
 </div>
+<Suspense fallback={<div>Loading...</div>}>
 
-<ProductCard productItems={filteredProducts} productsLoading={loading}/>
+          <ProductCard productItems={filteredProducts} productsLoading={loading} />
+        </Suspense>
       </Container>
       <Footer/>
     </>
