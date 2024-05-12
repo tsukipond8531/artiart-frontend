@@ -55,7 +55,7 @@ useEffect(() => {
   };
 
   fetchData();
-}, []);
+}, [id]);
 
 console.log(params, "params")
 
