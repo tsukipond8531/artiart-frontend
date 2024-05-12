@@ -71,8 +71,14 @@ const Footer = () => {
       <div className="block text-center xl:text-left xl:py-16 col-span-full min-[500px]:col-span-6 md:col-span-4 xl:col-span-3 xl:pl-5">
         <h4 className="text-lg text-gray-900 font-bold mb-9">Get In Touch</h4>
         <ul className="text-gray-900 transition-all duration-500 grid gap-6">
-          <li>support@Artiart.com</li>
-          <li>+91 945 658 3256</li>
+          <li className='cursor-pointer' onClick={()=>{  
+
+               const subject = "Contact Us";
+            const url = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent("support@artiart.ae")}&su=${encodeURIComponent(subject)}`;
+            const ISSERVER = typeof window === "undefined"
+  
+            !ISSERVER ?     window.open(url, "_blank") : null}}>support@artiart.ae</li>
+          <li >+91 945 658 3256</li>
           <li>61-A, Elm street,Dubai.</li>
         </ul>
       </div>
