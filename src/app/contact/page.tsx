@@ -54,6 +54,14 @@ const Contact = () => {
     });
   };
   
+  const handleClick =()=>{
+
+    const subject = "Contact Us";
+    const url = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent("cs@artiart.ae")}&su=${encodeURIComponent(subject)}`;
+    const ISSERVER = typeof window === "undefined"
+
+    !ISSERVER ?     window.open(url, "_blank") : null
+  }
   return (
     <>
       <Navbar />
@@ -64,7 +72,7 @@ const Contact = () => {
             <div className="flex items-center gap-4 mt-5 ">
               <HeadingH6
                 className="poppins-semibold"
-                title={"Call Customer Services :"}
+                title={"Call Support :"}
               />
               <Para16
                 className="font-bold poppins-thin"
@@ -76,12 +84,14 @@ const Contact = () => {
                 <HeadingH6 className="poppins-semibold" title={"Address :"} />
                 <Para14
                   className="poppins-thin"
-                  title={"23 22nd St - Al Quoz Industrial Area 4 - Dubai"}
+                  title={"61-A, Elm street,Dubai."}
                 />
               </div>
               <div className="flex items-center gap-5 mt-2">
                 <HeadingH6 className="poppins-semibold" title={"Email :"} />
-                <Para14 className="poppins-thin" title={"cs@avenue39.com"} />
+                <p className={`text-14 gap-2 poppins-thin cursor-pointer`} onClick={handleClick}>
+                cs@artiart.ae
+      </p>
               </div>
             </div>
             <div className="mt-7">

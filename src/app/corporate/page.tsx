@@ -1,3 +1,6 @@
+"use client"
+
+
 import Container from 'components/Common/Container'
 import { HeadingH2 } from 'components/Common/Heading'
 import { Para14 } from 'components/Common/Paragraph'

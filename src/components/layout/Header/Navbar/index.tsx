@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useRef} from "react";
 import { IoIosArrowUp } from "react-icons/io";
 import { TbMenu2 } from "react-icons/tb";
 import { IoSearchSharp } from "react-icons/io5";
@@ -20,8 +20,10 @@ import { Para14 } from "components/Common/Paragraph";
 
 const Navbar: React.FC = () => {
   const [scrollingUp, setScrollingUp] = useState(true);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isOpenFlag, setisOpenFlag] = useState();
+  const inputRef = useRef<any>(null);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -44,8 +46,6 @@ const Navbar: React.FC = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-
   // Define the styles for default and scrolled states
   const defaultStyle = "bg-white/100"; // Full opacity or no blur in dark mode
   const scrolledStyle = "bg-white/30 backdrop-blur-md"; // Reduced opacity and blur in dark mode
@@ -56,6 +56,21 @@ const Navbar: React.FC = () => {
       return [...p];
     });
   };
+
+  useEffect(() => {
+    const focusHandler =()=>{
+      if( inputRef.current && open){
+        console.log('working',  inputRef.current.focus)
+      inputRef.current.focus() 
+    }
+    else{
+      console.log('working', open)
+
+      inputRef.current && inputRef.current.blur()
+    }
+    }
+    focusHandler()
+  }, [open]);
 
 
   return (
@@ -76,7 +91,7 @@ const Navbar: React.FC = () => {
           <div className="flex gap-2 ml-auto items-center justify-center">
 
             <div className="flex items-center  gap-2 md:gap-5">
-              <Button className="bg-transparent text-black group"  onClick={() => setOpen(true)} title={<IoSearchSharp className="text-black" size={25} /> }/>
+              <Button className="bg-transparent text-black group"  onClick={() => {setOpen(true)}} title={<IoSearchSharp className="text-black" size={25} /> }/>
               <Modal
                 open={open}
                 onOk={() => setOpen(false)}
@@ -84,7 +99,7 @@ const Navbar: React.FC = () => {
                 footer={[]}
                 width={1000}
               >
-                <SearchData />
+                <SearchData inputRef={inputRef} />
               </Modal>
            <Link href={"/account"}><FaRegUser size={20} /></Link>
            <Link href={"/cart"}><AiOutlineShoppingCart size={20} /></Link>

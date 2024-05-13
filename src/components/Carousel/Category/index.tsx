@@ -49,7 +49,7 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ categories,loading }) =
 
         categories && categories.map((category) => (
           <Link  href={{
-            pathname: "/products",
+            pathname: `/products/${category._id}`,
             query: { Category: JSON.stringify(category) }
           }} className="keen-slider__slide" key={category._id}>
             <div className="space-y-2 flex flex-col items-center">

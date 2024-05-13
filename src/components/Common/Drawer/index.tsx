@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from 'react';
 import { Drawer } from 'antd';
 import { IoClose, IoFilter } from 'react-icons/io5';

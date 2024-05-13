@@ -1,3 +1,5 @@
+"use client"
+
 import { HeadingH3 } from 'components/Common/Heading'
 import { Para14 } from 'components/Common/Paragraph'
 import Link from 'next/link'

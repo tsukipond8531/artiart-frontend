@@ -91,7 +91,7 @@ const CartTable: React.FC = () => {
                                                 <Image className='rounded-md' src={array.imageUrl[0].imageUrl} width={150} height={150} alt='cart image'/>
                                                 <div className='space-y-2'>
                                                     <Para14 className='hover:underline transition duration-200' title={array.name}/> 
-                                                    <Para14 icon={"Dhs. "} title={array.price}/>
+                                                    <Para14 icon={"د.إ " } title={array.price}/>
                                                     <Para14 icon={"Color: "} title={array.color}/>
                                                 </div>
                                             </div>
@@ -106,7 +106,9 @@ const CartTable: React.FC = () => {
                                                 <MdDeleteOutline onClick={() => removeItemFromCart(index)} className='cursor-pointer' size={20} />
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4  text-sm"><Para14 icon={"Dhs. "} title={array.totalPrice}/></td>
+                                        <td className="px-6 py-4  text-sm"><Para14 icon={"د.إ "} title={array.totalPrice}/> 
+                                        
+                                        </td>
                                     </tr>
                                 ))}
                                 </tbody>
@@ -118,7 +120,7 @@ const CartTable: React.FC = () => {
                 <div className='text-end  border-t-2 mt-10 pt-5 space-y-2'>
                      <div className='flex gap-5 justify-end items-center'>
                         <Para16 className='poppins-thin' title={"Subtotal"}/>
-                        <Para16 className='font-normal' icon="Dhs. " title={subtotal} endicon=" AED"/>
+                        <Para16 className='font-normal'  title={subtotal} endicon=" د.إ"/>
                     </div>
                     <p className='text-[12px]'>Tax included. <Link className='underline' href={"/policy"}>Shipping</Link> calculated at checkout.</p>
                     <Link href={"/checkout"}>

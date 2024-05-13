@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react'
 
 import { FaLongArrowAltRight } from 'react-icons/fa'
@@ -21,9 +23,9 @@ const Footer = () => {
   <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     {/*Grid*/}
     <div className="py-14 grid grid-cols-12 gap-x-5 gap-y-8">
-      <div className="col-span-full xl:col-span-3 relative bg-black rounded-2xl gap-12 p-6 xl:w-72 h-96 flex flex-col justify-center items-center">
+      <div className="col-span-full xl:col-span-3 relative bg-[#d9d9d9] rounded-2xl gap-12 p-6 xl:w-72 h-96 flex flex-col justify-center items-center">
         <Logo className='flex justify-center lg:justify-start'/>
-        <p className="text-center text-gray-200">Trusted in more than 100 countries &amp; 5 million customers.
+        <p className="text-center text-gray-900 ">Trusted in more than 100 countries &amp; 5 million customers.
           Have any query? contact us we are here for you.</p>
         <div className="flex  space-x-4 sm:justify-center  ">
           <Link href="/" className="w-9 h-9 rounded-full bg-white flex justify-center items-center hover:shadow-md">
@@ -74,10 +76,11 @@ const Footer = () => {
           <li className='cursor-pointer' onClick={()=>{  
 
                const subject = "Contact Us";
-            const url = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent("support@artiart.ae")}&su=${encodeURIComponent(subject)}`;
+            const url = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent("cs@artiart.ae")}&su=${encodeURIComponent(subject)}`;
             const ISSERVER = typeof window === "undefined"
   
-            !ISSERVER ?     window.open(url, "_blank") : null}}>support@artiart.ae</li>
+            !ISSERVER ?     window.open(url, "_blank") : null}}
+            > cs@artiart.ae</li>
           <li >+91 945 658 3256</li>
           <li>61-A, Elm street,Dubai.</li>
         </ul>

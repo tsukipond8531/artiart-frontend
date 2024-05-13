@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { HeadingH5 } from '../Heading';
@@ -74,7 +76,7 @@ const DropDown: React.FC<DropDownProps> = ({
                   <Link
                   
                   href={{
-                    pathname: "/products",
+                    pathname: `/products/${item._id}`,
                     query: { Category: JSON.stringify(item) }
                   }}
                   

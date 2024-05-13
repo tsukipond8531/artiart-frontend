@@ -1,17 +1,20 @@
 //@ts-nocheck
+'use Client'
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, } from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { HeadingH4 } from "../Heading";
 import { Para12, Para14, Para16 } from '../../Common/Paragraph';
 import tra1 from "../../../../public/assets/images/tra1.jpg"
 import axios from "axios";
+interface PROPS {
+  inputRef: any
+}
 
-const SearchData = () => {
+const SearchData = ({inputRef}) => {
   const [searchTerm, setSearchTerm] = useState(""); // State to hold the search term
   const [products, setProducts] = useState([]);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -41,6 +44,8 @@ const SearchData = () => {
       .replace(/[^a-z0-9-]/g, ''); // Remove non-alphanumeric characters except hyphens
   };
 
+
+
   return (
     <>
       <form className="relative border-none mt-6 mb-5 focus:border-primary-orange-200 ring-primary-orange-200">
@@ -68,6 +73,9 @@ const SearchData = () => {
           placeholder="Search"
           value={searchTerm} // Bind input value to searchTerm state
           onChange={(e) => setSearchTerm(e.target.value)} // Update searchTerm state on input change
+          ref={inputRef}
+          autofocus="true"
+
         />
         <button
           type="submit"

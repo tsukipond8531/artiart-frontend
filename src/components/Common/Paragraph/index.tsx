@@ -1,10 +1,13 @@
+"use client"
+
 import React from 'react';
 
 type ParaProps = {
   title: any;
   icon?:any; // icon is optional, can be any react element or component
   endicon?:any;
-  className?: string; // className is optional
+  className?: string;
+
 };
 
 export const Para16: React.FC<ParaProps> = ({ title, icon, className,endicon }) => {
@@ -17,7 +20,7 @@ export const Para16: React.FC<ParaProps> = ({ title, icon, className,endicon }) 
   );
 };
 
-export const Para14: React.FC<ParaProps> = ({ title, icon, className,endicon }) => {
+export const Para14: React.FC<ParaProps> = ({ title, icon, className,endicon,}) => {
   return (
    
       <p className={`text-14 gap-2  ${className}`}>
