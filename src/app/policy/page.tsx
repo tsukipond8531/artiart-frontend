@@ -21,8 +21,6 @@ const Policy = () => {
             <Para14 title={"In certain cases of special and/or customised handmade products that are delivered from outside the UAE, we take at least 7-14 days business to deliver. "}/>
             <Para14 title={"For deliveries to other countries, please contact us at luxury@aricomm.me for shipment period and charges."}/>
             <Para14 title={"Information regarding the Airway Bill number will be communicated to the buyer via email or text message after the products are dispatched."}/>
-
-
        </div>
         </Container> 
 <Footer/>

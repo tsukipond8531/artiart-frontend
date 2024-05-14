@@ -1,10 +1,8 @@
 "use client";
 import React, { useEffect, useState ,useRef} from "react";
-import { IoIosArrowUp } from "react-icons/io";
 import { TbMenu2 } from "react-icons/tb";
 import { IoSearchSharp } from "react-icons/io5";
 import { Checkbox, Modal } from "antd";
-
 import Link from "next/link";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaArrowRightLong, FaRegUser } from "react-icons/fa6";
@@ -15,7 +13,8 @@ import Navlink from "components/Common/NavLink/Navlink";
 import Button from "components/Common/Button";
 import SearchData from "components/Common/SearchData";
 import Drawerfilter from "components/Common/Drawer";
-import { Para14 } from "components/Common/Paragraph";
+import Image from "next/image";
+import whatsapp from "../../../../../public/assets/images/whatsapp.png"
 
 
 const Navbar: React.FC = () => {
@@ -145,6 +144,9 @@ const Navbar: React.FC = () => {
         </div>
         </Container> 
       </nav>
+      <Link href={"https://api.whatsapp.com/send/?phone=971588200549&text&type=phone_number&app_absent=0"} className=" fixed bottom-10 right-10 z-50">
+        <Image className="bg-white p-1 shadow-md rounded-full" width={60} height={60} src={whatsapp} alt="whatsapp"/>
+      </Link>
     </>
   );
 };
