@@ -27,8 +27,8 @@ const [products, setProducts] = useState([]);
 const [minPrice, setMinPrice] = useState("");
 const [maxPrice, setMaxPrice] = useState("");
 const [highestPrice, setHighestPrice] = useState(0);
-const [selectedProductCount, setSelectedProductCount] = useState(3);  
 const [loading , setLoading] = useState<boolean>(false)
+const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 const searchParams = useSearchParams()
 const search = searchParams.get('Category')
 const parsedCategory = search ? JSON.parse(search) : null;
@@ -77,6 +77,16 @@ const handleResetPrice = () => {
   setMaxPrice('');
 };
 
+const handleSortChange = (e) => {
+  setSortOrder(e.target.value);
+};
+const sortedProducts = products.sort((a, b) => {
+  if (sortOrder === 'asc') {
+    return a.price - b.price;
+  } else {
+    return b.price - a.price;
+  }
+});
 const filteredProducts = products.filter(product => {
   if (minPrice && maxPrice) {
     return product.price >= parseFloat(minPrice) && product.price <= parseFloat(maxPrice);
@@ -86,11 +96,8 @@ const filteredProducts = products.filter(product => {
     return product.price <= parseFloat(maxPrice);
   }
   return true;
-}).slice(0, selectedProductCount);
+}).slice(0);
 
-const handleSelectProductCount = (e) => {
-  setSelectedProductCount(parseInt(e.target.value));
-};
 const totalProducts = products.length;
 
   return (
@@ -156,11 +163,14 @@ const totalProducts = products.length;
       </div>
       <div className="flex justify-between gap-10">
         <p>Sort by:</p>
-        <select value={selectedProductCount} onChange={handleSelectProductCount} className="md:w-28 block w-full border-gray-200 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none">
-                {[1, 2, 3, 4, 5].map((num) => (
-                  <option key={num} value={num}>{num}</option>
-                ))}
-              </select>
+        <select
+                  className="md:w-28 block w-full border-gray-200 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none"
+                  value={sortOrder}
+                  onChange={handleSortChange}
+                >
+                  <option value="desc">High to low</option>
+                  <option value="asc">Low to high</option>
+                </select>
         <div className="">{totalProducts} products</div>
       </div>
     </div>
@@ -215,11 +225,14 @@ const totalProducts = products.length;
       </>}/>
       <div className="mt-3 flex justify-between">
         <p className="underline text-[18px] ">Sort by:</p>
-        <select value={selectedProductCount} onChange={handleSelectProductCount} className="w-24 h-8 block   rounded-lg ring-0 overflow-hidden border-none  disabled:opacity-50 disabled:pointer-events-none">
-                {[1, 2, 3, 4, 5].map((num) => (
-                  <option key={num} value={num}>{num}</option>
-                ))}
-              </select>
+        <select
+                  className="md:w-28 block w-full border-gray-200 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none"
+                  value={sortOrder}
+                  onChange={handleSortChange}
+                >
+                  <option value="desc">High to low</option>
+                  <option value="asc">Low to high</option>
+                </select>
       </div>
 
 

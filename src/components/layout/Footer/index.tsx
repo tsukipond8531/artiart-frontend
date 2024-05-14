@@ -44,10 +44,10 @@ const Footer = () => {
           Have any query? contact us we are here for you.</p>
         <div className="flex  space-x-4 sm:justify-center  ">
           <Link href="https://www.facebook.com/artiartuae">
-            <Image className="p-1 bg-white rounded-full shadow hover:shadow-2xl shadow-white" width={50} height={50} src={facebook} alt="facebook"/>
+            <Image className="p-1 bg-white rounded-full shadow hover:shadow-2xl shadow-white" width={40} height={40} src={facebook} alt="facebook"/>
           </Link>
           <Link href="https://www.instagram.com/artiartuae/">
-            <Image className="p-1 bg-white rounded-full shadow hover:shadow-2xl shadow-white" width={50} height={50} src={instagram} alt="instagram"/>
+            <Image className="p-1 bg-white rounded-full shadow hover:shadow-2xl shadow-white" width={40} height={40} src={instagram} alt="instagram"/>
           </Link>
         </div>
       </div>
