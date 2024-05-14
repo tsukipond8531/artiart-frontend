@@ -100,9 +100,9 @@ const ProductDetail = ({ parsedProduct }: any) => {
               /> : null
 }
               <Para16  title={parsedProduct.price} endicon={" د.إ"} />
-              <div className="border rounded-xl bg-blue-600 px-3 py-1 text-white">
+              {/* <div className="border rounded-xl bg-blue-600 px-3 py-1 text-white">
                 Sale
-              </div>
+              </div> */}
             </div>
             <p className="text-[12px]">
               Tax included.{" "}
