@@ -12,9 +12,6 @@ const Detail = () => {
   const search = searchParams.get('product')
   const parsedProduct = search ? JSON.parse(search) : null;
 
-
-  console.log(parsedProduct, "parsedProduct")
-
   return (
     <>
       <Navbar />

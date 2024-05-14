@@ -100,7 +100,7 @@ const Navlink = ({ onDropdownClose }) => {
         About Us
       </Link>
       <Link className='poppins-thin text-14' href="/contact" onClick={handleClose} >
-        Contact
+      Contact Us
       </Link>
     </>
   );

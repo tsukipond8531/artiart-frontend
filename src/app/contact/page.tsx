@@ -68,7 +68,7 @@ const Contact = () => {
       <Container className="mt-10 md:mt-20">
         <div className="flex flex-wrap md:flex-nowrap gap-0 md:gap-5 p-2">
           <div className="w-full md:w-1/2  ">
-            <HeadingH3 className=" poppins-semibold" title={"Contact"} />
+            <HeadingH3 className=" poppins-semibold" title={"Contact Us"} />
             <div className="flex items-center gap-4 mt-5 ">
               <HeadingH6
                 className="poppins-semibold"
