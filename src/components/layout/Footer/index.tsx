@@ -1,6 +1,5 @@
 "use client"
-
-import React from 'react'
+import { useEffect, useState } from "react";
 
 import { FaLongArrowAltRight } from 'react-icons/fa'
 import { FaArrowRight } from 'react-icons/fa6'
@@ -15,7 +14,32 @@ import { Para14, Para18 } from 'components/Common/Paragraph'
 import Logo from 'components/Common/Logo'
 import Link from 'next/link'
 
+
 const Footer = () => {
+  const [category, setCategory] = useState<any[]>();
+  const [loading, setLoading] = useState<boolean>(false);
+  useEffect(() => {
+    const CategoryHandler = async () => {
+      try {
+        setLoading(true)
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllcategories`
+  
+        );
+        const Categories = await response.json();
+        setCategory(Categories);
+        setLoading(false)
+  
+      } catch (err) {
+        console.log('err', err)
+        setLoading(false)
+      }
+  
+    };
+  
+    CategoryHandler()
+  }, []);
+  
   return (
     <>
     
@@ -81,8 +105,8 @@ const Footer = () => {
   
             !ISSERVER ?     window.open(url, "_blank") : null}}
             > cs@artiart.ae</li>
-          <li >+91 945 658 3256</li>
-          <li>61-A, Elm street,Dubai.</li>
+          <li >+971 58 820 0549</li>
+          <li>Shop 5, Khalil Al Sayegh Building, Oud Metha, Umm Hurair Road - 2nd St - Dubai</li>
         </ul>
       </div>
       <div className="block xl:py-16 col-span-full min-[500px]:col-span-6 md:col-span-4 xl:col-span-3">
@@ -93,13 +117,28 @@ const Footer = () => {
             <Link href={"/products"}>Products</Link>
             <Link href={"/corporate"}>Corporate Order</Link>
             <Link href={"/about"}>About Us</Link>
-            <Link href={"/contact"}>Contact</Link>
+            <Link href={"/contact"}>Contact Us</Link>
           </ul>
           <ul className="text-gray-600 transition-all duration-500 grid gap-2">
-          <Link href={"/"}>Suction Mug</Link>
-            <Link href={"/"}>Suction Bottle</Link>
-            <Link href={"/"}>Tea Pot</Link>
-            <Link href={"/"}>PArty Glass</Link>
+            {category && category.length > 0 ? category.slice(0,4).map((item)=>{
+              return (
+                <Link
+                  
+                href={{
+                  pathname: `/products/${item._id}`,
+                  query: { Category: JSON.stringify(item) }
+                }}
+                
+                
+                key={item._id} >
+  
+                    {item.name}
+                </Link>
+          
+
+              )
+            }) : null }
+
           </ul>
         </div>
       </div>

@@ -135,7 +135,7 @@ const Navbar: React.FC = () => {
                 About Us
               </Link>
               <Link className='poppins-thin text-14' href="/contact">
-                Contact
+              Contact Us
               </Link>
             </div>
              </>}/>

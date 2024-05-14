@@ -60,11 +60,7 @@ export default function Home() {
 
     fetchData();
   }, []);
-
-  
-
-
-  
+ 
   return (
    <>
 

@@ -47,6 +47,24 @@ const Navlink = ({ onDropdownClose }) => {
     CategoryHandler();
   }, []);
 
+  
+  useEffect(() => {
+    const idsArray = ["dropDownId"];
+    const handleClickOutside = (event: any) => {
+      if (!idsArray.includes(event.target.id)) {
+        handleClose()
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isDropDownOpen]);
+
+  
+
   return (
     <>
       <Link className='poppins-thin text-14' href="/" onClick={handleClose}>

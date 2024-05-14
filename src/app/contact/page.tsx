@@ -76,15 +76,15 @@ const Contact = () => {
               />
               <Para16
                 className="font-bold poppins-thin"
-                title={"04-252-2025"}
+                title=" +971 58 820 0549"
               />
             </div>
             <div className=" lg:mb-10">
               <div className="flex items-center gap-5 mt-2">
-                <HeadingH6 className="poppins-semibold" title={"Address :"} />
+                <HeadingH6 className="poppins-semibold whitespace-nowrap" title={"Address :"} />
                 <Para14
                   className="poppins-thin"
-                  title={"61-A, Elm street,Dubai."}
+                  title="Shop 5, Khalil Al Sayegh Building, Oud Metha, Umm Hurair Road - 2nd St - Dubai"
                 />
               </div>
               <div className="flex items-center gap-5 mt-2">

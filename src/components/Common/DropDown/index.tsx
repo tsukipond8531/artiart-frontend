@@ -38,25 +38,17 @@ const DropDown: React.FC<DropDownProps> = ({
   isOpen,
   ...otherProps
 }) => {
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        toggleMenu();
-      }
-    }
+ 
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [dropdownRef, toggleMenu]);
+
 
   return (
-    <div className={`inline-block ${textSize}`}>
+        
+    <div className={`inline-block ${textSize}`} id='dropDownId' >
       <button
         onClick={toggleMenu}
         className={`inline-flex poppins-thin text-14 ${BtnClass}`}
+        id='dropDownId'
       >
         {text}
         {icon}
@@ -64,15 +56,17 @@ const DropDown: React.FC<DropDownProps> = ({
       {isOpen && (
         <div
           className={`fixed ${alignment} z-20 rounded-md shadow bg-white`}
+          id='dropDownId'
         >
           {array && array.map((arrayItem, index) => (
             <div key={index} 
-            // ref={dropdownRef}
             onClick={onLinkClick}
+
+          id='dropDownId'
             >
               <HeadingH5 className="mb-3" title={arrayItem.Category} />
               {arrayItem.items && arrayItem.items.map((item, itemIndex) => (
-                <div  key={item._id}>
+                <div  key={item._id} id='dropDownId'>
                   <Link
                   
                   href={{
