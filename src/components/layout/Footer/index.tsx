@@ -140,7 +140,7 @@ const Footer = () => {
         <Link className="underline " href={"/privacy"}>Privacy Policy</Link>
         <Link className="underline" href={"/terms"}>Terms & Condition</Link>
         <Link className="underline" href={"/refund"}>Return and Refund</Link>
-        <Link className="underline" href={"/policy"}>Shipment Policy</Link>
+        <Link className="underline" href={"/shipping"}>Shipment Policy</Link>
       </div>
       <span className="text-12 text-gray-800 text-center mt-2 ">Copyright@2024 All Right Reserved  by <Link href="/">Artiart</Link></span>
     </div>
