@@ -34,13 +34,12 @@ const Drawerfilter: React.FC<DrawerFilterProps> = ({ DrawerContent,icon,title,en
     </div>
      
       <Drawer
-      footer={<>
-    <div className="flex justify-between flex-wrap ga-2">
-      {/* <button className="underline">Remove All</button> */}
-    <button  className="bg-black h-12 text-white px-10 "onClick={onClose}>Apply</button>
-    </div>
+    //   footer={<>
+    // <div className="flex justify-between flex-wrap ga-2">
+    // <button  className="bg-black h-12 text-white px-10 "onClick={onClose}>Apply</button>
+    // </div>
 
-    </>} 
+    // </>} 
       width={250}
         title={
           <>

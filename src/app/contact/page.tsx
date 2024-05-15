@@ -75,18 +75,23 @@ const Contact = () => {
                 <th className="text-start poppins-semibold w-1/6">Call Support:</th>
                 <td className="font-bold poppins-thin text-start w-3/6">+971 58 820 0549</td>
               </tr>
+
               <tr>
-                <th className="text-start poppins-semibold w-1/6">Address :</th>
-                <td className="font-bold poppins-thin text-start"> Shop 5, Khalil Al Sayegh Building, Oud Metha, Umm Hurair Road - 2nd St - Dubai</td>
+                <th className="text-start poppins-semibold w-1/6">WhatsApp  :</th>
+                <td className="font-bold poppins-thin text-start">+971 58 820 0549</td>
               </tr>
+
+
               <tr>
                 <th className="text-start poppins-semibold w-1/6">Email :</th>
                 <td className="font-bold poppins-thin text-start"><Link href="mailto:cs@artiart.ae">cs@artiart.ae</Link></td>
               </tr>
               <tr>
-                <th className="text-start poppins-semibold w-1/6">WhatsApp  :</th>
-                <td className="font-bold poppins-thin text-start">+971 58 820 0549</td>
+                <th className="text-start poppins-semibold w-1/6">Address :</th>
+                <td className="font-bold poppins-thin text-start"> Shop 5, Khalil Al Sayegh Building, Oud Metha, Umm Hurair Road - 2nd St - Dubai</td>
               </tr>
+
+         
               </tbody>
             </table>     
             <div className="mt-7">
