@@ -16,16 +16,9 @@ type ButtonOption = {
   label: string;
 };
 
-const buttons: ButtonOption[] = [
-  { value: "red", label: "Red" },
-  { value: "green", label: "Green" },
-  { value: "blue", label: "Blue" },
-];
 const ProductDetail = ({ parsedProduct }: any) => {
   const [count, setCount] = useState<any>(1);
-  const initialSelectedValue = parsedProduct && parsedProduct.colors && parsedProduct.colors.length > 0
-    ? parsedProduct.colors[0].colorName
-    : null;
+  const initialSelectedValue = parsedProduct && parsedProduct.colors && parsedProduct.colors.length > 0 ? parsedProduct.colors[0].colorName : null;
   const [selectedValue, setSelectedValue] = useState(initialSelectedValue);
 
   const Image: any = parsedProduct?.imageUrl;
@@ -78,42 +71,43 @@ const ProductDetail = ({ parsedProduct }: any) => {
     localStorage.setItem("cart", JSON.stringify(existingCart));
     message.success('Product added to cart successfully!');
   };
-  
+
   return (
     <>
-    {!parsedProduct ? null :  
-      <Container className="mt-10 md:mt-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5 ">
-          <div className="">
-            <Thumbnail Images={Image} />
-          </div>
-          <div className=" p-2 sm:p-4 md:p-8 max-w-screen-sm mx-0 md:mx-10 lg:mx-20 mt-5 md:mt-0 space-y-3">
-            <Para12 title={"ARTIART"} />
-            <HeadingH3 title={parsedProduct.name} />
-            <div className="flex flex-wrap md:flex-nowrap gap-0 md:gap-3 items-center">
-              {parsedProduct.discountPrice ? 
-              <Para16
-                className="line-through"
-    
-                title={parsedProduct.price}
-                endicon={"  د.إ"}
-              /> : null
-}
-              <Para16  title={parsedProduct.price} endicon={" د.إ"} />
-              {/* <div className="border rounded-xl bg-blue-600 px-3 py-1 text-white">
+      {!parsedProduct ? null :
+        <Container className="mt-10 md:mt-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
+            <div className="">
+              <Thumbnail Images={Image} />
+            </div>
+
+            <div className=" p-2 sm:p-4 md:p-8 max-w-screen-sm mx-0 md:mx-10 lg:mx-20 mt-5 md:mt-0 space-y-3">
+              <Para12 title={"ARTIART"} />
+              <HeadingH3 title={parsedProduct.name} />
+              <div className="flex flex-wrap md:flex-nowrap gap-0 md:gap-3 items-center">
+                {parsedProduct.discountPrice ?
+                  <Para16
+                    className="line-through"
+
+                    title={parsedProduct.price}
+                    endicon={"  د.إ"}
+                  /> : null
+                }
+                <Para16 title={parsedProduct.price} endicon={" د.إ"} />
+                {/* <div className="border rounded-xl bg-blue-600 px-3 py-1 text-white">
                 Sale
               </div> */}
-            </div>
-            <p className="text-[12px]">
-              Tax included.{" "}
-              <Link className="underline" href={"/shipping-policy"}>
-                Shipping
-              </Link>{" "}
-              calculated at checkout.
-            </p>
-            <Para14 title={"Color"} />
-            <div className="flex gap-2 mb-4 flex-wrap w-full">
-              {parsedProduct.colors && parsedProduct.colors.map((button:any, index:any) => (
+              </div>
+              <p className="text-[12px]">
+                Tax included.{" "}
+                <Link className="underline" href={"/shipping-policy"}>
+                  Shipping
+                </Link>{" "}
+                calculated at checkout.
+              </p>
+              <Para14 title={"Color"} />
+              <div className="flex gap-2 mb-4 flex-wrap w-full">
+                {/* {parsedProduct.colors && parsedProduct.colors.map((button:any, index:any) => (
     
             <Radio
             key={index}
@@ -131,59 +125,83 @@ const ProductDetail = ({ parsedProduct }: any) => {
           
             {button.colorName.charAt(0).toUpperCase() + button.colorName.slice(1)}
         </Radio>
+
         
-              ))}
-            </div>
-            <Para14 title={"Quantity"} />
-            <div className="border-2 p-2 flex justify-center items-center gap-2 w-28">
-              <FiMinus
-                className="cursor-pointer"
-                size={20}
-                onClick={decrement}
-              />
-              <input
-                className="w-14 text-center hover:border hover:scale-105"
-                type="text"
-                value={count}
-                readOnly
-              />
-              <FiPlus
-                className="cursor-pointer"
-                size={20}
-                onClick={increment}
-              />
-            </div>
-            <Button className="border w-full rounded-none border-black hover:border-2"  onClick={handleAddToCart} title={"Add to Cart"} />
+        
+              ))} */}
+                {parsedProduct.colors && parsedProduct.colors.map((button: any, index: any) => {
+return (
+                  <p
+                    key={index}
 
-            <Button className={"bg-black w-full  rounded-none text-white"}  title={"Buy it now"} />
+                    className={`py-2 px-4 w-[45px] h-[40px] rounded-lg focus:outline-none whitespace-nowrap hover:bg-blue-100 cursor-pointer ${selectedValue === button.colorName
+                        ? `bg-blue-100 border-2 border-blue-500`
+                        : `bg-${button.colorName}-500  ${button.colorName.toLowerCase() == "black" || button.colorName.toLowerCase() == "#000" ? "text-white" : "text-black"} border border-${button.colorName}-600`
+                      }`}
 
-            <div className="p-2 space-y-4">
-            <ul className="list-disc">
-              {
-                parsedProduct.spacification && parsedProduct.spacification.map((array:any,index:any)=>(
-                  <li key={index}>{array.specsDetails}</li>
-                ))
-              }
-            </ul>
-            <Para14 title={parsedProduct.description && parsedProduct.description}/>
-            {
-              parsedProduct.modelDetails ? 
-              <DetailTable
-              keypoint={
-                parsedProduct.modelDetails
-            }
-              />
-            : null}
+                    style={{ backgroundColor:`#${button.colorName}`}}
+                    onClick={()=>setSelectedValue(button.colorName)}
+                  >
             
+                  </p>
+
+)
+
+
+                })}
+
+
+              </div>
+              <Para14 title={"Quantity"} />
+              <div className="border-2 p-2 flex justify-center items-center gap-2 w-28">
+                <FiMinus
+                  className="cursor-pointer"
+                  size={20}
+                  onClick={decrement}
+                />
+                <input
+                  className="w-14 text-center hover:border hover:scale-105"
+                  type="text"
+                  value={count}
+                  readOnly
+                />
+                <FiPlus
+                  className="cursor-pointer"
+                  size={20}
+                  onClick={increment}
+                />
+              </div>
+              <Button className="border w-full rounded-none border-black hover:border-2" onClick={handleAddToCart} title={"Add to Cart"} />
+
+              <Button className={"bg-black w-full  rounded-none text-white"} title={"Buy it now"} />
+
+              <div className="p-2 space-y-4">
+                <ul className="list-disc">
+                  {
+                    parsedProduct.spacification && parsedProduct.spacification.map((array: any, index: any) => (
+                      <li key={index}>{array.specsDetails}</li>
+                    ))
+                  }
+                </ul>
+                <Para14 title={parsedProduct.description && parsedProduct.description} />
+                {
+                  parsedProduct.modelDetails ?
+                    <DetailTable
+                      keypoint={
+                        parsedProduct.modelDetails
+                      }
+                    />
+                    : null}
+
+              </div>
+
             </div>
-        
+
           </div>
-  
-        </div>
-        {/* <HeadingH3 title={"You may also like"}/> */}
-         
-      </Container>
-}
+
+
+        </Container>
+      }
     </>
   );
 };
