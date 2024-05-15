@@ -106,7 +106,7 @@ const ProductDetail = ({ parsedProduct }: any) => {
             </div>
             <p className="text-[12px]">
               Tax included.{" "}
-              <Link className="underline" href={"policy"}>
+              <Link className="underline" href={"/shipping-policy"}>
                 Shipping
               </Link>{" "}
               calculated at checkout.

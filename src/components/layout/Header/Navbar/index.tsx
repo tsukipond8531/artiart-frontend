@@ -113,7 +113,7 @@ const Navbar: React.FC = () => {
               <Link className='poppins-thin text-14' href="/products">
                 All Products
               </Link>
-              <Drawerfilter className="poppins-thin text-14  " title="Shop" endicon={<FaArrowRightLong size={20} />} DrawerContent={<>
+              <Drawerfilter className="poppins-thin text-16  " title="Shop" endicon={<FaArrowRightLong size={15} />} DrawerContent={<>
                 <div className="flex flex-col space-y-2">
                 <Link className='poppins-thin text-14' href="/products">
                 Suction Mugs
