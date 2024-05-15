@@ -1,7 +1,6 @@
 "use client"
 import CategorySlider from "components/Carousel/Category";
 import Product from "components/Home/Product";
-
 import Navbar from "components/layout/Header/Navbar";
 import Footer from "components/layout/Footer";
 import VideoMain from "components/Common/MainVideo";
@@ -29,7 +28,6 @@ export default function Home() {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllproducts`);
         let slicedProducts = response.data.products && response.data.products.length > 8 ?  response.data.products.slice(0, 8) :  response.data.products.length
         setProducts(slicedProducts);
-      
       } catch (error) {
         console.log('Error fetching data:', error);
       } finally{
@@ -43,34 +41,26 @@ export default function Home() {
         setLoading(true)
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllcategories`
-
         );
         const Categories = await response.json();
         setCategory(Categories);
         setLoading(false)
-
       } catch (err) {
         console.log('err', err)
         setLoading(false)
       }
-
     };
-
     CategoryHandler();
-
     fetchData();
   }, []);
- 
   return (
    <>
-
    <Navbar/>
    <VideoMain/>
    {/* <MainSlider/> */}
    <CategorySlider
    categories={category}
-   loading={loading}
-   />
+   loading={loading}/>
    <Product productItems={products} productsLoading={productsLoading}/>
    <Footer/>
    </>

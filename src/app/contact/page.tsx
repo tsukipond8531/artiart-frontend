@@ -1,5 +1,4 @@
 "use client";
-
 import { Col, Form, Row } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import Button from "components/Common/Button";
@@ -12,6 +11,7 @@ import Navbar from "components/layout/Header/Navbar";
 import React,{useState, useRef} from "react";
 import { useForm, ValidationError } from '@formspree/react';
 import emailjs from 'emailjs-com';
+import Link from "next/link";
 
 
 const Contact = () => {
@@ -68,39 +68,29 @@ const Contact = () => {
       <Container className="mt-10 md:mt-20">
         <div className="flex flex-wrap md:flex-nowrap gap-0 md:gap-5 p-2">
           <div className="w-full md:w-1/2  ">
-            <HeadingH3 className=" poppins-semibold" title={"Contact Us"} />
-            <div className="flex items-center gap-4 mt-5 ">
-              <HeadingH6
-                className="poppins-semibold"
-                title={"Call Support :"}
-              />
-              <Para16
-                className="font-bold poppins-thin"
-                title=" +971 58 820 0549"
-              />
-            </div>
-            <div className=" lg:mb-10">
-              <div className="flex items-center gap-5 mt-2">
-                <HeadingH6 className="poppins-semibold whitespace-nowrap" title={"Address :"} />
-                <Para14
-                  className="poppins-thin"
-                  title="Shop 5, Khalil Al Sayegh Building, Oud Metha, Umm Hurair Road - 2nd St - Dubai"
-                />
-              </div>
-              <div className="flex items-center gap-5 mt-2">
-                <HeadingH6 className="poppins-semibold" title={"Email :"} />
-                <p className={`text-14 gap-2 poppins-thin cursor-pointer`} onClick={handleClick}>
-                cs@artiart.ae
-      </p>
-              </div>
-            </div>
+            <HeadingH3 className=" poppins-semibold" title={"Contact"} />
+            <table className="text-start mt-3">
+              <tbody className="space-x-3">
+              <tr>
+                <th className="text-start poppins-semibold w-1/6">Call Support:</th>
+                <td className="font-bold poppins-thin text-start w-3/6">+971 58 820 0549</td>
+              </tr>
+              <tr>
+                <th className="text-start poppins-semibold w-1/6">Address :</th>
+                <td className="font-bold poppins-thin text-start"> Shop 5, Khalil Al Sayegh Building, Oud Metha, Umm Hurair Road - 2nd St - Dubai</td>
+              </tr>
+              <tr>
+                <th className="text-start poppins-semibold w-1/6">Email :</th>
+                <td className="font-bold poppins-thin text-start"><Link href="mailto:cs@artiart.ae">cs@artiart.ae</Link></td>
+              </tr>
+              <tr>
+                <th className="text-start poppins-semibold w-1/6">WhatsApp  :</th>
+                <td className="font-bold poppins-thin text-start">+971 58 820 0549</td>
+              </tr>
+              </tbody>
+            </table>     
             <div className="mt-7">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4082.7742465747338!2d-79.38287617561478!3d43.64905556573276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b34d2a57d767f%3A0x935ab2eb9fd5fb31!2sFirst%20Canadian%20Place!5e0!3m2!1svi!2s!4v1591603052999!5m2!1svi!2s"
-                width="100%"
-                height="100%"
-                aria-hidden="false"
-              ></iframe>
+            <iframe className="w-full" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14435.668236099693!2d55.3078729!3d25.2397184!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43f93ce538b3%3A0xcdfd02fa5f29d2ce!2sArti%20Art%20UAE%20-%20Suction%20Mugs%20Distributor!5e0!3m2!1sen!2sae!4v1715750104768!5m2!1sen!2sae" width="600" height="450" ></iframe>
             </div>
           </div>
           <div className="border border-gray-300 lg:d-block d-none"></div>
