@@ -137,10 +137,10 @@ const Footer = () => {
   <div className="py-2 bg-indigo-50 ">
     <div className="flex flex-wrap md:flex-nowrap items-center justify-between  max-w-screen-xl mx-auto">
       <div className='space-x-4 px-1 text-12'>
-        <Link className="underline " href={"/privacy"}>Privacy Policy</Link>
-        <Link className="underline" href={"/terms"}>Terms & Condition</Link>
-        <Link className="underline" href={"/refund"}>Return and Refund</Link>
-        <Link className="underline" href={"/shipping"}>Shipment Policy</Link>
+        <Link className="underline " href={"/privacy-policy"}>Privacy Policy</Link>
+        <Link className="underline" href={"/terms-condition"}>Terms & Condition</Link>
+        <Link className="underline" href={"/return-refund"}>Return and Refund</Link>
+        <Link className="underline" href={"/shipping-policy"}>Shipment Policy</Link>
       </div>
       <span className="text-12 text-gray-800 text-center mt-2 ">Copyright@2024 All Right Reserved  by <Link href="/">Artiart</Link></span>
     </div>

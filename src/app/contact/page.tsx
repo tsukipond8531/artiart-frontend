@@ -72,20 +72,20 @@ const Contact = () => {
             <table className="text-start mt-3">
               <tbody className="space-x-3">
               <tr>
-                <th className="text-start poppins-semibold w-1/6">Call Support:</th>
-                <td className="font-bold poppins-thin text-start w-3/6">+971 58 820 0549</td>
+                <th className="text-start poppins-semibold w-1/6 lg:text-16 text-14">Call Support:</th>
+                <td className="font-bold poppins-thin text-start w-3/6 lg:text-16 text-14">+971 58 820 0549</td>
+              </tr>
+              <tr >
+                <th className="text-start poppins-semibold w-1/6 lg:text-16 text-14 flex align-top lg:pt-4 pt-2">Address: </th>
+                <td className="font-bold poppins-thin text-start lg:text-16 text-14 lg:pt-4 pt-2"> Shop 5, Khalil Al Sayegh Building, Oud Metha, Umm Hurair Road - 2nd St - Dubai</td>
               </tr>
               <tr>
-                <th className="text-start poppins-semibold w-1/6">Address :</th>
-                <td className="font-bold poppins-thin text-start"> Shop 5, Khalil Al Sayegh Building, Oud Metha, Umm Hurair Road - 2nd St - Dubai</td>
+                <th className="text-start poppins-semibold w-1/6 lg:text-16 text-14 flex align-top lg:pt-4 pt-2">Email:</th>
+                <td className="font-bold poppins-thin text-start lg:text-16 text-14 lg:pt-4 pt-2"><Link href="mailto:cs@artiart.ae">cs@artiart.ae</Link></td>
               </tr>
               <tr>
-                <th className="text-start poppins-semibold w-1/6">Email :</th>
-                <td className="font-bold poppins-thin text-start"><Link href="mailto:cs@artiart.ae">cs@artiart.ae</Link></td>
-              </tr>
-              <tr>
-                <th className="text-start poppins-semibold w-1/6">WhatsApp  :</th>
-                <td className="font-bold poppins-thin text-start">+971 58 820 0549</td>
+                <th className="text-start poppins-semibold w-1/6 lg:text-16 text-14 flex align-top lg:pt-4 pt-2">WhatsApp:</th>
+                <td className="font-bold poppins-thin text-start lg:text-16 text-14 lg:pt-4 pt-2">+971 58 820 0549</td>
               </tr>
               </tbody>
             </table>     
@@ -96,8 +96,8 @@ const Contact = () => {
           <div className="border border-gray-300 lg:d-block d-none"></div>
           <div className="w-full md:w-1/2 mt-10 md:mt-0 ">
             <form className="" onSubmit={(e)=>handleSubmit(e)} ref={formRef}>
-              <Row gutter={[10, 0]}>
-                <Col
+              <Row className="" gutter={[10, 0]}>
+                <Col 
                   xl={{ order: 1, span: 12 }}
                   lg={{ order: 1, span: 12 }}
                   md={{ order: 1, span: 12 }}
@@ -136,14 +136,14 @@ const Contact = () => {
               
                 </Col>
 
-                <Col
+                <Col className="mt-3"
                   xl={{ order: 1, span: 24 }}
                   lg={{ order: 1, span: 24 }}
                   md={{ order: 1, span: 24 }}
                   sm={{ order: 1, span: 24 }}
                   xs={{ order: 1, span: 24 }}
                 >
-                  <label className="poppins-semibold">Phone Number</label>
+                  <label className="poppins-semibold ">Phone Number</label>
 
                     <Input
                       type="number"
@@ -156,7 +156,7 @@ const Contact = () => {
                 </Col>
 
 
-                <Col
+                <Col className="mt-3"
                   xl={{ order: 1, span: 24 }}
                   lg={{ order: 1, span: 24 }}
                   md={{ order: 1, span: 24 }}
@@ -176,7 +176,7 @@ const Contact = () => {
                 </Col>
 
 
-                <Col
+                <Col className="mt-3"
                   xl={{ order: 1, span: 24 }}
                   lg={{ order: 1, span: 24 }}
                   md={{ order: 1, span: 24 }}

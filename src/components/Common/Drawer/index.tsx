@@ -26,7 +26,7 @@ const Drawerfilter: React.FC<DrawerFilterProps> = ({ DrawerContent,icon,title,en
 
   return (
     <>
-    <div className={`flex justify-between items-center text-[18px] ${className}`} onClick={showDrawer}>
+    <div className={`flex justify-between items-center ${className}`} onClick={showDrawer}>
     <button className={`flex justify-center  items-center gap-2 underline `} >
         {icon}{title}
       </button>
