@@ -26,7 +26,7 @@ export default function Home() {
       try {
         setProductsloading(true)
         const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllproducts`);
-        let slicedProducts = response.data.products && response.data.products.length > 8 ?  response.data.products.slice(0, 8) :  response.data.products.length
+        let slicedProducts = response.data.products && response.data.products.length > 8 ?  response.data.products.slice(0, 8) :  response.data.products
         setProducts(slicedProducts);
       } catch (error) {
         console.log('Error fetching data:', error);
