@@ -156,7 +156,7 @@ const Navbar: React.FC = () => {
               </Link>
               <Drawerfilter className="poppins-thin text-16  " title="Shop" endicon={<FaArrowRightLong size={15} />} DrawerContent={<>
                 <div className="flex flex-col space-y-2">
-                {category && category.length > 0 ? category.slice(0,4).map((item)=>{
+                {category && category.length > 0 ? category.map((item)=>{
               return (
                 <Link href={{ pathname: `/products/${item._id}`, query: { Category: JSON.stringify(item) } }} key={item._id} >
                     {item.name}
