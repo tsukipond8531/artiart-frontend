@@ -59,21 +59,10 @@ const Footer = () => {
               </defs>
             </svg>
           </Link>
-          <Link href="/" className="w-9 h-9 rounded-full flex justify-center items-center hover:shadow-md">
-            <svg className="w-[1rem] h-[1rem]" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3.3794 11.4355V3.75116H0.818893V11.4355H3.37967H3.3794ZM2.09968 2.70218C2.9924 2.70218 3.54817 2.11211 3.54817 1.37469C3.53146 0.620473 2.9924 0.046875 2.11666 0.046875C1.24032 0.046875 0.667969 0.620473 0.667969 1.37463C0.667969 2.11204 1.22354 2.70211 2.0829 2.70211H2.09948L2.09968 2.70218ZM4.79668 11.4355H7.35698V7.14468C7.35698 6.91532 7.37369 6.68536 7.44134 6.52154C7.62635 6.06249 8.04764 5.5873 8.75514 5.5873C9.68141 5.5873 10.0522 6.29192 10.0522 7.32503V11.4355H12.6124V7.02953C12.6124 4.66933 11.3494 3.57101 9.66483 3.57101C8.28372 3.57101 7.67715 4.34103 7.34014 4.86549H7.35718V3.75143H4.79681C4.83023 4.47231 4.79661 11.4358 4.79661 11.4358L4.79668 11.4355Z" fill="url(#paint0_linear_9147_19261)" />
-              <defs>
-                <linearGradient id="paint0_linear_9147_19261" x1="12.6124" y1="0.699364" x2="0.926912" y2="11.4629" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#7C3AED" />
-                  <stop offset="0.993738" stopColor="#4F46E5" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </Link>
-     
+    
         </div>
       </div>
-      <div className="block text-center xl:text-left  col-span-full min-[500px]:col-span-6 md:col-span-4 xl:col-span-3 xl:pl-5">
+      <div className="block  xl:text-left  col-span-full min-[500px]:col-span-6 md:col-span-4 xl:col-span-3 xl:pl-5">
         <h4 className="text-lg text-gray-900 font-bold mb-9">Get In Touch</h4>
         <ul className="text-gray-900 transition-all duration-500 grid gap-4 text-14 pr-8">
           <li className='cursor-pointer' onClick={()=>{  
@@ -88,40 +77,33 @@ const Footer = () => {
           <li>Shop 5, Khalil Al Sayegh Building, Oud Metha, Umm Hurair Road - 2nd St - Dubai</li>
         </ul>
       </div>
-      <div className="block  col-span-full min-[500px]:col-span-6 md:col-span-4 xl:col-span-3">
-        <h4 className="text-lg text-gray-900 font-bold mb-9 text-center xl:text-left">Quick Links</h4>
-        <div className="flex gap-6 xl:gap-12 max-xl:justify-center">
-          <ul className="text-gray-600 transition-all duration-500 grid gap-2 text-14">
+      <div className="block  col-span-6 min-[500px]:col-span-6 md:col-span-4 xl:col-span-2">
+        <h4 className="text-lg text-gray-900 font-bold mb-9  xl:text-left">Quick Links</h4>
+        <div className="flex gap-6 xl:gap-12">
+          <ul className=" transition-all duration-500 grid gap-2 text-14">
             <Link href={"/"}>Home</Link>
             <Link href={"/products"}>Products</Link>
             <Link href={"/corporate"}>Corporate Order</Link>
             <Link href={"/about"}>About Us</Link>
             <Link href={"/contact"}>Contact Us</Link>
           </ul>
-          <ul className="text-gray-600 transition-all duration-500 grid gap-2 text-14">
+      
+        </div>
+     
+      </div>
+      <div className="block  col-span-6 md:col-span-4 xl:col-span-2">
+        <h4 className="text-lg text-gray-900 font-bold mb-9  xl:text-left">Our Product</h4>
+        <ul className="transition-all duration-500 grid gap-2 text-14">
             {category && category.length > 0 ? category.slice(0,4).map((item)=>{
               return (
-                <Link
-                  
-                href={{
-                  pathname: `/products/${item._id}`,
-                  query: { Category: JSON.stringify(item) }
-                }}
-                
-                
-                key={item._id} >
-  
+                <Link href={{ pathname: `/products/${item._id}`, query: { Category: JSON.stringify(item) } }} key={item._id} >
                     {item.name}
                 </Link>
-          
-
               )
             }) : null }
-
           </ul>
-        </div>
       </div>
-      <div className="block  col-span-full md:col-span-4 xl:col-span-3">
+      <div className="block  col-span-full md:col-span-4 xl:col-span-2">
         <h4 className="text-lg text-gray-900 font-bold mb-9 text-center xl:text-left">Newsletter</h4>
         <div className="grid gap-7 ">
           <input type="text" name="email" className="py-2 px-4 border border-gray-300 shadow-sm h-14 text-lg text-gray-800 rounded-full w-full  xl:w-64 placeholder:text-gray-400 focus:outline-none" placeholder="Enter email.." />

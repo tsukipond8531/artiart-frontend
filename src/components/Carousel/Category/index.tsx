@@ -28,16 +28,18 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ categories,loading }) =
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
     breakpoints: {
       '(min-width: 320px)': {
-        slides: { perView: 2.3, spacing: 5 },
+        slides: { perView: 3, spacing: 3 },
+      },
+      '(min-width: 480px)': {
+        slides: { perView: 3, spacing: 5 },
       },
       '(min-width: 1000px)': {
-        slides: { perView: 5, spacing: 10 },
+        slides: { perView: 6, spacing: 7 },
       },
     },
     slides: { perView: 1 },
   });
 
-  
 
   return (
     <Container className='mt-10 md:mt-32'>

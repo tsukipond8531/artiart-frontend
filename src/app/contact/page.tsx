@@ -70,25 +70,23 @@ const Contact = () => {
           <div className="w-full md:w-1/2  ">
             <HeadingH3 className=" poppins-semibold" title={"Contact"} />
             <table className="text-start mt-3">
-              <tbody className="space-x-3">
+              <tbody>
               <tr>
-                <th className="text-start poppins-semibold w-1/6 lg:text-16 text-14">Call Support:</th>
-                <td className="font-bold poppins-thin text-start w-3/6 lg:text-16 text-14">+971 58 820 0549</td>
+                <th className="text-start pt-3 poppins-semibold w-1/6 lg:text-16 text-14">Call Support:</th>
+                <td className="font-bold pt-3 poppins-thin text-start w-3/6 lg:text-16 text-14"><Link href={'tel:+971 58 820 0549'}>+971 58 820 0549</Link></td>
               </tr>
 
-              <tr>
-                <th className="text-start poppins-semibold w-1/6">WhatsApp  :</th>
-                <td className="font-bold poppins-thin text-start">+971 58 820 0549</td>
-              </tr>
-
-
-              <tr>
-                <th className="text-start poppins-semibold w-1/6 lg:text-16 text-14 flex align-top">Email:</th>
-                <td className="font-bold poppins-thin text-start lg:text-16 text-14"><Link href="mailto:cs@artiart.ae">cs@artiart.ae</Link></td>
+              <tr className="mt-5">
+                <th className="text-start pt-3 poppins-semibold w-1/6">WhatsApp  :</th>
+                <td className="font-bold pt-3 poppins-thin text-start"><Link href={"https://api.whatsapp.com/send/?phone=971588200549&text&type=phone_number&app_absent=0"}>+971 58 820 0549</Link></td>
               </tr>
               <tr>
-                <th className="text-start poppins-semibold w-1/6">Address :</th>
-                <td className="font-bold poppins-thin text-start"> Shop 5, Khalil Al Sayegh Building, Oud Metha, Umm Hurair Road - 2nd St - Dubai</td>
+                <th className="text-start pt-3 poppins-semibold w-1/6 lg:text-16 text-14 flex align-top">Email:</th>
+                <td className="font-bold pt-3 poppins-thin text-start lg:text-16 text-14"><Link href="mailto:cs@artiart.ae">cs@artiart.ae</Link></td>
+              </tr>
+              <tr>
+                <th className="text-start pt-3 poppins-semibold w-1/6">Address :</th>
+                <td className="font-bold pt-3 poppins-thin text-start"> Shop 5, Khalil Al Sayegh Building, Oud Metha, Umm Hurair Road - 2nd St - Dubai</td>
               </tr>
 
          

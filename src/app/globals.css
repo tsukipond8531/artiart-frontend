@@ -270,3 +270,6 @@ html, body{
       flex-direction: column !important;
   }
 }
+/* th, td {
+  padding: 7px;
+} */

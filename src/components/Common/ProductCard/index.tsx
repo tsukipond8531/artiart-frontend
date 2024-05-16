@@ -52,11 +52,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ productItems,productsLoading 
               )}
             </div>
             <div className="px-4 py-3 w-full">
-            <p className="text-[17px] poppins-thin break-all overflow-wrap-break-word text-black block capitalize">{product.name}</p>
+            <p className="text-12 poppins-thin break-all overflow-wrap-break-word text-black block capitalize">{product.name}</p>
 
               {/* <p className="text-[17px] poppins-thin break-all text-black truncate block capitalize">{product.name}</p> */}
               <div className="flex items-center flex-wrap justify-between">
-                <p className="text-[15px] poppins-thin text-black cursor-auto my-3"><span>{product.price}</span> د.إ</p>
+                <p className="text-[15px] poppins-thin text-black cursor-auto my-3">Dhs. <span>{product.price}</span> AED</p>
                 {product.discountPrice ? (
                   <del className=''>
                     <p className="text-[15px] text-gray-600 cursor-auto font-i"> <span className='text-lg'>{product.discountPrice}</span> د.إ</p>

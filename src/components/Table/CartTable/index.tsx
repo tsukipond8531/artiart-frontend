@@ -71,42 +71,74 @@ const CartTable: React.FC = () => {
 
     return (
         <>
-            <div className="flex flex-col mt-10 md:mt-20">
-                <div className="-m-1.5 overflow-x-auto">
+          {cartproduct.map((array: any, index: number) => (
+            <>
+            <div className='p-2 rounded-md mt-5 bg-white shadow block md:hidden' key={index}>
+        <div className='flex justify-between'>
+                <div className='flex gap-3'>
+                    <Image width={100} height={100} className='rounded-md' src={array.imageUrl[0].imageUrl} alt='test'/>
+                    <div className='space-y-1'>
+                        <h1 className='text-14 font-semibold'>{array.name}</h1>
+                        <h2 className='text-12 font-medium'>Dhs. <span>{array.price}</span>.00 AED</h2>
+                        <h2 className='text-12 font-medium'>Color <span>{array.color}</span></h2>
+                        <div className='flex gap-2 items-center'>
+                           <div className='border-2 p-2 flex justify-center items-center gap-1 w-20'>
+                           <FiMinus className='cursor-pointer' size={20} onClick={() => decrement(index)} />
+                           <input className='w-5 hover:border hover:scale-105 text-center' type="text" value={counts[index]} readOnly />
+                           <FiPlus className='cursor-pointer' size={20} onClick={() => increment(index)} />
+                          </div>
+                        <MdDeleteOutline onClick={() => removeItemFromCart(index)} className='cursor-pointer' size={20} />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h1 className='font-bold'>Total</h1>
+                    <h2 className='text-12 font-medium'>Dhs. <span>{array.totalPrice}</span>.00 AED</h2>
+
+                </div>
+        </div>
+        </div>
+                                  
+                                </>
+                                ))}
+
+
+          <div className="flex flex-col mt-10 md:mt-20">
+                <div className="-m-1.5 overflow-x-auto hidden md:block">
                     <div className="p-1.5 min-w-full inline-block align-middle">
                         <div className="overflow-hidden">
-                            <table className="min-w-full divide-y divide-gray-200">
+                            <table className="min-w-full divide-y divide-gray-200 overflow-x-scroll md:overflow-hidden table-auto">
                                 <thead className=''>
                                     <tr>
-                                        <th scope="col" className="px-6 py-3 text-start text-[12px] font-normal text-gray-500 uppercase w-4/6">PRODUCT</th>
-                                        <th scope="col" className="px-6 py-3 text-start text-[12px] font-normal text-gray-500 uppercase w-2/6">QUANTITY</th>
-                                        <th scope="col" className="px-6 py-3 text-start text-[12px] font-normal text-gray-500 uppercase w-2/6">TOTAL</th>
+                                        <th scope="col" className="px-6 py-3 text-start text-[12px] font-normal text-gray-500 uppercase w-8/12">PRODUCT</th>
+                                        <th scope="col" className="px-6 py-3 text-start text-[12px] font-normal text-gray-500 uppercase w-2/12">QUANTITY</th>
+                                        <th scope="col" className="px-6 py-3 text-start text-[12px] font-normal text-gray-500 uppercase w-2/12">TOTAL</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200">
                                 {cartproduct.map((array: any, index: number) => (
                                     <tr key={index}>
-                                        <td className="px-6 py-4  text-sm ">
+                                        <td className="px-2 py-2 text-sm ">
                                             <div className='flex items-center gap-2 sm:gap-3 md:gap-4'>
-                                                <Image className='rounded-md' src={array.imageUrl[0].imageUrl} width={150} height={150} alt='cart image'/>
+                                                <Image className='rounded-md' src={array.imageUrl[0].imageUrl} width={100} height={100} alt='cart image'/>
                                                 <div className='space-y-2'>
                                                     <Para14 className='hover:underline transition duration-200' title={array.name}/> 
-                                                    <Para14 icon={"د.إ " } title={array.price}/>
+                                                    <Para14 icon={"AED " } title={array.price}/>
                                                     <Para14 icon={"Color: "} title={array.color}/>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4  text-sm ">
+                                        <td className="px-2  text-sm ">
                                             <div className='flex gap-2 items-center'>
-                                                <div className='border-2 p-2 flex justify-center items-center gap-1 w-28'>
+                                                <div className='border-2 p-2 flex justify-center items-center gap-1 w-20'>
                                                     <FiMinus className='cursor-pointer' size={20} onClick={() => decrement(index)} />
-                                                    <input className='w-14 hover:border hover:scale-105 text-center' type="text" value={counts[index]} readOnly />
+                                                    <input className='w-5 hover:border hover:scale-105 text-center' type="text" value={counts[index]} readOnly />
                                                     <FiPlus className='cursor-pointer' size={20} onClick={() => increment(index)} />
                                                 </div>
                                                 <MdDeleteOutline onClick={() => removeItemFromCart(index)} className='cursor-pointer' size={20} />
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4  text-sm"><Para14 icon={"د.إ "} title={array.totalPrice}/> 
+                                        <td className="px-2 "><Para14 icon={"AED "} title={array.totalPrice}/> 
                                         
                                         </td>
                                     </tr>
@@ -120,7 +152,7 @@ const CartTable: React.FC = () => {
                 <div className='text-end  border-t-2 mt-10 pt-5 space-y-2'>
                      <div className='flex gap-5 justify-end items-center'>
                         <Para16 className='poppins-thin' title={"Subtotal"}/>
-                        <Para16 className='font-normal'  title={subtotal} endicon=" د.إ"/>
+                        <Para16 className='font-normal' icon={"Dhs . "}  title={subtotal} endicon=" AED"/>
                     </div>
                     <p className='text-[12px]'>Tax included. <Link className='underline' href={"/policy"}>Shipping</Link> calculated at checkout.</p>
                     <Link href={"/checkout"}>
