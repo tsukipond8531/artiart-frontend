@@ -1,77 +1,103 @@
-"use client"
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import tra1 from "../../../../public/assets/images/tra1.jpg";
-import tra2 from "../../../../public/assets/images/tra2.jpg";
-import tra3 from "../../../../public/assets/images/tra3.jpg";
-import { HeadingH5 } from "../../Common/Heading";
+// //@ts-nocheck
+// "use client";
+// import { useEffect, useRef } from "react";
+// import {
+//   motion,
+//   useScroll,
+//   useSpring,
+//   useTransform,
+//   useMotionValue,
+//   useVelocity,
+//   useAnimationFrame,
+// } from "framer-motion";
+// import { wrap } from "@motionone/utils";
+// import Image from "next/image";
+// import Link from "next/link";
+// import { Para12 } from "components/Common/Paragraph";
+// import Container from "components/Common/Container";
 
-const MainSlider = () => {
-  const [activeSlide, setActiveSlide] = useState(0);
-  const slides = [
-    {
-      id: 1,
-      src: tra1,
-      title: "Suction Mugs",
-      description: "Browse our latest products",
-    },
-    {
-      id: 2,
-      src: tra2,
-      title: "Suction Bottles",
-      description: "Browse our latest products",
-    },
-    {
-      id: 3,
-      src: tra3,
-      title: "Insulated Suction Flasks",
-      description: "Browse our latest products",
-    },
-    // Add more slides as needed
-  ];
+// // Function to duplicate the array for a seamless loop
+// const createLoopedArray = (arr, count) => {
+//   if (!Array.isArray(arr)) {
+//     return [];
+//   }
+//   const loopedArray = [];
+//   for (let i = 0; i < count; i++) {
+//     loopedArray.push(...arr);
+//   }
+//   return loopedArray;
+// };
 
-  
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % slides.length);
-    }, 10000);
-    return () => clearInterval(interval);
-  }, [slides.length]);
+// function ParallaxText({ children, baseVelocity = 200, categories, loading }) {
+//   const baseX = useMotionValue(0);
+//   const { scrollY } = useScroll();
+//   const scrollVelocity = useVelocity(scrollY);
+//   const smoothVelocity = useSpring(scrollVelocity, {
+//     damping: 50,
+//     stiffness: 400,
+//   });
+//   const velocityFactor = useTransform(smoothVelocity, [0, 2000], [0, 5], {
+//     clamp: false,
+//   });
 
-  const nextSlide = () => setActiveSlide((prev) => (prev + 1) % slides.length);
-  const prevSlide = () =>
-    setActiveSlide((prev) => (prev - 1 + slides.length) % slides.length);
+//   const x = useTransform(baseX, (v) => `${wrap(-20, -45, v)}%`);
 
-  return (
-    <>
-      <div className="slider">
-        <div className="list">
-          {slides.map((slide, index) => (
-            <div
-              key={index}
-              className={`item ${index === activeSlide ? "active" : ""}`}
-            >
-              <Image
-                src={slide.src}
-                alt={`Slide ${slide.id}`}
-                layout="fill"
-              />
-              <div className="content pt-20 md:pt-10">
-                <HeadingH5 className={"text-yellow100"} title={"ArtiArt"} />
-                <h2>{slide.title}</h2>
-                <p>{slide.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="arrows">
-          <button onClick={prevSlide}>{"<"}</button>
-          <button onClick={nextSlide}>{">"}</button>
-        </div>
-        
-      </div>
-    </>
-  );
-};
+//   const directionFactor = useRef(1);
+//   useAnimationFrame((t, delta) => {
+//     let moveBy = directionFactor.current * baseVelocity * (delta / 2000);
 
-export default MainSlider;
+//     if (velocityFactor.get() < 0) {
+//       directionFactor.current = -1;
+//     } else if (velocityFactor.get() > 0) {
+//       directionFactor.current = 1;
+//     }
+
+//     moveBy += directionFactor.current * moveBy * velocityFactor.get();
+
+//     baseX.set(baseX.get() + moveBy);
+//   });
+
+//   const loopedCategories = createLoopedArray(categories, 5);
+
+//   return (
+//     <Container>
+//     <div className="parallax">
+//       <motion.div className="scroller" style={{ x }}>
+//        {
+//           loopedCategories.map((category, index) => (
+//             <Link
+//               href={{
+//                 pathname: `/products/${category._id}`,
+//                 query: { Category: JSON.stringify(category) }
+//               }}
+//               key={index}
+//               className="grid place-items-center md:w-[32%] max-w-[30%]"
+//             >
+//               <div
+//                 className={`md:p-0 w-20 h-20 md:w-36 md:h-32 ml-2 mr-2 items-center flex flex-col pb-2 border border-primary100 rounded-lg`}
+//               >
+//                 <Image
+//                   className="py-2 rounded-md w-16 h-16 md:w-24 md:h-24 lg:w-28 lg:h-28 mx-auto"
+//                   src={category.posterImageUrl.imageUrl}
+//                   alt={category.name}
+//                   width={200}
+//                   height={200}
+//                 />
+//                 <Para12 className="poppins-thin text-center" title={category.name} />
+//               </div>
+//             </Link>
+//           ))}
+//       </motion.div>
+//     </div>
+//     </Container>
+//   );
+// }
+
+// export default function MainSlider({ categories, loading }) {
+//   return (
+//     <div className={"mt-16 md:mt-32 space-y-3 container-lg"}>
+//       <ParallaxText baseVelocity={-5} categories={categories} loading={loading}>Framer Motion</ParallaxText>
+//       <ParallaxText baseVelocity={5} categories={categories} loading={loading}>Scroll velocity</ParallaxText>
+//     </div>
+//   );
+// }

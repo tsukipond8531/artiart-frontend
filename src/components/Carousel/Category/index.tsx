@@ -8,7 +8,10 @@ import 'keen-slider/keen-slider.min.css';
 import Link from 'next/link';
 import { Para12, Para14 } from 'components/Common/Paragraph';
 import Loader from "components/Loader/Loader";
+import { Swiper, SwiperSlide } from 'swiper/react';
 
+// Import Swiper styles
+import 'swiper/css';
 
 interface Category {
   _id: number;
@@ -25,35 +28,42 @@ interface CategorySliderProps {
 }
 
 const CategorySlider: React.FC<CategorySliderProps> = ({ categories,loading }) => {
-  const [sliderRef] = useKeenSlider<HTMLDivElement>({
-    breakpoints: {
-      '(min-width: 320px)': {
-        slides: { perView: 3, spacing: 3 },
-      },
-      '(min-width: 480px)': {
-        slides: { perView: 3, spacing: 5 },
-      },
-      '(min-width: 1000px)': {
-        slides: { perView: 6, spacing: 7 },
-      },
-    },
-    slides: { perView: 1 },
-  });
 
 
   return (
     <Container className='mt-10 md:mt-32'>
-      <div ref={sliderRef} className="keen-slider">
-
+        <Swiper
+        spaceBetween={10}
+        loop={true}
+        pagination={{
+          clickable: true,
+        }}
+        breakpoints={{
+          320: {
+            slidesPerView: 2.9,
+          },
+          640: {
+            slidesPerView: 4,
+          },
+          768: {
+            slidesPerView: 4,
+          },
+          1024: {
+            slidesPerView: 5,
+          },
+        }}
+        className="mySwiper"
+      >
         {
-        loading ? <div className='flex justify-center items-center w-full'><Loader/></div> 
+          loading ? <div className='flex justify-center items-center w-full'><Loader/></div> 
         : 
 
-        categories && categories.map((category) => (
+        categories && categories.map((category,index) => (
+          <SwiperSlide key={index}> 
           <Link  href={{
             pathname: `/products/${category._id}`,
             query: { Category: JSON.stringify(category) }
-          }} className="keen-slider__slide" key={category._id}>
+          }} className="keen-slider__slide" >
             <div className="space-y-2 flex flex-col items-center">
               <div className="border object-contain w-20 h-20 md:w-44 md:h-44 rounded-full">
                 <Image
@@ -67,8 +77,11 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ categories,loading }) =
               <Para12 className='poppins-thin text-center' title={category.name} />
             </div>
           </Link>
+        </SwiperSlide>
         ))}
-      </div>
+
+      </Swiper>
+
     </Container>
   );
 };

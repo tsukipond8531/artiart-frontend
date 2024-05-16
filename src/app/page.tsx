@@ -57,7 +57,8 @@ export default function Home() {
    <>
    <Navbar/>
    <VideoMain/>
-   {/* <MainSlider/> */}
+   {/* <MainSlider categories={category}
+   loading={loading}/> */}
    <CategorySlider
    categories={category}
    loading={loading}/>
