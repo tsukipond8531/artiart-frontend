@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import Image from 'next/image'
 import Logo from 'components/Common/Logo'
 import Link from 'next/link'
-import facebook from "../../../../public/assets/images/facebook.png"
-import instagram from "../../../../public/assets/images/instagram.png"
 import { FaFacebookF } from "react-icons/fa6";
 
 const Footer = () => {
@@ -73,8 +71,8 @@ const Footer = () => {
   
             !ISSERVER ?     window.open(url, "_blank") : null}}
             > cs@artiart.ae</li>
-          <li >+971 58 820 0549</li>
-          <li>Shop 5, Khalil Al Sayegh Building, Oud Metha, Umm Hurair Road - 2nd St - Dubai</li>
+           <li ><Link href={"tel:+971 58 820 0549"}>+971 58 820 0549</Link></li>
+            <li><Link href={"https://maps.app.goo.gl/2gsB3J2XnnBGQ1ao9"}>Shop 5, Khalil Al Sayegh Building, Oud Metha, Umm Hurair Road - 2nd St - Dubai</Link></li>
         </ul>
       </div>
       <div className="block  col-span-6 min-[500px]:col-span-6 md:col-span-4 xl:col-span-2">
@@ -94,7 +92,7 @@ const Footer = () => {
       <div className="block  col-span-6 md:col-span-4 xl:col-span-2">
         <h4 className="text-lg text-gray-900 font-bold mb-9  xl:text-left">Our Product</h4>
         <ul className="transition-all duration-500 grid gap-2 text-14">
-            {category && category.length > 0 ? category.slice(0,4).map((item)=>{
+            {category && category.length > 0 ? category.map((item)=>{
               return (
                 <Link href={{ pathname: `/products/${item._id}`, query: { Category: JSON.stringify(item) } }} key={item._id} >
                     {item.name}

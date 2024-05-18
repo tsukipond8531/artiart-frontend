@@ -86,7 +86,7 @@ const Contact = () => {
               </tr>
               <tr>
                 <th className="text-start pt-3 poppins-semibold w-1/6">Address :</th>
-                <td className="font-bold pt-3 poppins-thin text-start"> Shop 5, Khalil Al Sayegh Building, Oud Metha, Umm Hurair Road - 2nd St - Dubai</td>
+                <td className="font-bold pt-3 poppins-thin text-start"><Link href={"https://maps.app.goo.gl/2gsB3J2XnnBGQ1ao9"}>Shop 5, Khalil Al Sayegh Building, Oud Metha, Umm Hurair Road - 2nd St - Dubai</Link></td>
               </tr>
 
          
