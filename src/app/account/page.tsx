@@ -34,6 +34,7 @@ function Account() {
         <button className={` flex items-center gap-2 p-2 underline  rounded-md`} onClick={tokenRemoveHandler}>
         <CiUser size={20} /> Log out
         </button>
+        
         <History/>
     </Container> 
 <Footer/>
