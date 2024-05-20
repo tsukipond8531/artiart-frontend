@@ -4,6 +4,12 @@ import Image from 'next/image'
 import Logo from 'components/Common/Logo'
 import Link from 'next/link'
 import { FaFacebookF } from "react-icons/fa6";
+import { TbDeviceLandlinePhone } from "react-icons/tb";
+import { HiOutlineMailOpen } from "react-icons/hi";
+import { FiPhoneCall } from "react-icons/fi";
+import { IoLocationOutline } from "react-icons/io5";
+
+
 
 const Footer = () => {
   const [category, setCategory] = useState<any[]>();
@@ -61,22 +67,23 @@ const Footer = () => {
         </div>
       </div>
       <div className="block  xl:text-left  col-span-full min-[500px]:col-span-6 md:col-span-4 xl:col-span-3 xl:pl-5">
-        <h4 className="text-lg text-gray-900 font-bold mb-9">Get In Touch</h4>
+        <h4 className="text-lg text-gray-900 font-bold lg:mb-9 mb-5">Get In Touch</h4>
         <ul className="text-gray-900 transition-all duration-500 grid gap-4 text-14 pr-8">
-          <li className='cursor-pointer' onClick={()=>{  
+          <li className='cursor-pointer flex gap-3 items-center' onClick={()=>{  
 
                const subject = "Contact Us";
             const url = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent("cs@artiart.ae")}&su=${encodeURIComponent(subject)}`;
             const ISSERVER = typeof window === "undefined"
   
             !ISSERVER ?     window.open(url, "_blank") : null}}
-            > info@artiart.ae</li>
-           <li ><Link href={"tel:+97145899888"}>+97145899888</Link></li>
-            <li><Link href={"https://maps.app.goo.gl/2gsB3J2XnnBGQ1ao9"}>Shop 5, Khalil Al Sayegh Building, Oud Metha, Umm Hurair Road - 2nd St - Dubai</Link></li>
+            > <span className="text-[20px]"><HiOutlineMailOpen /> </span>cs@artiart.ae</li>
+           <li className="cursor-pointer flex gap-3 items-center" ><span className="text-[18px]"><FiPhoneCall /></span><Link href={"tel:+971 58 820 0549"}>+971 58 820 0549</Link></li>
+           <li className="cursor-pointer flex gap-3 items-center"><span className="text-[20px]"><TbDeviceLandlinePhone /></span><Link href={"tel:+97145899888"}>+97 14 589 9888</Link></li>
+            <li className="cursor-pointer flex gap-3 items-top"><span className="text-[20px]"><IoLocationOutline /> </span><Link href={"https://maps.app.goo.gl/2gsB3J2XnnBGQ1ao9"}>Shop 5, Khalil Al Sayegh Building, Oud Metha, Umm Hurair Road - 2nd St - Dubai</Link></li>
         </ul>
       </div>
       <div className="block  col-span-6 min-[500px]:col-span-6 md:col-span-4 xl:col-span-2">
-        <h4 className="text-lg text-gray-900 font-bold mb-9  xl:text-left">Quick Links</h4>
+        <h4 className="text-lg text-gray-900 font-bold lg:mb-9 mb-5 xl:text-left">Quick Links</h4>
         <div className="flex gap-6 xl:gap-12">
           <ul className=" transition-all duration-500 grid gap-2 text-14">
             <Link href={"/"}>Home</Link>
@@ -90,7 +97,7 @@ const Footer = () => {
      
       </div>
       <div className="block  col-span-6 md:col-span-4 xl:col-span-2">
-        <h4 className="text-lg text-gray-900 font-bold mb-9  xl:text-left">Our Product</h4>
+        <h4 className="text-lg text-gray-900 font-bold lg:mb-9 mb-5 xl:text-left">Our Product</h4>
         <ul className="transition-all duration-500 grid gap-2 text-14">
             {category && category.length > 0 ? category.map((item)=>{
               return (
@@ -102,10 +109,10 @@ const Footer = () => {
           </ul>
       </div>
       <div className="block  col-span-full md:col-span-4 xl:col-span-2">
-        <h4 className="text-lg text-gray-900 font-bold mb-9 text-center xl:text-left">Newsletter</h4>
-        <div className="grid gap-7 ">
-          <input type="text" name="email" className="py-2 px-4 border border-gray-300 shadow-sm h-14 text-lg text-gray-800 rounded-full w-full  xl:w-64 placeholder:text-gray-400 focus:outline-none" placeholder="Enter email.." />
-          <button type="submit" className="flex gap-2 justify-center items-center py-3.5 px-7 rounded-full text-white bg-black shadow-md w-fit transition-all duration-500 mx-auto xl:mx-0">Subscribe<svg width={17} height={13} viewBox="0 0 17 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <h4 className="text-lg text-gray-900 font-bold lg:mb-9 mb-5 text-center xl:text-left">Subscribe Newsletter</h4>
+        <div className="border border-slate-700 flex rounded-full w-fit ">
+          <input type="text" name="email" className="bg-transparent focus:outline-none pl-4 text-gray-800 text-lg w-fit" placeholder="Enter email.." />
+          <button type="submit" className="bg-black duration-500 flex h-10 items-center justify-center mx-auto px-4 py-0 rounded-full shadow-md text-12 text-white transition-all w-fit xl:mx-0"><svg width={17} height={13} viewBox="0 0 17 13" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M1.5 6.88281L14.8333 6.88281M10.6667 11.8828L15.0774 7.47207C15.3552 7.19429 15.4941 7.0554 15.4941 6.88281C15.4941 6.71022 15.3552 6.57133 15.0774 6.29356L10.6667 1.88281" stroke="white" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
@@ -115,14 +122,14 @@ const Footer = () => {
     {/*Grid*/}
   </div>
   <div className="py-2 bg-indigo-50 ">
-    <div className="flex flex-wrap md:flex-nowrap items-center justify-between  max-w-screen-xl mx-auto">
+    <div className="flex flex-wrap md:flex-nowrap items-center lg:text-lef text-center justify-between  max-w-screen-xl mx-auto">
       <div className='space-x-4 px-1 text-12'>
         <Link className="underline " href={"/privacy-policy"}>Privacy Policy</Link>
         <Link className="underline" href={"/terms-condition"}>Terms & Condition</Link>
         <Link className="underline" href={"/return-refund"}>Return and Refund</Link>
         <Link className="underline" href={"/shipping-policy"}>Shipment Policy</Link>
       </div>
-      <span className="text-12 text-gray-800 text-center mt-2 ">Copyright@2024 All Right Reserved  by <Link href="/">Artiart</Link></span>
+      <span className="text-12 text-gray-800 lg:text-center mt-2 lg:mr-auto m-auto">Copyright@2024 All Right Reserved  by <Link href="/">Artiart</Link></span>
     </div>
   </div>
 </footer>

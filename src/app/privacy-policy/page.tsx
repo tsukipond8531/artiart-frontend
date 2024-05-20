@@ -48,7 +48,7 @@ const Privacy = () => {
             <HeadingH6 className='font-semibold' title={"Changes to This Privacy Policy"}/>
             <Para14 title={"We may update this Privacy Policy in accordance with the laws and regulations. The updated version will be indicated by an updated last updated date and the updated version will be effective as soon as it is accessible. We encourage you to review this Privacy Policy frequently to be informed of how we are protecting your information. "} />
             <HeadingH6 className='font-semibold' title={"Contact Us"}/>
-            <Para14 title={<>If you have any questions or concerns about this Privacy Policy, please contact us at <Link className='underline' href={"mailto:info@artiart.ae"}>info@artiart.ae.</Link>  </>}/>
+            <Para14 title={<>If you have any questions or concerns about this Privacy Policy, please contact us at <Link className='underline' href={"mailto:cs@artiart.ae"}>cs@artiart.ae.</Link>  </>}/>
        </div>
         </Container> 
 <Footer/>
