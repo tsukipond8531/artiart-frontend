@@ -15,7 +15,7 @@ const Return = () => {
             <HeadingH2 className='' title={"Return and Refund Policy"}/>
             <Para14 title={"Can I cancel my purchase after placing an order?"}/>
             <ul className='px-1 md:px-5 space-y-3'>
-                <li className='list-disc'>If you want to cancel an order after making a purchase, please contact us via email at info@artiart.ae or through the website dashboard. </li>
+                <li className='list-disc'>If you want to cancel an order after making a purchase, please contact us via email at <Link className='underline' href={"mailto:cs@artiart.ae"}>cs@artiart.ae.</Link> or through the website dashboard. </li>
                 <li className='list-disc'>If you have already made the payment, it will take approximately 4-5 working days for us to process the refund and for the money to be credited back to your bank account. </li>
                 <li className='list-disc'>Any payment delays are the responsibility of your bank.</li>
             </ul>
@@ -23,7 +23,7 @@ const Return = () => {
         <Para14 title={"Yes, but we have a Return and Refund policy. "} />
         <ul className='px-1 md:px-5 space-y-3'>
                 <li className='list-disc'>We accept your returns within 14 days of receiving your order from Artiart. </li>
-                <li className='list-disc'>To initiate a return, you need to contact the Artiart customer support team by emailing at info@artiart.ae. </li>
+                <li className='list-disc'>To initiate a return, you need to contact the Artiart customer support team by emailing at <Link className='underline' href={"mailto:cs@artiart.ae"}>cs@artiart.ae.</Link></li>
                 <li className='list-disc'>Develop new products, services, features, and functionality.</li>
                 <li className='list-disc'>Product marketing and promotion (directly or through one of our partners) to provide you with updates and other information relating to the website.</li>
                 <li className='list-disc'>In the next step you have to provide your order number and the reason for the return in the email. Please make sure to write the information carefully in order to get a response promptly. </li>
@@ -56,7 +56,7 @@ const Return = () => {
         <Para14 title={"We will initiate the refund process immediately once we receive the product at Artiart's warehouse. The refund will be processed based on the original mode of payment for the order:"} />
         <Para14 title={"For orders paid by credit/debit card, refunds will be credited back to the original payment method within 5-7 working days upon receipt of the returned product. For orders paid by cash, we will refund via bank deposit or transfer upon providing the necessary details. We will not be responsible for any delay of the payment from the bank."} />
         <HeadingH6 className='font-semibold' title={"Contact Us:"}/>
-        <Para14  title={<>If you have any questions or concerns about our return and refund policy, please contact us at <Link className='underline' href={"mailto:info@artiart.ae"}>info@artiart.ae.</Link>info@artiart.ae. Our customer service team is available to assist you from 9 am to 6 pm, Monday to Saturday (excluding Sundays and public holidays). </>} />
+        <Para14  title={<>If you have any questions or concerns about our return and refund policy, please contact us at <Link className='underline' href={"mailto:cs@artiart.ae"}>cs@artiart.ae.</Link>. Our customer service team is available to assist you from 9 am to 6 pm, Monday to Saturday (excluding Sundays and public holidays). </>} />
         <Para14 title={"Thank you for choosing Artiart. "} />
         
        </div>

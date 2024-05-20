@@ -43,7 +43,7 @@ const Terms = () => {
           </p>
           <p>
             To contact us please email us at:{" "}
-            <Link href={"mailto:info@artiart.ae"}>info@artiart.ae</Link>
+            <Link className='underline' href={"mailto:cs@artiart.ae"}>cs@artiart.ae.</Link> 
           </p>
           <HeadingH6
             className="font-semibold"

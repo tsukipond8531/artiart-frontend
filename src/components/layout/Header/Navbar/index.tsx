@@ -199,11 +199,11 @@ const Navbar: React.FC = () => {
         </div>
         </Container> 
       </nav>
-      <Link href={"https://api.whatsapp.com/send/?phone=971588200549&text&type=phone_number&app_absent=0"} className=" fixed bottom-10 right-10 z-50">
-        <Image className="bg-white p-1 shadow-md rounded-full" width={50} height={50} src={whatsapp} alt="whatsapp"/>
+      <Link href={"https://api.whatsapp.com/send/?phone=971588200549&text&type=phone_number&app_absent=0"} className=" fixed lg:bottom-10 bottom-20 right-10 z-50">
+        <Image className="bg-white p-1 shadow-md rounded-full lg:w-14 w-9" src={whatsapp} alt="whatsapp"/>
       </Link>
-      <Link href={"tel:+971 58 820 0549"} className=" fixed bottom-10 left-10 z-50">
-      <Image className="bg-white p-1 shadow-md rounded-full" width={50} height={50} src={call} alt="call"/>
+      <Link href={"tel:+971 58 820 0549"} className=" fixed lg:bottom-10 bottom-20 left-10 z-50">
+      <Image className="bg-white p-1 shadow-md rounded-full lg:w-14 w-9"  src={call} alt="call"/>
 
       </Link>
     </>
