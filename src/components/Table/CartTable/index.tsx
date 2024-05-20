@@ -19,11 +19,9 @@ const CartTable: React.FC = () => {
 
     const ProductHandler = () => {
       let Products =   localStorage.getItem("cart")
-      console.log('Products ')
-    
+
 
         if (Products && JSON.parse(Products).length > 0) {
-      console.log('Products ', Products.length)
             
             const cartItems = JSON.parse(Products || "[]");
             setCartProduct(cartItems);
