@@ -6,9 +6,18 @@ import Input from 'components/Common/Input'
 import SelectInput from 'components/Common/Selectinput'
 import Footer from 'components/layout/Footer'
 import Navbar from 'components/layout/Header/Navbar'
-import React from 'react'
+import React, { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+
 
 const Checkout = () => {
+  const searchParams = useSearchParams()
+  const search = searchParams.get('subtotal')
+  const parseSubtotal = search ? JSON.parse(search) : null;
+  console.log('parseSubtotal, ', parseSubtotal)
+const [shipment, setShipment] = useState<number | undefined | null >(parseSubtotal ? Number(parseSubtotal) : undefined)
+
+
   return (
     <>
     <Navbar/>
@@ -102,17 +111,17 @@ const Checkout = () => {
             <tr className="odd:bg-white hover:bg-gray-100 border-b-gray-200 border  ">
               <td className="px-6 py-4 whitespace-nowrap text-[14px] poppins-thin text-gray-800">ARTIST STEEL SUCTION BOTTLE - Light Grey 
 × 1</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">45</td>            
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{parseSubtotal ? parseSubtotal : ''}</td>            
             </tr>
 
             <tr className="odd:bg-white hover:bg-gray-100 border-b-gray-200 border">
-              <td className="px-6 py-4 whitespace-nowrap text-[14px] poppins-thin text-gray-800">Subtotal</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">27</td>           
+              <td className="px-6 py-4 whitespace-nowrap text-[14px] poppins-thin text-gray-800">Shippment</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{shipment && shipment > 199 ? "Free" :  30}</td>           
             </tr>
 
             <tr className="odd:bg-white hover:bg-gray-100 border-b-gray-200 border">
               <td className="px-6 py-4 whitespace-nowrap text-[14px] poppins-thin text-gray-800">Total</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">31</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{shipment && (shipment > 199 ? parseSubtotal : 30 + Number(parseSubtotal))}</td>
             </tr>
           </tbody>
         </table>

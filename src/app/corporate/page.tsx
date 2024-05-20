@@ -16,7 +16,7 @@ const Corporate = () => {
         <div className='max-w-screen-md mx-auto space-y-5 '>
             <HeadingH2 className='' title={"Customized Corporate Orders"}/>
             <Para14 title={"Grow your brand awareness with custom bottles with your company brand!"}/>
-            <Para14 title={"Contact us on luxury@aricomm.me "}/>
+            <Para14 title={"Contact us on  b2b@artiart.ae "}/>
        </div>
         </Container> 
 <Footer/>

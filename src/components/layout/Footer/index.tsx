@@ -70,8 +70,8 @@ const Footer = () => {
             const ISSERVER = typeof window === "undefined"
   
             !ISSERVER ?     window.open(url, "_blank") : null}}
-            > cs@artiart.ae</li>
-           <li ><Link href={"tel:+971 58 820 0549"}>+971 58 820 0549</Link></li>
+            > info@artiart.ae</li>
+           <li ><Link href={"tel:+97145899888"}>+97145899888</Link></li>
             <li><Link href={"https://maps.app.goo.gl/2gsB3J2XnnBGQ1ao9"}>Shop 5, Khalil Al Sayegh Building, Oud Metha, Umm Hurair Road - 2nd St - Dubai</Link></li>
         </ul>
       </div>
