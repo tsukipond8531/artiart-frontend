@@ -78,7 +78,7 @@ const Footer = () => {
             !ISSERVER ?     window.open(url, "_blank") : null}}
             > <span className="text-[20px]"><HiOutlineMailOpen /> </span>cs@artiart.ae</li>
            <li className="cursor-pointer flex gap-3 items-center" ><span className="text-[18px]"><FiPhoneCall /></span><Link href={"tel:+971 58 820 0549"}>+971 58 820 0549</Link></li>
-           <li className="cursor-pointer flex gap-3 items-center"><span className="text-[20px]"><TbDeviceLandlinePhone /></span><Link href={"tel:+97145899888"}>+97 14 589 9888</Link></li>
+           <li className="cursor-pointer flex gap-3 items-center"><span className="text-[20px]"><TbDeviceLandlinePhone /></span><Link href={"tel:+97145899888"}>+971 4 589 9888</Link></li>
             <li className="cursor-pointer flex gap-3 items-top"><span className="text-[20px]"><IoLocationOutline /> </span><Link href={"https://maps.app.goo.gl/2gsB3J2XnnBGQ1ao9"}>Shop 5, Khalil Al Sayegh Building, Oud Metha, Umm Hurair Road - 2nd St - Dubai</Link></li>
         </ul>
       </div>

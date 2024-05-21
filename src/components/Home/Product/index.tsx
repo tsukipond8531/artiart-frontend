@@ -19,7 +19,7 @@ const Product = ({ productItems, productsLoading, HeadingName }:PROPS) => {
       <h1 className='xl:text-xl-h5 lg:text-lg-h5 text-md-h5 font-semibold text-center md:text-start gap-3'>{HeadingName ? HeadingName : "Featured Products"}</h1>
       <ProductCard productItems={productItems} productsLoading={productsLoading} />
       <div className='text-center mt-5 mb-5'>
-      <Button className='bg-black text-white px-5 ' title="View ALL" onClick={()=>router.push('/products')}/>
+      <Button className='bg-black text-white px-5 ' title="View More" onClick={()=>router.push('/products')}/>
       </div>
     </Container>
   );

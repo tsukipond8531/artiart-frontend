@@ -173,7 +173,7 @@ return (
               </div>
               <Button className="border w-full rounded-none border-black hover:border-2" onClick={handleAddToCart} title={"Add to Cart"} />
 
-              <Button className={"bg-black w-full  rounded-none text-white"} title={"Buy it now"} />
+              <Button className={"bg-black w-full  rounded-none text-white"} title={"Buy It Now"} />
 
               <div className="p-2 space-y-4">
                 <ul className="list-disc">
