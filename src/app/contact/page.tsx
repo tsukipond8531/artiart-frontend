@@ -93,7 +93,7 @@ const Contact = () => {
               </tbody>
             </table>     
             <div className="mt-7">
-            <iframe className="w-full" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14435.668236099693!2d55.3078729!3d25.2397184!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43f93ce538b3%3A0xcdfd02fa5f29d2ce!2sArti%20Art%20UAE%20-%20Suction%20Mugs%20Distributor!5e0!3m2!1sen!2sae!4v1715750104768!5m2!1sen!2sae" width="600" height="450" ></iframe>
+            <iframe className="w-full" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14435.668236099693!2d55.3078729!3d25.2397184!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43f93ce538b3%3A0xcdfd02fa5f29d2ce!2sArti%20Art%20UAE%20-%20Suction%20Mugs%20Distributor!5e0!3m2!1sen!2sae!4v1715750104768!5m2!1sen!2sae" width="600" height="195" ></iframe>
             </div>
           </div>
           <div className="border border-gray-300 lg:d-block d-none"></div>
