@@ -166,6 +166,7 @@ const AddProductForm = ({setselecteMenu,seteditCategory, editCategory}: any) => 
        hover:bg-gray-200 w-fit p-2 cursor-pointer"  onClick={() =>{setselecteMenu('Add Category')}}> <IoMdArrowRoundBack />  Back</p>
       <h2 className="text-2xl font-black mb-4">Add New Category</h2>
       
+      
       <div>
         {posterimageUrl && posterimageUrl.length > 0 ? (
           <div className="flex gap-2 border-3 flex-wrap mb-3  ">
