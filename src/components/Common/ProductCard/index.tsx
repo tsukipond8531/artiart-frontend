@@ -19,13 +19,6 @@ interface ProductCardProps {
 
 }
 
-const generateSlug = (name: string): string => {
-  if (!name) return ''; // Check if name is undefined or null
-  return name
-    .toLowerCase()
-    .replace(/\s+/g, '-') // Replace spaces with hyphens
-    .replace(/[^a-z0-9-]/g, ''); // Remove non-alphanumeric characters except hyphens
-};
 
 const ProductCard: React.FC<ProductCardProps> = ({ productItems,productsLoading }) => {
   return (
@@ -38,8 +31,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ productItems,productsLoading 
         <div className="bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl mt-5 mb-5 group" key={index}>
          <Link
           href={{
-            pathname: `/detail/${generateSlug(product.name)}-${product._id}`,
-            query: { product: JSON.stringify(product) }
+            pathname: `/detail/${product._id}`,
+            query: { product: JSON.stringify(product._id) }
           }}
           
           >

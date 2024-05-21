@@ -71,7 +71,7 @@ const DropDown: React.FC<DropDownProps> = ({
                   
                   href={{
                     pathname: `/products/${item._id}`,
-                    query: { Category: JSON.stringify(item) }
+                    query: { Category: JSON.stringify(item._id) }
                   }}
                   
                   

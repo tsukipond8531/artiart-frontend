@@ -39,10 +39,10 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       setLoading(true)
-      const response = await axios.get('https://artiart-server-phi.vercel.app/api/getAllproducts');
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllproducts`);
       const products = response.data.products;
-      if ((parsedCategory && parsedCategory._id) && (products && products.length > 0)) {
-        let filteredArray = products.filter((item) => item.category === parsedCategory._id);
+      if ((parsedCategory) && (products && products.length > 0)) {
+        let filteredArray = products.filter((item) => item.category === parsedCategory);
         setProducts(filteredArray);
         setHighestPrice(findHighestPrice(filteredArray));
       }

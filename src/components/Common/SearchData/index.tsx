@@ -28,7 +28,6 @@ const SearchData = ({inputRef}) => {
     fetchData();
   }, []);
 
-  // Filter products based on search term
   const filteredProducts = products.filter(product => {
     return product.name.toLowerCase().includes(searchTerm.toLowerCase());
   });
@@ -36,13 +35,7 @@ const SearchData = ({inputRef}) => {
   const truncateText = (text, maxLength) => {
     return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
   };
-  const generateSlug = (name: string): string => {
-    if (!name) return ''; // Check if name is undefined or null
-    return name
-      .toLowerCase()
-      .replace(/\s+/g, '-') // Replace spaces with hyphens
-      .replace(/[^a-z0-9-]/g, ''); // Remove non-alphanumeric characters except hyphens
-  };
+
 
 
 
@@ -91,8 +84,8 @@ const SearchData = ({inputRef}) => {
             filteredProducts.map((product, index) => (
               <div key={index} className="mt-5 mb-6">
                 <Link  href={{
-            pathname: `/detail/${generateSlug(product.name)}-${product._id}`,
-            query: { product: JSON.stringify(product) }
+            pathname: `/detail/${product._id}`,
+            query: { product: JSON.stringify(product._id)}
           }}
            className="text-black hover:text-gray-500 relative">
                   <div className="border gap-2 p-2 pt-3 mb-2 flex items-center rounded-md shadow cursor-pointer hover:border-gray-500 duration-300 transition">

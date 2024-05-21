@@ -8,6 +8,7 @@ import { Suspense } from 'react'
 import { useEffect, useState } from "react";
 import axios from 'axios'
 import Product from "components/Home/Product";
+import Loader from "components/Loader/Loader";
 
 
 
@@ -18,17 +19,23 @@ const Detail = () => {
   const search = searchParams.get('product')
   const parsedProduct = search ? JSON.parse(search) : null;
   const [products, setProducts] = useState([]);
+  const [productDetail, setproductDetail] = useState(null);
   const [productsLoading, setProductsloading] = useState<boolean>(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setProductsloading(true)
         const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllproducts`);
-        if(parsedProduct._id){
-          let slicedProducts = response.data.products && response.data.products.length > 4 ?  response.data.products.filter((item:any)=>item._id !==parsedProduct._id).slice(0, 4) :   response.data.products.filter((item:any)=>item._id !==parsedProduct._id)
+        if(parsedProduct  && (response.data.products && response.data.products.length > 0)){
+          let slicedProducts = response.data.products.length > 4 ?  response.data.products.filter((item:any)=>item._id !==parsedProduct).slice(0, 4) :   response.data.products.filter((item:any)=>item._id !==parsedProduct)
           console.log(slicedProducts, "slicedProducts")
           setProducts(slicedProducts);
+        for(let key of response.data.products)
+          if(key._id ===parsedProduct){
+            return setproductDetail(key)
+          }
 
         }
       } catch (error) {
@@ -44,13 +51,20 @@ const Detail = () => {
   return (
     <>
       <Navbar />
-      <ProductDetail parsedProduct={parsedProduct} />
+      {
+        productDetail && !productsLoading ? 
+        <>
+        <ProductDetail parsedProduct={productDetail} />
 
-<div>
-  <Product productItems={products} productsLoading={productsLoading} HeadingName="You may also like"/>
-
-
-</div>
+        <div>
+          <Product productItems={products} productsLoading={productsLoading} HeadingName="You may also like"/>
+        
+        
+        </div> 
+        </>
+        : !productDetail && productsLoading ? <div className='flex justify-center items-center h-[30vh]'><Loader/></div>  : null
+      }
+   
       <Footer />
     </>
   );
