@@ -20,7 +20,7 @@ import { useSearchParams } from 'next/navigation'
 
 
 
-export default function Products() {
+export default function Products({ params }: { params: { id: string }}) {
 
 
 const [products, setProducts] = useState([]);
@@ -29,10 +29,8 @@ const [maxPrice, setMaxPrice] = useState("");
 const [highestPrice, setHighestPrice] = useState(0);
 const [loading , setLoading] = useState<boolean>(false)
 const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
-const searchParams = useSearchParams()
-const search = searchParams.get('Category')
-const parsedCategory = search ? JSON.parse(search) : null;
-const id = parsedCategory && parsedCategory._id ? parsedCategory._id : null
+
+const parsedCategory =  params.id ? params.id : null;
 
 
 useEffect(() => {
@@ -55,7 +53,7 @@ useEffect(() => {
   };
 
   fetchData();
-}, [id]);
+}, [parsedCategory]);
 
 
 const findHighestPrice = (products) => {

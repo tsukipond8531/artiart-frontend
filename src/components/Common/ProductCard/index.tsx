@@ -31,8 +31,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ productItems,productsLoading 
         <div className="bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl mt-5 mb-5 group" key={index}>
          <Link
           href={{
-            pathname: `/detail/${product._id}`,
-            query: { product: JSON.stringify(product._id) }
+            pathname: `/detail/${product._id}`
           }}
           
           >

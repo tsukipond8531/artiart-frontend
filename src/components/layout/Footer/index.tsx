@@ -101,7 +101,7 @@ const Footer = () => {
         <ul className="transition-all duration-500 grid gap-2 text-14">
             {category && category.length > 0 ? category.map((item)=>{
               return (
-                <Link href={{ pathname: `/products/${item._id}`, query: { Category: JSON.stringify(item) } }} key={item._id} >
+                <Link href={{ pathname: `/products/${item._id}`}} key={item._id} >
                     {item.name}
                 </Link>
               )

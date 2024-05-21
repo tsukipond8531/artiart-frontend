@@ -35,12 +35,48 @@ const ProductDetail = ({ parsedProduct }: any) => {
     setCount((prevCount: number) => (prevCount > 1 ? prevCount - 1 : prevCount));
   };
 
+  // const handleAddToCart = () => {
+  //   if (!selectedValue || !parsedProduct) {
+  //     // Handle error: No color selected or product details missing
+  //     return;
+  //   }
+
+  //   const newCartItem = {
+  //     id: parsedProduct.id,
+  //     name: parsedProduct.name,
+  //     price: parsedProduct.price,
+  //     imageUrl: parsedProduct.imageUrl,
+  //     color: selectedValue,
+  //     count: count,
+  //     totalPrice: parsedProduct.price * count,
+  //   };
+
+  //   // Fetch existing cart items from local storage or initialize an empty array
+  //   let existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+  //   // Check if the product already exists in the cart
+  //   const existingItemIndex = existingCart.findIndex((item: any) => item.id === parsedProduct.id && item.color === selectedValue);
+
+  //   if (existingItemIndex !== -1) {
+  //     // If the product already exists, update its quantity
+  //     existingCart[existingItemIndex].count += count;
+  //   } else {
+  //     // If the product doesn't exist, add it to the cart
+  //     existingCart.push(newCartItem);
+  //   }
+
+  //   // Update local storage with the updated cart
+  //   localStorage.setItem("cart", JSON.stringify(existingCart));
+  //   message.success('Product added to cart successfully!');
+  // };
+
+
   const handleAddToCart = () => {
     if (!selectedValue || !parsedProduct) {
       // Handle error: No color selected or product details missing
       return;
     }
-
+  
     const newCartItem = {
       id: parsedProduct.id,
       name: parsedProduct.name,
@@ -50,27 +86,27 @@ const ProductDetail = ({ parsedProduct }: any) => {
       count: count,
       totalPrice: parsedProduct.price * count,
     };
-
+  
     // Fetch existing cart items from local storage or initialize an empty array
     let existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
-
+  
     // Check if the product already exists in the cart
-    const existingItemIndex = existingCart.findIndex(
-      (item: any) => item.id === parsedProduct.id && item.color === selectedValue
-    );
-
+    const existingItemIndex = existingCart.findIndex((item) => item.id === parsedProduct.id && item.color === selectedValue);
+  
     if (existingItemIndex !== -1) {
-      // If the product already exists, update its quantity
+      // If the product already exists, update its quantity and total price
       existingCart[existingItemIndex].count += count;
+      existingCart[existingItemIndex].totalPrice = existingCart[existingItemIndex].count * parsedProduct.price;
     } else {
       // If the product doesn't exist, add it to the cart
       existingCart.push(newCartItem);
     }
-
+  
     // Update local storage with the updated cart
     localStorage.setItem("cart", JSON.stringify(existingCart));
     message.success('Product added to cart successfully!');
   };
+  
 
   return (
     <>
@@ -107,28 +143,6 @@ const ProductDetail = ({ parsedProduct }: any) => {
               </p>
               <Para14 title={"Color"} />
               <div className="flex gap-2 mb-4 flex-wrap w-full">
-                {/* {parsedProduct.colors && parsedProduct.colors.map((button:any, index:any) => (
-    
-            <Radio
-            key={index}
-            value={button.colorName}
-            checked={selectedValue === button.colorName} // Compare with button.colorName instead of button.value
-            onChange={handleChange}
-            className={`py-2 px-4 rounded-lg focus:outline-none whitespace-nowrap hover:bg-blue-100 cursor-pointer ${
-                selectedValue === button.colorName 
-                ? `bg-blue-100 ${"text-black"}`
-                : `bg-${button.colorName}-500  ${button.colorName.toLowerCase() =="black" || button.colorName.toLowerCase() =="#000" ? "text-white" :  "text-black"} border border-${button.colorName}-600`
-            }`}
-
-            style={{backgroundColor: selectedValue === button.colorName ? "#c8d9ed" : button.colorName}}
-        >
-          
-            {button.colorName.charAt(0).toUpperCase() + button.colorName.slice(1)}
-        </Radio>
-
-        
-        
-              ))} */}
                 {parsedProduct.colors && parsedProduct.colors.map((button: any, index: any) => {
 return (
                   <p

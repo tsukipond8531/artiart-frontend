@@ -14,9 +14,8 @@ const CartTable: React.FC = () => {
     const [cartproduct, setCartProduct] = useState<any[]>([]);
     const [counts, setCounts] = useState<number[]>([]);
     const [subtotal, setSubtotal] = useState<number>(0);
+    const [changeId, setchangeId] = useState<any>();
     const router = useRouter()
-
-
     const ProductHandler = () => {
       let Products =   localStorage.getItem("cart")
 
@@ -36,7 +35,7 @@ const CartTable: React.FC = () => {
 
     useEffect(() => {
         ProductHandler()
-    }, []);
+    }, [changeId]);
 
     const increment = (index: number) => {
         const newCounts = [...counts];
@@ -75,7 +74,8 @@ const CartTable: React.FC = () => {
                 updatedCart.splice(index, 1); // Remove the item at the specified index
                 setCartProduct(updatedCart); // Update the state
                 localStorage.setItem("cart", JSON.stringify(updatedCart)); // Update local storage
-                // Optionally, update subtotal if needed
+                
+                setchangeId(index)
             },
             onCancel() {
                 // Do nothing
@@ -83,6 +83,8 @@ const CartTable: React.FC = () => {
         });
     };
 
+
+    console.log(changeId, "changeId")
 
 
 
@@ -152,7 +154,7 @@ const CartTable: React.FC = () => {
                                                         <input className='w-5 hover:border hover:scale-105 text-center' type="text" value={counts[index]} readOnly />
                                                         <FiPlus className='cursor-pointer' size={20} onClick={() => increment(index)} />
                                                     </div>
-                                                    <MdDeleteOutline onClick={() => removeItemFromCart(index)} className='cursor-pointer' size={20} />
+                                                    <MdDeleteOutline onClick={() => {removeItemFromCart(index); }} className='cursor-pointer' size={20} />
                                                 </div>
                                             </td>
                                             <td className="px-2 "><Para14 icon={"AED "} title={array.totalPrice} />

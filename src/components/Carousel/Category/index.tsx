@@ -62,7 +62,7 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ categories,loading }) =
           <SwiperSlide key={index}> 
           <Link  href={{
             pathname: `/products/${category._id}`,
-            query: { Category: JSON.stringify(category._id) }
+      
           }} className="keen-slider__slide" >
             <div className="space-y-2 flex flex-col items-center">
               <div className="border object-contain w-20 h-20 md:w-44 md:h-44 rounded-full">

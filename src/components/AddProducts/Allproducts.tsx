@@ -78,10 +78,9 @@ function Category({ Categories, setCategory, setselecteMenu, loading,canAddProdu
       render: (text: any, record: any) => {
         const handleClick = () => {
           console.log(record, "record")
-          const queryParams = new URLSearchParams({
-            product: JSON.stringify(record)
-          }).toString();
-          const url = `/detail/-${record._id}?${queryParams}`;
+
+
+          const url = `/detail/${record._id}`;
           window.open(url, '_blank');
         };
         return <FaRegEye className="cursor-pointer" onClick={handleClick} />
