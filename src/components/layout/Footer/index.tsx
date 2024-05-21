@@ -110,8 +110,8 @@ const Footer = () => {
       </div>
       <div className="block  col-span-full md:col-span-4 xl:col-span-2">
         <h4 className="text-lg text-gray-900 font-bold lg:mb-9 mb-5 text-center xl:text-left">Subscribe Newsletter</h4>
-        <div className="border border-slate-700 flex rounded-full w-fit ">
-          <input type="text" name="email" className="bg-transparent focus:outline-none pl-4 text-gray-800 text-lg w-fit" placeholder="Enter email.." />
+        <div className="border border-slate-700 flex rounded-full w-fit pl-4 gap-2 ">
+          <input type="text" name="email" className="bg-transparent focus:outline-none  text-gray-800 text-lg w-full" placeholder="Enter email.." />
           <button type="submit" className="bg-black duration-500 flex h-10 items-center justify-center mx-auto px-4 py-0 rounded-full shadow-md text-12 text-white transition-all w-fit xl:mx-0"><svg width={17} height={13} viewBox="0 0 17 13" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M1.5 6.88281L14.8333 6.88281M10.6667 11.8828L15.0774 7.47207C15.3552 7.19429 15.4941 7.0554 15.4941 6.88281C15.4941 6.71022 15.3552 6.57133 15.0774 6.29356L10.6667 1.88281" stroke="white" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
             </svg>
