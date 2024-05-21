@@ -22,6 +22,9 @@ const nextConfig = {
     images: {
       domains: ['res.cloudinary.com'],
     },
+    compiler: {
+      removeConsole:  process.env.NEXT_PUBLIC_ENV =='production' ? true : false,
+    },
   };
   
   
