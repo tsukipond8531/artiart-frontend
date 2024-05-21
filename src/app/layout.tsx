@@ -6,7 +6,9 @@ import "./globals.css";
 import 'react-toastify/dist/ReactToastify.css';
 import { Providers } from '../Providers'
 import React, { Suspense } from 'react';
-
+import Head from "next/head";
+import icon from "../../public/assets/images/favicon.ico"
+import Link from "next/link";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -25,6 +27,9 @@ export default function RootLayout({
     <Providers>
 
     <html lang="en">
+    <Head>
+      <Link rel='icon' href='/favicon.ico' />
+    </Head>
       <body className={inter.className}>
     <Suspense>
 
