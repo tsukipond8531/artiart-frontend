@@ -51,7 +51,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ productItems,productsLoading 
                 <p className="text-[15px] poppins-thin text-black cursor-auto my-3">Dhs. <span>{product.price}</span>.00</p>
                 {product.discountPrice ? (
                   <del className=''>
-                    <p className="text-[15px] text-gray-600 cursor-auto font-i"> <span className='text-lg'>{product.discountPrice}</span> د.إ</p>
+                    <p className="text-[15px] text-gray-600 cursor-auto font-i"> <span className='text-lg'>{product.discountPrice}</span> Dhs</p>
                   </del>
                 ) : null}
               </div>
