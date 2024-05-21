@@ -49,7 +49,7 @@ const Drawerfilter: React.FC<DrawerFilterProps> = ({ DrawerContent,icon,title,en
       }
         closable={false}
         onClose={onClose}
-        visible={open}
+        open={open}
       >
         {DrawerContent}
       </Drawer>
