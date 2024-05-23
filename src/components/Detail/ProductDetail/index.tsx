@@ -126,10 +126,10 @@ const ProductDetail = ({ parsedProduct }: any) => {
                     className="line-through"
 
                     title={parsedProduct.price}
-                    endicon={"  Dhs"}
+                    endicon={"  AED"}
                   /> : null
                 }
-                <Para16 title={parsedProduct.price} endicon={" Dhs"} />
+                <Para16 title={parsedProduct.price} endicon={" AED"} />
                 {/* <div className="border rounded-xl bg-blue-600 px-3 py-1 text-white">
                 Sale
               </div> */}

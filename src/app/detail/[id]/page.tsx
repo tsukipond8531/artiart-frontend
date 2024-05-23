@@ -14,8 +14,7 @@ import Loader from "components/Loader/Loader";
 
 
 const Detail = ({ params }: { params: { id: string }}) => {
-  const searchParams = useSearchParams()
-  const search = searchParams.get('product')
+
   const parsedProduct = params.id ? params.id : null;
   const [products, setProducts] = useState([]);
   const [productDetail, setproductDetail] = useState(null);

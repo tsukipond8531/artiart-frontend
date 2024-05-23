@@ -132,7 +132,7 @@ const totalProducts = products.length;
   content={
     <div className="space-y-3">
       <div className="p-2 flex justify-between items-center border-b-2">
-        <Para14 endicon={`${highestPrice}.00`} title={" The highest price is Dhs. "} />
+        <Para14 endicon={`${highestPrice}.00`} title={" The highest price is AED. "} />
         <div className="underline cursor-pointer" onClick={handleResetPrice}>Reset</div>
       </div>
       <div className="flex gap-2">
@@ -197,7 +197,7 @@ const totalProducts = products.length;
       <Drawerfilter className="mt-3" title="Price" endicon={<FaArrowRightLong size={20} />} DrawerContent={<>
         <div className="space-y-3">
               <div className="p-2 flex flex-wrap justify-between items-center border-b-2">
-              <Para14 endicon={`${highestPrice}.00`} title={" The highest price is Dhs. "} />
+              <Para14 endicon={`${highestPrice}.00`} title={" The highest price is AED. "} />
               <div className="underline cursor-pointer" onClick={handleResetPrice}>Reset</div>
               </div>
               <div className="flex gap-2">
