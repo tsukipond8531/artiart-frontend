@@ -129,7 +129,8 @@ const ProductDetail = ({ parsedProduct }: any) => {
                     endicon={"  AED"}
                   /> : null
                 }
-                <Para16 title={parsedProduct.price} endicon={" AED"} />
+                {/* <Para16 title={parsedProduct.price} endicon={" AED"} /> */}
+                <p className={`text-16 gap-2`}>AED {parsedProduct.price}  </p>
                 {/* <div className="border rounded-xl bg-blue-600 px-3 py-1 text-white">
                 Sale
               </div> */}

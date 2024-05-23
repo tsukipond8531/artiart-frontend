@@ -143,6 +143,7 @@ const CartTable: React.FC = () => {
                                                     <div className='space-y-2'>
                                                         <Para14 className='hover:underline transition duration-200' title={array.name} />
                                                         <Para14 icon={"AED "} title={array.price} />
+                                                        {/* <p className='text-14 gap-2'>AED  {array.price}</p> */}
                                                         <Para14 icon={"Color: "} title={array.color} />
                                                     </div>
                                                 </div>
