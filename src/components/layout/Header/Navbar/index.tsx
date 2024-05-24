@@ -15,6 +15,7 @@ import Drawerfilter from "components/Common/Drawer";
 import Image from "next/image";
 import whatsapp from "../../../../../public/assets/images/whatsapp.png"
 import call from "../../../../../public/assets/images/call.svg"
+import { PiBag } from 'react-icons/pi';
 
 
 const Navbar: React.FC = () => {
@@ -25,28 +26,9 @@ const Navbar: React.FC = () => {
   const inputRef = useRef<any>(null);
   const [category, setCategory] = useState<any[]>();
   const [loading, setLoading] = useState<boolean>(false);
-  useEffect(() => {
-    const CategoryHandler = async () => {
-      try {
-        setLoading(true)
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllcategories`
-  
-        );
-        const Categories = await response.json();
-        setCategory(Categories);
-        setLoading(false)
-  
-      } catch (err) {
-        console.log('err', err)
-        setLoading(false)
-      }
-  
-    };
-  
-    CategoryHandler()
-  }, []);
-  
+ 
+
+
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
@@ -82,7 +64,6 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     const focusHandler =()=>{
       if( inputRef.current && open){
-        console.log('working',  inputRef.current.focus)
       inputRef.current.focus() 
     }
     else{
@@ -93,6 +74,8 @@ const Navbar: React.FC = () => {
     }
     focusHandler()
   }, [open]);
+
+  
 
 
   return (
@@ -121,7 +104,16 @@ const Navbar: React.FC = () => {
                 <SearchData inputRef={inputRef} />
               </Modal>
            <Link href={"/account"}><FaRegUser size={20} /></Link>
-           <Link href={"/cart"}><AiOutlineShoppingCart size={20} /></Link>
+
+
+           <Link className='relative group' href={"/cart"}>
+                  <div className='rounded-full text-dark w-5 h-5 p-[12px] bg-black text-white text-[14px] absolute bottom-2 left-3 flex justify-center items-center transition duration-200 ease-in'>
+                    1
+                  </div>
+                  <PiBag   className='transition duration-200 ease-in' size={28} />
+
+                </Link>
+    
            <div className="flex pl-5  space-x-2 md:space-x-4 sm:justify-center  ">
           <Link href="https://www.facebook.com/artiartuae" className="w-7   h-7   rounded-full  flex justify-center items-center shadow-md hover:shadow">
           <FaFacebookF  className='text-blue-600' />
