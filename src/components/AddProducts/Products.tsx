@@ -354,7 +354,7 @@ if(!EditInitialValues) return
             ))}
 
             <Field as="select" name="category" className="mb-4">
-              <option value="">Select an option</option>
+              <option value="">Select a Category</option>
 
               {category && category.length > 0
                 ? category.map((item: any, index) => {
