@@ -144,7 +144,12 @@ function Admins({setselecteMenu}:any) {
               <Button type="primary" onClick={() => setselecteMenu("Add Admin")}>Add new Admin</Button>
             </div>
           </div>
-          <Table dataSource={admins} columns={columns} pagination={false} />
+          {
+  admins  && admins.length > 0 ?
+<Table dataSource={admins} columns={columns} pagination={false} /> : <div className="flex justify-center"> No Admin found</div>
+  
+  
+}
         </>
       )}
     </div>
