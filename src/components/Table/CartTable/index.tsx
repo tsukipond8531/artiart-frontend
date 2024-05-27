@@ -28,9 +28,6 @@ const CartTable: React.FC = () => {
             const sub = cartItems.reduce((total: number, item: any) => total + item.totalPrice, 0);
             setSubtotal(sub);
         }
-        else {
-            router.push('/products')
-        }
     }
 
     useEffect(() => {
@@ -42,6 +39,8 @@ const CartTable: React.FC = () => {
         newCounts[index] += 1;
         setCounts(newCounts);
         updateTotalPrice(index, newCounts[index]);
+    window.dispatchEvent(new Event("cartChanged"));
+
     };
 
     const decrement = (index: number) => {
@@ -50,6 +49,8 @@ const CartTable: React.FC = () => {
             newCounts[index] -= 1;
             setCounts(newCounts);
             updateTotalPrice(index, newCounts[index]);
+    window.dispatchEvent(new Event("cartChanged"));
+
         }
     };
 
@@ -71,9 +72,11 @@ const CartTable: React.FC = () => {
             cancelText: 'No',
             onOk() {
                 const updatedCart = [...cartproduct];
-                updatedCart.splice(index, 1); // Remove the item at the specified index
-                setCartProduct(updatedCart); // Update the state
-                localStorage.setItem("cart", JSON.stringify(updatedCart)); // Update local storage
+                updatedCart.splice(index, 1); 
+                setCartProduct(updatedCart); 
+                localStorage.setItem("cart", JSON.stringify(updatedCart)); 
+    window.dispatchEvent(new Event("cartChanged"));
+
                 
                 setchangeId(index)
             },
@@ -82,10 +85,6 @@ const CartTable: React.FC = () => {
             },
         });
     };
-
-
-    console.log(changeId, "changeId")
-
 
 
     return (
@@ -122,6 +121,8 @@ const CartTable: React.FC = () => {
             ))}
 
 
+{
+    cartproduct.length > 0 ? 
             <div className="flex flex-col mt-10 md:mt-20">
                 <div className="-m-1.5 overflow-x-auto hidden md:block">
                     <div className="p-1.5 min-w-full inline-block align-middle">
@@ -186,7 +187,14 @@ const CartTable: React.FC = () => {
                         <Button className='bg-black text-white w-80 p-3 mt-3' title={"Check out"} />
                     </Link>
                 </div>
+            </div> : 
+            <div className='flex justify-center'>
+                Your Cart is empty
             </div>
+
+}
+
+            
         </>
     )
 }

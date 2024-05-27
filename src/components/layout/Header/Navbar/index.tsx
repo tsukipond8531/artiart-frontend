@@ -26,12 +26,15 @@ const Navbar: React.FC = () => {
   const inputRef = useRef<any>(null);
   const [category, setCategory] = useState<any[]>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [cartItems, setCartItems] = useState<any[]>([]);
+
  
 
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
+
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
   };
@@ -44,12 +47,34 @@ const Navbar: React.FC = () => {
     }
   };
 
+
+  useEffect(() => {
+    const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
+    setCartItems(existingCart);
+  }, []);
+
+  useEffect(() => {
+    const handleCartChange = () => {
+      const updatedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+      setCartItems(updatedCart);
+    };
+
+    window.addEventListener("cartChanged", handleCartChange);
+
+    return () => {
+      window.removeEventListener("cartChanged", handleCartChange);
+    };
+  }, []);
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+
+
   // Define the styles for default and scrolled states
   const defaultStyle = "bg-white/100"; // Full opacity or no blur in dark mode
   const scrolledStyle = "bg-white md:bg-white/30 backdrop-blur-md"; // Reduced opacity and blur in dark mode
@@ -107,9 +132,13 @@ const Navbar: React.FC = () => {
 
 
            <Link className='relative group' href={"/cart"}>
-                  <div className='rounded-full text-dark w-5 h-5 p-[12px] bg-black text-white text-[14px] absolute bottom-2 left-3 flex justify-center items-center transition duration-200 ease-in'>
-                    1
-                  </div>
+           {
+  cartItems.length > 0 ? 
+    <div className='rounded-full text-dark w-5 h-5 p-[12px] bg-black text-white text-[14px] absolute bottom-2 left-3 flex justify-center items-center transition duration-200 ease-in'>
+      {cartItems.reduce((count, item) => count + item.count, 0)}
+    </div> 
+  : null
+}
                   <PiBag   className='transition duration-200 ease-in' size={28} />
 
                 </Link>

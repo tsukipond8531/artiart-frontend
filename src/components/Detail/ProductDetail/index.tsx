@@ -29,48 +29,15 @@ const ProductDetail = ({ parsedProduct }: any) => {
 
   const increment = () => {
     setCount((prevCount: number) => prevCount + 1);
+    window.dispatchEvent(new Event("cartChanged"));
+
   };
 
   const decrement = () => {
     setCount((prevCount: number) => (prevCount > 1 ? prevCount - 1 : prevCount));
+    window.dispatchEvent(new Event("cartChanged"));
+
   };
-
-  // const handleAddToCart = () => {
-  //   if (!selectedValue || !parsedProduct) {
-  //     // Handle error: No color selected or product details missing
-  //     return;
-  //   }
-
-  //   const newCartItem = {
-  //     id: parsedProduct.id,
-  //     name: parsedProduct.name,
-  //     price: parsedProduct.price,
-  //     imageUrl: parsedProduct.imageUrl,
-  //     color: selectedValue,
-  //     count: count,
-  //     totalPrice: parsedProduct.price * count,
-  //   };
-
-  //   // Fetch existing cart items from local storage or initialize an empty array
-  //   let existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
-
-  //   // Check if the product already exists in the cart
-  //   const existingItemIndex = existingCart.findIndex((item: any) => item.id === parsedProduct.id && item.color === selectedValue);
-
-  //   if (existingItemIndex !== -1) {
-  //     // If the product already exists, update its quantity
-  //     existingCart[existingItemIndex].count += count;
-  //   } else {
-  //     // If the product doesn't exist, add it to the cart
-  //     existingCart.push(newCartItem);
-  //   }
-
-  //   // Update local storage with the updated cart
-  //   localStorage.setItem("cart", JSON.stringify(existingCart));
-  //   message.success('Product added to cart successfully!');
-  // };
-
-
   const handleAddToCart = () => {
     if (!selectedValue || !parsedProduct) {
       // Handle error: No color selected or product details missing
@@ -94,7 +61,6 @@ const ProductDetail = ({ parsedProduct }: any) => {
     const existingItemIndex = existingCart.findIndex((item) => item.id === parsedProduct.id && item.color === selectedValue);
   
     if (existingItemIndex !== -1) {
-      // If the product already exists, update its quantity and total price
       existingCart[existingItemIndex].count += count;
       existingCart[existingItemIndex].totalPrice = existingCart[existingItemIndex].count * parsedProduct.price;
     } else {
@@ -105,6 +71,8 @@ const ProductDetail = ({ parsedProduct }: any) => {
     // Update local storage with the updated cart
     localStorage.setItem("cart", JSON.stringify(existingCart));
     message.success('Product added to cart successfully!');
+    window.dispatchEvent(new Event("cartChanged"));
+
   };
   
 
