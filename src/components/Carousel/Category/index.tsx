@@ -9,6 +9,8 @@ import Link from 'next/link';
 import { Para12, Para14 } from 'components/Common/Paragraph';
 import Loader from "components/Loader/Loader";
 import { Swiper, SwiperSlide } from 'swiper/react';
+import {generateSlug} from 'Data/data'
+
 
 // Import Swiper styles
 import 'swiper/css';
@@ -61,7 +63,7 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ categories,loading }) =
         categories && categories.map((category,index) => (
           <SwiperSlide key={index}> 
           <Link  href={{
-            pathname: `/products/${category._id}`,
+            pathname: `/products/${generateSlug(category.name)}`,
       
           }} className="keen-slider__slide" >
             <div className="space-y-2 flex flex-col items-center">

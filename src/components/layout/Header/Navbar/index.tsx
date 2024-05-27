@@ -16,6 +16,8 @@ import Image from "next/image";
 import whatsapp from "../../../../../public/assets/images/whatsapp.png"
 import call from "../../../../../public/assets/images/call.svg"
 import { PiBag } from 'react-icons/pi';
+import {generateSlug} from 'Data/data'
+
 
 
 const Navbar: React.FC = () => {
@@ -174,7 +176,7 @@ const Navbar: React.FC = () => {
                 <div className="flex flex-col space-y-2">
                 {category && category.length > 0 ? category.map((item)=>{
               return (
-                <Link href={{ pathname: `/products/${item._id}`}} key={item._id} >
+                <Link href={{ pathname: `/products/${generateSlug(item.name)}`}} key={item._id} >
                     {item.name}
                 </Link>
               )

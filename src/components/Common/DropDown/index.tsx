@@ -3,6 +3,9 @@
 import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { HeadingH5 } from '../Heading';
+import {generateSlug} from 'Data/data'
+
+
 
 interface DropDownProps {
   array:
@@ -70,7 +73,7 @@ const DropDown: React.FC<DropDownProps> = ({
                   <Link
                   
                   href={{
-                    pathname: `/products/${item._id}`,
+                    pathname: `/products/${generateSlug(item.name)}`,
                   }}
                   
                   

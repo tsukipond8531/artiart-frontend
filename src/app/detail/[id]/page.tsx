@@ -3,23 +3,24 @@ import ProductDetail from "components/Detail/ProductDetail";
 import Footer from "components/layout/Footer";
 import Navbar from "components/layout/Header/Navbar";
 import React from "react";
-import { useRouter, useSearchParams } from 'next/navigation'
-import { Suspense } from 'react'
 import { useEffect, useState } from "react";
 import axios from 'axios'
 import Product from "components/Home/Product";
 import Loader from "components/Loader/Loader";
+import {generateSlug} from 'Data/data'
+
 
 
 
 
 const Detail = ({ params }: { params: { id: string }}) => {
 
-  const parsedProduct = params.id ? params.id : null;
+  const parsedProduct = params.id ? params.id.toLowerCase() : null;
+
   const [products, setProducts] = useState([]);
   const [productDetail, setproductDetail] = useState(null);
   const [productsLoading, setProductsloading] = useState<boolean>(false);
-
+console.log(parsedProduct, "parsedProduct")
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,10 +28,10 @@ const Detail = ({ params }: { params: { id: string }}) => {
         setProductsloading(true)
         const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllproducts`);
         if(parsedProduct  && (response.data.products && response.data.products.length > 0)){
-          let slicedProducts = response.data.products.length > 4 ?  response.data.products.filter((item:any)=>item._id !==parsedProduct).slice(0, 4) :   response.data.products.filter((item:any)=>item._id !==parsedProduct)
+          let slicedProducts = response.data.products.length > 4 ?  response.data.products.filter((item:any)=> generateSlug(item.name) !==parsedProduct).slice(0, 4) :   response.data.products.filter((item:any)=>generateSlug(item.name) !==parsedProduct)
           setProducts(slicedProducts);
         for(let key of response.data.products)
-          if(key._id ===parsedProduct){
+          if(generateSlug(key.name) ===parsedProduct){
             return setproductDetail(key)
           }
 

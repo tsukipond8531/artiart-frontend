@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import { FaRegEye } from "react-icons/fa6";
 import { LiaEdit } from "react-icons/lia";
 
+import {generateSlug} from 'Data/data'
+
 
 function Category({ Categories, setCategory, setselecteMenu, loading,canAddProduct,canDeleteProduct,setEditProduct }: any) {
   const router = useRouter()
@@ -80,7 +82,7 @@ function Category({ Categories, setCategory, setselecteMenu, loading,canAddProdu
           console.log(record, "record")
 
 
-          const url = `/detail/${record._id}`;
+          const url = `/detail/${generateSlug(record.name)}`;
           window.open(url, '_blank');
         };
         return <FaRegEye className="cursor-pointer" onClick={handleClick} />

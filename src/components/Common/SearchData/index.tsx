@@ -6,14 +6,16 @@ import React, { useEffect, useState, } from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { HeadingH4 } from "../Heading";
 import { Para12, Para14, Para16 } from '../../Common/Paragraph';
-import tra1 from "../../../../public/assets/images/tra1.jpg"
 import axios from "axios";
+import {generateSlug} from 'Data/data'
+
+
 interface PROPS {
   inputRef: any
 }
 
 const SearchData = ({inputRef}) => {
-  const [searchTerm, setSearchTerm] = useState(""); // State to hold the search term
+  const [searchTerm, setSearchTerm] = useState(""); 
   const [products, setProducts] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -84,8 +86,7 @@ const SearchData = ({inputRef}) => {
             filteredProducts.map((product, index) => (
               <div key={index} className="mt-5 mb-6">
                 <Link  href={{
-            pathname: `/detail/${product._id}`,
-            query: { product: JSON.stringify(product._id)}
+            pathname: `/detail/${generateSlug(product.name)}`,
           }}
            className="text-black hover:text-gray-500 relative">
                   <div className="border gap-2 p-2 pt-3 mb-2 flex items-center rounded-md shadow cursor-pointer hover:border-gray-500 duration-300 transition">

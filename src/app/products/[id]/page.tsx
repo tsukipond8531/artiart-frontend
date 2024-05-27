@@ -16,7 +16,7 @@ import { IoFilter } from "react-icons/io5";
 import { FaArrowRightLong } from "react-icons/fa6";
 import axios from "axios";
 import ProductCard from "components/Common/ProductCard";
-import { useSearchParams } from 'next/navigation'
+import {generateSlug} from 'Data/data'
 
 
 
@@ -33,22 +33,74 @@ const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 const parsedCategory =  params.id ? params.id : null;
 
 
+// useEffect(() => {
+//   const fetchData = async () => {
+//     try {
+//       setLoading(true)
+//       const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllproducts`);
+//       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllcategories`);
+//       const products = response.data.products;
+//       if ((parsedCategory) && (products && products.length > 0)) {
+//         let filteredArray = products.filter((item) => item.category === parsedCategory);
+//         setProducts(filteredArray);
+//         setHighestPrice(findHighestPrice(filteredArray));
+//       }
+//     } catch (error) {
+//       console.log('Error fetching data:', error);
+//     }
+//     finally{
+//       setLoading(false)
+//     }
+//   };
+
+//   fetchData();
+// }, [parsedCategory]);
+
 useEffect(() => {
   const fetchData = async () => {
     try {
-      setLoading(true)
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllproducts`);
-      const products = response.data.products;
-      if ((parsedCategory) && (products && products.length > 0)) {
-        let filteredArray = products.filter((item) => item.category === parsedCategory);
+      setLoading(true);
+
+      const promises = [
+        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllproducts`),
+        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllcategories`)
+      ];
+
+
+
+      // Execute all promises concurrently using Promise.all
+      const [productsResponse, categoriesResponse] = await Promise.all(promises);
+
+      
+
+      const products = productsResponse.data.products;
+      const categories = categoriesResponse.data;
+
+
+      if (parsedCategory &&( products && products.length > 0 )) {
+        let filteredCategory = null; 
+        
+
+        for (let category of categories ){
+          console.log(category, "category")
+         if(generateSlug(category.name) == parsedCategory) {
+           filteredCategory = category
+           break
+
+         }
+        
+    
+        }
+        console.log(filteredCategory, "filteredCategory")
+        let filteredArray = products.filter((item) => item.category === filteredCategory._id);
         setProducts(filteredArray);
         setHighestPrice(findHighestPrice(filteredArray));
       }
+
     } catch (error) {
       console.log('Error fetching data:', error);
-    }
-    finally{
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
 

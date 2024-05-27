@@ -30,11 +30,11 @@ const AddProductForm = ({setselecteMenu, setEditProduct ,EditInitialValues, Edit
   const [hoverImage, sethoverImage] = useState<any[] | null | undefined>();
   const [loading, setloading] = useState<boolean>(false);
   const [productInitialValue,setProductInitialValue] = useState< any | null | undefined>(EditProductValue)
+  const [imgError, setError] = useState<string | null | undefined>()
 
   const onSubmit = async (values: Product, { resetForm }: any) => {
     try {
-   
-      setloading(true)
+      setError(null)
       let posterImageUrl = posterimageUrl && posterimageUrl[0];
       let hoverImageUrl = hoverImage && hoverImage[0];
 let createdAt = Date.now()
@@ -50,6 +50,7 @@ let createdAt = Date.now()
         hoverImageUrl,
         createdAt
       };
+      setloading(true)
 
       let updateFlag = EditProductValue && EditInitialValues ? true : false
       let addProductUrl = updateFlag ? `/api/updateProduct/${EditInitialValues._id} ` : null ;
@@ -68,12 +69,31 @@ let createdAt = Date.now()
       setloading(false)
 
 
-    } catch (err) {
-      console.log(err, "err");
-      setloading(false)
+    } 
+    catch (err : any) {
+
+      if (err.response && err.response.data && err.response.data.error) {
+        setError(err.response.data.error);
+        console.log(err.response.data.error,  "err.response.data.message"
+        )
+      } else {
+
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unexpected error occurred");
+      }
+
   
     }
-  };
+  }   finally {
+    setloading(false)
+
+
+  }
+    
+  }
+
 
   useLayoutEffect(() => {
     const CategoryHandler = async () => {
@@ -97,9 +117,7 @@ if(!EditInitialValues) return
   useEffect(() => {
     const CategoryHandler = async () => {
       try{
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllcategories`
-        );
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllcategories`);
         const Categories = await response.json();
         setCategory(Categories);
 
@@ -277,7 +295,7 @@ if(!EditInitialValues) return
       setterFunction((prev: any) =>
         prev.filter((item: any) => item.public_id != imagePublicId)
       );
-    } catch (error) {
+    } catch (error:any) {
       console.error("Failed to remove image:", error);
     }
   };
@@ -366,6 +384,8 @@ if(!EditInitialValues) return
                   })
                 : null}
             </Field>
+            <ErrorMessage name='category' component="div" className="text-red-500" />
+
 
             <div className="mb-4">
               <FieldArray name="modelDetails">
@@ -565,6 +585,10 @@ if(!EditInitialValues) return
                 })}
               </div>
             ) : null}
+
+            {
+              imgError ? <div className="text-red-500 pt-2 pb-2">{imgError}</div> : null
+            }
 
             <div className="mb-4">
               <button

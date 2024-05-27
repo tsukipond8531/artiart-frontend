@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Loader from 'components/Loader/Loader';
-
+import {generateSlug} from 'Data/data'
 interface ProductItem {
   imageUrl: { imageUrl: string; public_id: string }[];
   hoverImageUrl: { imageUrl: string; public_id: string };
@@ -21,6 +21,7 @@ interface ProductCardProps {
 
 
 const ProductCard: React.FC<ProductCardProps> = ({ productItems,productsLoading }) => {
+  
   return (
     <>
     {productsLoading ? <div className='flex justify-center items-center'><Loader/></div> 
@@ -31,7 +32,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ productItems,productsLoading 
         <div className="bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl mt-5 mb-5 group" key={index}>
          <Link
           href={{
-            pathname: `/detail/${product._id}`
+            pathname: `/detail/${generateSlug(product.name)}`
           }}
           
           >

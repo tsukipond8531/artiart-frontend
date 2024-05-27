@@ -8,6 +8,8 @@ import { TbDeviceLandlinePhone } from "react-icons/tb";
 import { HiOutlineMailOpen } from "react-icons/hi";
 import { FiPhoneCall } from "react-icons/fi";
 import { IoLocationOutline } from "react-icons/io5";
+import {generateSlug} from 'Data/data'
+
 
 
 
@@ -101,7 +103,7 @@ const Footer = () => {
         <ul className="transition-all duration-500 grid gap-2 text-14">
             {category && category.length > 0 ? category.map((item)=>{
               return (
-                <Link href={{ pathname: `/products/${item._id}`}} key={item._id} >
+                <Link href={{ pathname: `/products/${generateSlug(item.name)}`}} key={item._id} >
                     {item.name}
                 </Link>
               )
