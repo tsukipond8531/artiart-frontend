@@ -13,6 +13,7 @@ import Loader from "components/Loader/Loader";
 
 
 
+
 interface NewPasswordProps {
   email: string | any; // Define the type of email parameter
 }
