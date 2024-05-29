@@ -27,9 +27,6 @@ export default function RootLayout({
     <Providers>
 
     <html lang="en">
-    <Head>
-      <Link rel='icon' href='/favicon.ico' />
-    </Head>
       <body className={inter.className}>
     <Suspense>
 
