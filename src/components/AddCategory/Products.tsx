@@ -167,44 +167,43 @@ const AddProductForm = ({setselecteMenu,seteditCategory, editCategory}: any) => 
       <h2 className="text-2xl font-black mb-4">Add New Category</h2>
       
       
-      <div>
-        {posterimageUrl && posterimageUrl.length > 0 ? (
-          <div className="flex gap-2 border-3 flex-wrap mb-3  ">
-            {posterimageUrl.map((item: any, index) => {
-              return (
-                <div className="group" key={index}>
-                  <div className="flex justify-end invisible group-hover:visible ">
-                    <RxCross2
-                      className="cursor-pointer"
-                      onClick={() => {
-                        ImageRemoveHandler(item.public_id, setposterimageUrl);
-                      }}
-                    />
-                  </div>
-                  <Image
-                    key={index}
-                    className="cursor-pointer"
-                    width={30}
-                    height={30}
-                    src={item.imageUrl}
-                    alt={`productImage-${index}`}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <>
-            <p className="mb-3">Add a poster Image</p>
-
-            <Uploadfile
-              setImagesUrl={setposterimageUrl}
-              handleFileChange={signlehandleFileChange}
-              handleDrop={singlehandleDrop}
+      <div className=" mb-4">
+  {posterimageUrl && posterimageUrl.length > 0 ? (
+    <div className="flex flex-wrap mb-3">
+      {posterimageUrl.map((item: any, index) => {
+        return (
+          <div className="group border border-gray-300 rounded-md overflow-hidden m-1 relative" key={index}>
+            <div className="absolute top-1 right-1 bg-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <RxCross2
+                className="cursor-pointer text-gray-600"
+                onClick={() => {
+                  ImageRemoveHandler(item.public_id, setposterimageUrl);
+                }}
+              />
+            </div>
+            <Image
+              className="cursor-pointer"
+              width={100}
+              height={100}
+              src={item.imageUrl}
+              alt={`productImage-${index}`}
             />
-          </>
-        )}
-      </div>
+          </div>
+        );
+      })}
+    </div>
+  ) : (
+    <div className="custom-shadow rounded-lg border p-4">
+      <p className="mb-3">Add a poster Image</p>
+      <Uploadfile
+        setImagesUrl={setposterimageUrl}
+        handleFileChange={signlehandleFileChange}
+        handleDrop={singlehandleDrop}
+      />
+    </div>
+  )}
+</div>
+
 
       <Formik
         initialValues={editCategoryName ? editCategoryName:  categoryInitialValues}
@@ -235,7 +234,7 @@ const AddProductForm = ({setselecteMenu,seteditCategory, editCategory}: any) => 
             <div className="mb-4">
               <button
                 type="submit"
-                className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                className="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-white hover:text-black hover:border focus:outline-none focus:bg-blue-600 transition duration-500"
               >
                 {loading ? <Loader /> : "Add Category " }
                 

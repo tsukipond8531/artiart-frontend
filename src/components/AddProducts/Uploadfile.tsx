@@ -26,8 +26,8 @@ const UploadFile = ({setImagesUrl,handleFileChange,handleDrop}:PROPS) => {
       onDragLeave={() => { setIsDraggableArea(false); }}
     >
       
-  
-        <div className="p-4 text-center">
+       
+        <div className="p-4 text-center ">
           <input 
             type="file" 
             accept="image/*" 
