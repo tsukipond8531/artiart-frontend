@@ -2,21 +2,20 @@
 import React, {
   useState,
   useEffect,
-  DragEvent,
   SetStateAction,
   useLayoutEffect,
 } from "react";
 import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
-
-import Uploadfile from "components/AddProducts/Uploadfile";
 import Image from "next/image";
-import axios, { AxiosResponse, AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { Product, ProductWithImages } from "types/interfaces";
 import { inputFields, validationSchema, initialValues } from "Data/data";
 import { RxCross2 } from "react-icons/rx";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import Loader from "components/Loader/Loader";
 import Toaster from "components/Toaster/Toaster";
+import Imageupload from 'components/ImageUpload/Imageupload';
+
 
 interface ADDPRODUCTFORMPROPS {
   setselecteMenu: React.Dispatch<SetStateAction<any>>;
@@ -33,14 +32,12 @@ const AddProductForm = ({
 }: ADDPRODUCTFORMPROPS) => {
   const [category, setCategory] = useState<any[]>();
   const [imagesUrl, setImagesUrl] = useState<any[]>([]);
-  const [selectedFile, setSelectedFiles] = useState<any[] | null>(null);
   const [posterimageUrl, setposterimageUrl] = useState<any[] | null>();
   const [hoverImage, sethoverImage] = useState<any[] | null | undefined>();
   const [loading, setloading] = useState<boolean>(false);
-  const [productInitialValue, setProductInitialValue] = useState<
-    any | null | undefined
-  >(EditProductValue);
+  const [productInitialValue, setProductInitialValue] = useState< any | null | undefined>(EditProductValue);
   const [imgError, setError] = useState<string | null | undefined>();
+
 
   const onSubmit = async (values: Product, { resetForm }: any) => {
     try {
@@ -48,10 +45,26 @@ const AddProductForm = ({
       let posterImageUrl = posterimageUrl && posterimageUrl[0];
       let hoverImageUrl = hoverImage && hoverImage[0];
       let createdAt = Date.now();
-      console.log(posterImageUrl, "posterimageUrl");
       if (!posterImageUrl || !hoverImageUrl || !(imagesUrl.length > 0)) {
         throw new Error("Please select relevant Images");
+        
       }
+
+      console.log(values.colors, "colors")
+      const validColors = values.colors.map(color => color.colorName.toLowerCase());
+
+      // Check if all the image color codes are valid
+      const invalidColors = imagesUrl.filter(img =>{
+        if(!img || !img.colorCode ){
+          throw new Error("Image colors codes are required");
+        } 
+        
+        !validColors.includes(img.colorCode.toLowerCase())});
+      if (invalidColors.length > 0) {
+        throw new Error("Some image color codes are invalid.");
+      }
+
+
       let newValue = {
         ...values,
         posterImageUrl,
@@ -59,15 +72,17 @@ const AddProductForm = ({
         hoverImageUrl,
         createdAt,
       };
+
+
+
       setloading(true);
 
       let updateFlag = EditProductValue && EditInitialValues ? true : false;
       let addProductUrl = updateFlag
         ? `/api/updateProduct/${EditInitialValues._id} `
         : null;
-      let url = `${process.env.NEXT_PUBLIC_BASE_URL}${
-        updateFlag ? addProductUrl : "/api/addProduct"
-      }`;
+      let url = `${process.env.NEXT_PUBLIC_BASE_URL}${updateFlag ? addProductUrl : "/api/addProduct"
+        }`;
 
       const response = await axios.post(url, newValue);
       console.log(response, "response");
@@ -91,6 +106,8 @@ const AddProductForm = ({
       } else {
         if (err instanceof Error) {
           setError(err.message);
+        console.log((err.message), "(err.message)");
+
         } else {
           setError("An unexpected error occurred");
         }
@@ -99,6 +116,9 @@ const AddProductForm = ({
       setloading(false);
     }
   };
+
+
+
 
   useLayoutEffect(() => {
     const CategoryHandler = async () => {
@@ -125,8 +145,6 @@ const AddProductForm = ({
     CategoryHandler();
   }, []);
 
-  console.log(EditProductValue, "EditProductValue");
-
   useEffect(() => {
     const CategoryHandler = async () => {
       try {
@@ -143,137 +161,6 @@ const AddProductForm = ({
     CategoryHandler();
   }, []);
 
-  const uploadPhotosToBackend = async (files: any[]): Promise<any[]> => {
-    const formData = new FormData();
-    console.log(files, "files");
-
-    if (files.length < 0) throw new Error("No files found");
-
-    try {
-      for (const file of files) {
-        formData.append("image", file);
-      }
-
-      const response: AxiosResponse<any> = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/addProductImage`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      // Handle the response from the backend
-      console.log("Response:", response.data.productsImageUrl);
-      return response.data?.productsImageUrl;
-    } catch (error) {
-      // Handle any errors that occur during the request
-      console.log("Error:", error);
-      // Optionally, you can throw the error to propagate it up to the component level
-      throw error;
-    }
-  };
-
-  const handleDrop = async (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const files = Array.from(e.dataTransfer.files);
-    setSelectedFiles(files);
-    console.log("files", files);
-    try {
-      let response = await uploadPhotosToBackend(files);
-      setImagesUrl((prev) => [...prev, ...response]);
-
-      console.log("Photos uploaded successfully");
-    } catch (error) {
-      console.error("Failed to upload photos:", error);
-    }
-  };
-
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file: any = e.target.files;
-    console.log("file", file);
-    setSelectedFiles(file);
-    try {
-      const response = await uploadPhotosToBackend(file);
-      setImagesUrl((prev) => [...prev, ...response]);
-      console.log("Photos uploaded successfully");
-    } catch (error) {
-      console.error("Failed to upload photos:", error);
-    }
-  };
-
-  const singlehandleDrop = async (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    let file: any = e.dataTransfer.files[0];
-    console.log("file", file);
-
-    const files = [file];
-
-    console.log("files", files);
-    try {
-      let response = await uploadPhotosToBackend(files);
-      console.log(response, "response");
-      setposterimageUrl(response);
-
-      console.log("Photos uploaded successfully");
-    } catch (error) {
-      console.error("Failed to upload photos:", error);
-    }
-  };
-
-  const signlehandleFileChange = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file: any = e?.target?.files;
-    console.log("file", file);
-    try {
-      if (!file) throw new Error("file not found");
-      const response = await uploadPhotosToBackend(file);
-      setposterimageUrl(response);
-      console.log("Photos uploaded successfully");
-    } catch (error) {
-      console.error("Failed to upload photos:", error);
-    }
-  };
-
-  const HoversinglehandleDrop = async (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    let file: any = e.dataTransfer.files[0];
-    const files = [file];
-
-    console.log("files", files);
-    try {
-      let response = await uploadPhotosToBackend(files);
-      console.log(response, "response");
-      sethoverImage(response);
-
-      console.log("Photos uploaded successfully");
-    } catch (error) {
-      console.error("Failed to upload photos:", error);
-    }
-  };
-
-  const HoversignlehandleFileChange = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    console.log("function triggered");
-    const file: any = e.target.files;
-    // const files = Array.from(file);
-    console.log("file", file);
-    try {
-      if (!file) throw new Error("file not found");
-
-      const response = await uploadPhotosToBackend(file);
-      sethoverImage(response);
-      console.log("Photos uploaded successfully");
-    } catch (error) {
-      console.log("Failed to upload photos:", error);
-    }
-  };
 
   const ImageRemoveHandler = async (
     imagePublicId: string,
@@ -314,6 +201,14 @@ const AddProductForm = ({
     }
   };
 
+  const handleColorCodeChange = (index: number, newColorCode: string) => {
+    const updatedImagesUrl = imagesUrl.map((item, i) =>
+      i === index ? { ...item, colorCode: newColorCode } : item
+    );
+    setImagesUrl(updatedImagesUrl);
+  };
+
+
   return (
     <>
       <p
@@ -328,7 +223,7 @@ hover:bg-gray-200 w-fit p-2 cursor-pointer"
       </p>
       <div className="container lg:px-52 mx-auto mt-8">
         <div className="grid gap-20 grid-cols-2 p-8 custom-shadow rounded-md border">
-          {/* grid 1  */}
+
           <div>
             <Formik
               initialValues={
@@ -338,6 +233,8 @@ hover:bg-gray-200 w-fit p-2 cursor-pointer"
               onSubmit={onSubmit}
             >
               {({ values }) => (
+
+
                 <Form>
                   {inputFields.map((inputField, index) => (
                     <div key={index} className="mb-4">
@@ -372,15 +269,15 @@ hover:bg-gray-200 w-fit p-2 cursor-pointer"
                       </option>
                       {category && category.length > 0
                         ? category.map((item: any, index) => (
-                            <option
-                              value={item._id}
-                              label={item.name}
-                              key={index}
-                              className="text-gray-900"
-                            >
-                              {item.name}
-                            </option>
-                          ))
+                          <option
+                            value={item._id}
+                            label={item.name}
+                            key={index}
+                            className="text-gray-900"
+                          >
+                            {item.name}
+                          </option>
+                        ))
                         : null}
                     </Field>
                     <ErrorMessage
@@ -555,8 +452,12 @@ hover:bg-gray-200 w-fit p-2 cursor-pointer"
               )}
             </Formik>
           </div>
-          {/* grid 2 */}
           <div>
+
+
+
+
+
             <h2 className="text-2xl font-black mb-4">Add New Product</h2>
             <div className="custom-shadow p-4 rounded-lg border">
               {posterimageUrl && posterimageUrl.length > 0 ? (
@@ -592,11 +493,8 @@ hover:bg-gray-200 w-fit p-2 cursor-pointer"
               ) : (
                 <div className="text-left mb-3">
                   <p className="mb-1">Add a poster Image</p>
-                  <Uploadfile
-                    setImagesUrl={setImagesUrl}
-                    handleFileChange={signlehandleFileChange}
-                    handleDrop={singlehandleDrop}
-                  />
+                  <Imageupload setposterimageUrl={setposterimageUrl} />
+
                 </div>
               )}
             </div>
@@ -632,56 +530,66 @@ hover:bg-gray-200 w-fit p-2 cursor-pointer"
               ) : (
                 <div className=" mb-3">
                   <p className="mb-1 font-black">Add a Hover Image</p>
-                 <div className="custom-shadow p-4 rounded-lg border">
-                 <Uploadfile
-                    setImagesUrl={sethoverImage}
-                    handleDrop={HoversinglehandleDrop}
-                    handleFileChange={HoversignlehandleFileChange}
-                  />
-                 </div>
+                  <div className="custom-shadow p-4 rounded-lg border">
+                    <Imageupload sethoverImage={sethoverImage} />
+
+
+                  </div>
                 </div>
               )}
             </div>
             <p className="mb-3 font-black">Add Product Images</p>
             <div className="mb-4 custom-shadow p-4 rounded-lg border">
-              <Uploadfile
-                setImagesUrl={setImagesUrl}
-                handleFileChange={handleFileChange}
-                handleDrop={handleDrop}
-              />
+              <Imageupload setImagesUrl={setImagesUrl} />
+
             </div>
 
             {imagesUrl && imagesUrl.length > 0 ? (
-  <div className="flex flex-wrap mb-3 ">
-    {imagesUrl.map((item: any, index) => {
-      return (
-        <div className="group border border-gray-300 rounded-md overflow-hidden m-1 relative" key={index}>
-          <div className="absolute top-1 right-1 bg-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <RxCross2
-              className="cursor-pointer text-gray-600"
-              onClick={() => {
-                ImageRemoved(item.public_id, setImagesUrl);
-              }}
-            />
-          </div>
-          <Image
-            className="cursor-pointer"
-            width={100}
-            height={100}
-            src={item.imageUrl}
-            alt={`productImage-${index}`}
-          />
-        </div>
-      );
-    })}
-  </div>
-) : null}
+              <div className="flex flex-wrap mb-3 ">
+                {imagesUrl.map((item: any, index) => {
+                  return (
+                    <>
+                      <div className="flex flex-col gap-1">
+                        <div className="group border border-gray-300 rounded-md overflow-hidden m-1 relative" key={index}>
+                          <div className="absolute top-1 right-1 bg-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <RxCross2
+                              className="cursor-pointer text-gray-600"
+                              onClick={() => {
+                                ImageRemoved(item.public_id, setImagesUrl);
+                              }}
+                            />
+                          </div>
 
-{imgError ? (
-  <div className="text-red-500 pt-2 pb-2">{imgError}</div>
-) : null}
+
+                          <Image
+                            className="cursor-pointer"
+                            width={100}
+                            height={100}
+                            src={item.imageUrl}
+                            alt={`productImage-${index}`}
+                          />
+
+                        </div>
+                        <input type="text" placeholder="Add color code" className="border borde-2 focus:outline-none w-full" value={item.colorCode} required
+                          onChange={(e) => handleColorCodeChange(index, e.target.value)}
+
+                        />
+
+                      </div>
+
+                    </>
+                  );
+                })}
+              </div>
+            ) : null}
+
+            {imgError ? (
+              <div className="text-red-500 pt-2 pb-2">{imgError}</div>
+            ) : null}
 
           </div>
+
+
         </div>
       </div>
     </>

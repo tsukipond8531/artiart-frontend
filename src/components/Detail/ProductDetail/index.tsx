@@ -43,7 +43,7 @@ const ProductDetail = ({ parsedProduct }: any) => {
       // Handle error: No color selected or product details missing
       return;
     }
-  
+
     const newCartItem = {
       id: parsedProduct.id,
       name: parsedProduct.name,
@@ -53,13 +53,13 @@ const ProductDetail = ({ parsedProduct }: any) => {
       count: count,
       totalPrice: parsedProduct.price * count,
     };
-  
+
     // Fetch existing cart items from local storage or initialize an empty array
     let existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
-  
+
     // Check if the product already exists in the cart
     const existingItemIndex = existingCart.findIndex((item) => item.id === parsedProduct.id && item.color === selectedValue);
-  
+
     if (existingItemIndex !== -1) {
       existingCart[existingItemIndex].count += count;
       existingCart[existingItemIndex].totalPrice = existingCart[existingItemIndex].count * parsedProduct.price;
@@ -67,14 +67,14 @@ const ProductDetail = ({ parsedProduct }: any) => {
       // If the product doesn't exist, add it to the cart
       existingCart.push(newCartItem);
     }
-  
+
     // Update local storage with the updated cart
     localStorage.setItem("cart", JSON.stringify(existingCart));
     message.success('Product added to cart successfully!');
     window.dispatchEvent(new Event("cartChanged"));
 
   };
-  
+
 
   return (
     <>
@@ -82,7 +82,7 @@ const ProductDetail = ({ parsedProduct }: any) => {
         <Container className="mt-10 md:mt-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
             <div className="">
-              <Thumbnail Images={Image} />
+              <Thumbnail Images={Image} selectedColor={selectedValue}/>
             </div>
 
             <div className=" p-2 sm:p-4 md:p-8 max-w-screen-sm mx-0 md:mx-10 lg:mx-20 mt-5 md:mt-0 space-y-3">
@@ -98,7 +98,7 @@ const ProductDetail = ({ parsedProduct }: any) => {
                   /> : null
                 }
                 {/* <Para16 title={parsedProduct.price} endicon={" AED"} /> */}
-                <p className={`text-16 gap-2`}>AED { parsedProduct.discountPrice ? parsedProduct.discountPrice : parsedProduct.price}.00 </p>
+                <p className={`text-16 gap-2`}>AED {parsedProduct.discountPrice ? parsedProduct.discountPrice : parsedProduct.price}.00 </p>
                 {/* <div className="border rounded-xl bg-blue-600 px-3 py-1 text-white">
                 Sale
               </div> */}
@@ -112,23 +112,25 @@ const ProductDetail = ({ parsedProduct }: any) => {
               </p>
               <Para14 title={"Color"} />
               <div className="flex gap-2 mb-4 flex-wrap w-full">
-                {parsedProduct.colors && parsedProduct.colors.map((button: any, index: any) => {
-return (
-                  <p
-                    key={index}
 
-                    className={`py-2 px-4 w-[45px] h-[40px] rounded-lg focus:outline-none whitespace-nowrap hover:bg-blue-100 cursor-pointer ${selectedValue === button.colorName
+
+                {parsedProduct.colors && parsedProduct.colors.map((button: any, index: any) => {
+                  return (
+                    <p
+                      key={index}
+
+                      className={`py-2 px-4 w-[45px] h-[40px] rounded-lg focus:outline-none whitespace-nowrap hover:bg-blue-100 cursor-pointer ${selectedValue === button.colorName
                         ? `bg-blue-100 border-2 border-blue-500`
                         : `bg-${button.colorName}-500  ${button.colorName.toLowerCase() == "black" || button.colorName.toLowerCase() == "#000" ? "text-white" : "text-black"} border border-${button.colorName}-600`
-                      }`}
+                        }`}
 
-                    style={{ backgroundColor:`#${button.colorName}`}}
-                    onClick={()=>setSelectedValue(button.colorName)}
-                  >
-            
-                  </p>
+                      style={{ backgroundColor: `#${button.colorName}` }}
+                      onClick={() => setSelectedValue(button.colorName)}
+                    >
 
-)
+                    </p>
+
+                  )
 
 
                 })}

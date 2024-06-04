@@ -3,7 +3,7 @@
 import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
 import React, { useState, useEffect, DragEvent, SetStateAction } from "react";
 
-import Uploadfile from "components/AddProducts/Uploadfile";
+import Uploadfile from "components/AddCategory/Uploadfile";
 import Image from "next/image";
 import axios, { AxiosResponse, AxiosRequestConfig } from "axios";
 import { Category } from "types/interfaces";
@@ -26,7 +26,7 @@ const AddProductForm = ({setselecteMenu,seteditCategory, editCategory}: any) => 
   let CategoryName = editCategory && editCategory.name ? {name: editCategory.name} : null
   let CategorImageUrl = editCategory && editCategory.posterImageUrl  ?  editCategory.posterImageUrl : null
 
-  const [posterimageUrl, setposterimageUrl] = useState<any[] | null>(CategorImageUrl ? [CategorImageUrl]: null);
+  const [posterimageUrl, setposterimageUrl] = useState<any[]>(CategorImageUrl ? [CategorImageUrl]: []);
   const [loading, setloading] = useState<boolean>(false);
   const[editCategoryName, setEditCategoryName] = useState<editCategoryNameType | null | undefined>(CategoryName)
 

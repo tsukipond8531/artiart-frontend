@@ -5,7 +5,7 @@ import {uploadPhotosToBackend} from 'utils/helperFunctions'
 
 
 interface PROPS {
-  setImagesUrl?: React.Dispatch<SetStateAction<any[] >> ;
+  setImagesUrl?: React.Dispatch<SetStateAction<any[]>>;
   setposterimageUrl?: React.Dispatch<SetStateAction< any[] | null | undefined>>;
   sethoverImage?: React.Dispatch<SetStateAction< any[] | null | undefined>>;
 }
