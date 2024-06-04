@@ -105,6 +105,10 @@ const AddProductForm = ({setselecteMenu,seteditCategory, editCategory}: any) => 
     }
   };
 
+
+
+
+  
   const singlehandleDrop = async (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
