@@ -56,7 +56,7 @@ const ProductDetail = ({ parsedProduct }: any) => {
 
     // Fetch existing cart items from local storage or initialize an empty array
     let existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
-
+    console.log(existingCart , "existingCart")
     // Check if the product already exists in the cart
     const existingItemIndex = existingCart.findIndex((item) => item.id === parsedProduct.id && item.color === selectedValue);
 

@@ -35,7 +35,7 @@ const AddProductForm = ({
   const [posterimageUrl, setposterimageUrl] = useState<any[] | null>();
   const [hoverImage, sethoverImage] = useState<any[] | null | undefined>();
   const [loading, setloading] = useState<boolean>(false);
-  const [productInitialValue, setProductInitialValue] = useState< any | null | undefined>(EditProductValue);
+  const [productInitialValue, setProductInitialValue] = useState<any | null | undefined>(EditProductValue);
   const [imgError, setError] = useState<string | null | undefined>();
   const [selectedOption, setSelectedOption] = useState<string>('');
   const [quantity, setQuantity] = useState<number | ''>('');
@@ -47,15 +47,6 @@ const AddProductForm = ({
     setColor('');
   };
 
-  const handleQuantityChange = (e: any) => {
-    const value = e.target.value;
-    setQuantity(value ? parseInt(value, 10) : '');
-  };
-
-  const handleColorChange = (e:any) => {
-    setColor(e.target.value);
-  };
-
   const onSubmit = async (values: Product, { resetForm }: any) => {
     try {
       setError(null);
@@ -64,19 +55,20 @@ const AddProductForm = ({
       let createdAt = Date.now();
       if (!posterImageUrl || !hoverImageUrl || !(imagesUrl.length > 0)) {
         throw new Error("Please select relevant Images");
-        
+
       }
 
       console.log(values.colors, "colors")
       const validColors = values.colors.map(color => color.colorName.toLowerCase());
 
       // Check if all the image color codes are valid
-      const invalidColors = imagesUrl.filter(img =>{
-        if(!img || !img.colorCode ){
+      const invalidColors = imagesUrl.filter(img => {
+        if (!img || !img.colorCode) {
           throw new Error("Image colors codes are required");
-        } 
-        
-        !validColors.includes(img.colorCode.toLowerCase())});
+        }
+
+        !validColors.includes(img.colorCode.toLowerCase())
+      });
       if (invalidColors.length > 0) {
         throw new Error("Some image color codes are invalid.");
       }
@@ -112,7 +104,7 @@ const AddProductForm = ({
       setProductInitialValue(null);
       if (updateFlag) {
         setEditProduct(undefined);
-        setselecteMenu("Add All Products");
+        // setselecteMenu("Add All Products");
       }
       resetForm();
       setloading(false);
@@ -123,7 +115,7 @@ const AddProductForm = ({
       } else {
         if (err instanceof Error) {
           setError(err.message);
-        console.log((err.message), "(err.message)");
+          console.log((err.message), "(err.message)");
 
         } else {
           setError("An unexpected error occurred");
@@ -303,110 +295,110 @@ const AddProductForm = ({
                   </div>
                   <div>
 
-                  <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Variation
-                    </label>
-                    <Field
-                      id="variationSelect" value={selectedOption} onChange={handleOptionChange}
-                      as="select"
-                      name="category"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent bg-white"
-                    >
-                      <option value="" className="text-gray-500">
-                        Select a Variation
-                      </option>
-                      <option value="withoutVariation">Without Variation</option>
-                      <option value="withVariation">With Variation</option>
-                    </Field>
-                  </div>
+                    <div className="mb-4">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Add stock Quantity
+                      </label>
+                      <Field
+                        id="variationSelect" value={selectedOption} onChange={handleOptionChange}
+                        as="select"
+                        name="category"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent bg-white"
+                      >
+                        <option value="" className="text-gray-500">
+                          Select a Variation
+                        </option>
+                        <option value="withoutVariation">Without Variation</option>
+                        <option value="withVariation">With Variation</option>
+                      </Field>
+                    </div>
 
                     {selectedOption === 'withoutVariation' && (
                       <>
-                    {withoutVariation.map((inputField, index) => (
-                    <div key={index} className="mb-4">
-                      <label className="block text-sm font-medium mb-1">
-                        {inputField.name.charAt(0).toLocaleUpperCase() +
-                          inputField.name.slice(1)}
-                      </label>
-                      <Field
-                        type={inputField.type}
-                        name={inputField.name}
-                        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-                      />
-                      <ErrorMessage
-                        name={inputField.name}
-                        component="div"
-                        className="text-red-500"
-                      />
-                    </div>
-                  ))}
+                        {withoutVariation.map((inputField, index) => (
+                          <div key={index} className="mb-4">
+                            <label className="block text-sm font-medium mb-1">
+                              {inputField.name.charAt(0).toLocaleUpperCase() +
+                                inputField.name.slice(1)}
+                            </label>
+                            <Field
+                              type={inputField.type}
+                              name={inputField.name}
+                              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                            />
+                            <ErrorMessage
+                              name={inputField.name}
+                              component="div"
+                              className="text-red-500"
+                            />
+                          </div>
+                        ))}
                       </>
                     )}
 
                     {selectedOption === 'withVariation' && (
-                     <>
-                   <FieldArray name="variantStockQuantities">
-                      {({ push, remove }) => (
-                        <div>
-                          {values.variantStockQuantities.map((model, index) => (
-                            <div
-                              key={index}
-                              className="flex flex-col md:flex-row md:items-center mb-4"
-                            >
-                              <div className="md:flex-1 md:mr-4 mb-4 md:mb-0">
-                                <Field
-                                  type="text"
-                                  name={`variantStockQuantities[${index}].Variant`}
-                                  placeholder="Variant"
-                                  className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                                />
-                                <ErrorMessage
-                                  name={`variantStockQuantities[${index}].Variant`}
-                                  component="div"
-                                  className="text-red-500 mt-1"
-                                />
-                              </div>
-                              <div className="md:flex-1 md:mr-4 mb-4 md:mb-0">
-                                <Field
-                                  type="number"
-                                  name={`variantStockQuantities[${index}].Quantity`}
-                                  placeholder="Quantity"
-                                  className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                                />
-                                <ErrorMessage
-                                  name={`variantStockQuantities[${index}].Quantity`}
-                                  component="div"
-                                  className="text-red-500 mt-1"
-                                />
-                              </div>
-                              <div className="md:flex-none text-right">
+                      <>
+                        <FieldArray name="variantStockQuantities">
+                          {({ push, remove }) => (
+                            <div>
+                              {values.variantStockQuantities.map((model, index) => (
+                                <div
+                                  key={index}
+                                  className="flex flex-col md:flex-row md:items-center mb-4"
+                                >
+                                  <div className="md:flex-1 md:mr-4 mb-4 md:mb-0">
+                                    <Field
+                                      type="text"
+                                      name={`variantStockQuantities[${index}].Variant`}
+                                      placeholder="Variant"
+                                      className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                                    />
+                                    <ErrorMessage
+                                      name={`variantStockQuantities[${index}].Variant`}
+                                      component="div"
+                                      className="text-red-500 mt-1"
+                                    />
+                                  </div>
+                                  <div className="md:flex-1 md:mr-4 mb-4 md:mb-0">
+                                    <Field
+                                      type="number"
+                                      name={`variantStockQuantities[${index}].Quantity`}
+                                      placeholder="Quantity"
+                                      className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                                    />
+                                    <ErrorMessage
+                                      name={`variantStockQuantities[${index}].Quantity`}
+                                      component="div"
+                                      className="text-red-500 mt-1"
+                                    />
+                                  </div>
+                                  <div className="md:flex-none text-right">
+                                    <button
+                                      type="button"
+                                      onClick={() => remove(index)}
+                                      className="text-red-500 hover:text-red-700"
+                                    >
+                                      Remove
+                                    </button>
+                                  </div>
+                                </div>
+                              ))}
+                              <div className="text-left">
                                 <button
                                   type="button"
-                                  onClick={() => remove(index)}
-                                  className="text-red-500 hover:text-red-700"
+                                  onClick={() => push({ name: "", detail: "" })}
+                                  className="px-4 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black"
                                 >
-                                  Remove
+                                  Add Variation
                                 </button>
                               </div>
                             </div>
-                          ))}
-                          <div className="text-left">
-                            <button
-                              type="button"
-                              onClick={() => push({ name: "", detail: "" })}
-                              className="px-4 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black"
-                            >
-                              Add Variation
-                            </button>
-                          </div>
-                        </div>
-                      )}
-                    </FieldArray>
-                       </>
+                          )}
+                        </FieldArray>
+                      </>
                     )}
                   </div>
-                  
+
 
 
                   <div className="mb-4 pt-4">
@@ -642,7 +634,7 @@ const AddProductForm = ({
                           className="cursor-pointer"
                           width={100}
                           height={100}
-                          src={item.imageUrl}
+                          src={item.imageUrl ? item.imageUrl : '/images/dummy.jpg'}
                           alt={`productImage-${index}`}
                         />
                       </div>

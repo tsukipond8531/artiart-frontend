@@ -19,11 +19,12 @@ const CartTable: React.FC = () => {
     const ProductHandler = () => {
       let Products =   localStorage.getItem("cart")
 
-
         if (Products && JSON.parse(Products).length > 0) {
             
             const cartItems = JSON.parse(Products || "[]");
             setCartProduct(cartItems);
+                console.log(cartItems ,"cartItems")
+
             setCounts(cartItems.map((item: any) => item.count));
             const sub = cartItems.reduce((total: number, item: any) => total + item.totalPrice, 0);
             setSubtotal(sub);
@@ -136,7 +137,9 @@ const CartTable: React.FC = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200">
-                                    {cartproduct.map((array: any, index: number) => (
+                                    {cartproduct.map((array: any, index: number) => {
+                                        let color:string 
+                                        return (
                                         <tr key={index}>
                                             <td className="px-2 py-2 text-sm ">
                                                 <div className='flex items-center gap-2 sm:gap-3 md:gap-4'>
@@ -144,8 +147,8 @@ const CartTable: React.FC = () => {
                                                     <div className='space-y-2'>
                                                         <Para14 className='hover:underline transition duration-200' title={array.name} />
                                                         <Para14 icon={"AED "} title={array.price} />
-                                                        {/* <p className='text-14 gap-2'>AED  {array.price}</p> */}
-                                                        <Para14 icon={"Color: "} title={array.color} />
+                                                        
+                                                        <p>Color:<span className='h-5 w-5 rounded-full px-2 mx-2' style={{backgroundColor:`#${array.color}`}}> </span></p>
                                                     </div>
                                                 </div>
                                             </td>
@@ -163,7 +166,9 @@ const CartTable: React.FC = () => {
 
                                             </td>
                                         </tr>
-                                    ))}
+
+                                        )
+})}
                                 </tbody>
                             </table>
                         </div>

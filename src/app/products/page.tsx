@@ -16,7 +16,6 @@ import { IoFilter } from "react-icons/io5";
 import { FaArrowRightLong } from "react-icons/fa6";
 import axios from "axios";
 import ProductCard from "components/Common/ProductCard";
-import { useSearchParams } from 'next/navigation'
 
 
 
@@ -29,6 +28,10 @@ const [maxPrice, setMaxPrice] = useState("");
 const [highestPrice, setHighestPrice] = useState(0);
 const [loading , setLoading] = useState<boolean>(false)
 const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+const [inStockOnly, setInStockOnly] = useState<boolean>(false);
+const [outOfStockOnly, setOutOfStockOnly] = useState<boolean>(false);
+
+
 
 
 
@@ -63,9 +66,21 @@ const findHighestPrice = (products) => {
   return maxPrice;
 };
 
-const onChange: CheckboxProps['onChange'] = (e) => {
-  console.log(`checked = ${e.target.checked}`);
+const handleInStockChange: CheckboxProps['onChange'] = (e) => {
+  setInStockOnly(e.target.checked);
+  setOutOfStockOnly(false); 
 };
+
+const handleOutOfStockChange: CheckboxProps['onChange'] = (e) => {
+  setOutOfStockOnly(e.target.checked);
+  setInStockOnly(false); 
+};
+
+const stockResethandler =()=>{
+  setOutOfStockOnly(false); 
+  setInStockOnly(false); 
+
+}
 
 const handleResetPrice = () => {
   setMinPrice('');
@@ -74,6 +89,7 @@ const handleResetPrice = () => {
 const handleSortChange = (e) => {
   setSortOrder(e.target.value);
 };
+
 const sortedProducts = products.sort((a, b) => {
   if (sortOrder === 'asc') {
     return a.price - b.price;
@@ -81,20 +97,47 @@ const sortedProducts = products.sort((a, b) => {
     return b.price - a.price;
   }
 });
+// const filteredProducts = sortedProducts.filter((product) => {
+//   if (minPrice && maxPrice) {
+//     return product.price >= parseFloat(minPrice) && product.price <= parseFloat(maxPrice);
+//   } else if (minPrice) {
+//     return product.price >= parseFloat(minPrice);
+//   } else if (maxPrice) {
+//     return product.price <= parseFloat(maxPrice);
+//   }
+//   if (inStockOnly) {
+//     stockCondition = product.totalStockQuantity > 0;
+//   }
+
+//   return priceCondition && stockCondition;
+// });
+
+
 const filteredProducts = sortedProducts.filter((product) => {
+  let priceCondition = true;
+  let stockCondition = true;
+
   if (minPrice && maxPrice) {
-    return product.price >= parseFloat(minPrice) && product.price <= parseFloat(maxPrice);
+    priceCondition = product.price >= parseFloat(minPrice) && product.price <= parseFloat(maxPrice);
   } else if (minPrice) {
-    return product.price >= parseFloat(minPrice);
+    priceCondition = product.price >= parseFloat(minPrice);
   } else if (maxPrice) {
-    return product.price <= parseFloat(maxPrice);
+    priceCondition = product.price <= parseFloat(maxPrice);
   }
-  return true;
+
+
+  if (inStockOnly) {
+    stockCondition = product.totalStockQuantity > 0;
+  } else if (outOfStockOnly) {
+    stockCondition = product.totalStockQuantity === 0 || !product.totalStockQuantity;
+  }
+
+  return priceCondition && stockCondition;
 });
 
 
 const totalProducts = products.length;
-
+console.log(outOfStockOnly, "outOfStockOnly")
   return (
     <>
 
@@ -113,13 +156,13 @@ const totalProducts = products.length;
             <div className="space-y-3">
               <div className="p-2 flex justify-between items-center border-b-2">
                 <Para14 endicon={" selected"} title={"0"} />
-                <div className="underline cursor-pointer">Reset</div>
+                <div className="underline cursor-pointer" onClick={stockResethandler}>Reset</div>
               </div>
               <div>
-                <Checkbox onChange={onChange}><Para14 title={"In stock "} endicon={""}/></Checkbox>
+                <Checkbox   checked={inStockOnly} onChange={handleInStockChange}><Para14 title={"In stock "} endicon={""}/></Checkbox>
               </div>
               <div>
-                <Checkbox onChange={onChange}><Para14 title={"Out of Stock"} endicon={""}/></Checkbox>
+                <Checkbox checked={outOfStockOnly} onChange={handleOutOfStockChange}><Para14 title={"Out of Stock"} endicon={""}/></Checkbox>
               </div>
             </div>
           }
@@ -180,13 +223,13 @@ const totalProducts = products.length;
        <div className="space-y-3">
               <div className="p-2 flex justify-between items-center border-b-2">
                 <Para14 endicon={" selected"} title={"0"} />
-                <div className="underline cursor-pointer">Reset</div>
+                <div className="underline cursor-pointer" onClick={stockResethandler}>Reset</div>
               </div>
               <div>
-                <Checkbox onChange={onChange}><Para14 title={"In stock "} endicon={""}/></Checkbox>
+                <Checkbox checked={inStockOnly} onChange={handleInStockChange}><Para14 title={"In stock "} endicon={""}/></Checkbox>
               </div>
               <div>
-                <Checkbox onChange={onChange}><Para14 title={"Out of Stock"} endicon={""}/></Checkbox>
+                <Checkbox  checked ={outOfStockOnly} onChange={handleOutOfStockChange}><Para14 title={"Out of Stock"} endicon={""}/></Checkbox>
               </div>
             </div>
       </>}/>

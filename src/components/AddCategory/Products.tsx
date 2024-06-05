@@ -18,39 +18,39 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import Toaster from "components/Toaster/Toaster";
 
 interface editCategoryNameType {
-name: string
+  name: string
 }
 
-const AddProductForm = ({setselecteMenu,seteditCategory, editCategory}: any) => {
+const AddProductForm = ({ setselecteMenu, seteditCategory, editCategory }: any) => {
   const [category, setCategory] = useState<any[]>();
-  let CategoryName = editCategory && editCategory.name ? {name: editCategory.name} : null
-  let CategorImageUrl = editCategory && editCategory.posterImageUrl  ?  editCategory.posterImageUrl : null
+  let CategoryName = editCategory && editCategory.name ? { name: editCategory.name } : null
+  let CategorImageUrl = editCategory && editCategory.posterImageUrl ? editCategory.posterImageUrl : null
 
-  const [posterimageUrl, setposterimageUrl] = useState<any[]>(CategorImageUrl ? [CategorImageUrl]: []);
+  const [posterimageUrl, setposterimageUrl] = useState<any[]>(CategorImageUrl ? [CategorImageUrl] : []);
   const [loading, setloading] = useState<boolean>(false);
-  const[editCategoryName, setEditCategoryName] = useState<editCategoryNameType | null | undefined>(CategoryName)
+  const [editCategoryName, setEditCategoryName] = useState<editCategoryNameType | null | undefined>(CategoryName)
 
 
-  const onSubmit = async (values: Category, { resetForm }:any) => {
+  const onSubmit = async (values: Category, { resetForm }: any) => {
     try {
       setloading(true);
-  
+
       console.log("function triggered");
       let posterImageUrl = posterimageUrl && posterimageUrl[0];
-;
+      ;
       if (!posterImageUrl) throw new Error("Please select relevant Images");
       let newValue = { ...values, posterImageUrl };
 
-      let updateFlag = editCategoryName  ? true : false
-      let addProductUrl = updateFlag ? `/api/updateCategory/${editCategory._id} ` : null ;
+      let updateFlag = editCategoryName ? true : false
+      let addProductUrl = updateFlag ? `/api/updateCategory/${editCategory._id} ` : null;
       let url = `${process.env.NEXT_PUBLIC_BASE_URL}${updateFlag ? addProductUrl : "/api/AddCategory"}`
 
       const response = await axios.post(url, newValue);
       console.log(response, "response");
       setloading(false);
-      Toaster("success", updateFlag ? "Category has been sucessufully updated !" :"Category has been sucessufully Created !");
-      updateFlag ?  setselecteMenu("Add Category") : null
-      updateFlag ?  seteditCategory(null) : null
+      Toaster("success", updateFlag ? "Category has been sucessufully updated !" : "Category has been sucessufully Created !");
+      updateFlag ? setselecteMenu("Add Category") : null
+      updateFlag ? seteditCategory(null) : null
 
       resetForm();
     } catch (err) {
@@ -59,7 +59,7 @@ const AddProductForm = ({setselecteMenu,seteditCategory, editCategory}: any) => 
 
     }
   };
-  
+
 
   const CategoryHandler = async () => {
     const response = await fetch(
@@ -108,7 +108,7 @@ const AddProductForm = ({setselecteMenu,seteditCategory, editCategory}: any) => 
 
 
 
-  
+
   const singlehandleDrop = async (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -166,51 +166,51 @@ const AddProductForm = ({setselecteMenu,seteditCategory, editCategory}: any) => 
 
   return (
     <div className="max-w-md mx-auto mt-8">
-            <p className="text-2xl font-black mb-4 flex items-center justify-center gap-2
-       hover:bg-gray-200 w-fit p-2 cursor-pointer"  onClick={() =>{setselecteMenu('Add Category')}}> <IoMdArrowRoundBack />  Back</p>
+      <p className="text-2xl font-black mb-4 flex items-center justify-center gap-2
+       hover:bg-gray-200 w-fit p-2 cursor-pointer"  onClick={() => { setselecteMenu('Add Category') }}> <IoMdArrowRoundBack />  Back</p>
       <h2 className="text-2xl font-black mb-4">Add New Category</h2>
-      
-      
+
+
       <div className=" mb-4">
-  {posterimageUrl && posterimageUrl.length > 0 ? (
-    <div className="flex flex-wrap mb-3">
-      {posterimageUrl.map((item: any, index) => {
-        return (
-          <div className="group border border-gray-300 rounded-md overflow-hidden m-1 relative" key={index}>
-            <div className="absolute top-1 right-1 bg-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <RxCross2
-                className="cursor-pointer text-gray-600"
-                onClick={() => {
-                  ImageRemoveHandler(item.public_id, setposterimageUrl);
-                }}
-              />
-            </div>
-            <Image
-              className="cursor-pointer"
-              width={100}
-              height={100}
-              src={item.imageUrl}
-              alt={`productImage-${index}`}
+        {posterimageUrl && posterimageUrl.length > 0 ? (
+          <div className="flex flex-wrap mb-3">
+            {posterimageUrl.map((item: any, index) => {
+              return (
+                <div className="group border border-gray-300 rounded-md overflow-hidden m-1 relative" key={index}>
+                  <div className="absolute top-1 right-1 bg-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <RxCross2
+                      className="cursor-pointer text-gray-600"
+                      onClick={() => {
+                        ImageRemoveHandler(item.public_id, setposterimageUrl);
+                      }}
+                    />
+                  </div>
+                  <Image
+                    className="cursor-pointer"
+                    width={100}
+                    height={100}
+                    src={item.imageUrl}
+                    alt={`productImage-${index}`}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="custom-shadow rounded-lg border p-4">
+            <p className="mb-3">Add a poster Image</p>
+            <Uploadfile
+              setImagesUrl={setposterimageUrl}
+              handleFileChange={signlehandleFileChange}
+              handleDrop={singlehandleDrop}
             />
           </div>
-        );
-      })}
-    </div>
-  ) : (
-    <div className="custom-shadow rounded-lg border p-4">
-      <p className="mb-3">Add a poster Image</p>
-      <Uploadfile
-        setImagesUrl={setposterimageUrl}
-        handleFileChange={signlehandleFileChange}
-        handleDrop={singlehandleDrop}
-      />
-    </div>
-  )}
-</div>
+        )}
+      </div>
 
 
       <Formik
-        initialValues={editCategoryName ? editCategoryName:  categoryInitialValues}
+        initialValues={editCategoryName ? editCategoryName : categoryInitialValues}
         validationSchema={categoryValidationSchema}
         onSubmit={onSubmit}
       >
@@ -240,8 +240,8 @@ const AddProductForm = ({setselecteMenu,seteditCategory, editCategory}: any) => 
                 type="submit"
                 className="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-white hover:text-black hover:border focus:outline-none focus:bg-blue-600 transition duration-500"
               >
-                {loading ? <Loader /> : "Add Category " }
-                
+                {loading ? <Loader /> : "Add Category "}
+
               </button>
             </div>
           </Form>
