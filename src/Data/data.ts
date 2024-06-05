@@ -6,9 +6,17 @@ export const inputFields = [
     { name: "name", type: 'text' },
     { name: "description", type: 'text' },
     { name: "price", type: 'number' },
-    // { name: "category", type: 'text' },
     { name: "discountPrice", type: 'number' },
   ];
+  export const withoutVariation = [
+    { name: "Quantity", type: 'number' },
+  ];
+
+  export const Variation = [
+    { name: "Variation Name", type: 'text' },
+    { name: "Quantity", type: 'number' },
+  ];
+
 
   export const CategorinputFields = [
     { name: "name", type: 'text' },
@@ -43,6 +51,8 @@ export const inputFields = [
     description: '',
     price: '',
     colors: [],
+    totalStockQuantity: 0,
+    variantStockQuantities:[],
     modelDetails: [],
     spacification: [],
     discountPrice: '',
