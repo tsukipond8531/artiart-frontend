@@ -130,7 +130,7 @@ function Category({ Categories, setCategory, setselecteMenu, loading,canAddProdu
 
 <>
 
-      <div className="flex justify-between mb-4">
+      <div className="flex justify-between mb-4 items-center">
         <p>Products</p>
         <div>
           <p
@@ -150,7 +150,7 @@ function Category({ Categories, setCategory, setselecteMenu, loading,canAddProdu
         </div>
       </div>
       {Categories && Categories.length > 0 ? (
-        <Table dataSource={Categories} columns={columns} rowKey="_id" pagination={false}/>
+        <Table className="overflow-x-scroll" dataSource={Categories} columns={columns} rowKey="_id" pagination={false}/>
       ) : (
         "No Products found"
       )}
