@@ -80,6 +80,12 @@ const Category: React.FC<CategoryProps> = ({
       key: "name",
     },
     {
+      title: "Stock Quantity",
+      dataIndex: "totalStockQuantity",
+      key: "totalStockQuantity",
+    },
+
+    {
       title: "Date",
       dataIndex: "createdAt",
       key: "date",
@@ -136,9 +142,8 @@ const Category: React.FC<CategoryProps> = ({
       key: "action",
       render: (text: any, record: Product) => (
         <RiDeleteBin6Line
-          className={`${canDeleteProduct ? "text-red-500 cursor-pointer" : ""} ${
-            !canDeleteProduct ? "cursor-not-allowed text-gray-400" : ""
-          }`}
+          className={`${canDeleteProduct ? "text-red-500 cursor-pointer" : ""} ${!canDeleteProduct ? "cursor-not-allowed text-gray-400" : ""
+            }`}
           size={20}
           onClick={() => {
             if (canDeleteProduct) {
@@ -149,6 +154,7 @@ const Category: React.FC<CategoryProps> = ({
       ),
     },
   ];
+
 
   return (
     <div>
