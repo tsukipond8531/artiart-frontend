@@ -27,57 +27,63 @@ const [shipment, setShipment] = useState<number | undefined | null >(parseSubtot
             <div>
   <Form layout="vertical">
         <Row gutter={[10,0]}>
-          <Col xl={{order:1,span:12}} lg={{order:1,span:12}} md={{order:1,span:12}} sm={{order:1,span:24}} xs={{order:1,span:24}}>
+          <Col xl={{order:1,span:12}} lg={{order:1,span:12}} md={{order:1,span:12}} sm={{order:1,span:12}} xs={{order:1,span:24}}>
             <Form.Item label={"First Name"}>
               <Input type='text' name='name' placeholder='First Name' label='First Name' />
             </Form.Item>
           </Col>
-          <Col xl={{order:1,span:12}} lg={{order:1,span:12}} md={{order:1,span:12}} sm={{order:1,span:24}} xs={{order:1,span:24}}>
+          <Col xl={{order:1,span:12}} lg={{order:1,span:12}} md={{order:1,span:12}} sm={{order:1,span:12}} xs={{order:1,span:24}}>
             <Form.Item label={"Last Name"} >
               <Input type='text' name='name' placeholder='Last Name' label='Last Name' />
             </Form.Item>
           </Col>
-          <Col xl={{order:1,span:24}} lg={{order:1,span:24}} md={{order:1,span:24}} sm={{order:1,span:24}} xs={{order:1,span:24}}>
-            <Form.Item label={"Company Name (Optional)"}>
-              <Input type='text' name='name' placeholder='Company Name (Optional)' label='Company Name (Optional)' />
-            </Form.Item>
-          </Col>
-          <Col xl={{order:1,span:24}} lg={{order:1,span:24}} md={{order:1,span:24}} sm={{order:1,span:24}} xs={{order:1,span:24}}>
-            <Form.Item label={"Country/Region "} name={"Country/Region"}>
-            <SelectInput placeholder={"Country/Region"} />
-            </Form.Item>
-          </Col>
-          <Col xl={{order:1,span:24}} lg={{order:1,span:24}} md={{order:1,span:24}} sm={{order:1,span:24}} xs={{order:1,span:24}}>
-            <Form.Item label={"Street address"}>
+          <Col xl={{order:1,span:12}} lg={{order:1,span:12}} md={{order:1,span:12}} sm={{order:1,span:12}} xs={{order:1,span:24}}>
+            <Form.Item label={"Street"}>
               <Input type='text' name='Name' placeholder='Street address' label='Street address' />
             </Form.Item>
           </Col>
-          <Col xl={{order:1,span:24}} lg={{order:1,span:24}} md={{order:1,span:24}} sm={{order:1,span:24}} xs={{order:1,span:24}}>
-            <Form.Item label={"Town / City "}>
-              <Input type='text' name='Name' placeholder='Town / City' label='Town / City' />
+          <Col xl={{order:1,span:12}} lg={{order:1,span:12}} md={{order:1,span:12}} sm={{order:1,span:12}} xs={{order:1,span:24}}>
+            <Form.Item label={"Town"}>
+              <Input type='text' name='Name' placeholder='Town' label='Town' />
             </Form.Item>
           </Col>
-          {/* <Col xl={{order:1,span:24}} lg={{order:1,span:24}} md={{order:1,span:24}} sm={{order:1,span:24}} xs={{order:1,span:24}}>
-            <Form.Item >
-            <Input type='text' name='Name' placeholder='Enter Name' label='Name' />
-            </Form.Item>
-          </Col> */}
-          <Col xl={{order:1,span:24}} lg={{order:1,span:24}} md={{order:1,span:24}} sm={{order:1,span:24}} xs={{order:1,span:24}}>
+          <Col xl={{order:1,span:12}} lg={{order:1,span:12}} md={{order:1,span:12}} sm={{order:1,span:12}} xs={{order:1,span:24}}>
             <Form.Item label={"State"} name={"State"}>
-            <SelectInput placeholder={"State "} />
+            <SelectInput placeholder={"State "} selectoption={[
+              {title:"Dubai"},
+              {title:"Abu Dhabi"},
+              {title:"Sharjah"},
+              {title:"Ajman"},
+              {title:"Ras Al Khaima"},
+              {title:"Umm Al Quwain"},
+              {title:"Fujairah"},
+            ]} />
             </Form.Item>
           </Col>
-          <Col xl={{order:1,span:24}} lg={{order:1,span:24}} md={{order:1,span:24}} sm={{order:1,span:24}} xs={{order:1,span:24}}>
-            <Form.Item label={"Postcode"}>
-              <Input type='text' name='Name' placeholder='Postcode' label='Postcode' />
+
+          <Col xl={{order:1,span:12}} lg={{order:1,span:12}} md={{order:1,span:12}} sm={{order:1,span:12}} xs={{order:1,span:24}}>
+            <Form.Item label={"Country/Region "} name={"Country/Region"}>
+            <SelectInput placeholder={"Country/Region"}
+            selectoption={[
+              {title:"United Arab Emirates"},
+            ]} 
+            />
             </Form.Item>
           </Col>
-          <Col xl={{order:1,span:24}} lg={{order:1,span:24}} md={{order:1,span:24}} sm={{order:1,span:24}} xs={{order:1,span:24}}>
+         
+       
+          
+          <Col xl={{order:1,span:12}} lg={{order:1,span:12}} md={{order:1,span:12}} sm={{order:1,span:12}} xs={{order:1,span:24}}>
+            <Form.Item label={"P/O Box (optional)"}>
+              <Input type='text' name='P/O Box' placeholder='P/O Box' label='P/O Box' />
+            </Form.Item>
+          </Col>
+          <Col xl={{order:1,span:12}} lg={{order:1,span:12}} md={{order:1,span:12}} sm={{order:1,span:12}} xs={{order:1,span:24}}>
             <Form.Item label={"Phone"}>
               <Input type='text' name='Name' placeholder='Phone' label='Phone' />
             </Form.Item>
           </Col>
-          <Col xl={{order:1,span:24}} lg={{order:1,span:24}} md={{order:1,span:24}} sm={{order:1,span:24}} xs={{order:1,span:24}}>
+          <Col xl={{order:1,span:24}} lg={{order:1,span:24}} md={{order:1,span:24}} sm={{order:1,span:12}} xs={{order:1,span:24}}>
             <Form.Item label={"Email address"}>
               <Input type='text' name='Name' placeholder='Email address' label='Email address' />
             </Form.Item>
@@ -87,13 +93,12 @@ const [shipment, setShipment] = useState<number | undefined | null >(parseSubtot
           </Col>
           <Col className='mt-5' xl={{order:1,span:24}} lg={{order:1,span:24}} md={{order:1,span:24}} sm={{order:1,span:24}} xs={{order:1,span:24}}>
             <Form.Item label={"Order notes (optional)"}>
-              <Input  type='text' name='Name' placeholder='Notes about your order, e.g. special notes for delivery.' label='Notes about your order, e.g. special notes for delivery.' />
+              <Input  type='text' name='Name' placeholder='Notes about your order' label='Notes about your order' />
             </Form.Item>
           </Col>
         </Row>
       </Form>
-            </div>
-      
+        </div>
         <div className='p-2'>
         <div className="flex border flex-col sticky top-24 p-4">
   <div className="-m-1.5 overflow-x-auto">
@@ -109,7 +114,7 @@ const [shipment, setShipment] = useState<number | undefined | null >(parseSubtot
           </thead>
           <tbody >
             <tr className="odd:bg-white hover:bg-gray-100 border-b-gray-200 border  ">
-              <td className="px-6 py-4 whitespace-nowrap text-[14px] poppins-thin text-gray-800">ARTIST STEEL SUCTION BOTTLE - Light Grey 
+              <td className="px-6 py-4  text-[14px] poppins-thin text-gray-800">ARTIST STEEL SUCTION BOTTLE - Light Grey 
 × 1</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{parseSubtotal ? parseSubtotal : ''}</td>            
             </tr>
