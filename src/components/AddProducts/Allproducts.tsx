@@ -1,19 +1,19 @@
 import React from "react";
-import { Table} from "antd";
+import { Table } from "antd";
 import Image from "next/image";
-import { RiDeleteBin6Line } from "react-icons/ri";  
+import { RiDeleteBin6Line } from "react-icons/ri";
 import axios from "axios";
 import Loader from "components/Loader/Loader";
 import { useRouter } from "next/navigation";
 import { FaRegEye } from "react-icons/fa6";
 import { LiaEdit } from "react-icons/lia";
 
-import {generateSlug} from 'Data/data'
+import { generateSlug } from 'Data/data'
 
 
-function Category({ Categories, setCategory, setselecteMenu, loading,canAddProduct,canDeleteProduct,setEditProduct }: any) {
+function Category({ Categories, setCategory, setselecteMenu, loading, canAddProduct, canDeleteProduct, setEditProduct }: any) {
   const router = useRouter()
-  
+
   const handleDelete = async (key: any) => {
     try {
       let reponse = await axios.delete(
@@ -32,7 +32,7 @@ function Category({ Categories, setCategory, setselecteMenu, loading,canAddProdu
       title: "Image",
       dataIndex: "posterImageUrl",
       key: "posterImageUrl",
-      render: (text:any, record:any) => (
+      render: (text: any, record: any) => (
         <Image
           src={record.posterImageUrl?.imageUrl}
           alt={`Image of ${record.name}`}
@@ -46,12 +46,17 @@ function Category({ Categories, setCategory, setselecteMenu, loading,canAddProdu
       dataIndex: "name",
       key: "name",
     },
+    {
+      title: "Stock Quantity",
+      dataIndex: "totalStockQuantity",
+      key: "totalStockQuantity",
+    },
 
     {
       title: "Date",
       dataIndex: "createdAt",
       key: "date",
-      render: (text:any, record:any) => {
+      render: (text: any, record: any) => {
         const createdAt = new Date(record.createdAt);
         const formattedDate = `${createdAt.getFullYear()}-${String(
           createdAt.getMonth() + 1
@@ -63,7 +68,7 @@ function Category({ Categories, setCategory, setselecteMenu, loading,canAddProdu
       title: "Time",
       dataIndex: "createdAt",
       key: "time",
-      render: (text:any, record:any) => {
+      render: (text: any, record: any) => {
         const createdAt = new Date(record.createdAt);
         const formattedTime = `${String(createdAt.getHours()).padStart(
           2,
@@ -92,8 +97,8 @@ function Category({ Categories, setCategory, setselecteMenu, loading,canAddProdu
     {
       title: "Edit",
       key: "Edit",
-      render: (text:any, record:any) => (
-        <LiaEdit 
+      render: (text: any, record: any) => (
+        <LiaEdit
           className={"cursor-pointer"}
           size={20}
           onClick={() => {
@@ -106,11 +111,10 @@ function Category({ Categories, setCategory, setselecteMenu, loading,canAddProdu
     {
       title: "Action",
       key: "action",
-      render: (text:any, record:any) => (
+      render: (text: any, record: any) => (
         <RiDeleteBin6Line
-          className={`${canDeleteProduct ? "text-red-500 cursor-pointer" : ""} ${
-            !canDeleteProduct ? "cursor-not-allowed text-gray-400" : ""
-          }`}
+          className={`${canDeleteProduct ? "text-red-500 cursor-pointer" : ""} ${!canDeleteProduct ? "cursor-not-allowed text-gray-400" : ""
+            }`}
           size={20}
           onClick={() => {
             if (canDeleteProduct) {
@@ -121,42 +125,41 @@ function Category({ Categories, setCategory, setselecteMenu, loading,canAddProdu
       ),
     },
   ];
-  
+
   return (
     <div>
-{
-  loading 
-  ? <div className="flex justify-center mt-10"><Loader/></div>  :
+      {
+        loading
+          ? <div className="flex justify-center mt-10"><Loader /></div> :
 
-<>
+          <>
 
-      <div className="flex justify-between mb-4">
-        <p>Products</p>
-        <div>
-          <p
-            className={`${canAddProduct && 'cursor-pointer'} p-2 ${ canAddProduct &&'hover:bg-gray-200'} flex justify-center ${
-              !canAddProduct && 'cursor-not-allowed text-gray-400'
-            }`}
-            onClick={() => {
-              if(canAddProduct){
-                setselecteMenu("Add Products");
-                setEditProduct(undefined)
-              }
+            <div className="flex justify-between mb-4">
+              <p>Products</p>
+              <div>
+                <p
+                  className={`${canAddProduct && 'cursor-pointer'} p-2 ${canAddProduct && 'hover:bg-gray-200'} flex justify-center ${!canAddProduct && 'cursor-not-allowed text-gray-400'
+                    }`}
+                  onClick={() => {
+                    if (canAddProduct) {
+                      setselecteMenu("Add Products");
+                      setEditProduct(undefined)
+                    }
 
-            }}
-          >
-            Add Products
-          </p>
-        </div>
-      </div>
-      {Categories && Categories.length > 0 ? (
-        <Table dataSource={Categories} columns={columns} rowKey="_id" pagination={false}/>
-      ) : (
-        "No Products found"
-      )}
-</>
+                  }}
+                >
+                  Add Products
+                </p>
+              </div>
+            </div>
+            {Categories && Categories.length > 0 ? (
+              <Table dataSource={Categories} columns={columns} rowKey="_id" pagination={false} />
+            ) : (
+              "No Products found"
+            )}
+          </>
 
-}
+      }
 
 
     </div>
