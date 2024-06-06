@@ -14,7 +14,9 @@ const SeoTable: React.FC = () => {
     ogTitle: '',
     ogDescription: '',
     ogImage: '',
-    ogUrl: ''
+    ogUrl: '',
+    ogType: '',
+    ogSiteName: ''
   });
 
   const onFinish = (values: any) => {
@@ -27,7 +29,7 @@ const SeoTable: React.FC = () => {
   };
 
   const formFields = [
-    { label: 'SEO Title', name: 'title', component: <Input.TextArea name="title" value={formValues.title} onChange={handleChange} /> },
+    { label: 'Seo Title', name: 'title', component: <Input.TextArea name="title" value={formValues.title} onChange={handleChange} /> },
     { label: 'Meta Description', name: 'description', component: <Input.TextArea name="description" value={formValues.description} rows={2} onChange={handleChange} /> },
     { label: 'Meta Keywords', name: 'keywords', component: <Input.TextArea name="keywords" value={formValues.keywords} onChange={handleChange} /> },
     { label: 'Canonical', name: 'canonical', component: <Input.TextArea name="canonical" value={formValues.canonical} onChange={handleChange} /> },
@@ -35,6 +37,8 @@ const SeoTable: React.FC = () => {
     { label: 'Og:Description', name: 'ogDescription', component: <Input.TextArea name="ogDescription" value={formValues.ogDescription} rows={2} onChange={handleChange} /> },
     { label: 'Og:Image', name: 'ogImage', component: <Input.TextArea name="ogImage" value={formValues.ogImage} onChange={handleChange} /> },
     { label: 'Og:Url', name: 'ogUrl', component: <Input.TextArea name="ogUrl" value={formValues.ogUrl} onChange={handleChange} /> },
+    { label: 'Og:Type', name: 'ogType', component: <Input.TextArea name="ogType" value={formValues.ogType} onChange={handleChange} /> },
+    { label: 'Og:Site Name', name: 'ogSiteName', component: <Input.TextArea name="ogSiteName" value={formValues.ogSiteName} onChange={handleChange} /> }
   ];
 
   return (
