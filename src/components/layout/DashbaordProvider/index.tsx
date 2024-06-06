@@ -7,6 +7,7 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
+import { RiUserSearchLine } from "react-icons/ri";
 import Logo from "components/Common/Logo";
 import AddProductForm from "components/AddProducts/Products";
 import Allproducts from "components/AddProducts/Allproducts";
@@ -69,7 +70,7 @@ const DashboardProvider = ({ children }: any) => {
     },
     {
       key: "3",
-      icon: <VideoCameraOutlined />,
+      icon: <RiUserSearchLine />,
       label: "SEO",
       onClick: () => handleAddProductsClick("SEO"),
     },
