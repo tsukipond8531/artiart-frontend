@@ -72,7 +72,7 @@ const DashboardProvider = ({ children }: any) => {
       key: "3",
       icon: <RiUserSearchLine />,
       label: "SEO",
-      onClick: () => handleAddProductsClick("SEO"),
+      onClick: () => handleAddProductsClick("SEO_FORM"),
     },
   ];
 
@@ -172,7 +172,7 @@ const DashboardProvider = ({ children }: any) => {
         <Content className="lg:my-[24px] lg:mx-[16px] lg:p-[24px] md:my-[24px] md:mx-[16px] md:p-[24px] p-6"
           style={{
             
-            margin: "24px 16px",
+            // margin: "24px 16px",
             // padding: 24,
             minHeight: 280,
             background: colorBgContainer,
@@ -224,8 +224,10 @@ const DashboardProvider = ({ children }: any) => {
               canDeleteProduct={loggedInUser && loggedInUser.canDeleteProduct}
               setEditProduct={setEditProduct}
             />
-          ) : (
+          ) : selecteMenu === "SEO_FORM" ? (
             <SEO />
+          ) : (
+            <CategoryForm setselecteMenu={setselecteMenu} seteditCategory={seteditCategory} editCategory={editCategory} />
           )}
         </Content>
       </Layout>

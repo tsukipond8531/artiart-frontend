@@ -6,10 +6,15 @@ import axios from "axios";
 import Loader from "components/Loader/Loader";
 import { LiaEdit } from "react-icons/lia";
 
-
-
-
-function Category({ Categories, setCategory, setselecteMenu, loading, canAddCategory,canDeleteCategory ,seteditCategory}: any) {
+function Category({
+  Categories,
+  setCategory,
+  setselecteMenu,
+  loading,
+  canAddCategory,
+  canDeleteCategory,
+  seteditCategory,
+}: any) {
   const handleDelete = async (key: any) => {
     try {
       let reponse = await axios.delete(
@@ -21,8 +26,6 @@ function Category({ Categories, setCategory, setselecteMenu, loading, canAddCate
       console.log("Deleting record with key:", err);
     }
   };
-
-
 
   const columns = [
     {
@@ -47,7 +50,7 @@ function Category({ Categories, setCategory, setselecteMenu, loading, canAddCate
       title: "Date",
       dataIndex: "createdAt",
       key: "date",
-      render: (text:any, record:any) => {
+      render: (text: any, record: any) => {
         const createdAt = new Date(record.createdAt);
         const formattedDate = `${createdAt.getFullYear()}-${String(
           createdAt.getMonth() + 1
@@ -59,7 +62,7 @@ function Category({ Categories, setCategory, setselecteMenu, loading, canAddCate
       title: "Time",
       dataIndex: "createdAt",
       key: "time",
-      render: (text:any, record:any) => {
+      render: (text: any, record: any) => {
         const createdAt = new Date(record.createdAt);
         const formattedTime = `${String(createdAt.getHours()).padStart(
           2,
@@ -73,13 +76,13 @@ function Category({ Categories, setCategory, setselecteMenu, loading, canAddCate
     {
       title: "Edit",
       key: "Edit",
-      render: (text:any, record:any) => (
-        <LiaEdit 
+      render: (text: any, record: any) => (
+        <LiaEdit
           className={"cursor-pointer"}
           size={20}
           onClick={() => {
-            seteditCategory(record)
-            setselecteMenu("CategoryForm")
+            seteditCategory(record);
+            setselecteMenu("CategoryForm");
           }}
         />
       ),
@@ -90,12 +93,16 @@ function Category({ Categories, setCategory, setselecteMenu, loading, canAddCate
       key: "action",
       render: (text: any, record: any) => (
         <RiDeleteBin6Line
-        className={`cursor-pointer ${canDeleteCategory && 'text-red-500'} ${
-          !canDeleteCategory && 'cursor-not-allowed text-gray-400'
-        }`}
+          className={`cursor-pointer ${canDeleteCategory && "text-red-500"} ${
+            !canDeleteCategory && "cursor-not-allowed text-gray-400"
+          }`}
           // className="cursor-pointer text-red-500"
           size={20}
-          onClick={() =>{if(canDeleteCategory){handleDelete(record._id)} }}
+          onClick={() => {
+            if (canDeleteCategory) {
+              handleDelete(record._id);
+            }
+          }}
         />
       ),
     },
@@ -103,40 +110,47 @@ function Category({ Categories, setCategory, setselecteMenu, loading, canAddCate
 
   return (
     <div>
-      {
-        loading ?<div className="flex justify-center mt-10"><Loader/></div> : 
-
-      <>
-      <div className="flex justify-between mb-4 items-center">
-        <p>Categories</p>
-        <div>
-
-
-          <p
-className={`${canAddCategory && 'cursor-pointer'} lg:p-2 md:p-2 ${ canAddCategory &&'hover:bg-gray-200'} flex justify-center ${
-    !canAddCategory && 'cursor-not-allowed text-gray-400'
-  }`}
-  onClick={() => {
-    seteditCategory(null  )
-    if (canAddCategory) {
-      setselecteMenu("Categories");
-    }
-
-  }}
->
-  Add Category
-</p>
+      {loading ? (
+        <div className="flex justify-center mt-10">
+          <Loader />
         </div>
-      </div>
-      {Categories && Categories.length > 0 ? (
-        <Table className="overflow-x-scroll" dataSource={Categories} columns={columns}  pagination={false}  rowKey="_id"/>
       ) : (
-        "No Categories found"
+        <>
+          <div className="flex justify-between mb-4 items-center">
+            <p>Categories</p>
+            <div>
+              <p
+                className={`${
+                  canAddCategory && "cursor-pointer"
+                } lg:p-2 md:p-2 ${
+                  canAddCategory && "hover:bg-gray-200"
+                } flex justify-center ${
+                  !canAddCategory && "cursor-not-allowed text-gray-400"
+                }`}
+                onClick={() => {
+                  seteditCategory(null);
+                  if (canAddCategory) {
+                    setselecteMenu("Categories");
+                  }
+                }}
+              >
+                Add Category
+              </p>
+            </div>
+          </div>
+          {Categories && Categories.length > 0 ? (
+            <Table
+              className="overflow-x-scroll"
+              dataSource={Categories}
+              columns={columns}
+              pagination={false}
+              rowKey="_id"
+            />
+          ) : (
+            "No Categories found"
+          )}
+        </>
       )}
-      
-      </> 
-      }
-
     </div>
   );
 }
