@@ -138,7 +138,7 @@ function Admins({setselecteMenu}:any) {
         </div>
       ) : (
         <>
-          <div className="flex justify-between mb-4">
+          <div className="flex justify-between mb-4 items-center">
             <p>Admins</p>
             <div>
               <Button type="primary" onClick={() => setselecteMenu("Add Admin")}>Add new Admin</Button>

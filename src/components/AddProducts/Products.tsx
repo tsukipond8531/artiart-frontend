@@ -229,8 +229,8 @@ const AddProductForm = ({
         {" "}
         <IoMdArrowRoundBack /> Back
       </p>
-      <div className="container lg:px-52 mx-auto mt-8">
-        <div className="grid gap-20 grid-cols-2 p-8 custom-shadow rounded-md border">
+      <div className="container mx-auto mt-4 sm:mt-6 md:mt-8 lg:mt-8 xl:mt-8 px-4 sm:px-6 md:px-8 lg:px-32 xl:px-52">
+        <div className="grid gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20 grid-cols-1 sm:grid-cols-2 p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 custom-shadow rounded-md border">
 
           <div>
             <Formik

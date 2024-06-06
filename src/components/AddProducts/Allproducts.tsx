@@ -163,7 +163,7 @@ const Category: React.FC<CategoryProps> = ({
         </div>
       ) : (
         <>
-          <div className="flex justify-between mb-4">
+          <div className="flex justify-between mb-4 items-center">
             <input
               className="peer p-3 block outline-none border rounded-md border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
               type="search"
@@ -190,7 +190,7 @@ const Category: React.FC<CategoryProps> = ({
             </div>
           </div>
           {filteredProducts && filteredProducts.length > 0 ? (
-            <Table dataSource={filteredProducts} columns={columns} rowKey="_id" pagination={false} />
+            <Table className="overflow-x-scroll" dataSource={filteredProducts} columns={columns} rowKey="_id" pagination={false} />
           ) : (
             "No Products found"
           )}

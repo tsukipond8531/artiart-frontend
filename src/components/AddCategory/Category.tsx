@@ -107,7 +107,7 @@ function Category({ Categories, setCategory, setselecteMenu, loading, canAddCate
         loading ?<div className="flex justify-center mt-10"><Loader/></div> : 
 
       <>
-      <div className="flex justify-between mb-4">
+      <div className="flex justify-between mb-4 items-center">
         <p>Categories</p>
         <div>
 
@@ -129,7 +129,7 @@ className={`${canAddCategory && 'cursor-pointer'} p-2 ${ canAddCategory &&'hover
         </div>
       </div>
       {Categories && Categories.length > 0 ? (
-        <Table dataSource={Categories} columns={columns}  pagination={false}  rowKey="_id"/>
+        <Table className="overflow-x-scroll" dataSource={Categories} columns={columns}  pagination={false}  rowKey="_id"/>
       ) : (
         "No Categories found"
       )}
