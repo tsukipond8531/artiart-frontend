@@ -42,7 +42,7 @@ const SeoTable: React.FC = () => {
   ];
 
   return (
-    <div className="p-10 w-6/12 mx-auto bg-gray-100 mb-10 shadow-xl">
+    <div className="lg:p-10 md:p-10 lg:w-6/12 mx-auto lg:bg-gray-100 mb-10 w-full lg:shadow-xl md:shadow-xl md:bg-gray-100">
       <Form form={form} layout="vertical" onFinish={onFinish}>
         {formFields.map((field) => (
           <div key={field.name}>

@@ -169,10 +169,11 @@ const DashboardProvider = ({ children }: any) => {
             }}
           />
         </Header>
-        <Content
+        <Content className="lg:my-[24px] lg:mx-[16px] lg:p-[24px] md:my-[24px] md:mx-[16px] md:p-[24px] p-6"
           style={{
+            
             margin: "24px 16px",
-            padding: 24,
+            // padding: 24,
             minHeight: 280,
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
