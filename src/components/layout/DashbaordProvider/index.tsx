@@ -7,6 +7,7 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
+import { RiUserSearchLine } from "react-icons/ri";
 import Logo from "components/Common/Logo";
 import AddProductForm from "components/AddProducts/Products";
 import Allproducts from "components/AddProducts/Allproducts";
@@ -69,9 +70,9 @@ const DashboardProvider = ({ children }: any) => {
     },
     {
       key: "3",
-      icon: <VideoCameraOutlined />,
+      icon: <RiUserSearchLine />,
       label: "SEO",
-      onClick: () => handleAddProductsClick("SEO"),
+      onClick: () => handleAddProductsClick("SEO_FORM"),
     },
   ];
 
@@ -168,10 +169,11 @@ const DashboardProvider = ({ children }: any) => {
             }}
           />
         </Header>
-        <Content
+        <Content className="lg:my-[24px] lg:mx-[16px] lg:p-[24px] md:my-[24px] md:mx-[16px] md:p-[24px] p-6"
           style={{
-            margin: "24px 16px",
-            padding: 24,
+            
+            // margin: "24px 16px",
+            // padding: 24,
             minHeight: 280,
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
@@ -222,8 +224,10 @@ const DashboardProvider = ({ children }: any) => {
               canDeleteProduct={loggedInUser && loggedInUser.canDeleteProduct}
               setEditProduct={setEditProduct}
             />
-          ) : (
+          ) : selecteMenu === "SEO_FORM" ? (
             <SEO />
+          ) : (
+            <CategoryForm setselecteMenu={setselecteMenu} seteditCategory={seteditCategory} editCategory={editCategory} />
           )}
         </Content>
       </Layout>

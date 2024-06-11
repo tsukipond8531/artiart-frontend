@@ -4,49 +4,43 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import axios from "axios";
 import Loader from "components/Loader/Loader";
 
-function Admins({setselecteMenu}:any) {
+function Admins({ setselecteMenu }: any) {
   const [admins, setAdmins] = useState([]);
   const [loading, setloading] = useState<boolean>(false);
   const [delLoading, setDelLoading] = useState<string | null>(null);
 
-
   useEffect(() => {
     const getAllAdmins = async () => {
-  
-  try{
-    setloading(true)
-      const token = localStorage.getItem("superAdminToken");
-      if (!token) {
-        return;
+      try {
+        setloading(true);
+        const token = localStorage.getItem("superAdminToken");
+        if (!token) {
+          return;
+        }
+
+        const headers = {
+          token: token,
+        };
+
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/admins/getAllAdmins`,
+          {
+            method: "GET",
+            headers: headers,
+          }
+        );
+
+        const admins = await response.json();
+        setAdmins(admins);
+        setloading(false);
+      } catch (err) {
+        console.log(err, "err");
+        setloading(false);
       }
-  
-      const headers = {
-        'token': token
-      };
-  
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admins/getAllAdmins`, {
-        method: 'GET',
-        headers: headers
-      });
-  
-  
-      const admins = await response.json();
-      setAdmins(admins);
-    setloading(false)
-
-  }catch(err){
-    console.log(err, "err")
-    setloading(false)
-
-  }
-
-  
-
     };
-  
+
     getAllAdmins();
   }, []);
-  
 
   const handleDelete = async (id: string) => {
     try {
@@ -56,12 +50,17 @@ function Admins({setselecteMenu}:any) {
         return;
       }
       setDelLoading(id); // Set loading state for the specific admin being deleted
-      await axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admins/deletAdmin/${id}`,{
-        headers:{
-          "token":token
+      await axios.delete(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admins/deletAdmin/${id}`,
+        {
+          headers: {
+            token: token,
+          },
         }
-      });
-      setAdmins(prevAdmins => prevAdmins.filter((admin: any) => admin._id !== id));
+      );
+      setAdmins((prevAdmins) =>
+        prevAdmins.filter((admin: any) => admin._id !== id)
+      );
     } catch (error) {
       console.error("Error deleting admin:", error);
     } finally {
@@ -74,7 +73,8 @@ function Admins({setselecteMenu}:any) {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      render: (text: any, record: any) => `${record.firstName} ${record.lastName}`
+      render: (text: any, record: any) =>
+        `${record.firstName} ${record.lastName}`,
     },
     {
       title: "Email",
@@ -116,18 +116,18 @@ function Admins({setselecteMenu}:any) {
     {
       title: "Actions",
       key: "actions",
-      render: (text: any, record: any) => (
-        delLoading === record._id ? // Check if loading state matches current admin ID
-          <Loader /> :
-          <RiDeleteBin6Line 
+      render: (text: any, record: any) =>
+        delLoading === record._id ? ( // Check if loading state matches current admin ID
+          <Loader />
+        ) : (
+          <RiDeleteBin6Line
             className="cursor-pointer text-red-500"
             size={20}
             onClick={() => handleDelete(record._id)}
           />
-      ),
+        ),
     },
   ];
-  
 
   return (
     <div>
@@ -141,15 +141,19 @@ function Admins({setselecteMenu}:any) {
           <div className="flex justify-between mb-4 items-center">
             <p>Admins</p>
             <div>
-              <Button type="primary" onClick={() => setselecteMenu("Add Admin")}>Add new Admin</Button>
+              <Button
+                type="primary"
+                onClick={() => setselecteMenu("Add Admin")}
+              >
+                Add new Admin
+              </Button>
             </div>
           </div>
-          {
-              admins  && admins.length > 0 ?
-            <Table dataSource={admins} columns={columns} pagination={false} /> : <div className="flex justify-center"> No Admin found</div>
-              
-              
-            }
+          {admins && admins.length > 0 ? (
+            <Table dataSource={admins} columns={columns} pagination={false} />
+          ) : (
+            <div className="flex justify-center"> No Admin found</div>
+          )}
         </>
       )}
     </div>

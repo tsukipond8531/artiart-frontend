@@ -5,7 +5,7 @@ import React from 'react';
 
 const SEO: React.FC = () => {
   return (
-    <div className="bg-gray-100 shadow-xl text-white flex items-center justify-center">
+    <div className=" text-white flex items-center justify-center">
       <SeoTable />
     </div>
   );
