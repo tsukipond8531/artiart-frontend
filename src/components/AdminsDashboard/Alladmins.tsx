@@ -145,11 +145,11 @@ function Admins({setselecteMenu}:any) {
             </div>
           </div>
           {
-  admins  && admins.length > 0 ?
-<Table dataSource={admins} columns={columns} pagination={false} /> : <div className="flex justify-center"> No Admin found</div>
-  
-  
-}
+              admins  && admins.length > 0 ?
+            <Table dataSource={admins} columns={columns} pagination={false} /> : <div className="flex justify-center"> No Admin found</div>
+              
+              
+            }
         </>
       )}
     </div>

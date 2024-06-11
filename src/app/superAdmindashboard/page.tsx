@@ -49,10 +49,11 @@ const DashboardLogin= () => {
       <Navbar />
       <div className="mt-4 p-4">
        {isLogin ? <div className=" flex justify-end mb-4"><p className="underline cursor-pointer" onClick={()=>{tokenRemoveHandler()}}>log out</p></div> : null} 
+       
         {selecteMenu == "AllAdmins" ?
-<AllAdmins setselecteMenu={setselecteMenu}/>
-         :
-<CreateAdmin setselecteMenu={setselecteMenu}/>
+        <AllAdmins setselecteMenu={setselecteMenu}/>
+                :
+        <CreateAdmin setselecteMenu={setselecteMenu}/>
          
          }
 

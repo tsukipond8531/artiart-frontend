@@ -135,12 +135,12 @@ const Navbar: React.FC = () => {
 
            <Link className='relative group' href={"/cart"}>
            {
-  cartItems.length > 0 ? 
-    <div className='rounded-full text-dark w-5 h-5 p-[12px] bg-black text-white text-[14px] absolute bottom-2 left-3 flex justify-center items-center transition duration-200 ease-in'>
-      {cartItems.reduce((count, item) => count + item.count, 0)}
-    </div> 
-  : null
-}
+                cartItems.length > 0 ? 
+                  <div className='rounded-full text-dark w-5 h-5 p-[12px] bg-black text-white text-[14px] absolute bottom-2 left-3 flex justify-center items-center transition duration-200 ease-in'>
+                    {cartItems.reduce((count, item) => count + item.count, 0)}
+                  </div> 
+                : null
+              }
                   <PiBag   className='transition duration-200 ease-in' size={28} />
 
                 </Link>

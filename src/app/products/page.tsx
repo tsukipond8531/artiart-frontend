@@ -144,8 +144,8 @@ console.log(outOfStockOnly, "outOfStockOnly")
     <Navbar/>
       <Container>
 
-          <h3 className="text-xl font-bold mt-10 mb-20">Artiart</h3>
-          <div>
+      <h3 className="text-xl font-bold mt-10 mb-20">Artiart</h3>
+    <div>
   <div className="hidden md:block">
     <div className="flex justify-between flex-wrap mb-10">
       <div className="flex gap-10 border-sky-2">
