@@ -40,6 +40,8 @@ const AddProductForm = ({
   const [selectedOption, setSelectedOption] = useState<string>('');
   const [quantity, setQuantity] = useState<number | ''>('');
   const [color, setColor] = useState<string>('');
+let EditProductIntialValue = productInitialValue && (productInitialValue.totalStockQuantity && productInitialValue.totalStockQuantity)
+
 
   const handleOptionChange = (e: any) => {
     setSelectedOption(e.target.value);
@@ -57,8 +59,6 @@ const AddProductForm = ({
         throw new Error("Please select relevant Images");
 
       }
-
-      console.log(values.colors, "colors")
       const validColors = values.colors.map(color => color.colorName.toLowerCase());
 
       // Check if all the image color codes are valid
@@ -87,13 +87,20 @@ const AddProductForm = ({
       setloading(true);
 
       let updateFlag = EditProductValue && EditInitialValues ? true : false;
-      let addProductUrl = updateFlag
-        ? `/api/updateProduct/${EditInitialValues._id} `
-        : null;
-      let url = `${process.env.NEXT_PUBLIC_BASE_URL}${updateFlag ? addProductUrl : "/api/addProduct"
-        }`;
 
-      const response = await axios.post(url, newValue);
+      let addProductUrl = updateFlag  ? `/api/updateProduct/${EditInitialValues._id} `: null;
+let upDated ;
+      if((updateFlag && EditProductIntialValue) && ( productInitialValue.totalStockQuantity === values.totalStockQuantity)){
+   const {totalStockQuantity, ...withoutStockValue} = newValue;
+   upDated =withoutStockValue
+
+      }
+      else {
+        upDated= newValue
+      }
+      let url = `${process.env.NEXT_PUBLIC_BASE_URL}${updateFlag ? addProductUrl : "/api/addProduct"}`;
+if(!upDated) return null
+      const response = await axios.post(url, upDated);
       console.log(response, "response");
       Toaster(
         "success",
@@ -313,7 +320,12 @@ const AddProductForm = ({
                       </Field>
                     </div>
 
-                    {selectedOption === 'withoutVariation' && (
+                    {
+                    
+                    selectedOption === 'withoutVariation' && 
+                    
+                    
+                    (
                       <>
                         {withoutVariation.map((inputField, index) => (
                           <div key={index} className="mb-4">
@@ -336,12 +348,15 @@ const AddProductForm = ({
                       </>
                     )}
 
-                    {selectedOption === 'withVariation' && (
+                    {
+                    selectedOption === 'withVariation' &&
+                    
+                    (
                       <>
                         <FieldArray name="variantStockQuantities">
                           {({ push, remove }) => (
                             <div>
-                              {values.variantStockQuantities.map((model, index) => (
+                              {values.variantStockQuantities && values.variantStockQuantities.map((model, index) => (
                                 <div
                                   key={index}
                                   className="flex flex-col md:flex-row md:items-center mb-4"
@@ -349,12 +364,12 @@ const AddProductForm = ({
                                   <div className="md:flex-1 md:mr-4 mb-4 md:mb-0">
                                     <Field
                                       type="text"
-                                      name={`variantStockQuantities[${index}].Variant`}
+                                      name={`variantStockQuantities[${index}].variant`}
                                       placeholder="Variant"
                                       className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
                                     />
                                     <ErrorMessage
-                                      name={`variantStockQuantities[${index}].Variant`}
+                                      name={`variantStockQuantities[${index}].variant`}
                                       component="div"
                                       className="text-red-500 mt-1"
                                     />
@@ -362,12 +377,12 @@ const AddProductForm = ({
                                   <div className="md:flex-1 md:mr-4 mb-4 md:mb-0">
                                     <Field
                                       type="number"
-                                      name={`variantStockQuantities[${index}].Quantity`}
+                                      name={`variantStockQuantities[${index}].quantity`}
                                       placeholder="Quantity"
                                       className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
                                     />
                                     <ErrorMessage
-                                      name={`variantStockQuantities[${index}].Quantity`}
+                                      name={`variantStockQuantities[${index}].quantity`}
                                       component="div"
                                       className="text-red-500 mt-1"
                                     />
@@ -386,7 +401,7 @@ const AddProductForm = ({
                               <div className="text-left">
                                 <button
                                   type="button"
-                                  onClick={() => push({ name: "", detail: "" })}
+                                  onClick={() => push({ variant: "", quantity: 0 })}
                                   className="px-4 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black"
                                 >
                                   Add Variation
