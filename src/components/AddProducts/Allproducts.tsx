@@ -7,7 +7,6 @@ import Loader from "components/Loader/Loader";
 import { useRouter } from "next/navigation";
 import { FaRegEye } from "react-icons/fa";
 import { LiaEdit } from "react-icons/lia";
-
 import { generateSlug } from 'Data/data';
 
 interface Product {

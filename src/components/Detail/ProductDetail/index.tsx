@@ -20,7 +20,7 @@ const ProductDetail = ({ parsedProduct }: any) => {
   const [count, setCount] = useState<any>(1);
   const initialSelectedValue = parsedProduct && parsedProduct.colors && parsedProduct.colors.length > 0 ? parsedProduct.colors[0].colorName : null;
   const [selectedValue, setSelectedValue] = useState(initialSelectedValue);
-
+  console.log(parsedProduct , "parsedProduct")
   const Image: any = parsedProduct?.imageUrl;
 
   const handleChange = (e: any) => {
@@ -110,6 +110,7 @@ const ProductDetail = ({ parsedProduct }: any) => {
                 </Link>{" "}
                 calculated at checkout.
               </p>
+              <p><span className='font-medium text-lg'>Available Quantity: </span> {parsedProduct.totalStockQuantity ?? "0"} </p>
               <Para14 title={"Color"} />
               <div className="flex gap-2 mb-4 flex-wrap w-full">
 
@@ -137,7 +138,12 @@ const ProductDetail = ({ parsedProduct }: any) => {
 
 
               </div>
-              <Para14 title={"Quantity"} />
+              
+              {parsedProduct.totalStockQuantity == null ? (
+                    <p className="text-red-500 text-center text-3xl">Product is out of stock</p>
+                  ) : (
+                  <>
+                  <Para14 title={"Quantity"} />
               <div className="border-2 p-2 flex justify-center items-center gap-2 w-28">
                 <FiMinus
                   className="cursor-pointer"
@@ -156,9 +162,11 @@ const ProductDetail = ({ parsedProduct }: any) => {
                   onClick={increment}
                 />
               </div>
-              <Button className="border w-full rounded-none border-black hover:border-2" onClick={handleAddToCart} title={"Add to Cart"} />
-
-              <Button className={"bg-black w-full  rounded-none text-white"} title={"Buy It Now"} />
+                   <Button className="border w-full rounded-none border-black hover:border-2" onClick={handleAddToCart} title={"Add to Cart"} />
+                    <Button className={"bg-black w-full  rounded-none text-white"} title={"Buy It Now"} />
+                  </>
+                  )}
+             
 
               <div className="p-2 space-y-4">
                 <ul className="list-disc">
