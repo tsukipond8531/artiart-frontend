@@ -140,7 +140,7 @@ const ProductDetail = ({ parsedProduct }: any) => {
               </div>
               
               {parsedProduct.totalStockQuantity == null ? (
-                    <p className="text-red-500 text-center text-3xl">Product is out of stock</p>
+                    <p className="text-red-500 text-center text-3xl pt-5 pb-5 ">Product is out of stock</p>
                   ) : (
                   <>
                   <Para14 title={"Quantity"} />
