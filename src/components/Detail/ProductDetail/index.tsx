@@ -14,7 +14,16 @@ import { FaFacebookF } from "react-icons/fa6";
 
 const ProductDetail = ({ parsedProduct }: any) => {
   const [count, setCount] = useState(1);
-  const initialSelectedValue = parsedProduct && parsedProduct.colors && parsedProduct.colors.length > 0 ? parsedProduct.colors[0].colorName : null;
+
+  const findColorWithStock = () => {
+    const colorWithStock = parsedProduct.colors.find((color) => {
+      const stock = parsedProduct.variantStockQuantities?.find(v => v.variant === color.colorName)?.quantity || 0;
+      return stock > 0;
+    });
+    return colorWithStock ? colorWithStock.colorName : null;
+  };
+
+  const initialSelectedValue = parsedProduct && parsedProduct.colors && parsedProduct.colors.length > 0 ? findColorWithStock() : null;
   const [selectedValue, setSelectedValue] = useState(initialSelectedValue);
   const [selectedStock, setSelectedStock] = useState(parsedProduct.variantStockQuantities?.find(v => v.variant === initialSelectedValue)?.quantity || 0);
 
