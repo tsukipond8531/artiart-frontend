@@ -190,7 +190,7 @@ const Category: React.FC<CategoryProps> = ({
             </div>
           </div>
           {filteredProducts && filteredProducts.length > 0 ? (
-            <Table className="overflow-x-scroll" dataSource={filteredProducts} columns={columns} rowKey="_id" pagination={false} />
+            <Table className="lg:overfow-x-auto overflow-auto " dataSource={filteredProducts} columns={columns} rowKey="_id" pagination={false} />
           ) : (
             "No Products found"
           )}

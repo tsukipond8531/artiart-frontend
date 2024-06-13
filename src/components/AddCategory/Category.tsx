@@ -140,7 +140,7 @@ function Category({
           </div>
           {Categories && Categories.length > 0 ? (
             <Table
-              className="overflow-x-scroll"
+              className="lg:overfow-x-auto overflow-auto"
               dataSource={Categories}
               columns={columns}
               pagination={false}

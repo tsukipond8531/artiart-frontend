@@ -17,33 +17,31 @@ import { useAppSelector } from "components/Others/HelperRedux";
 import Toaster from "components/Toaster/Toaster";
 import { useRouter } from "next/navigation";
 import ProtectedRoute from "hooks/AuthHookAdmin";
-import { Product, ProductWithImages } from "types/interfaces";
+import { ProductWithImages } from "types/interfaces";
 import SEO from "components/SEO/SEO";
-// import { SEO } from "components/SEO/SEO";
 
 const DashboardProvider = ({ children }: any) => {
   const { Header, Sider, Content } = Layout;
-  const [collapsed, setCollapsed] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-  const [selecteMenu, setselecteMenu] = useState<string>("Add All Products");
+  const [selectedMenu, setSelectedMenu] = useState<string>("Add All Products");
   const [category, setCategory] = useState<any[]>();
   const [products, setProducts] = useState<any[]>();
   const [loading, setLoading] = useState<boolean>(false);
-  const [productloading, setProductloading] = useState<boolean>(false);
+  const [productLoading, setProductLoading] = useState<boolean>(false);
   const [isLogin, setIsLogin] = useState<boolean | null | undefined>(false);
   const router = useRouter();
   const [editProduct, setEditProduct] = useState<ProductWithImages | undefined>();
-  const [editCategory, seteditCategory] = useState<any>();
+  const [editCategory, setEditCategory] = useState<any>();
 
   const { loggedInUser }: any = useAppSelector((state) => state.usersSlice);
 
   const handleAddProductsClick = (menu: string) => {
-    setselecteMenu(menu);
+    setSelectedMenu(menu);
   };
 
-  console.log(editCategory, "editCategory");
   const EditInitialValues: any = {
     name: editProduct?.name,
     description: editProduct?.description,
@@ -54,7 +52,7 @@ const DashboardProvider = ({ children }: any) => {
     discountPrice: editProduct?.discountPrice,
     category: editProduct && editProduct?.category,
     variantStockQuantities: editProduct && editProduct?.variantStockQuantities,
-    totalStockQuantity:editProduct && editProduct?.totalStockQuantity
+    totalStockQuantity: editProduct && editProduct?.totalStockQuantity,
   };
 
   const menuArray = [
@@ -94,8 +92,8 @@ const DashboardProvider = ({ children }: any) => {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllcategories`
         );
-        const Categories = await response.json();
-        setCategory(Categories);
+        const categories = await response.json();
+        setCategory(categories);
         setLoading(false);
       } catch (err) {
         console.log("err", err);
@@ -105,21 +103,21 @@ const DashboardProvider = ({ children }: any) => {
 
     const productHandler = async () => {
       try {
-        setProductloading(true);
+        setProductLoading(true);
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllproducts`
         );
-        const Allproducts = await response.json();
-        setProducts(Allproducts.products);
-        setProductloading(false);
+        const allProducts = await response.json();
+        setProducts(allProducts.products);
+        setProductLoading(false);
       } catch (err) {
-        console.log("error Occured");
-        setProductloading(false);
+        console.log("error Occurred");
+        setProductLoading(false);
       }
     };
     CategoryHandler();
     productHandler();
-  }, [selecteMenu]);
+  }, [selectedMenu]);
 
   const tokenRemoveHandler = () => {
     const ISSERVER = typeof window === "undefined";
@@ -132,10 +130,10 @@ const DashboardProvider = ({ children }: any) => {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth <= 600) {
-        setCollapsed(true);
+      if (window.innerWidth <= 768) {
+        setIsVisible(false);
       } else {
-        setCollapsed(false);
+        setIsVisible(true);
       }
     };
 
@@ -148,10 +146,10 @@ const DashboardProvider = ({ children }: any) => {
   }, []);
 
   return (
-    <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed} className="w-full">
-        <div className="demo-logo-vertical" />
-        <Logo className="flex justify-center mt-3 mb-3" />
+    <Layout >
+      <Sider trigger={null} className={`w-full ${isVisible ? 'block' : 'hidden'}`}>
+        <div className="demo-logo-vertical"  />
+        <Logo className="flex justify-center mt-3 mb-3 " />
         <Menu
           mode="inline"
           defaultSelectedKeys={["1"]}
@@ -162,8 +160,8 @@ const DashboardProvider = ({ children }: any) => {
         <Header style={{ padding: 0, background: "white" }}>
           <Button
             type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
+            icon={isVisible ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
+            onClick={() => setIsVisible(!isVisible)}
             style={{
               fontSize: "16px",
               width: 64,
@@ -171,11 +169,9 @@ const DashboardProvider = ({ children }: any) => {
             }}
           />
         </Header>
-        <Content className="lg:my-[24px] lg:mx-[16px] lg:p-[24px] md:my-[24px] md:mx-[16px] md:p-[24px] p-6"
+        <Content
+          className="lg:my-[24px] lg:mx-[16px] lg:p-[24px] md:my-[24px] md:mx-[16px] md:p-[24px] p-6"
           style={{
-            
-            // margin: "24px 16px",
-            // padding: 24,
             minHeight: 280,
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
@@ -185,18 +181,16 @@ const DashboardProvider = ({ children }: any) => {
             <div className="flex justify-end mb-4">
               <p
                 className="w-fit underline cursor-pointer"
-                onClick={() => {
-                  tokenRemoveHandler();
-                }}
+                onClick={tokenRemoveHandler}
               >
-                log out
+                Log out
               </p>
             </div>
           ) : null}
 
-          {selecteMenu === "Add Products" ? (
+          {selectedMenu === "Add Products" ? (
             <AddProductForm
-              setselecteMenu={setselecteMenu}
+              setselecteMenu={setSelectedMenu}
               setEditProduct={setEditProduct}
               EditInitialValues={editProduct}
               EditProductValue={
@@ -206,30 +200,34 @@ const DashboardProvider = ({ children }: any) => {
                   : undefined
               }
             />
-          ) : selecteMenu === "Add Category" ? (
+          ) : selectedMenu === "Add Category" ? (
             <Categories
               Categories={category}
               setCategory={setCategory}
-              setselecteMenu={setselecteMenu}
+              setselecteMenu={setSelectedMenu}
               loading={loading}
               canAddCategory={loggedInUser && loggedInUser.canAddCategory}
               canDeleteCategory={loggedInUser && loggedInUser.canDeleteCategory}
-              seteditCategory={seteditCategory}
+              seteditCategory={setEditCategory}
             />
-          ) : selecteMenu === "Add All Products" ? (
+          ) : selectedMenu === "Add All Products" ? (
             <Allproducts
               Categories={products}
               setCategory={setProducts}
-              setselecteMenu={setselecteMenu}
-              loading={productloading}
+              setselecteMenu={setSelectedMenu}
+              loading={productLoading}
               canAddProduct={loggedInUser && loggedInUser.canAddProduct}
               canDeleteProduct={loggedInUser && loggedInUser.canDeleteProduct}
               setEditProduct={setEditProduct}
             />
-          ) : selecteMenu === "SEO_FORM" ? (
+          ) : selectedMenu === "SEO_FORM" ? (
             <SEO />
           ) : (
-            <CategoryForm setselecteMenu={setselecteMenu} seteditCategory={seteditCategory} editCategory={editCategory} />
+            <CategoryForm
+              setselecteMenu={setSelectedMenu}
+              seteditCategory={setEditCategory}
+              editCategory={editCategory}
+            />
           )}
         </Content>
       </Layout>
