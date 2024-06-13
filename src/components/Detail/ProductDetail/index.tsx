@@ -1,6 +1,6 @@
 //@ts-nocheck
 "use client"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Thumbnail from "components/Carousel/Thumbnail";
 import Container from "components/Common/Container";
 import { HeadingH3, HeadingH6 } from "components/Common/Heading";
@@ -11,36 +11,36 @@ import { FiMinus, FiPlus } from "react-icons/fi";
 import Button from "components/Common/Button";
 import DetailTable from "components/Table/DetailTable";
 
-type ButtonOption = {
-  value: string;
-  label: string;
-};
-
 const ProductDetail = ({ parsedProduct }: any) => {
-  const [count, setCount] = useState<any>(1);
+  const [count, setCount] = useState(1);
   const initialSelectedValue = parsedProduct && parsedProduct.colors && parsedProduct.colors.length > 0 ? parsedProduct.colors[0].colorName : null;
   const [selectedValue, setSelectedValue] = useState(initialSelectedValue);
-  console.log(parsedProduct , "parsedProduct")
-  const Image: any = parsedProduct?.imageUrl;
+  const [selectedStock, setSelectedStock] = useState(parsedProduct.variantStockQuantities?.find(v => v.variant === initialSelectedValue)?.quantity || 0);
 
-  const handleChange = (e: any) => {
-    setSelectedValue(e.target.value);
+  useEffect(() => {
+    const initialStock = parsedProduct.variantStockQuantities?.find(v => v.variant === initialSelectedValue)?.quantity || 0;
+    setSelectedStock(initialStock);
+  }, [parsedProduct, initialSelectedValue]);
+
+  const handleChange = (e) => {
+    const newValue = e.target.value;
+    setSelectedValue(newValue);
+    const stock = parsedProduct.variantStockQuantities?.find(v => v.variant === newValue)?.quantity || 0;
+    setSelectedStock(stock);
   };
 
   const increment = () => {
-    setCount((prevCount: number) => prevCount + 1);
+    setCount((prevCount) => (prevCount < selectedStock ? prevCount + 1 : prevCount));
     window.dispatchEvent(new Event("cartChanged"));
-
   };
 
   const decrement = () => {
-    setCount((prevCount: number) => (prevCount > 1 ? prevCount - 1 : prevCount));
+    setCount((prevCount) => (prevCount > 1 ? prevCount - 1 : prevCount));
     window.dispatchEvent(new Event("cartChanged"));
-
   };
+
   const handleAddToCart = () => {
     if (!selectedValue || !parsedProduct) {
-      // Handle error: No color selected or product details missing
       return;
     }
 
@@ -54,27 +54,20 @@ const ProductDetail = ({ parsedProduct }: any) => {
       totalPrice: parsedProduct.price * count,
     };
 
-    // Fetch existing cart items from local storage or initialize an empty array
     let existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    console.log(existingCart , "existingCart")
-    // Check if the product already exists in the cart
     const existingItemIndex = existingCart.findIndex((item) => item.id === parsedProduct.id && item.color === selectedValue);
 
     if (existingItemIndex !== -1) {
       existingCart[existingItemIndex].count += count;
       existingCart[existingItemIndex].totalPrice = existingCart[existingItemIndex].count * parsedProduct.price;
     } else {
-      // If the product doesn't exist, add it to the cart
       existingCart.push(newCartItem);
     }
 
-    // Update local storage with the updated cart
     localStorage.setItem("cart", JSON.stringify(existingCart));
     message.success('Product added to cart successfully!');
     window.dispatchEvent(new Event("cartChanged"));
-
   };
-
 
   return (
     <>
@@ -82,7 +75,7 @@ const ProductDetail = ({ parsedProduct }: any) => {
         <Container className="mt-10 md:mt-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
             <div className="">
-              <Thumbnail Images={Image} selectedColor={selectedValue}/>
+              <Thumbnail Images={parsedProduct.imageUrl} selectedColor={selectedValue} />
             </div>
 
             <div className=" p-2 sm:p-4 md:p-8 max-w-screen-sm mx-0 md:mx-10 lg:mx-20 mt-5 md:mt-0 space-y-3">
@@ -92,16 +85,11 @@ const ProductDetail = ({ parsedProduct }: any) => {
                 {parsedProduct.discountPrice ?
                   <Para16
                     className="line-through"
-
                     title={parsedProduct.price}
                     endicon={"  AED"}
                   /> : null
                 }
-                {/* <Para16 title={parsedProduct.price} endicon={" AED"} /> */}
                 <p className={`text-16 gap-2`}>AED {parsedProduct.discountPrice ? parsedProduct.discountPrice : parsedProduct.price}.00 </p>
-                {/* <div className="border rounded-xl bg-blue-600 px-3 py-1 text-white">
-                Sale
-              </div> */}
               </div>
               <p className="text-[12px]">
                 Tax included.{" "}
@@ -110,89 +98,70 @@ const ProductDetail = ({ parsedProduct }: any) => {
                 </Link>{" "}
                 calculated at checkout.
               </p>
-              <p><span className='font-medium text-lg'>Available Quantity: </span> {parsedProduct.totalStockQuantity ?? "0"} </p>
-              <Para14 title={"Color"} />
+              {
+                selectedStock === 0 ? (<p><span className='font-semibold text-lg'>Out of Stock: </span> {selectedStock ?? "0"} </p>):
+                (<p><span className='font-semibold text-lg'>In Stock: </span> {selectedStock ?? "0"} </p>)
+              }
+              <p className="font-semibold text-lg" >Color </p>
               <div className="flex gap-2 mb-4 flex-wrap w-full">
-
-
-                {parsedProduct.colors && parsedProduct.colors.map((button: any, index: any) => {
+                {parsedProduct.colors && parsedProduct.colors.map((button, index) => {
                   return (
                     <p
                       key={index}
-
                       className={`py-2 px-4 w-[45px] h-[40px] rounded-lg focus:outline-none whitespace-nowrap hover:bg-blue-100 cursor-pointer ${selectedValue === button.colorName
                         ? `bg-blue-100 border-2 border-blue-500`
                         : `bg-${button.colorName}-500  ${button.colorName.toLowerCase() == "black" || button.colorName.toLowerCase() == "#000" ? "text-white" : "text-black"} border border-${button.colorName}-600`
                         }`}
-
                       style={{ backgroundColor: `#${button.colorName}` }}
-                      onClick={() => setSelectedValue(button.colorName)}
-                    >
-
-                    </p>
-
+                      onClick={() => handleChange({ target: { value: button.colorName } })}
+                    />
                   )
-
-
                 })}
-
-
               </div>
-              
-              {parsedProduct.totalStockQuantity == null ? (
-                    <p className="text-red-500 text-center text-3xl pt-5 pb-5 ">Product is out of stock</p>
-                  ) : (
-                  <>
+
+              {selectedStock === 0 ? (
+                <p className=" "></p>
+              ) : (
+                <>
                   <Para14 title={"Quantity"} />
-              <div className="border-2 p-2 flex justify-center items-center gap-2 w-28">
-                <FiMinus
-                  className="cursor-pointer"
-                  size={20}
-                  onClick={decrement}
-                />
-                <input
-                  className="w-14 text-center hover:border hover:scale-105"
-                  type="text"
-                  value={count}
-                  readOnly
-                />
-                <FiPlus
-                  className="cursor-pointer"
-                  size={20}
-                  onClick={increment}
-                />
-              </div>
-                   <Button className="border w-full rounded-none border-black hover:border-2" onClick={handleAddToCart} title={"Add to Cart"} />
-                    <Button className={"bg-black w-full  rounded-none text-white"} title={"Buy It Now"} />
-                  </>
-                  )}
-             
+                  <div className="border-2 p-2 flex justify-center items-center gap-2 w-28">
+                    <FiMinus
+                      className="cursor-pointer"
+                      size={20}
+                      onClick={decrement}
+                    />
+                    <input
+                      className="w-14 text-center hover:border hover:scale-105"
+                      type="text"
+                      value={count}
+                      readOnly
+                    />
+                    <FiPlus
+                      className="cursor-pointer"
+                      size={20}
+                      onClick={increment}
+                    />
+                  </div>
+                  <Button className="border w-full rounded-none border-black hover:border-2" onClick={handleAddToCart} title={"Add to Cart"} />
+                  <Button className={"bg-black w-full  rounded-none text-white"} title={"Buy It Now"} />
+                </>
+              )}
 
               <div className="p-2 space-y-4">
                 <ul className="list-disc">
-                  {
-                    parsedProduct.spacification && parsedProduct.spacification.map((array: any, index: any) => (
-                      <li key={index}>{array.specsDetails}</li>
-                    ))
-                  }
+                  {parsedProduct.spacification && parsedProduct.spacification.map((array, index) => (
+                    <li key={index}>{array.specsDetails}</li>
+                  ))}
                 </ul>
                 <Para14 title={parsedProduct.description && parsedProduct.description} />
-                {
-                  parsedProduct.modelDetails ?
-                    <DetailTable
-                      keypoint={
-                        parsedProduct.modelDetails
-                      }
-                    />
-                    : null}
-
+                {parsedProduct.modelDetails ?
+                  <DetailTable
+                    keypoint={parsedProduct.modelDetails}
+                  />
+                  : null}
               </div>
-
             </div>
-
           </div>
-
-
         </Container>
       }
     </>

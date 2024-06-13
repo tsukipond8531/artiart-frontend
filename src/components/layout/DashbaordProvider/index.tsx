@@ -53,6 +53,8 @@ const DashboardProvider = ({ children }: any) => {
     spacification: editProduct?.spacification,
     discountPrice: editProduct?.discountPrice,
     category: editProduct && editProduct?.category,
+    variantStockQuantities: editProduct && editProduct?.variantStockQuantities,
+    totalStockQuantity:editProduct && editProduct?.totalStockQuantity
   };
 
   const menuArray = [
