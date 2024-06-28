@@ -183,7 +183,7 @@ const Checkout = () => {
 
                         <tr className="odd:bg-white hover:bg-gray-100 border-b-gray-200 border">
                           <td className="px-6 py-4 whitespace-nowrap text-[14px] poppins-thin text-gray-800">Total</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{parseSubtotal>100?"Free":15}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{parseSubtotal>100?"Free":parseSubtotal+15}</td>
                         </tr>
                       </tbody>
                     </table>
