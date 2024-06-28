@@ -1,31 +1,31 @@
 import React from 'react';
-import { Form, Col, Select } from 'antd';
+import { Select } from 'antd';
 
 const { Option } = Select;
 
-const handleChange = (value: string) => {
-  console.log(`selected ${value}`);
-};
-interface Options{
+interface Options {
   title?: string;
 }
+
 interface SelectInputProps {
+  name: string;
   placeholder: string;
-  selectoption: Options[]
+  value: string;
+  onChange: (name: string, value: string) => void;
+  selectoption: Options[];
 }
 
-
-const SelectInput: React.FC<SelectInputProps> = ({ placeholder, selectoption }) => (
+const SelectInput: React.FC<SelectInputProps> = ({ name, placeholder, value, onChange, selectoption }) => (
   <Select
     className='h-[52px]'
-    onChange={handleChange}
     placeholder={placeholder}
+    value={value}
+    onChange={(val) => onChange(name, val)}
   >
-    {
-      selectoption.map((array, index)=>(
+    {selectoption.map((array, index) => (
       <Option value={array.title} key={index}>{array.title}</Option>
-      ))
-    }
+    ))}
   </Select>
 );
+
 export default SelectInput;
