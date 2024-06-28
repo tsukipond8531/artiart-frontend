@@ -31,7 +31,7 @@ const Checkout = () => {
 
   const handlePayment = async () => {
     try {
-      let totalPayment=parseSubtotal>100?parseSubtotal:parseSubtotal+30;
+      let totalPayment=parseSubtotal>100?parseSubtotal:parseSubtotal+15;
       // Step 1: Authenticate and get the token
       const authResponse = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/payment/authenticate`);
       const token = authResponse.data.token;
@@ -178,12 +178,12 @@ const Checkout = () => {
 
                         <tr className="odd:bg-white hover:bg-gray-100 border-b-gray-200 border">
                           <td className="px-6 py-4 whitespace-nowrap text-[14px] poppins-thin text-gray-800">Shippment Fee</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{shipment && shipment > 199 ? "Free" :  30}</td>           
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{parseSubtotal>100?parseSubtotal:parseSubtotal+15}</td>           
                         </tr>
 
                         <tr className="odd:bg-white hover:bg-gray-100 border-b-gray-200 border">
                           <td className="px-6 py-4 whitespace-nowrap text-[14px] poppins-thin text-gray-800">Total</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{shipment && (shipment > 199 ? parseSubtotal : 30 + Number(parseSubtotal))}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{parseSubtotal>100?parseSubtotal:parseSubtotal+15}</td>
                         </tr>
                       </tbody>
                     </table>
