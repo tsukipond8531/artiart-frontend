@@ -57,7 +57,7 @@ const Checkout = () => {
     setBillingData({ ...billingData, [name]: value });
   };
 
-  const handleSelectChange = (name, value) => {
+  const handleSelectChange = (name:string, value:string) => {
     console.log(`Field: ${name}, Value: ${value}`);
     setBillingData({ ...billingData, [name]: value });
   };
