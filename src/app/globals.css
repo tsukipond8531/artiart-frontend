@@ -269,6 +269,27 @@ html, body{
       flex-direction: column !important;
   }
 }
-/* th, td {
-  padding: 7px;
-} */
+.ant-btn-primary{
+  background-color: black !important;
+}
+.ant-btn-primary:hover{
+  background-color: black !important;
+}
+.ant-btn-default:hover{
+  border-color: black !important;
+  color: black !important;
+}
+.ant-select-selector:hover{
+  border-color: black !important;
+}
+.ant-select-selector:active{
+  border-color: black !important;
+}
+.ant-select-selector:focus{
+  border-color: black !important;
+}
+
+.ant-select-focused.ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer) .ant-select-selector {
+  border-color: black;
+ 
+}
