@@ -31,16 +31,17 @@ const Checkout = () => {
 
   const handlePayment = async () => {
     try {
+      let totalPayment=parseSubtotal>100?parseSubtotal:parseSubtotal+30;
       // Step 1: Authenticate and get the token
       const authResponse = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/payment/authenticate`);
       const token = authResponse.data.token;
-
+      
       // Step 2: Create the order
-      const orderResponse = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/payment/order`, { token, amount: parseSubtotal });
+      const orderResponse = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/payment/order`, { token, amount:totalPayment });
       const orderId = orderResponse.data.orderId;
 
       // Step 3: Generate the payment key
-      const paymentKeyResponse = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/payment/payment_key`, { token, orderId, amount: parseSubtotal, billingData });
+      const paymentKeyResponse = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/payment/payment_key`, { token, orderId, amount: totalPayment, billingData });
       const paymentKey = paymentKeyResponse.data.paymentKey;
 
       // Step 4: Redirect to Paymob's payment iframe
@@ -163,21 +164,20 @@ const Checkout = () => {
                   <HeadingH6 className='lg:mt-3 font-bold' title={"Your order"} />
                   <div className="overflow-hidden ">
                     <table className="min-w-full divide-y divide-gray-200 lg:mt-8 ">
-                      <thead className=''>
+                      {/* <thead className=''>
                         <tr className='border-b-gray-200 border px-3'>
-                          <th scope="col" className="px-6 py-3 text-start text-[17px] text-gray-800 poppins-thin ">Product</th>
+                          <th scope="col" className="px-6 py-3 text-start text-[17px] text-gray-800 poppins-thin "></th>
                           <th scope="col" className="px-6 py-3 text-start text-[17px] text-gray-800 poppins-thin ">Subtotal</th>
                         </tr>
-                      </thead>
+                      </thead> */}
                       <tbody >
                         <tr className="odd:bg-white hover:bg-gray-100 border-b-gray-200 border  ">
-                          <td className="px-6 py-4  text-[14px] poppins-thin text-gray-800">ARTIST STEEL SUCTION BOTTLE - Light Grey 
-× 1</td>
+                          <td className="px-6 py-4  text-[14px] poppins-thin text-gray-800">Products Prices</td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{parseSubtotal ? parseSubtotal : ''}</td>            
                         </tr>
 
                         <tr className="odd:bg-white hover:bg-gray-100 border-b-gray-200 border">
-                          <td className="px-6 py-4 whitespace-nowrap text-[14px] poppins-thin text-gray-800">Shippment</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-[14px] poppins-thin text-gray-800">Shippment Fee</td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{shipment && shipment > 199 ? "Free" :  30}</td>           
                         </tr>
 
@@ -188,7 +188,7 @@ const Checkout = () => {
                       </tbody>
                     </table>
                     <div className='w-full m-auto text-center '>
-                      <button className='bg-blue-500 text-white w-full m-auto p-2 my-5' onClick={handlePayment}>Place Order</button>
+                      <button className='bg-black rounded-md text-white w-full m-auto p-2 my-5' onClick={handlePayment}>Place Order</button>
                     </div>
 
                   </div>
