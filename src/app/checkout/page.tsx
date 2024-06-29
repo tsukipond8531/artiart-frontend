@@ -26,6 +26,7 @@ const Checkout = () => {
     city: '',
     country: '',
     email: '',
+    address:'',
     phone_number: ''
   });
 
@@ -89,10 +90,15 @@ const Checkout = () => {
                 </Col>
                 <Col span={12}>
                   <Form.Item label={"Phone"}>
-                    <Input type='text' name='phone_number' placeholder='Phone' value={billingData.phone_number} onChange={handleInputChange} />
+                    <Input type='tel' pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" name='phone_number' placeholder='Phone (Optional)' value={billingData.phone_number} onChange={handleInputChange} />
                   </Form.Item>
                 </Col>
                 <Col span={12}>
+                  <Form.Item label={"Address"}>
+                    <Input type='text' name='address' placeholder='Building, street, city (optional)' value={billingData.address} onChange={handleInputChange} />
+                  </Form.Item>
+                </Col>
+                {/* <Col span={12}>
                   <Form.Item label={"Street"}>
                     <Input type='text' name='street' placeholder='Street address' value={billingData.street} onChange={handleInputChange} />
                   </Form.Item>
@@ -116,7 +122,7 @@ const Checkout = () => {
                   <Form.Item label={"City"}>
                     <Input type='text' name='city' placeholder='Town' value={billingData.city} onChange={handleInputChange} />
                   </Form.Item>
-                </Col>
+                </Col> */}
                 <Col span={12}>
                 <Form.Item label={"State"}>
                     <SelectInput
