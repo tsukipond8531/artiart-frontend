@@ -14,20 +14,19 @@ const Checkout = () => {
   const searchParams = useSearchParams();
   const search = searchParams.get('subtotal');
   const parseSubtotal = search ? JSON.parse(search) : null;
-  const [shipment, setShipment] = useState<number | undefined | null>(parseSubtotal ? Number(parseSubtotal) : undefined);
   const [billingData, setBillingData] = useState({
     first_name: '',
     last_name: '',
-    street: '',
-    building: '',
-    floor: '',
-    apartment: '',
-    state:'',
-    city: '',
-    country: '',
     email: '',
+    phone_number: '',
+    street: '-',
+    building: '-',
+    floor: '-',
+    apartment: '-',
+    state:'',
+    city: '-',
+    country: '',
     address:'',
-    phone_number: ''
   });
 
   const handlePayment = async () => {
@@ -60,8 +59,19 @@ const Checkout = () => {
   };
 
   const handleSelectChange = (name:string, value:string) => {
-    console.log(`Field: ${name}, Value: ${value}`);
-    setBillingData({ ...billingData, [name]: value });
+
+    if (name === 'address') {
+      const [building, street, city] = value.split(',').map(part => part.trim());
+      setBillingData({ 
+        ...billingData, 
+        street: street, 
+        building: building, 
+        city: city,
+        address: value 
+      });
+    } else {
+      setBillingData({ ...billingData, [name]: value });
+    }
   };
   console.log(billingData ,"billingData")
   return (
@@ -90,39 +100,14 @@ const Checkout = () => {
                 </Col>
                 <Col span={12}>
                   <Form.Item label={"Phone"}>
-                    <Input type='tel' pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" name='phone_number' placeholder='Phone (Optional)' value={billingData.phone_number} onChange={handleInputChange} />
+                    <Input type='tel' pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" name='phone_number' placeholder='Phone' value={billingData.phone_number} onChange={handleInputChange} />
                   </Form.Item>
                 </Col>
                 <Col span={12}>
                   <Form.Item label={"Address"}>
-                    <Input type='text' name='address' placeholder='Building, street, city (optional)' value={billingData.address} onChange={handleInputChange} />
+                    <Input type='text' name='address' placeholder='Building, street, city etc' value={billingData.address} onChange={handleInputChange} />
                   </Form.Item>
                 </Col>
-                {/* <Col span={12}>
-                  <Form.Item label={"Street"}>
-                    <Input type='text' name='street' placeholder='Street address' value={billingData.street} onChange={handleInputChange} />
-                  </Form.Item>
-                </Col>
-                <Col span={12}>
-                  <Form.Item label={"Building"}>
-                    <Input type='text' name='building' placeholder='building' value={billingData.building} onChange={handleInputChange} />
-                  </Form.Item>
-                </Col>
-                <Col span={12}>
-                  <Form.Item label={"Floor"}>
-                    <Input type='text' name='floor' placeholder='floor' value={billingData.floor} onChange={handleInputChange} />
-                  </Form.Item>
-                </Col>
-                <Col span={12}>
-                  <Form.Item label={"Apartment"}>
-                    <Input type='text' name='apartment' placeholder='Town' value={billingData.apartment} onChange={handleInputChange} />
-                  </Form.Item>
-                </Col>
-                <Col span={12}>
-                  <Form.Item label={"City"}>
-                    <Input type='text' name='city' placeholder='Town' value={billingData.city} onChange={handleInputChange} />
-                  </Form.Item>
-                </Col> */}
                 <Col span={12}>
                 <Form.Item label={"State"}>
                     <SelectInput
