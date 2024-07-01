@@ -12,6 +12,7 @@ interface Category {
   name: string;
   image: any;
 }
+
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [productsLoading, setProductsloading] = useState<boolean>(false);

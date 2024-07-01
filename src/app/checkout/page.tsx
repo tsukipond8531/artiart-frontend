@@ -6,13 +6,33 @@ import Input from 'components/Common/Input';
 import SelectInput from 'components/Common/Selectinput';
 import Footer from 'components/layout/Footer';
 import Navbar from 'components/layout/Header/Navbar';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import axios from 'axios';
+import { Para14, Para16 } from 'components/Common/Paragraph';
+import Image from 'next/image';
+import Link from 'next/link';
+import Button from 'components/Common/Button';
 
 const Checkout = () => {
+  const [cartproduct, setCartProduct] = useState<any[]>([]);
   const searchParams = useSearchParams();
   const search = searchParams.get('subtotal');
+  console.log('Hello from Checkout page');
+  let Products = localStorage.getItem('cart');
+  const ProductHandler = () => {
+    let Products = localStorage.getItem('cart');
+
+    if (Products && JSON.parse(Products).length > 0) {
+      const cartItems = JSON.parse(Products || '[]');
+      setCartProduct(cartItems);
+      console.log(cartItems, 'cartItems');
+    }
+  };
+  useEffect(() => {
+    ProductHandler();
+  }, []);
+  console.log(Products);
   const parseSubtotal = search ? JSON.parse(search) : null;
   const [billingData, setBillingData] = useState({
     first_name: '',
@@ -103,6 +123,7 @@ const Checkout = () => {
                       placeholder="First Name"
                       value={billingData.first_name}
                       onChange={handleInputChange}
+                      className="placeholder:!text-slate-400"
                     />
                   </Form.Item>
                 </Col>
@@ -114,6 +135,7 @@ const Checkout = () => {
                       placeholder="Last Name"
                       value={billingData.last_name}
                       onChange={handleInputChange}
+                      className="placeholder:!text-slate-400"
                     />
                   </Form.Item>
                 </Col>
@@ -125,6 +147,7 @@ const Checkout = () => {
                       placeholder="Email address"
                       value={billingData.email}
                       onChange={handleInputChange}
+                      className="placeholder:!text-slate-400"
                     />
                   </Form.Item>
                 </Col>
@@ -137,6 +160,7 @@ const Checkout = () => {
                       placeholder="Phone"
                       value={billingData.phone_number}
                       onChange={handleInputChange}
+                      className="placeholder:!text-slate-400"
                     />
                   </Form.Item>
                 </Col>
@@ -148,6 +172,7 @@ const Checkout = () => {
                       placeholder="Building, street, city etc"
                       value={billingData.address}
                       onChange={handleInputChange}
+                      className="placeholder:!text-slate-400"
                     />
                   </Form.Item>
                 </Col>
@@ -194,12 +219,73 @@ const Checkout = () => {
                   />
                   <div className="overflow-hidden ">
                     <table className="min-w-full divide-y divide-gray-200 lg:mt-8 ">
-                      {/* <thead className=''>
-                        <tr className='border-b-gray-200 border px-3'>
-                          <th scope="col" className="px-6 py-3 text-start text-[17px] text-gray-800 poppins-thin "></th>
-                          <th scope="col" className="px-6 py-3 text-start text-[17px] text-gray-800 poppins-thin ">Subtotal</th>
+                      <thead className="">
+                        <tr>
+                          <th
+                            scope="col"
+                            className="px-6 py-3 text-start text-[12px] font-normal text-gray-500 uppercase w-8/12"
+                          >
+                            PRODUCT
+                          </th>
+                          {/* <th
+                            scope="col"
+                            className="px-6 py-3 text-start text-[12px] font-normal text-gray-500 uppercase w-2/12"
+                          >
+                            QUANTITY
+                          </th> */}
+                          <th
+                            scope="col"
+                            className="px-6 py-3 text-start text-[12px] font-normal text-gray-500 uppercase w-2/12"
+                          >
+                            TOTAL
+                          </th>
                         </tr>
-                      </thead> */}
+                      </thead>
+
+                      {cartproduct.length > 0 ? (
+                        <>
+                          <tbody className="divide-y divide-gray-200">
+                            {cartproduct.map((array: any, index: number) => {
+                              let color: string;
+                              return (
+                                <tr key={index}>
+                                  <td className="px-2 py-2 text-sm ">
+                                    <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
+                                      <Image
+                                        className="rounded-md"
+                                        src={array.imageUrl[0].imageUrl}
+                                        width={50}
+                                        height={50}
+                                        alt="cart image"
+                                      />
+                                      <div className="space-y-2">
+                                        <Para14
+                                          className="hover:underline transition duration-200"
+                                          title={`${array.name} x ${array.count}`}
+                                        />
+                                      </div>
+                                    </div>
+                                  </td>
+
+                                  {/* <td className="px-2 ">
+                                    <Para14 title={array.count} />
+                                  </td> */}
+                                  <td className="px-2 ">
+                                    <Para14
+                                      icon={'AED '}
+                                      title={array.totalPrice}
+                                    />
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </>
+                      ) : (
+                        <div className="flex justify-center">
+                          Your Cart is empty
+                        </div>
+                      )}
                       <tbody>
                         <tr className="odd:bg-white hover:bg-gray-100 border-b-gray-200 border  ">
                           <td className="px-6 py-4  text-[14px] poppins-thin text-gray-800">
@@ -210,7 +296,7 @@ const Checkout = () => {
                           </td>
                         </tr>
 
-                        <tr className="odd:bg-white hover:bg-gray-100 border-b-gray-200 border">
+                        <tr className="odd:bg-white hover:bg-gray-100 border-b-gray-200 border placeholder:text-slate-400">
                           <td className="px-6 py-4 whitespace-nowrap text-[14px] poppins-thin text-gray-800">
                             Shippment Fee
                           </td>

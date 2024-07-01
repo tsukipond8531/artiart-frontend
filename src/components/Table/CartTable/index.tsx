@@ -277,7 +277,9 @@ const CartTable: React.FC = () => {
               // href={"/checkout"}
               href={{
                 pathname: `/checkout`,
-                query: { subtotal: JSON.stringify(subtotal) },
+                query: {
+                  subtotal: JSON.stringify(subtotal),
+                },
               }}
             >
               <Button
