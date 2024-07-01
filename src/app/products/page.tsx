@@ -32,7 +32,7 @@ export default function Products() {
       try {
         setLoading(true);
         const response = await axios.get(
-          'https://artiart-server-phi.vercel.app/api/getAllproducts',
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllproducts`,
         );
         const products = response.data.products;
         setProducts(products);

@@ -20,7 +20,7 @@ const SearchData = ({ inputRef }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          'https://artiart-server-phi.vercel.app/api/getAllproducts',
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllproducts`,
         );
         setProducts(response.data.products);
       } catch (error) {
