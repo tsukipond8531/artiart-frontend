@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Table, Button } from "antd";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import axios from "axios";
-import Loader from "components/Loader/Loader";
+import React, { useEffect, useState } from 'react';
+import { Table, Button } from 'antd';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import axios from 'axios';
+import Loader from 'components/Loader/Loader';
 
 function Admins({ setselecteMenu }: any) {
   const [admins, setAdmins] = useState([]);
@@ -13,7 +13,7 @@ function Admins({ setselecteMenu }: any) {
     const getAllAdmins = async () => {
       try {
         setloading(true);
-        const token = localStorage.getItem("superAdminToken");
+        const token = localStorage.getItem('superAdminToken');
         if (!token) {
           return;
         }
@@ -25,16 +25,16 @@ function Admins({ setselecteMenu }: any) {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/admins/getAllAdmins`,
           {
-            method: "GET",
+            method: 'GET',
             headers: headers,
-          }
+          },
         );
 
         const admins = await response.json();
         setAdmins(admins);
         setloading(false);
       } catch (err) {
-        console.log(err, "err");
+        console.log(err, 'err');
         setloading(false);
       }
     };
@@ -44,7 +44,7 @@ function Admins({ setselecteMenu }: any) {
 
   const handleDelete = async (id: string) => {
     try {
-      const token = localStorage.getItem("superAdminToken");
+      const token = localStorage.getItem('superAdminToken');
       if (!token) {
         // Handle case where token is not available
         return;
@@ -56,13 +56,13 @@ function Admins({ setselecteMenu }: any) {
           headers: {
             token: token,
           },
-        }
+        },
       );
       setAdmins((prevAdmins) =>
-        prevAdmins.filter((admin: any) => admin._id !== id)
+        prevAdmins.filter((admin: any) => admin._id !== id),
       );
     } catch (error) {
-      console.error("Error deleting admin:", error);
+      console.error('Error deleting admin:', error);
     } finally {
       setDelLoading(null); // Reset loading state after delete operation completes
     }
@@ -70,52 +70,52 @@ function Admins({ setselecteMenu }: any) {
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
       render: (text: any, record: any) =>
         `${record.firstName} ${record.lastName}`,
     },
     {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
     },
     {
-      title: "Can Add Product",
-      dataIndex: "canAddProduct",
-      key: "canAddProduct",
+      title: 'Can Add Product',
+      dataIndex: 'canAddProduct',
+      key: 'canAddProduct',
       render: (text: any, record: any) => (
-        <span>{record.canAddProduct ? "Yes" : "No"}</span>
+        <span>{record.canAddProduct ? 'Yes' : 'No'}</span>
       ),
     },
     {
-      title: "Can Delete Product",
-      dataIndex: "canDeleteProduct",
-      key: "canDeleteProduct",
+      title: 'Can Delete Product',
+      dataIndex: 'canDeleteProduct',
+      key: 'canDeleteProduct',
       render: (text: any, record: any) => (
-        <span>{record.canDeleteProduct ? "Yes" : "No"}</span>
+        <span>{record.canDeleteProduct ? 'Yes' : 'No'}</span>
       ),
     },
     {
-      title: "Can Add Category",
-      dataIndex: "canAddCategory",
-      key: "canAddCategory",
+      title: 'Can Add Category',
+      dataIndex: 'canAddCategory',
+      key: 'canAddCategory',
       render: (text: any, record: any) => (
-        <span>{record.canAddCategory ? "Yes" : "No"}</span>
+        <span>{record.canAddCategory ? 'Yes' : 'No'}</span>
       ),
     },
     {
-      title: "Can Delete Category",
-      dataIndex: "canDeleteCategory",
-      key: "canDeleteCategory",
+      title: 'Can Delete Category',
+      dataIndex: 'canDeleteCategory',
+      key: 'canDeleteCategory',
       render: (text: any, record: any) => (
-        <span>{record.canDeleteCategory ? "Yes" : "No"}</span>
+        <span>{record.canDeleteCategory ? 'Yes' : 'No'}</span>
       ),
     },
     {
-      title: "Actions",
-      key: "actions",
+      title: 'Actions',
+      key: 'actions',
       render: (text: any, record: any) =>
         delLoading === record._id ? ( // Check if loading state matches current admin ID
           <Loader />
@@ -143,14 +143,19 @@ function Admins({ setselecteMenu }: any) {
             <div>
               <Button
                 type="primary"
-                onClick={() => setselecteMenu("Add Admin")}
+                onClick={() => setselecteMenu('Add Admin')}
               >
                 Add new Admin
               </Button>
             </div>
           </div>
           {admins && admins.length > 0 ? (
-            <Table className="lg:overfow-x-auto overflow-auto" dataSource={admins} columns={columns} pagination={false} />
+            <Table
+              className="lg:overfow-x-auto overflow-auto"
+              dataSource={admins}
+              columns={columns}
+              pagination={false}
+            />
           ) : (
             <div className="flex justify-center"> No Admin found</div>
           )}

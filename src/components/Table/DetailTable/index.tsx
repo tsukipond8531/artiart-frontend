@@ -16,21 +16,23 @@ const DetailTable: React.FC<DetailTableProps> = ({ keypoint }) => {
     <table className="min-w-full w-full divide-y divide-gray-200">
       <tbody className="divide-y divide-gray-200">
         {keypoint.map((array, index) => {
-let boldFlag = index ==0;
+          let boldFlag = index == 0;
 
-return(
-
-          <tr className={'hover:bg-gray-100 '} key={index}>
-            <td className={`px-6 py-4 whitespace-wrap ${boldFlag ? 'text-sm font-bold whitespace-nowrap' : 'whitespace-wrap'}  text-black border`}>
-              {array.name}
-            </td>
-            <td className={`px-6 py-4  ${boldFlag ? 'text-sm font-bold whitespace-nowrap' : 'whitespace-wrap'}  text-black border w-full`}>
-              {array.detail}
-            </td>
-          </tr>
-
-)
-})}
+          return (
+            <tr className={'hover:bg-gray-100 '} key={index}>
+              <td
+                className={`px-6 py-4 whitespace-wrap ${boldFlag ? 'text-sm font-bold whitespace-nowrap' : 'whitespace-wrap'}  text-black border`}
+              >
+                {array.name}
+              </td>
+              <td
+                className={`px-6 py-4  ${boldFlag ? 'text-sm font-bold whitespace-nowrap' : 'whitespace-wrap'}  text-black border w-full`}
+              >
+                {array.detail}
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

@@ -1,18 +1,14 @@
-"use client";
+'use client';
 
-import Input from "components/Common/Input";
-import Button from "components/Common/Button";
+import Input from 'components/Common/Input';
+import Button from 'components/Common/Button';
 
-import Link from "next/link";
-import React, { useState } from "react";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import Toaster from "components/Toaster/Toaster";
-import Loader from "components/Loader/Loader";
-
-
-
-
+import Link from 'next/link';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import Toaster from 'components/Toaster/Toaster';
+import Loader from 'components/Loader/Loader';
 
 interface NewPasswordProps {
   email: string | any; // Define the type of email parameter
@@ -23,14 +19,13 @@ function Newpswd({ email }: NewPasswordProps) {
   const [error, setError] = useState<string | null | undefined>();
   const [loading, setloading] = useState<boolean | null | undefined>(false);
 
-
   const [formData, setFormData] = useState({
-    newPassword: "",
-    password: "",
+    newPassword: '',
+    password: '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setError("");
+    setError('');
 
     const { name, value } = e.target;
 
@@ -42,29 +37,30 @@ function Newpswd({ email }: NewPasswordProps) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError("");
-    setloading(true)
-    if (!formData.newPassword || !formData.password) return setError("All fields are rquired");
-    if (formData.newPassword !== formData.password) return setError("confirm and new password should be same");
+    setError('');
+    setloading(true);
+    if (!formData.newPassword || !formData.password)
+      return setError('All fields are rquired');
+    if (formData.newPassword !== formData.password)
+      return setError('confirm and new password should be same');
     if (!email) return null;
     try {
-      console.log("formData", formData);
-      let user: any = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/passwordReset`,
-        { password: formData.password, email: email }
+      console.log('formData', formData);
+      let user: any = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/passwordReset`,
+        { password: formData.password, email: email },
       );
       console.log(user.data);
-      Toaster("success", "You Password has been sucessfully reseted !")
+      Toaster('success', 'You Password has been sucessfully reseted !');
 
-      setTimeout(()=>{
-        router.push("/");
-      },1000)
-    setloading(false)
-
+      setTimeout(() => {
+        router.push('/');
+      }, 1000);
+      setloading(false);
     } catch (err: any) {
-      console.log(err, "err");
+      console.log(err, 'err');
       setError(err.message);
-    setloading(false)
-
+      setloading(false);
     }
   };
   return (
@@ -92,9 +88,9 @@ function Newpswd({ email }: NewPasswordProps) {
         <div className=" flex flex-col justify-center items-center space-y-3">
           <Button
             className="bg-black text-white w-full md:w-28 p-3 rounded-none"
-            title={ loading ? <Loader color= '#fff'/>  : "Submit"}
+            title={loading ? <Loader color="#fff" /> : 'Submit'}
           />
-          <Link className="underline text-[14px]" href={"/login"}>
+          <Link className="underline text-[14px]" href={'/login'}>
             Cancel
           </Link>
         </div>

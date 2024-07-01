@@ -1,11 +1,9 @@
 export interface PRODUCTCARDPROPS {
-  ImgUrl: string,
-  title: string,
-  strikThroughPrice: string,
-  price: string
+  ImgUrl: string;
+  title: string;
+  strikThroughPrice: string;
+  price: string;
 }
-
-
 
 export interface Product {
   name: string;
@@ -14,29 +12,26 @@ export interface Product {
   category: string;
   colors: { colorName: string }[];
   totalStockQuantity: number;
-  variantStockQuantities: { variant: string; quantity: number }[]; 
-  modelDetails: { name: string; detail: string }[]; 
+  variantStockQuantities: { variant: string; quantity: number }[];
+  modelDetails: { name: string; detail: string }[];
   spacification: { specsDetails: string }[];
   discountPrice: string;
-  category: string
+  category: string;
 }
 
 export interface Category {
   name: string;
-
 }
-
 
 interface CloudinaryImage {
   public_id: string | undefined;
-  imageUrl: string | undefined; 
+  imageUrl: string | undefined;
   _id: string | undefined;
 }
 interface Images {
-  posterImageUrl: string | undefined,
-  hoverImageUrl:string | undefined, 
-  imageUrl:CloudinaryImage []
-
+  posterImageUrl: string | undefined;
+  hoverImageUrl: string | undefined;
+  imageUrl: CloudinaryImage[];
 }
 
 interface ProductWithImages extends Product, Images {}

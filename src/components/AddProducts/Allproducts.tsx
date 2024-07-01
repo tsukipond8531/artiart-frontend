@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Table } from "antd";
-import Image from "next/image";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import axios from "axios";
-import Loader from "components/Loader/Loader";
-import { useRouter } from "next/navigation";
-import { FaRegEye } from "react-icons/fa";
-import { LiaEdit } from "react-icons/lia";
+import React, { useState } from 'react';
+import { Table } from 'antd';
+import Image from 'next/image';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import axios from 'axios';
+import Loader from 'components/Loader/Loader';
+import { useRouter } from 'next/navigation';
+import { FaRegEye } from 'react-icons/fa';
+import { LiaEdit } from 'react-icons/lia';
 import { generateSlug } from 'Data/data';
 
 interface Product {
@@ -18,13 +18,13 @@ interface Product {
 }
 
 interface CategoryProps {
-  Categories:any;
+  Categories: any;
   setCategory: any;
   setselecteMenu: (menu: string) => void;
   loading: boolean;
   canAddProduct: boolean;
   canDeleteProduct: boolean;
-  setEditProduct:any;
+  setEditProduct: any;
 }
 
 const Category: React.FC<CategoryProps> = ({
@@ -34,36 +34,37 @@ const Category: React.FC<CategoryProps> = ({
   loading,
   canAddProduct,
   canDeleteProduct,
-  setEditProduct
+  setEditProduct,
 }) => {
   const router = useRouter();
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
 
-  const filteredProducts: Product[] = Categories?.filter((product:any) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  ) || [];
+  const filteredProducts: Product[] =
+    Categories?.filter((product: any) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()),
+    ) || [];
 
   const handleDelete = async (key: string) => {
     try {
       let response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/deleteProduct/${key}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/deleteProduct/${key}`,
       );
-      console.log("Deleted", response);
+      console.log('Deleted', response);
       setCategory((prev: Product[]) => prev.filter((item) => item._id !== key));
     } catch (err) {
-      console.log("Deleting record with key:", err);
+      console.log('Deleting record with key:', err);
     }
   };
 
   const columns = [
     {
-      title: "Image",
-      dataIndex: "posterImageUrl",
-      key: "posterImageUrl",
+      title: 'Image',
+      dataIndex: 'posterImageUrl',
+      key: 'posterImageUrl',
       render: (text: any, record: Product) => (
         <Image
           src={record.posterImageUrl?.imageUrl}
@@ -74,47 +75,47 @@ const Category: React.FC<CategoryProps> = ({
       ),
     },
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
     },
     {
-      title: "Stock Quantity",
-      dataIndex: "totalStockQuantity",
-      key: "totalStockQuantity",
+      title: 'Stock Quantity',
+      dataIndex: 'totalStockQuantity',
+      key: 'totalStockQuantity',
     },
 
     {
-      title: "Date",
-      dataIndex: "createdAt",
-      key: "date",
+      title: 'Date',
+      dataIndex: 'createdAt',
+      key: 'date',
       render: (text: any, record: Product) => {
         const createdAt = new Date(record.createdAt);
         const formattedDate = `${createdAt.getFullYear()}-${String(
-          createdAt.getMonth() + 1
-        ).padStart(2, "0")}-${String(createdAt.getDate()).padStart(2, "0")}`;
+          createdAt.getMonth() + 1,
+        ).padStart(2, '0')}-${String(createdAt.getDate()).padStart(2, '0')}`;
         return <span>{formattedDate}</span>;
       },
     },
     {
-      title: "Time",
-      dataIndex: "createdAt",
-      key: "time",
+      title: 'Time',
+      dataIndex: 'createdAt',
+      key: 'time',
       render: (text: any, record: Product) => {
         const createdAt = new Date(record.createdAt);
         const formattedTime = `${String(createdAt.getHours()).padStart(
           2,
-          "0"
-        )}:${String(createdAt.getMinutes()).padStart(2, "0")}`;
+          '0',
+        )}:${String(createdAt.getMinutes()).padStart(2, '0')}`;
         return <span>{formattedTime}</span>;
       },
     },
     {
-      title: "Preview",
-      key: "Preview",
+      title: 'Preview',
+      key: 'Preview',
       render: (text: any, record: Product) => {
         const handleClick = () => {
-          console.log(record, "record");
+          console.log(record, 'record');
 
           const url = `/detail/${generateSlug(record.name)}`;
           window.open(url, '_blank');
@@ -123,26 +124,27 @@ const Category: React.FC<CategoryProps> = ({
       },
     },
     {
-      title: "Edit",
-      key: "Edit",
+      title: 'Edit',
+      key: 'Edit',
       render: (text: any, record: Product) => (
         <LiaEdit
-          className={"cursor-pointer"}
+          className={'cursor-pointer'}
           size={20}
           onClick={() => {
             setEditProduct(record);
-            setselecteMenu("Add Products");
+            setselecteMenu('Add Products');
           }}
         />
       ),
     },
     {
-      title: "Action",
-      key: "action",
+      title: 'Action',
+      key: 'action',
       render: (text: any, record: Product) => (
         <RiDeleteBin6Line
-          className={`${canDeleteProduct ? "text-red-500 cursor-pointer" : ""} ${!canDeleteProduct ? "cursor-not-allowed text-gray-400" : ""
-            }`}
+          className={`${canDeleteProduct ? 'text-red-500 cursor-pointer' : ''} ${
+            !canDeleteProduct ? 'cursor-not-allowed text-gray-400' : ''
+          }`}
           size={20}
           onClick={() => {
             if (canDeleteProduct) {
@@ -153,7 +155,6 @@ const Category: React.FC<CategoryProps> = ({
       ),
     },
   ];
-
 
   return (
     <div>
@@ -180,7 +181,7 @@ const Category: React.FC<CategoryProps> = ({
                 }`}
                 onClick={() => {
                   if (canAddProduct) {
-                    setselecteMenu("Add Products");
+                    setselecteMenu('Add Products');
                     setEditProduct(undefined);
                   }
                 }}
@@ -190,9 +191,15 @@ const Category: React.FC<CategoryProps> = ({
             </div>
           </div>
           {filteredProducts && filteredProducts.length > 0 ? (
-            <Table className="lg:overfow-x-auto overflow-auto " dataSource={filteredProducts} columns={columns} rowKey="_id" pagination={false} />
+            <Table
+              className="lg:overfow-x-auto overflow-auto "
+              dataSource={filteredProducts}
+              columns={columns}
+              rowKey="_id"
+              pagination={false}
+            />
           ) : (
-            "No Products found"
+            'No Products found'
           )}
         </>
       )}

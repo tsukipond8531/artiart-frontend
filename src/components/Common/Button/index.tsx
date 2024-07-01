@@ -1,14 +1,14 @@
-"use client"
+'use client';
 
-import React from "react";
+import React from 'react';
 
 interface ButtonProps {
   title?: any;
-  className?: string; 
+  className?: string;
   onClick?: () => void;
   value?: any;
-  icon?:any;
-type?:any
+  icon?: any;
+  type?: any;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,11 +17,17 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   value,
   icon,
-  type
+  type,
 }) => {
   return (
-    <button  onClick={onClick} value={value} type={type} className={`${className}  p-2  rounded-md`}>
-      {title}{icon}
+    <button
+      onClick={onClick}
+      value={value}
+      type={type}
+      className={`${className}  p-2  rounded-md`}
+    >
+      {title}
+      {icon}
     </button>
   );
 };

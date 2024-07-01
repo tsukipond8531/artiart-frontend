@@ -1,76 +1,67 @@
 //@ts-nocheck
-"use client";
-import React, { useEffect, useState } from "react";
+'use client';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import DropDown from '../DropDown';
 
 const Navlink = ({ onDropdownClose }) => {
-
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [category, setCategory] = useState<any[]>();
-
-
-
 
   const toggleDropDown = () => {
     setIsDropDownOpen(!isDropDownOpen);
   };
 
-
-
   const handleClose = () => {
     setIsDropDownOpen(false);
   };
 
-
   useEffect(() => {
     const CategoryHandler = async () => {
       try {
-        setLoading(true)
+        setLoading(true);
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllcategories`
-
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllcategories`,
         );
         const Categories = await response.json();
         setCategory(Categories);
-        setLoading(false)
-
+        setLoading(false);
       } catch (err) {
-        console.log('err', err)
-        setLoading(false)
+        console.log('err', err);
+        setLoading(false);
       }
-
     };
 
     CategoryHandler();
   }, []);
 
-  
   useEffect(() => {
-    const idsArray = ["dropDownId"];
+    const idsArray = ['dropDownId'];
     const handleClickOutside = (event: any) => {
       if (!idsArray.includes(event.target.id)) {
-        handleClose()
+        handleClose();
       }
     };
 
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
 
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
   }, [isDropDownOpen]);
 
-  
-
   return (
     <>
-      <Link className='poppins-thin text-14' href="/" onClick={handleClose}>
+      <Link className="poppins-thin text-14" href="/" onClick={handleClose}>
         Home
       </Link>
-      <Link className='poppins-thin text-14' href="/products" onClick={handleClose}>
+      <Link
+        className="poppins-thin text-14"
+        href="/products"
+        onClick={handleClose}
+      >
         All Products
       </Link>
       <DropDown
@@ -80,27 +71,35 @@ const Navlink = ({ onDropdownClose }) => {
         alignment="sm:text-start p-3 "
         text="Shop"
         icon={
-          <MdOutlineKeyboardArrowDown
-            className="mt-1"
-            aria-hidden="true"
-          />
+          <MdOutlineKeyboardArrowDown className="mt-1" aria-hidden="true" />
         }
         array={[
           {
-            items: category
-          
+            items: category,
           },
         ]}
       />
 
-      <Link className='poppins-thin text-14 ' href="/corporate" onClick={handleClose}>
+      <Link
+        className="poppins-thin text-14 "
+        href="/corporate"
+        onClick={handleClose}
+      >
         Corporate Orders
       </Link>
-      <Link className='poppins-thin text-14' href="/about" onClick={handleClose} >
+      <Link
+        className="poppins-thin text-14"
+        href="/about"
+        onClick={handleClose}
+      >
         About Us
       </Link>
-      <Link className='poppins-thin text-14' href="/contact" onClick={handleClose} >
-      Contact Us
+      <Link
+        className="poppins-thin text-14"
+        href="/contact"
+        onClick={handleClose}
+      >
+        Contact Us
       </Link>
     </>
   );
