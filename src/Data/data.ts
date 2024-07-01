@@ -1,29 +1,22 @@
 import * as Yup from 'yup';
-import { Product, Category } from 'types/interfaces'
-
+import { Product, Category } from 'types/interfaces';
 
 export const inputFields = [
-  { name: "name", type: 'text' },
-  { name: "description", type: 'text' },
-  { name: "price", type: 'number' },
-  { name: "discountPrice", type: 'number' },
+  { name: 'name', type: 'text' },
+  { name: 'description', type: 'text' },
+  { name: 'price', type: 'number' },
+  { name: 'discountPrice', type: 'number' },
 ];
 export const withoutVariation = [
-  { name: "totalStockQuantity", type: 'number' },
+  { name: 'totalStockQuantity', type: 'number' },
 ];
 
 export const Variation = [
-  { name: "variant", type: 'text' },
-  { name: "quantity", type: 'number' },
+  { name: 'variant', type: 'text' },
+  { name: 'quantity', type: 'number' },
 ];
 
-
-export const CategorinputFields = [
-  { name: "name", type: 'text' },
-
-];
-
-
+export const CategorinputFields = [{ name: 'name', type: 'text' }];
 
 export const validationSchema = Yup.object({
   name: Yup.string().required('Required'),
@@ -32,19 +25,14 @@ export const validationSchema = Yup.object({
   category: Yup.string().required('Required'),
 });
 
-
 export const loginValidationSchema = Yup.object({
   name: Yup.string().required('Required'),
   password: Yup.string().required('Required'),
-
 });
 
 export const categoryValidationSchema = Yup.object({
   name: Yup.string().required('Required'),
-
 });
-
-
 
 export const initialValues: Product = {
   name: '',
@@ -56,20 +44,17 @@ export const initialValues: Product = {
   modelDetails: [],
   spacification: [],
   discountPrice: '',
-  category: ''
+  category: '',
 };
 
 export const categoryInitialValues: Category = {
-  name: ''
+  name: '',
 };
-
 
 export const loginInitialValue = {
   name: '',
-  password: ''
+  password: '',
 };
-
-
 
 export const generateSlug = (text: string) => {
   return text

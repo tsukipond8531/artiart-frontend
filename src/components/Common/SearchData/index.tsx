@@ -1,45 +1,45 @@
 //@ts-nocheck
-'use Client'
-import Image from "next/image";
-import Link from "next/link";
-import React, { useEffect, useState, } from "react";
-import { FaArrowRight } from "react-icons/fa6";
-import { HeadingH4 } from "../Heading";
+'use Client';
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
+import { FaArrowRight } from 'react-icons/fa6';
+import { HeadingH4 } from '../Heading';
 import { Para12, Para14, Para16 } from '../../Common/Paragraph';
-import axios from "axios";
-import {generateSlug} from 'Data/data'
-
+import axios from 'axios';
+import { generateSlug } from 'Data/data';
 
 interface PROPS {
-  inputRef: any
+  inputRef: any;
 }
 
-const SearchData = ({inputRef}) => {
-  const [searchTerm, setSearchTerm] = useState(""); 
+const SearchData = ({ inputRef }) => {
+  const [searchTerm, setSearchTerm] = useState('');
   const [products, setProducts] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://artiart-server-phi.vercel.app/api/getAllproducts');
+        const response = await axios.get(
+          'https://artiart-server-phi.vercel.app/api/getAllproducts',
+        );
         setProducts(response.data.products);
       } catch (error) {
         console.log('Error fetching data:', error);
       }
     };
-  
+
     fetchData();
   }, []);
 
-  const filteredProducts = products.filter(product => {
+  const filteredProducts = products.filter((product) => {
     return product.name.toLowerCase().includes(searchTerm.toLowerCase());
   });
 
   const truncateText = (text, maxLength) => {
-    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+    return text.length > maxLength
+      ? text.substring(0, maxLength) + '...'
+      : text;
   };
-
-
-
 
   return (
     <>
@@ -70,7 +70,6 @@ const SearchData = ({inputRef}) => {
           onChange={(e) => setSearchTerm(e.target.value)} // Update searchTerm state on input change
           ref={inputRef}
           autofocus="true"
-
         />
         <button
           type="submit"
@@ -79,29 +78,40 @@ const SearchData = ({inputRef}) => {
           <FaArrowRight size={20} />
         </button>
       </form>
-      
+
       {searchTerm && ( // Render products only when there is a search term
         <div className="max-h-[400px] overflow-y-scroll  pr-2 bg-white rounded-md p-2">
           {filteredProducts.length > 0 ? ( // Render products only if there are filtered products
             filteredProducts.map((product, index) => (
               <div key={index} className="mt-5 mb-6">
-                <Link  href={{
-            pathname: `/detail/${generateSlug(product.name)}`,
-          }}
-           className="text-black hover:text-gray-500 relative">
+                <Link
+                  href={{
+                    pathname: `/detail/${generateSlug(product.name)}`,
+                  }}
+                  className="text-black hover:text-gray-500 relative"
+                >
                   <div className="border gap-2 p-2 pt-3 mb-2 flex items-center rounded-md shadow cursor-pointer hover:border-gray-500 duration-300 transition">
                     <div>
-                    {product.posterImageUrl && (
-                      <Image src={product.posterImageUrl.imageUrl} width={100} height={100} className="rounded-md" alt="search" />
-                    )}
+                      {product.posterImageUrl && (
+                        <Image
+                          src={product.posterImageUrl.imageUrl}
+                          width={100}
+                          height={100}
+                          className="rounded-md"
+                          alt="search"
+                        />
+                      )}
                     </div>
                     <div className="flex gap-3 w-11/12">
                       <div>
                         <HeadingH4 title={product.name} />
-                        <Para14 className="pl-1" title={truncateText(product.description, 160)} />
+                        <Para14
+                          className="pl-1"
+                          title={truncateText(product.description, 160)}
+                        />
                       </div>
                     </div>
-                    <div  className="hover:text-black mx-auto">
+                    <div className="hover:text-black mx-auto">
                       <FaArrowRight size={25} />
                     </div>
                   </div>

@@ -1,24 +1,20 @@
+'use client';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import Loader from 'components/Loader/Loader';
 
-'use client'
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation"; 
-import Loader from "components/Loader/Loader";
-
-
-
-function ProtectedRoute(WrappedComponent:any) {
-  const Wrapper=(props: any) => {
+function ProtectedRoute(WrappedComponent: any) {
+  const Wrapper = (props: any) => {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
 
-   
     useEffect(() => {
-      let token = localStorage.getItem("2guysToken"); 
-      console.log(token, "token")
+      let token = localStorage.getItem('2guysToken');
+      console.log(token, 'token');
 
       if (!token) {
         // Redirect to login page if token is not present
-        router.push("/login");
+        router.push('/login');
       } else {
         setLoading(false);
       }
@@ -28,21 +24,19 @@ function ProtectedRoute(WrappedComponent:any) {
       return (
         <div
           style={{
-            background: "#FFF",
+            background: '#FFF',
             zIndex: 1111,
-            alignItems: "center",
-            display: "flex",
-            height: "100vh",
-            width: "-webkit-fill-available",
-            justifyContent: "center",
+            alignItems: 'center',
+            display: 'flex',
+            height: '100vh',
+            width: '-webkit-fill-available',
+            justifyContent: 'center',
           }}
         >
           <Loader />
         </div>
       );
     } else {
-    
-
       return <WrappedComponent {...props} />;
     }
   };

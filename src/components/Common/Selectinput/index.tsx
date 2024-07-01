@@ -15,15 +15,23 @@ interface SelectInputProps {
   selectoption: Options[];
 }
 
-const SelectInput: React.FC<SelectInputProps> = ({ name, placeholder, value, onChange, selectoption }) => (
+const SelectInput: React.FC<SelectInputProps> = ({
+  name,
+  placeholder,
+  value,
+  onChange,
+  selectoption,
+}) => (
   <Select
-    className='h-[52px]'
+    className="h-[52px]"
     placeholder={placeholder}
     value={value}
     onChange={(val) => onChange(name, val)}
   >
     {selectoption.map((array, index) => (
-      <Option value={array.title} key={index}>{array.title}</Option>
+      <Option value={array.title} key={index}>
+        {array.title}
+      </Option>
     ))}
   </Select>
 );

@@ -1,45 +1,49 @@
-"use client";
-import React, { useState, DragEvent, ChangeEvent, useRef, SetStateAction } from "react";
-import { BsCloudDownload, BsCloudUpload } from "react-icons/bs";
-import {uploadPhotosToBackend} from 'utils/helperFunctions'
-
+'use client';
+import React, {
+  useState,
+  DragEvent,
+  ChangeEvent,
+  useRef,
+  SetStateAction,
+} from 'react';
+import { BsCloudDownload, BsCloudUpload } from 'react-icons/bs';
+import { uploadPhotosToBackend } from 'utils/helperFunctions';
 
 interface PROPS {
-  setImagesUrl?: React.Dispatch<SetStateAction<any[] >> ;
-  setposterimageUrl?: React.Dispatch<SetStateAction< any[] | null | undefined>>;
-  sethoverImage?: React.Dispatch<SetStateAction< any[] | null | undefined>>;
+  setImagesUrl?: React.Dispatch<SetStateAction<any[]>>;
+  setposterimageUrl?: React.Dispatch<SetStateAction<any[] | null | undefined>>;
+  sethoverImage?: React.Dispatch<SetStateAction<any[] | null | undefined>>;
 }
 
-const UploadFile = ({ setImagesUrl, setposterimageUrl, sethoverImage }: PROPS) => {
+const UploadFile = ({
+  setImagesUrl,
+  setposterimageUrl,
+  sethoverImage,
+}: PROPS) => {
   const [isDraggableArea, setIsDraggableArea] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-
 
   const handleDrop = async (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
     const files = Array.from(e.dataTransfer.files) as File[];
     let file;
-    if(setposterimageUrl || sethoverImage ){
-        file = e.dataTransfer.files[0];
-
+    if (setposterimageUrl || sethoverImage) {
+      file = e.dataTransfer.files[0];
     }
 
-    console.log("file", file);
+    console.log('file', file);
     try {
       const response = await uploadPhotosToBackend(file ? [file] : files);
       setImagesUrl && setImagesUrl((prev) => [...prev, ...response]);
       setposterimageUrl && setposterimageUrl(response);
       sethoverImage && sethoverImage(response);
 
-
-      console.log("Photos uploaded successfully");
+      console.log('Photos uploaded successfully');
     } catch (error) {
-      console.error("Failed to upload photos:", error);
-    } finally{
-        setIsDraggableArea(false);
-
+      console.error('Failed to upload photos:', error);
+    } finally {
+      setIsDraggableArea(false);
     }
   };
 
@@ -51,9 +55,9 @@ const UploadFile = ({ setImagesUrl, setposterimageUrl, sethoverImage }: PROPS) =
       setImagesUrl && setImagesUrl((prev) => [...prev, ...response]);
       setposterimageUrl && setposterimageUrl(response);
       sethoverImage && sethoverImage(response);
-      console.log("Photos uploaded successfully");
+      console.log('Photos uploaded successfully');
     } catch (error) {
-      console.error("Failed to upload photos:", error);
+      console.error('Failed to upload photos:', error);
     }
   };
 
@@ -88,12 +92,12 @@ const UploadFile = ({ setImagesUrl, setposterimageUrl, sethoverImage }: PROPS) =
           id="fileInput"
           ref={fileInputRef}
         />
-          {isDraggableArea ? (
-            <BsCloudDownload className="inline-block mb-2 text-4xl text-gray-500" />
-          ) : (
-            <BsCloudUpload className="inline-block mb-2 text-4xl text-gray-500" />
-          )}
-          <p>Drag & Drop or Click to Upload</p>
+        {isDraggableArea ? (
+          <BsCloudDownload className="inline-block mb-2 text-4xl text-gray-500" />
+        ) : (
+          <BsCloudUpload className="inline-block mb-2 text-4xl text-gray-500" />
+        )}
+        <p>Drag & Drop or Click to Upload</p>
       </div>
     </div>
   );

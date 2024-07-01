@@ -4,7 +4,7 @@ import { Form, Input, Button } from 'antd';
 
 const SeoTable: React.FC = () => {
   const [form] = Form.useForm();
-  
+
   // Define state for each form field
   const [formValues, setFormValues] = useState({
     title: '',
@@ -16,29 +16,133 @@ const SeoTable: React.FC = () => {
     ogImage: '',
     ogUrl: '',
     ogType: '',
-    ogSiteName: ''
+    ogSiteName: '',
   });
 
   const onFinish = (values: any) => {
     console.log('Form values:', values);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
   const formFields = [
-    { label: 'Seo Title', name: 'title', component: <Input.TextArea name="title" value={formValues.title} onChange={handleChange} /> },
-    { label: 'Meta Description', name: 'description', component: <Input.TextArea name="description" value={formValues.description} rows={2} onChange={handleChange} /> },
-    { label: 'Meta Keywords', name: 'keywords', component: <Input.TextArea name="keywords" value={formValues.keywords} onChange={handleChange} /> },
-    { label: 'Canonical', name: 'canonical', component: <Input.TextArea name="canonical" value={formValues.canonical} onChange={handleChange} /> },
-    { label: 'Og:Title', name: 'ogTitle', component: <Input.TextArea name="ogTitle" value={formValues.ogTitle} onChange={handleChange} /> },
-    { label: 'Og:Description', name: 'ogDescription', component: <Input.TextArea name="ogDescription" value={formValues.ogDescription} rows={2} onChange={handleChange} /> },
-    { label: 'Og:Image', name: 'ogImage', component: <Input.TextArea name="ogImage" value={formValues.ogImage} onChange={handleChange} /> },
-    { label: 'Og:Url', name: 'ogUrl', component: <Input.TextArea name="ogUrl" value={formValues.ogUrl} onChange={handleChange} /> },
-    { label: 'Og:Type', name: 'ogType', component: <Input.TextArea name="ogType" value={formValues.ogType} onChange={handleChange} /> },
-    { label: 'Og:Site Name', name: 'ogSiteName', component: <Input.TextArea name="ogSiteName" value={formValues.ogSiteName} onChange={handleChange} /> }
+    {
+      label: 'Seo Title',
+      name: 'title',
+      component: (
+        <Input.TextArea
+          name="title"
+          value={formValues.title}
+          onChange={handleChange}
+        />
+      ),
+    },
+    {
+      label: 'Meta Description',
+      name: 'description',
+      component: (
+        <Input.TextArea
+          name="description"
+          value={formValues.description}
+          rows={2}
+          onChange={handleChange}
+        />
+      ),
+    },
+    {
+      label: 'Meta Keywords',
+      name: 'keywords',
+      component: (
+        <Input.TextArea
+          name="keywords"
+          value={formValues.keywords}
+          onChange={handleChange}
+        />
+      ),
+    },
+    {
+      label: 'Canonical',
+      name: 'canonical',
+      component: (
+        <Input.TextArea
+          name="canonical"
+          value={formValues.canonical}
+          onChange={handleChange}
+        />
+      ),
+    },
+    {
+      label: 'Og:Title',
+      name: 'ogTitle',
+      component: (
+        <Input.TextArea
+          name="ogTitle"
+          value={formValues.ogTitle}
+          onChange={handleChange}
+        />
+      ),
+    },
+    {
+      label: 'Og:Description',
+      name: 'ogDescription',
+      component: (
+        <Input.TextArea
+          name="ogDescription"
+          value={formValues.ogDescription}
+          rows={2}
+          onChange={handleChange}
+        />
+      ),
+    },
+    {
+      label: 'Og:Image',
+      name: 'ogImage',
+      component: (
+        <Input.TextArea
+          name="ogImage"
+          value={formValues.ogImage}
+          onChange={handleChange}
+        />
+      ),
+    },
+    {
+      label: 'Og:Url',
+      name: 'ogUrl',
+      component: (
+        <Input.TextArea
+          name="ogUrl"
+          value={formValues.ogUrl}
+          onChange={handleChange}
+        />
+      ),
+    },
+    {
+      label: 'Og:Type',
+      name: 'ogType',
+      component: (
+        <Input.TextArea
+          name="ogType"
+          value={formValues.ogType}
+          onChange={handleChange}
+        />
+      ),
+    },
+    {
+      label: 'Og:Site Name',
+      name: 'ogSiteName',
+      component: (
+        <Input.TextArea
+          name="ogSiteName"
+          value={formValues.ogSiteName}
+          onChange={handleChange}
+        />
+      ),
+    },
   ];
 
   return (

@@ -6,8 +6,15 @@ interface LoaderProps {
   color?: string; // Define color prop
 }
 
-const Loader: React.FC<LoaderProps> = ({ color}) => (
-  <Spin indicator={<LoadingOutlined style={{ fontSize: 24, color: color ? color :"#000" }} spin />} />
+const Loader: React.FC<LoaderProps> = ({ color }) => (
+  <Spin
+    indicator={
+      <LoadingOutlined
+        style={{ fontSize: 24, color: color ? color : '#000' }}
+        spin
+      />
+    }
+  />
 );
 
 export default Loader;

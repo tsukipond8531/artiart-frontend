@@ -2,294 +2,298 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 /* css slider */
-html, body{
-  font-family: "Poppins", sans-serif !important;
+html,
+body {
+  font-family: 'Poppins', sans-serif !important;
 }
 /* font family  */
 
 .poppins-thin {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 100;
   font-style: normal;
 }
 
 .poppins-extralight {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 200;
   font-style: normal;
 }
 
 .poppins-light {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 300;
   font-style: normal;
 }
 
 .poppins-regular {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 400;
   font-style: normal;
 }
 
 .poppins-medium {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 500;
   font-style: normal;
 }
 
 .poppins-semibold {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 600;
   font-style: normal;
 }
 
 .poppins-bold {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 700;
   font-style: normal;
 }
 
 .poppins-extrabold {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 800;
   font-style: normal;
 }
 
 .poppins-black {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 900;
   font-style: normal;
 }
 
 .poppins-thin-italic {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 100;
   font-style: italic;
 }
 
 .poppins-extralight-italic {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 200;
   font-style: italic;
 }
 
 .poppins-light-italic {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 300;
   font-style: italic;
 }
 
 .poppins-regular-italic {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 400;
   font-style: italic;
 }
 
 .poppins-medium-italic {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 500;
   font-style: italic;
 }
 
 .poppins-semibold-italic {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 600;
   font-style: italic;
 }
 
 .poppins-bold-italic {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 700;
   font-style: italic;
 }
 
 .poppins-extrabold-italic {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 800;
   font-style: italic;
 }
 
 .poppins-black-italic {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 900;
   font-style: italic;
 }
 
-
-.slider{
-    height: 100vh;
-    position: relative;
-  }
-  .slider .list .item{
-    position: absolute;
-    inset: 0 0 0 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: .5s;
-  }
-  .slider .list .item img{
-    width: 100%;
-    height: 50%;
-    object-fit: cover;
-  }
-  .slider .list .item::after{
-    content: '';
-    width: 100%;
-    height: 90%;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    /* background-image: linear-gradient(
+.slider {
+  height: 100vh;
+  position: relative;
+}
+.slider .list .item {
+  position: absolute;
+  inset: 0 0 0 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: 0.5s;
+}
+.slider .list .item img {
+  width: 100%;
+  height: 50%;
+  object-fit: cover;
+}
+.slider .list .item::after {
+  content: '';
+  width: 100%;
+  height: 90%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  /* background-image: linear-gradient(
         to top, #ffffff 5%, transparent
     ); */
-  }
-  .slider .list .item .content{
-    position: absolute;
-    left: 10%;
-    top: 5%;
-    width: 500px;
-    max-width: 80%;
-    z-index: 1;
-  }
-  .slider .list .item .content p:nth-child(1){
-    text-transform: uppercase;
-    letter-spacing: 10px;
-  }
-  .slider .list .item .content h2{
-    font-size: 60px;
-    margin: 0;
-  }
-  .slider .list .item.active{
+}
+.slider .list .item .content {
+  position: absolute;
+  left: 10%;
+  top: 5%;
+  width: 500px;
+  max-width: 80%;
+  z-index: 1;
+}
+.slider .list .item .content p:nth-child(1) {
+  text-transform: uppercase;
+  letter-spacing: 10px;
+}
+.slider .list .item .content h2 {
+  font-size: 60px;
+  margin: 0;
+}
+.slider .list .item.active {
+  opacity: 1;
+  z-index: 10;
+}
+@keyframes showContent {
+  to {
+    transform: translateY(0);
+    filter: blur(0);
     opacity: 1;
-    z-index: 10;
   }
-  @keyframes showContent {
-    to{
-        transform: translateY(0);
-        filter: blur(0);
-        opacity: 1;
-    }
+}
+.slider .list .item.active p:nth-child(1),
+.slider .list .item.active h2,
+.slider .list .item.active p:nth-child(3) {
+  transform: translateY(30px);
+  filter: blur(20px);
+  opacity: 0;
+  animation: showContent 0.5s 0.7s ease-in-out 1 forwards;
+}
+.slider .list .item.active h2 {
+  animation-delay: 1s;
+}
+.slider .list .item.active p:nth-child(3) {
+  animation-duration: 1.3s;
+}
+.arrows {
+  position: absolute;
+  top: 30%;
+  right: 50px;
+  z-index: 10;
+}
+.arrows button {
+  background-color: rgba(168, 161, 161, 0.333);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  color: #eee;
+  transition: 0.5s;
+}
+.arrows button:hover {
+  background-color: #eee;
+  color: black;
+}
+
+@media screen and (max-width: 678px) {
+  .thumbnail {
+    justify-content: start;
   }
-  .slider .list .item.active p:nth-child(1),
-  .slider .list .item.active h2,
-  .slider .list .item.active p:nth-child(3){
-    transform: translateY(30px);
-    filter: blur(20px);
-    opacity: 0;
-    animation: showContent .5s .7s ease-in-out 1 forwards;
+  .slider .list .item .content h2 {
+    font-size: 20px !important;
   }
-  .slider .list .item.active h2{
-    animation-delay: 1s;
+  .arrows {
+    top: 10%;
   }
-  .slider .list .item.active p:nth-child(3){
-    animation-duration: 1.3s;
-  }
-  .arrows{
-    position: absolute;
-    top: 30%;
-    right: 50px;
-    z-index: 10;
-  }
-  .arrows button{
-    background-color: rgba(168, 161, 161, 0.333);
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 5px;
-    color: #eee;
-    transition: .5s;
-  }
-  .arrows button:hover{
-    background-color: #eee;
-    color: black;
-  }
-  
-  @media screen and (max-width: 678px) {
-    .thumbnail{
-        justify-content: start;
-    }
-    .slider .list .item .content h2{
-        font-size: 20px !important;
-    }
-    .arrows{
-        top: 10%;
-    }
-  }
-  input[type="radio"]:checked + span {
-    display: block;
-  }
-  .ant-layout .ant-layout-sider{
-    background-color:white !important ;
-  }
-.ant-layout .ant-layout-sider-children{
-    height: 100vh !important;
-  }
-  media-control-bar{
-    display: none !important;
-  }
-  .ant-popover .ant-popover-title{
-    min-width: 300px !important;
-  }
-  .ant-popover .ant-popover-inner{
-    min-width: 300px !important;
-    z-index: 10 !important;
-  }
-  .ant-popover-placement-bottom, .ant-popover-placement-bottomLeft, .ant-popover-placement-bottomRight{
-    z-index: 10 !important;
-    /* width: 23% !important; */
-  }
-  .ant-popover-placement-top, .ant-popover-placement-topLeft, .ant-popover-placement-topRight{
-    /* width: 23% !important; */
-    z-index: 10 !important;
-  
-  }
-  .custom-shadow {
-    box-shadow: 0px 3px 21px #3737D512;
-  }
+}
+input[type='radio']:checked + span {
+  display: block;
+}
+.ant-layout .ant-layout-sider {
+  background-color: white !important ;
+}
+.ant-layout .ant-layout-sider-children {
+  height: 100vh !important;
+}
+media-control-bar {
+  display: none !important;
+}
+.ant-popover .ant-popover-title {
+  min-width: 300px !important;
+}
+.ant-popover .ant-popover-inner {
+  min-width: 300px !important;
+  z-index: 10 !important;
+}
+.ant-popover-placement-bottom,
+.ant-popover-placement-bottomLeft,
+.ant-popover-placement-bottomRight {
+  z-index: 10 !important;
+  /* width: 23% !important; */
+}
+.ant-popover-placement-top,
+.ant-popover-placement-topLeft,
+.ant-popover-placement-topRight {
+  /* width: 23% !important; */
+  z-index: 10 !important;
+}
+.custom-shadow {
+  box-shadow: 0px 3px 21px #3737d512;
+}
 @media (max-width: 800px) {
   .ant-picker-panel-layout {
-      flex-direction: column !important;
+    flex-direction: column !important;
   }
 }
 
 @media (max-width: 800px) {
   .ant-picker-panel-layout .ant-picker-presets {
-      max-width: 100% !important;
-      min-height: 10rem !important;
+    max-width: 100% !important;
+    min-height: 10rem !important;
   }
 }
 
 @media (max-width: 800px) {
   .ant-picker-panel-layout .ant-picker-panels,
   .ant-picker-panel-layout .ant-picker-datetime-panel {
-      flex-direction: column !important;
+    flex-direction: column !important;
   }
 }
-.ant-btn-primary{
+.ant-btn-primary {
   background-color: black !important;
 }
-.ant-btn-primary:hover{
+.ant-btn-primary:hover {
   background-color: black !important;
 }
-.ant-btn-default:hover{
+.ant-btn-default:hover {
   border-color: black !important;
   color: black !important;
 }
-.ant-select-selector:hover{
+.ant-select-selector:hover {
   border-color: black !important;
 }
-.ant-select-selector:active{
+.ant-select-selector:active {
   border-color: black !important;
 }
-.ant-select-selector:focus{
+.ant-select-selector:focus {
   border-color: black !important;
 }
 
-.ant-select-focused.ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer) .ant-select-selector {
+.ant-select-focused.ant-select-outlined:not(.ant-select-disabled):not(
+    .ant-select-customize-input
+  ):not(.ant-pagination-size-changer)
+  .ant-select-selector {
   border-color: black;
- 
 }

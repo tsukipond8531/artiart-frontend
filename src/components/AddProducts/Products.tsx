@@ -1,21 +1,26 @@
-"use client";
+'use client';
 import React, {
   useState,
   useEffect,
   SetStateAction,
   useLayoutEffect,
-} from "react";
-import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
-import Image from "next/image";
-import axios, { AxiosRequestConfig } from "axios";
-import { Product, ProductWithImages } from "types/interfaces";
-import { inputFields, validationSchema, initialValues, withoutVariation, Variation } from "Data/data";
-import { RxCross2 } from "react-icons/rx";
-import { IoMdArrowRoundBack } from "react-icons/io";
-import Loader from "components/Loader/Loader";
-import Toaster from "components/Toaster/Toaster";
+} from 'react';
+import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
+import Image from 'next/image';
+import axios, { AxiosRequestConfig } from 'axios';
+import { Product, ProductWithImages } from 'types/interfaces';
+import {
+  inputFields,
+  validationSchema,
+  initialValues,
+  withoutVariation,
+  Variation,
+} from 'Data/data';
+import { RxCross2 } from 'react-icons/rx';
+import { IoMdArrowRoundBack } from 'react-icons/io';
+import Loader from 'components/Loader/Loader';
+import Toaster from 'components/Toaster/Toaster';
 import Imageupload from 'components/ImageUpload/Imageupload';
-
 
 interface ADDPRODUCTFORMPROPS {
   setselecteMenu: React.Dispatch<SetStateAction<any>>;
@@ -35,13 +40,17 @@ const AddProductForm = ({
   const [posterimageUrl, setposterimageUrl] = useState<any[] | null>();
   const [hoverImage, sethoverImage] = useState<any[] | null | undefined>();
   const [loading, setloading] = useState<boolean>(false);
-  const [productInitialValue, setProductInitialValue] = useState<any | null | undefined>(EditProductValue);
+  const [productInitialValue, setProductInitialValue] = useState<
+    any | null | undefined
+  >(EditProductValue);
   const [imgError, setError] = useState<string | null | undefined>();
   const [selectedOption, setSelectedOption] = useState<string>('');
   const [quantity, setQuantity] = useState<number | ''>('');
   const [color, setColor] = useState<string>('');
-let EditProductIntialValue = productInitialValue && (productInitialValue.totalStockQuantity && productInitialValue.totalStockQuantity)
-
+  let EditProductIntialValue =
+    productInitialValue &&
+    productInitialValue.totalStockQuantity &&
+    productInitialValue.totalStockQuantity;
 
   const handleOptionChange = (e: any) => {
     setSelectedOption(e.target.value);
@@ -56,23 +65,23 @@ let EditProductIntialValue = productInitialValue && (productInitialValue.totalSt
       let hoverImageUrl = hoverImage && hoverImage[0];
       let createdAt = Date.now();
       if (!posterImageUrl || !hoverImageUrl || !(imagesUrl.length > 0)) {
-        throw new Error("Please select relevant Images");
-
+        throw new Error('Please select relevant Images');
       }
-      const validColors = values.colors.map(color => color.colorName.toLowerCase());
+      const validColors = values.colors.map((color) =>
+        color.colorName.toLowerCase(),
+      );
 
       // Check if all the image color codes are valid
-      const invalidColors = imagesUrl.filter(img => {
+      const invalidColors = imagesUrl.filter((img) => {
         if (!img || !img.colorCode) {
-          throw new Error("Image colors codes are required");
+          throw new Error('Image colors codes are required');
         }
 
-        !validColors.includes(img.colorCode.toLowerCase())
+        !validColors.includes(img.colorCode.toLowerCase());
       });
       if (invalidColors.length > 0) {
-        throw new Error("Some image color codes are invalid.");
+        throw new Error('Some image color codes are invalid.');
       }
-
 
       let newValue = {
         ...values,
@@ -82,31 +91,33 @@ let EditProductIntialValue = productInitialValue && (productInitialValue.totalSt
         createdAt,
       };
 
-
-
       setloading(true);
 
       let updateFlag = EditProductValue && EditInitialValues ? true : false;
 
-      let addProductUrl = updateFlag  ? `/api/updateProduct/${EditInitialValues._id} `: null;
-let upDated ;
-      if((updateFlag && EditProductIntialValue) && ( productInitialValue.totalStockQuantity === values.totalStockQuantity)){
-   const {totalStockQuantity, ...withoutStockValue} = newValue;
-   upDated =withoutStockValue
-
+      let addProductUrl = updateFlag
+        ? `/api/updateProduct/${EditInitialValues._id} `
+        : null;
+      let upDated;
+      if (
+        updateFlag &&
+        EditProductIntialValue &&
+        productInitialValue.totalStockQuantity === values.totalStockQuantity
+      ) {
+        const { totalStockQuantity, ...withoutStockValue } = newValue;
+        upDated = withoutStockValue;
+      } else {
+        upDated = newValue;
       }
-      else {
-        upDated= newValue
-      }
-      let url = `${process.env.NEXT_PUBLIC_BASE_URL}${updateFlag ? addProductUrl : "/api/addProduct"}`;
-if(!upDated) return null
+      let url = `${process.env.NEXT_PUBLIC_BASE_URL}${updateFlag ? addProductUrl : '/api/addProduct'}`;
+      if (!upDated) return null;
       const response = await axios.post(url, upDated);
-      console.log(response, "response");
+      console.log(response, 'response');
       Toaster(
-        "success",
+        'success',
         updateFlag
-          ? "Product has been sucessufully Updated !"
-          : "Product has been sucessufully Created !"
+          ? 'Product has been sucessufully Updated !'
+          : 'Product has been sucessufully Created !',
       );
       setProductInitialValue(null);
       if (updateFlag) {
@@ -118,23 +129,19 @@ if(!upDated) return null
     } catch (err: any) {
       if (err.response && err.response.data && err.response.data.error) {
         setError(err.response.data.error);
-        console.log(err.response.data.error, "err.response.data.message");
+        console.log(err.response.data.error, 'err.response.data.message');
       } else {
         if (err instanceof Error) {
           setError(err.message);
-          console.log((err.message), "(err.message)");
-
+          console.log(err.message, '(err.message)');
         } else {
-          setError("An unexpected error occurred");
+          setError('An unexpected error occurred');
         }
       }
     } finally {
       setloading(false);
     }
   };
-
-
-
 
   useLayoutEffect(() => {
     const CategoryHandler = async () => {
@@ -154,7 +161,7 @@ if(!upDated) return null
         sethoverImage([hoverImageUrl]);
         posterImageUrl ? setposterimageUrl([posterImageUrl]) : null;
       } catch (err) {
-        console.log(err, "err");
+        console.log(err, 'err');
       }
     };
 
@@ -165,22 +172,21 @@ if(!upDated) return null
     const CategoryHandler = async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllcategories`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllcategories`,
         );
         const Categories = await response.json();
         setCategory(Categories);
       } catch (err) {
-        console.log(err, "err");
+        console.log(err, 'err');
       }
     };
 
     CategoryHandler();
   }, []);
 
-
   const ImageRemoveHandler = async (
     imagePublicId: string,
-    setterFunction: any
+    setterFunction: any,
   ) => {
     const requestConfig: AxiosRequestConfig = {
       data: { imageUrl: imagePublicId },
@@ -189,12 +195,12 @@ if(!upDated) return null
     try {
       const response = await axios.delete(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/removeProductImage`,
-        requestConfig
+        requestConfig,
       );
-      console.log("Image removed successfully:", response.data);
+      console.log('Image removed successfully:', response.data);
       setterFunction([]);
     } catch (error) {
-      console.error("Failed to remove image:", error);
+      console.error('Failed to remove image:', error);
     }
   };
 
@@ -206,39 +212,37 @@ if(!upDated) return null
     try {
       const response = await axios.delete(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/removeProductImage`,
-        requestConfig
+        requestConfig,
       );
-      console.log("Image removed successfully:", response.data);
+      console.log('Image removed successfully:', response.data);
       setterFunction((prev: any) =>
-        prev.filter((item: any) => item.public_id != imagePublicId)
+        prev.filter((item: any) => item.public_id != imagePublicId),
       );
     } catch (error: any) {
-      console.error("Failed to remove image:", error);
+      console.error('Failed to remove image:', error);
     }
   };
 
   const handleColorCodeChange = (index: number, newColorCode: string) => {
     const updatedImagesUrl = imagesUrl.map((item, i) =>
-      i === index ? { ...item, colorCode: newColorCode } : item
+      i === index ? { ...item, colorCode: newColorCode } : item,
     );
     setImagesUrl(updatedImagesUrl);
   };
-
 
   return (
     <>
       <p
         className="text-2xl font-black mb-4 flex items-center justify-center gap-2 hover:bg-gray-200 w-fit p-2 cursor-pointer"
         onClick={() => {
-          setselecteMenu("Add All Products");
+          setselecteMenu('Add All Products');
         }}
       >
-        {" "}
+        {' '}
         <IoMdArrowRoundBack /> Back
       </p>
       <div className="container mx-auto mt-4 sm:mt-6 md:mt-8 lg:mt-8 xl:mt-8 px-0 sm:px-6 md:px-0 lg:px-32 xl:px-52">
         <div className="grid gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20 grid-cols-1 md:grid-cols-2 sm:grid-cols-1 p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 custom-shadow rounded-md border">
-
           <div>
             <Formik
               initialValues={
@@ -248,8 +252,6 @@ if(!upDated) return null
               onSubmit={onSubmit}
             >
               {({ values }) => (
-
-
                 <Form>
                   {inputFields.map((inputField, index) => (
                     <div key={index} className="mb-4">
@@ -283,15 +285,15 @@ if(!upDated) return null
                       </option>
                       {category && category.length > 0
                         ? category.map((item: any, index) => (
-                          <option
-                            value={item._id}
-                            label={item.name}
-                            key={index}
-                            className="text-gray-900"
-                          >
-                            {item.name}
-                          </option>
-                        ))
+                            <option
+                              value={item._id}
+                              label={item.name}
+                              key={index}
+                              className="text-gray-900"
+                            >
+                              {item.name}
+                            </option>
+                          ))
                         : null}
                     </Field>
                     <ErrorMessage
@@ -301,13 +303,14 @@ if(!upDated) return null
                     />
                   </div>
                   <div>
-
                     <div className="mb-4">
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Add stock Quantity
                       </label>
                       <Field
-                        id="variationSelect" value={selectedOption} onChange={handleOptionChange}
+                        id="variationSelect"
+                        value={selectedOption}
+                        onChange={handleOptionChange}
                         as="select"
                         name="category"
                         className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent bg-white"
@@ -315,17 +318,14 @@ if(!upDated) return null
                         <option value="" className="text-gray-500">
                           Select a Variation
                         </option>
-                        <option value="withoutVariation">Without Variation</option>
+                        <option value="withoutVariation">
+                          Without Variation
+                        </option>
                         <option value="withVariation">With Variation</option>
                       </Field>
                     </div>
 
-                    {
-                    
-                    selectedOption === 'withoutVariation' && 
-                    
-                    
-                    (
+                    {selectedOption === 'withoutVariation' && (
                       <>
                         {withoutVariation.map((inputField, index) => (
                           <div key={index} className="mb-4">
@@ -348,60 +348,62 @@ if(!upDated) return null
                       </>
                     )}
 
-                    {
-                    selectedOption === 'withVariation' &&
-                    
-                    (
+                    {selectedOption === 'withVariation' && (
                       <>
                         <FieldArray name="variantStockQuantities">
                           {({ push, remove }) => (
                             <div>
-                              {values.variantStockQuantities && values.variantStockQuantities.map((model, index) => (
-                                <div
-                                  key={index}
-                                  className="flex flex-col md:flex-row md:items-center mb-4"
-                                >
-                                  <div className="md:flex-1 md:mr-4 mb-4 md:mb-0">
-                                    <Field
-                                      type="text"
-                                      name={`variantStockQuantities[${index}].variant`}
-                                      placeholder="Variant"
-                                      className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                                    />
-                                    <ErrorMessage
-                                      name={`variantStockQuantities[${index}].variant`}
-                                      component="div"
-                                      className="text-red-500 mt-1"
-                                    />
-                                  </div>
-                                  <div className="md:flex-1 md:mr-4 mb-4 md:mb-0">
-                                    <Field
-                                      type="number"
-                                      name={`variantStockQuantities[${index}].quantity`}
-                                      placeholder="Quantity"
-                                      className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                                    />
-                                    <ErrorMessage
-                                      name={`variantStockQuantities[${index}].quantity`}
-                                      component="div"
-                                      className="text-red-500 mt-1"
-                                    />
-                                  </div>
-                                  <div className="md:flex-none text-right">
-                                    <button
-                                      type="button"
-                                      onClick={() => remove(index)}
-                                      className="text-red-500 hover:text-red-700"
+                              {values.variantStockQuantities &&
+                                values.variantStockQuantities.map(
+                                  (model, index) => (
+                                    <div
+                                      key={index}
+                                      className="flex flex-col md:flex-row md:items-center mb-4"
                                     >
-                                      Remove
-                                    </button>
-                                  </div>
-                                </div>
-                              ))}
+                                      <div className="md:flex-1 md:mr-4 mb-4 md:mb-0">
+                                        <Field
+                                          type="text"
+                                          name={`variantStockQuantities[${index}].variant`}
+                                          placeholder="Variant"
+                                          className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                                        />
+                                        <ErrorMessage
+                                          name={`variantStockQuantities[${index}].variant`}
+                                          component="div"
+                                          className="text-red-500 mt-1"
+                                        />
+                                      </div>
+                                      <div className="md:flex-1 md:mr-4 mb-4 md:mb-0">
+                                        <Field
+                                          type="number"
+                                          name={`variantStockQuantities[${index}].quantity`}
+                                          placeholder="Quantity"
+                                          className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                                        />
+                                        <ErrorMessage
+                                          name={`variantStockQuantities[${index}].quantity`}
+                                          component="div"
+                                          className="text-red-500 mt-1"
+                                        />
+                                      </div>
+                                      <div className="md:flex-none text-right">
+                                        <button
+                                          type="button"
+                                          onClick={() => remove(index)}
+                                          className="text-red-500 hover:text-red-700"
+                                        >
+                                          Remove
+                                        </button>
+                                      </div>
+                                    </div>
+                                  ),
+                                )}
                               <div className="text-left">
                                 <button
                                   type="button"
-                                  onClick={() => push({ variant: "", quantity: 0 })}
+                                  onClick={() =>
+                                    push({ variant: '', quantity: 0 })
+                                  }
                                   className="px-4 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black"
                                 >
                                   Add Variation
@@ -413,8 +415,6 @@ if(!upDated) return null
                       </>
                     )}
                   </div>
-
-
 
                   <div className="mb-4 pt-4">
                     <FieldArray name="modelDetails">
@@ -465,7 +465,7 @@ if(!upDated) return null
                           <div className="text-left">
                             <button
                               type="button"
-                              onClick={() => push({ name: "", detail: "" })}
+                              onClick={() => push({ name: '', detail: '' })}
                               className="px-4 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black"
                             >
                               Add Model Detail
@@ -512,7 +512,7 @@ if(!upDated) return null
                           <div className="text-left">
                             <button
                               type="button"
-                              onClick={() => push({ colorName: "" })}
+                              onClick={() => push({ colorName: '' })}
                               className="px-4 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black"
                             >
                               Add Color
@@ -559,7 +559,7 @@ if(!upDated) return null
                           <div className="text-left">
                             <button
                               type="button"
-                              onClick={() => push({ specsDetails: "" })}
+                              onClick={() => push({ specsDetails: '' })}
                               className="px-4 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black"
                             >
                               Add Specification
@@ -574,7 +574,7 @@ if(!upDated) return null
                       type="submit"
                       className="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-white hover:text-black hover:border hover:border-gray-200 hover:shadow-lg focus:outline-none focus:bg-blue-600"
                     >
-                      {loading ? <Loader /> : "Add Product"}
+                      {loading ? <Loader /> : 'Add Product'}
                     </button>
                   </div>
                 </Form>
@@ -582,11 +582,6 @@ if(!upDated) return null
             </Formik>
           </div>
           <div>
-
-
-
-
-
             <h2 className="text-2xl font-black mb-4">Add New Product</h2>
             <div className="custom-shadow p-4 rounded-lg border">
               {posterimageUrl && posterimageUrl.length > 0 ? (
@@ -603,7 +598,7 @@ if(!upDated) return null
                             onClick={() => {
                               ImageRemoveHandler(
                                 item.public_id,
-                                setposterimageUrl
+                                setposterimageUrl,
                               );
                             }}
                           />
@@ -623,7 +618,6 @@ if(!upDated) return null
                 <div className="text-left mb-3">
                   <p className="mb-1">Add a poster Image</p>
                   <Imageupload setposterimageUrl={setposterimageUrl} />
-
                 </div>
               )}
             </div>
@@ -649,7 +643,9 @@ if(!upDated) return null
                           className="cursor-pointer"
                           width={100}
                           height={100}
-                          src={item.imageUrl ? item.imageUrl : '/images/dummy.jpg'}
+                          src={
+                            item.imageUrl ? item.imageUrl : '/images/dummy.jpg'
+                          }
                           alt={`productImage-${index}`}
                         />
                       </div>
@@ -661,8 +657,6 @@ if(!upDated) return null
                   <p className="mb-1 font-black">Add a Hover Image</p>
                   <div className="custom-shadow p-4 rounded-lg border">
                     <Imageupload sethoverImage={sethoverImage} />
-
-
                   </div>
                 </div>
               )}
@@ -670,7 +664,6 @@ if(!upDated) return null
             <p className="mb-3 font-black">Add Product Images</p>
             <div className="mb-4 custom-shadow p-4 rounded-lg border">
               <Imageupload setImagesUrl={setImagesUrl} />
-
             </div>
 
             {imagesUrl && imagesUrl.length > 0 ? (
@@ -679,7 +672,10 @@ if(!upDated) return null
                   return (
                     <>
                       <div className="flex flex-col gap-1">
-                        <div className="group border border-gray-300 rounded-md overflow-hidden m-1 relative" key={index}>
+                        <div
+                          className="group border border-gray-300 rounded-md overflow-hidden m-1 relative"
+                          key={index}
+                        >
                           <div className="absolute top-1 right-1 bg-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <RxCross2
                               className="cursor-pointer text-gray-600"
@@ -689,7 +685,6 @@ if(!upDated) return null
                             />
                           </div>
 
-
                           <Image
                             className="cursor-pointer"
                             width={100}
@@ -697,15 +692,18 @@ if(!upDated) return null
                             src={item.imageUrl}
                             alt={`productImage-${index}`}
                           />
-
                         </div>
-                        <input type="text" placeholder="Add color code" className="border borde-2 focus:outline-none w-full" value={item.colorCode} required
-                          onChange={(e) => handleColorCodeChange(index, e.target.value)}
-
+                        <input
+                          type="text"
+                          placeholder="Add color code"
+                          className="border borde-2 focus:outline-none w-full"
+                          value={item.colorCode}
+                          required
+                          onChange={(e) =>
+                            handleColorCodeChange(index, e.target.value)
+                          }
                         />
-
                       </div>
-
                     </>
                   );
                 })}
@@ -715,10 +713,7 @@ if(!upDated) return null
             {imgError ? (
               <div className="text-red-500 pt-2 pb-2">{imgError}</div>
             ) : null}
-
           </div>
-
-
         </div>
       </div>
     </>
