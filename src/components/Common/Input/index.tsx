@@ -28,7 +28,7 @@ const Input: React.FC<InputProps> = ({
         type={type}
         name={name}
         id={id ? id : 'hs-floating-input-email'}
-        className="peer p-4 block w-full border rounded-md  border-gray-200  text-sm   disabled:opacity-50 disabled:pointer-events-none
+        className="peer p-4 block w-full border rounded-md  border-gray-200  text-sm placeholder:text-transparent  disabled:opacity-50 disabled:pointer-events-none
            
             autofill:pb-2"
         placeholder={placeholder}
