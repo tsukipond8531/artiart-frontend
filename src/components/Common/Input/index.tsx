@@ -10,6 +10,7 @@ interface InputProps {
   value?: any;
   checked?: any;
   pattern?: string;
+  className?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -21,6 +22,7 @@ const Input: React.FC<InputProps> = ({
   value,
   id,
   checked,
+  className,
 }): JSX.Element => {
   return (
     <div className="relative">
@@ -28,9 +30,8 @@ const Input: React.FC<InputProps> = ({
         type={type}
         name={name}
         id={id ? id : 'hs-floating-input-email'}
-        className="peer p-4 block w-full border rounded-md  border-gray-200  text-sm placeholder:text-transparent  disabled:opacity-50 disabled:pointer-events-none
-           
-            autofill:pb-2"
+        className={`peer p-4 block w-full border rounded-md  border-gray-200  text-sm placeholder:text-transparent  disabled:opacity-50 disabled:pointer-events-none
+            autofill:pb-2 ${className}`}
         placeholder={placeholder}
         onChange={onChange}
         value={value}

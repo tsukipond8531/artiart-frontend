@@ -8,6 +8,7 @@ import Link from 'next/link';
 import React from 'react';
 
 const Cart: React.FC = ({ cartItems }: any) => {
+  console.log(cartItems);
   return (
     <>
       <Navbar />
