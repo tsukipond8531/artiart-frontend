@@ -13,12 +13,11 @@ import { Para14, Para16 } from 'components/Common/Paragraph';
 import Image from 'next/image';
 import Link from 'next/link';
 import Button from 'components/Common/Button';
-
+import showToast from 'components/Toaster/Toaster';
 const Checkout = () => {
   const [cartproduct, setCartProduct] = useState<any[]>([]);
   const searchParams = useSearchParams();
   const search = searchParams.get('subtotal');
-  console.log('Hello from Checkout page');
   let Products = localStorage.getItem('cart');
   const ProductHandler = () => {
     let Products = localStorage.getItem('cart');
@@ -67,15 +66,36 @@ const Checkout = () => {
       const orderId = orderResponse.data.orderId;
 
       // Step 3: Generate the payment key
-      const paymentKeyResponse = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/payment/payment_key`,
-        { token, orderId, amount: totalPayment, billingData },
-      );
-      const paymentKey = paymentKeyResponse.data.paymentKey;
 
-      // Step 4: Redirect to Paymob's payment iframe
-      // window.location.href = `https://pakistan.paymob.com/api/acceptance/iframes/${process.env.NEXT_PUBLIC_PAYMOB_IFRAME_ID}?payment_token=${paymentKey}`;
-      window.location.href = `https://uae.paymob.com/api/acceptance/iframes/${process.env.NEXT_PUBLIC_PAYMOB_IFRAME_ID}?payment_token=${paymentKey}`;
+      try {
+        const paymentKeyResponse = await axios.post(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/payment/payment_key`,
+          { token, orderId, amount: totalPayment, billingData },
+        );
+        const paymentKey = paymentKeyResponse.data.paymentKey;
+        window.location.href = `${process.env.NEXT_PUBLIC_PAYMOD_BASE_URL}/iframes/${process.env.NEXT_PUBLIC_PAYMOB_IFRAME_ID}?payment_token=${paymentKey}`;
+      } catch (error) {
+        showToast(
+          'error',
+          'Something is wrong. Please check the input fields.',
+        );
+      }
+
+      // const checkPaymentStatus = async () => {
+      //   const paymentStatusResponse = await axios.get(
+      //     `${process.env.NEXT_PUBLIC_BASE_URL}/api/payment/status`,
+      //     { params: { orderId } },
+      //   );
+      //   if (paymentStatusResponse.data.status === 'paid') {
+      //     window.location.href = '/thank-you';
+      //   } else if (paymentStatusResponse.data.status === 'failed') {
+      //     window.location.href = '/payment-failed';
+      //   } else {
+      //     setTimeout(checkPaymentStatus, 5000); // Poll every 5 seconds
+      //   }
+      // };
+
+      // checkPaymentStatus();
     } catch (error) {
       console.error('Payment Error:', error);
     }
