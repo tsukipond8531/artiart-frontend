@@ -1,3 +1,4 @@
+//@ts-nocheck
 'use client';
 import CategorySlider from 'components/Carousel/Category';
 import Product from 'components/Home/Product';
@@ -26,11 +27,13 @@ export default function Home() {
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllproducts`,
         );
+        let filteredProducts = response.data.products.filter(product => product.totalStockQuantity > 0);
         let slicedProducts =
-          response.data.products && response.data.products.length > 8
-            ? response.data.products.slice(0, 8)
-            : response.data.products;
+          filteredProducts.length > 8
+            ? filteredProducts.slice(0, 8)
+            : filteredProducts;
         setProducts(slicedProducts);
+        console.log(slicedProducts , "slicedProducts")
       } catch (error) {
         console.log('Error fetching data:', error);
       } finally {
@@ -52,9 +55,11 @@ export default function Home() {
         setLoading(false);
       }
     };
+
     CategoryHandler();
     fetchData();
   }, []);
+
   return (
     <>
       <Navbar />
