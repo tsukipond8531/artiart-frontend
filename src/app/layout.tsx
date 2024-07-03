@@ -24,8 +24,8 @@ export default function RootLayout({
   return (
     <Providers>
       <html lang="en">
-        <GoogleTagManager gtmId="GTM-TPTTH6Q7" />
         <body className={inter.className}>
+          <GoogleTagManager gtmId="GTM-TPTTH6Q7" />
           <Suspense>
             {children}
             <ToastContainer />
