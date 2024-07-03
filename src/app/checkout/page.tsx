@@ -1,5 +1,5 @@
 'use client';
-import { Col, Form, Row } from 'antd';
+import { Col, Form, Row, FormProps, Button } from 'antd';
 import Container from 'components/Common/Container';
 import { HeadingH6 } from 'components/Common/Heading';
 import Input from 'components/Common/Input';
@@ -9,11 +9,25 @@ import Navbar from 'components/layout/Header/Navbar';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import axios from 'axios';
-import { Para14, Para16 } from 'components/Common/Paragraph';
+import { Para14 } from 'components/Common/Paragraph';
 import Image from 'next/image';
-import Link from 'next/link';
-import Button from 'components/Common/Button';
 import showToast from 'components/Toaster/Toaster';
+
+type FieldType = {
+  first_name: string;
+  last_name: string;
+  state: string;
+  country: string;
+  email: string;
+  phone: string;
+};
+const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+  console.log('Success:', values);
+};
+
+const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+  console.log('Failed:', errorInfo);
+};
 const Checkout = () => {
   const [cartproduct, setCartProduct] = useState<any[]>([]);
   const searchParams = useSearchParams();
@@ -123,6 +137,7 @@ const Checkout = () => {
     }
   };
   console.log(billingData, 'billingData');
+
   return (
     <>
       <Navbar />
@@ -131,104 +146,143 @@ const Checkout = () => {
           className="border-b-2 font-bold lg:pb-3"
           title={'Billing details'}
         />
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
-          <div>
-            <Form layout="vertical">
-              <Row gutter={[10, 0]}>
-                <Col span={12}>
-                  <Form.Item label={'First Name'}>
-                    <Input
-                      type="text"
-                      name="first_name"
-                      placeholder="First Name"
-                      value={billingData.first_name}
-                      onChange={handleInputChange}
-                      className="placeholder:!text-slate-400"
-                    />
-                  </Form.Item>
-                </Col>
-                <Col span={12}>
-                  <Form.Item label={'Last Name'}>
-                    <Input
-                      type="text"
-                      name="last_name"
-                      placeholder="Last Name"
-                      value={billingData.last_name}
-                      onChange={handleInputChange}
-                      className="placeholder:!text-slate-400"
-                    />
-                  </Form.Item>
-                </Col>
-                <Col span={24}>
-                  <Form.Item label={'Email address'}>
-                    <Input
-                      type="email"
-                      name="email"
-                      placeholder="Email address"
-                      value={billingData.email}
-                      onChange={handleInputChange}
-                      className="placeholder:!text-slate-400"
-                    />
-                  </Form.Item>
-                </Col>
-                <Col span={12}>
-                  <Form.Item label={'Phone'}>
-                    <Input
-                      type="tel"
-                      pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-                      name="phone_number"
-                      placeholder="Phone"
-                      value={billingData.phone_number}
-                      onChange={handleInputChange}
-                      className="placeholder:!text-slate-400"
-                    />
-                  </Form.Item>
-                </Col>
-                <Col span={12}>
-                  <Form.Item label={'Address'}>
-                    <Input
-                      type="text"
-                      name="address"
-                      placeholder="Building, street, city etc"
-                      value={billingData.address}
-                      onChange={handleInputChange}
-                      className="placeholder:!text-slate-400"
-                    />
-                  </Form.Item>
-                </Col>
-                <Col span={12}>
-                  <Form.Item label={'State'}>
-                    <SelectInput
-                      name="state"
-                      placeholder={'State'}
-                      value={billingData.state}
-                      onChange={handleSelectChange}
-                      selectoption={[
-                        { title: 'Dubai' },
-                        { title: 'Abu Dhabi' },
-                        { title: 'Sharjah' },
-                        { title: 'Ajman' },
-                        { title: 'Ras Al Khaima' },
-                        { title: 'Umm Al Quwain' },
-                        { title: 'Fujairah' },
-                      ]}
-                    />
-                  </Form.Item>
-                </Col>
-                <Col span={12}>
-                  <Form.Item label={'Country/Region'}>
-                    <SelectInput
-                      name="country"
-                      placeholder={'Country/Region'}
-                      value={billingData.country}
-                      onChange={handleSelectChange}
-                      selectoption={[{ title: 'United Arab Emirates' }]}
-                    />
-                  </Form.Item>
-                </Col>
-              </Row>
-            </Form>
-          </div>
+
+        <Form
+          className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5"
+          layout="vertical"
+          name="basic"
+          // labelCol={{ span: 8 }}
+          // wrapperCol={{ span: 16 }}
+          // style={{ maxWidth: 600 }}
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+        >
+          <Row gutter={[10, 0]}>
+            <Col span={12}>
+              <Form.Item<FieldType>
+                label={'First Name'}
+                name="first_name"
+                rules={[{ required: true, message: 'Please enter first name' }]}
+              >
+                <Input
+                  type="text"
+                  name="first_name"
+                  placeholder="First Name"
+                  value={billingData.first_name}
+                  onChange={handleInputChange}
+                  className="placeholder:!text-slate-400"
+                />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item<FieldType>
+                label={'Last name'}
+                name="last_name"
+                rules={[{ required: true, message: 'Please enter last name' }]}
+              >
+                <Input
+                  type="text"
+                  name="last_name"
+                  placeholder="Last Name"
+                  value={billingData.last_name}
+                  onChange={handleInputChange}
+                  className="placeholder:!text-slate-400"
+                />
+              </Form.Item>
+            </Col>
+            <Col span={24}>
+              <Form.Item<FieldType>
+                label={'Email address'}
+                name="email"
+                rules={[
+                  { required: true, message: 'Please enter valid email!' },
+                ]}
+              >
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="Email address"
+                  value={billingData.email}
+                  onChange={handleInputChange}
+                  className="placeholder:!text-slate-400"
+                />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item<FieldType>
+                label={'Phone'}
+                name="phone"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please enter valide phone number',
+                  },
+                ]}
+              >
+                <Input
+                  type="tel"
+                  name="phone_number"
+                  placeholder="+971 00 000 0000"
+                  value={billingData.phone_number}
+                  onChange={handleInputChange}
+                  className="placeholder:!text-slate-400"
+                />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item label={'Address'}>
+                <Input
+                  type="text"
+                  name="address"
+                  placeholder="Building, street, city etc (Optional)"
+                  value={billingData.address}
+                  onChange={handleInputChange}
+                  className="placeholder:!text-slate-400"
+                />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item<FieldType>
+                label={'State'}
+                name="state"
+                rules={[{ required: true, message: 'Please select state' }]}
+              >
+                <SelectInput
+                  name="state"
+                  placeholder={'Select you state'}
+                  value={billingData.state}
+                  onChange={handleSelectChange}
+                  selectoption={[
+                    { title: 'Dubai' },
+                    { title: 'Abu Dhabi' },
+                    { title: 'Sharjah' },
+                    { title: 'Ajman' },
+                    { title: 'Ras Al Khaima' },
+                    { title: 'Umm Al Quwain' },
+                    { title: 'Fujairah' },
+                  ]}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item<FieldType>
+                name="country"
+                rules={[{ required: true, message: 'Select country' }]}
+                label={'Country/Region'}
+              >
+                <SelectInput
+                  name="country"
+                  placeholder={'Country/Region'}
+                  value={billingData.country}
+                  onChange={handleSelectChange}
+                  selectoption={[{ title: 'United Arab Emirates' }]}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+
           <div className="p-2">
             <div className="flex border flex-col sticky top-24 p-4">
               <div className="-m-1.5 overflow-x-auto">
@@ -350,7 +404,7 @@ const Checkout = () => {
               </div>
             </div>
           </div>
-        </div>
+        </Form>
       </Container>
       <Footer />
     </>
