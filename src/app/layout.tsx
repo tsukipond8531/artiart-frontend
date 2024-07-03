@@ -8,7 +8,7 @@ import React, { Suspense } from 'react';
 import Head from 'next/head';
 import icon from '../../public/assets/images/favicon.ico';
 import Link from 'next/link';
-
+import { GoogleTagManager } from '@next/third-parties/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -24,6 +24,7 @@ export default function RootLayout({
   return (
     <Providers>
       <html lang="en">
+        <GoogleTagManager gtmId="GTM-TPTTH6Q7" />
         <body className={inter.className}>
           <Suspense>
             {children}
