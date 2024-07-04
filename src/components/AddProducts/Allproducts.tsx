@@ -117,7 +117,7 @@ const Category: React.FC<CategoryProps> = ({
         const handleClick = () => {
           console.log(record, 'record');
 
-          const url = `/detail/${generateSlug(record.name)}`;
+          const url = `/product/${generateSlug(record.name)}`;
           window.open(url, '_blank');
         };
         return <FaRegEye className="cursor-pointer" onClick={handleClick} />;
