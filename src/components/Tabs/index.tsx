@@ -1,28 +1,39 @@
-import React from 'react';
-import { Tabs } from 'antd';
+import { useState, FC } from 'react';
 
-const ProductTabs = ({ product }: any) => {
-  console.log('Products tabs');
-  console.log(product);
+interface Tab {
+  label: string;
+  content: React.ReactNode;
+}
+
+interface DetailTabsProps {
+  tabs: Tab[];
+}
+
+const DetailTabs: FC<DetailTabsProps> = ({ tabs }) => {
+  const [activeTab, setActiveTab] = useState<number>(0);
 
   return (
-    <Tabs
-      defaultActiveKey="1"
-      centered
-      items={new Array(3).fill(null).map((_, i) => {
-        const id = String(i + 1);
-        return {
-          label: `Tab ${id}`,
-          key: id,
-          children: `
-          
-          
-          
-          `,
-        };
-      })}
-    />
+    <div className="w-full mt-20">
+      <div className="flex whitespace-pre-wrap overflow-x-auto justify-center md:justify-center md:gap-10">
+        {tabs.map((tab, index) => (
+          <button
+            key={index}
+            className={`py-2 px-4 focus:outline-none  md:font-semibold text-xs md:text-lg ${
+              activeTab === index
+                ? 'border-b-2 border-black text-black'
+                : 'text-black'
+            }`}
+            onClick={() => setActiveTab(index)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="p-4 mt-5">
+        {tabs[activeTab].content}
+      </div>
+    </div>
   );
 };
 
-export default ProductTabs;
+export default DetailTabs;

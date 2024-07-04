@@ -48,6 +48,9 @@ const config: Config = {
       // => @media (min-width: 1536px) { ... }
     },
     extend: {
+      colors:{
+        primary: '#F2F2F2',
+      },
       backgroundImage: {
         video: "url('/assets/images/0423.mp4')",
       },

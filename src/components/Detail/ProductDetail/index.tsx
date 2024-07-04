@@ -12,7 +12,8 @@ import Button from 'components/Common/Button';
 import DetailTable from 'components/Table/DetailTable';
 import { FaFacebookF } from 'react-icons/fa6';
 import Checkout from 'app/checkout/page';
-import ProductTabs from 'components/Tabs';
+import DetailTabs from 'components/Tabs';
+import Review from '../Review';
 
 const ProductDetail = ({ parsedProduct }: any) => {
   const [count, setCount] = useState(1);
@@ -100,6 +101,35 @@ const ProductDetail = ({ parsedProduct }: any) => {
     message.success('Product added to cart successfully!');
     window.dispatchEvent(new Event('cartChanged'));
   };
+
+  const tabs = [
+    { label: 'Description', content: 
+    <>
+    <div className="p-2 flex flex-wrap md:flex-nowrap md:gap-10">
+      <div className='w-full md:w-4/6 border-r-2'>
+      <Para14
+                  title={parsedProduct.description && parsedProduct.description}
+                />
+      </div>
+
+                <ul className="list-disc  w-full md:w-2/6">
+                  {parsedProduct.spacification &&
+                    parsedProduct.spacification.map((array, index) => (
+                      <li key={index}>{array.specsDetails}</li>
+                    ))}
+                </ul>
+               
+                
+              </div>
+    </>
+    },
+    { label: 'Additional Information', content: <>
+    {parsedProduct.modelDetails ? (
+                  <DetailTable keypoint={parsedProduct.modelDetails} />
+                ) : null}
+    </> },
+    { label: 'Reviews', content: <><Review/></> },
+  ];
 
   return (
     <>
@@ -261,7 +291,9 @@ const ProductDetail = ({ parsedProduct }: any) => {
                   </Link>
                 </>
               )}
-              <ProductTabs product={parsedProduct} />
+
+
+              {/* <ProductTabs product={parsedProduct} /> */}
               {/* <div className="p-2 space-y-4">
                 <ul className="list-disc">
                   {parsedProduct.spacification &&
@@ -278,6 +310,7 @@ const ProductDetail = ({ parsedProduct }: any) => {
               </div> */}
             </div>
           </div>
+            <DetailTabs tabs={tabs} />
         </Container>
       )}
     </>

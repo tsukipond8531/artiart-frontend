@@ -21,7 +21,7 @@ const DetailTable: React.FC<DetailTableProps> = ({ keypoint }) => {
           return (
             <tr className={'hover:bg-gray-100 '} key={index}>
               <td
-                className={`px-6 py-4 whitespace-wrap ${boldFlag ? 'text-sm font-bold whitespace-nowrap' : 'whitespace-wrap'}  text-black border`}
+                className={`px-6 py-4 w-2/6 whitespace-wrap ${boldFlag ? 'text-sm font-bold whitespace-nowrap' : 'whitespace-wrap'}  text-black border`}
               >
                 {array.name}
               </td>
