@@ -86,7 +86,7 @@ const SearchData = ({ inputRef }) => {
               <div key={index} className="mt-5 mb-6">
                 <Link
                   href={{
-                    pathname: `/detail/${generateSlug(product.name)}`,
+                    pathname: `/product/${generateSlug(product.name)}`,
                   }}
                   className="text-black hover:text-gray-500 relative"
                 >

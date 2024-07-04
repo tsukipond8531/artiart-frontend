@@ -12,6 +12,7 @@ import Button from 'components/Common/Button';
 import DetailTable from 'components/Table/DetailTable';
 import { FaFacebookF } from 'react-icons/fa6';
 import Checkout from 'app/checkout/page';
+import ProductTabs from 'components/Tabs';
 
 const ProductDetail = ({ parsedProduct }: any) => {
   const [count, setCount] = useState(1);
@@ -169,7 +170,6 @@ const ProductDetail = ({ parsedProduct }: any) => {
                     );
                   })}
               </div>
-
               {selectedStock === 0 ? (
                 <>
                   <p className="font-semibold">
@@ -261,8 +261,8 @@ const ProductDetail = ({ parsedProduct }: any) => {
                   </Link>
                 </>
               )}
-
-              <div className="p-2 space-y-4">
+              <ProductTabs product={parsedProduct} />
+              {/* <div className="p-2 space-y-4">
                 <ul className="list-disc">
                   {parsedProduct.spacification &&
                     parsedProduct.spacification.map((array, index) => (
@@ -275,7 +275,7 @@ const ProductDetail = ({ parsedProduct }: any) => {
                 {parsedProduct.modelDetails ? (
                   <DetailTable keypoint={parsedProduct.modelDetails} />
                 ) : null}
-              </div>
+              </div> */}
             </div>
           </div>
         </Container>
