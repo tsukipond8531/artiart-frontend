@@ -20,6 +20,9 @@ export default function Home() {
   const [category, setCategory] = useState<any[]>();
   const [loading, setLoading] = useState<boolean>(false);
 
+
+  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
