@@ -1,4 +1,4 @@
-//@ts-nocheck
+// @ts-nocheck
 'use client';
 import React, { useState, useEffect } from 'react';
 import Thumbnail from 'components/Carousel/Thumbnail';
@@ -12,9 +12,26 @@ import Button from 'components/Common/Button';
 import DetailTable from 'components/Table/DetailTable';
 import { FaFacebookF } from 'react-icons/fa6';
 import Checkout from 'app/checkout/page';
+import DetailTabs from 'components/Tabs';
+import Review from '../Review';
+import axios from 'axios';
 
 const ProductDetail = ({ parsedProduct }: any) => {
   const [count, setCount] = useState(1);
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    fetchReviews();
+  }, [parsedProduct._id]);
+
+  const fetchReviews = async () => {
+    try {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews/getReviews/${parsedProduct._id}`);
+      setReviews(response.data.reviews);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   const findColorWithStock = () => {
     const colorWithStock = parsedProduct.colors.find((color) => {
@@ -100,6 +117,32 @@ const ProductDetail = ({ parsedProduct }: any) => {
     window.dispatchEvent(new Event('cartChanged'));
   };
 
+  const tabs = [
+    {
+      label: 'Description',
+      content: (
+        <div className="p-2 flex flex-wrap md:flex-nowrap md:gap-10">
+          <div className="w-full md:w-4/6 border-r-2">
+            <Para14 title={parsedProduct.description} />
+          </div>
+          <ul className="list-disc w-full md:w-2/6">
+            {parsedProduct.spacification?.map((spec, index) => (
+              <li key={index}>{spec.specsDetails}</li>
+            ))}
+          </ul>
+        </div>
+      ),
+    },
+    {
+      label: 'Additional Information',
+      content: parsedProduct.modelDetails ? <DetailTable keypoint={parsedProduct.modelDetails} /> : null,
+    },
+    {
+      label: 'Reviews',
+      content: <Review reviews={reviews} productId={parsedProduct._id} fetchReviews={fetchReviews} />,
+    },
+  ];
+
   return (
     <>
       {!parsedProduct ? null : (
@@ -169,7 +212,6 @@ const ProductDetail = ({ parsedProduct }: any) => {
                     );
                   })}
               </div>
-
               {selectedStock === 0 ? (
                 <>
                   <p className="font-semibold">
@@ -262,22 +304,9 @@ const ProductDetail = ({ parsedProduct }: any) => {
                 </>
               )}
 
-              <div className="p-2 space-y-4">
-                <ul className="list-disc">
-                  {parsedProduct.spacification &&
-                    parsedProduct.spacification.map((array, index) => (
-                      <li key={index}>{array.specsDetails}</li>
-                    ))}
-                </ul>
-                <Para14
-                  title={parsedProduct.description && parsedProduct.description}
-                />
-                {parsedProduct.modelDetails ? (
-                  <DetailTable keypoint={parsedProduct.modelDetails} />
-                ) : null}
-              </div>
             </div>
           </div>
+            <DetailTabs tabs={tabs} />
         </Container>
       )}
     </>

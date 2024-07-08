@@ -297,3 +297,7 @@ media-control-bar {
   .ant-select-selector {
   border-color: black;
 }
+
+.reviewstar.ant-rate{
+  font-size: 15px !important;
+}
