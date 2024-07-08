@@ -38,7 +38,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               >
                 <Link
                   href={{
-                    pathname: `/detail/${generateSlug(product.name)}`,
+                    pathname: `/product/${generateSlug(product.name)}`,
                   }}
                 >
                   <div className="relative overflow-hidden rounded-t-xl">
