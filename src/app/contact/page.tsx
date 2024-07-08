@@ -60,23 +60,6 @@ const Contact = () => {
       console.error(error);
       alert('Email sending failed!');
     }
-    // ts-ignore
-    // emailjs
-    //   .sendForm(
-    //     'service_3le7kke',
-    //     'template_ewqxd3o',
-    //     formRef.current,
-    //     'ml1hpKGA9feca31Sb',
-    //   )
-    //   .then((result) => {
-    //     console.log('Hello from email');
-    //     console.log(result);
-    //     alert('Email sent successfully!');
-    //   })
-    //   .catch((error) => {
-    //     console.error(error.text);
-    //     alert('Email sending failed!');
-    //   });
   };
 
   const handleClick = () => {
@@ -242,7 +225,7 @@ const Contact = () => {
                     rows={4}
                     placeholder="Message"
                     name="message"
-                    maxLength={6}
+                    // maxLength={6}
                     value={formData.message}
                     onChange={handleChange}
                   />
