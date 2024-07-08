@@ -108,7 +108,7 @@ const Review: React.FC = ({ reviews, productId, fetchReviews }: any) => {
               className="bg-black text-white py-3 px-4 rounded-none flex items-center gap-2"
               disabled={loading} // Disable button when loading
             >
-              {loading ? <Loader color="black" /> : <><IoIosSend size={25} /> Submit Review</>}
+              {loading ? <Loader color="#00000" /> : <><IoIosSend size={25} /> Submit Review</>}
             </button>
           </form>
         </div>
