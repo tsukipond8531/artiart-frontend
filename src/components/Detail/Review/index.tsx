@@ -5,7 +5,7 @@ import { Para14 } from 'components/Common/Paragraph';
 import { message, Rate } from 'antd';
 import Input from 'components/Common/Input';
 import { IoIosSend } from 'react-icons/io';
-import feedback from "../../../../public/assets/images/review.png";
+import feedback from '../../../../public/assets/images/review.png';
 import Image from 'next/image';
 import axios from 'axios';
 import Pagination from 'components/Common/Pagination';
@@ -29,7 +29,7 @@ const Review: React.FC = ({ reviews, productId, fetchReviews }: any) => {
 
   const currentItems = reviews.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+    currentPage * ITEMS_PER_PAGE,
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -63,6 +63,19 @@ const Review: React.FC = ({ reviews, productId, fetchReviews }: any) => {
   return (
     <div className="flex flex-wrap md:flex-nowrap justify-between md:gap-8">
       <div className="w-full md:w-4/6">
+<<<<<<< HEAD
+        {currentItems.map((array, index) => (
+          <div className="space-y-2 rounded-md p-2 mt-4 shadow" key={index}>
+            <div className="flex items-center gap-2">
+              <Image src={feedback} width={50} height={50} alt="feedback" />
+              <div>
+                <HeadingH6 title={array.name} />
+                <Rate
+                  className="reviewstar"
+                  disabled
+                  defaultValue={array.star}
+                />
+=======
         {currentItems.length > 0 ? (
           <>
             {currentItems.map((array: any, index: any) => (
@@ -75,6 +88,7 @@ const Review: React.FC = ({ reviews, productId, fetchReviews }: any) => {
                   </div>
                 </div>
                 <Para14 title={array.description} />
+>>>>>>> 3e215f0efbee05a58a4726ae94313e2c8748ecbb
               </div>
             ))}
             <Pagination
@@ -92,6 +106,26 @@ const Review: React.FC = ({ reviews, productId, fetchReviews }: any) => {
       </div>
       <div className="w-full md:w-2/6">
         <div className="bg-primary p-2 md:p-4 space-y-3">
+<<<<<<< HEAD
+          <HeadingH3 title={'Add A Review'} />
+          <Para14
+            title={
+              'Your Email Address Will Not Be Published. Required Fields Are Marked *'
+            }
+          />
+          <Rate />
+          <form className="space-y-3">
+            <Input type="text" name="Your Name *" placeholder="Your Name *" />
+            <Input
+              type="email"
+              name="Your Email Address "
+              placeholder="Your Email Address *"
+            />
+            <textarea
+              className="peer p-4 block w-full border rounded-md border-gray-200 text-sm placeholder:text-slate-400 disabled:opacity-50 disabled:pointer-events-none autofill:pb-2"
+              placeholder="Your Review *"
+            />
+=======
           <HeadingH3 title={"Add A Review"} />
           <Para14 title={"Your Email Address Will Not Be Published. Required Fields Are Marked *"} />
           <Rate onChange={handleStarChange} value={formData.star} />
@@ -99,6 +133,7 @@ const Review: React.FC = ({ reviews, productId, fetchReviews }: any) => {
           <form className="space-y-3" onSubmit={handleSubmit}>
             <Input type="text" name="name" placeholder="Your Name *" value={formData.name} onChange={handleChange} />
             <textarea className="peer p-4 block w-full border rounded-md border-gray-200 text-sm placeholder:text-slate-400 disabled:opacity-50 disabled:pointer-events-none autofill:pb-2" placeholder="Your Review *" name="description" value={formData.description} onChange={handleChange} />
+>>>>>>> 3e215f0efbee05a58a4726ae94313e2c8748ecbb
             <button className="bg-black text-white py-3 px-4 rounded-none flex items-center gap-2">
               <IoIosSend size={25} /> Submit Review
             </button>
