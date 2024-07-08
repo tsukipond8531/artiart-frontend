@@ -1,23 +1,4 @@
 
-// const VideoMain = () => {
-//   return (
-//     <video
-//       className="w-full object-cover h-[100%]"
-//       controls={false}
-//       loop
-//       muted
-//       autoPlay
-//       playsInline
-//       preload="none"
-//     >
-//       <source src="/assets/images/main.mp4" type="video/mp4" />
-//     </video>
-//   );
-// };
-// export default VideoMain;
-
-
-
 import { useEffect, useRef } from 'react';
 
 const VideoMain = () => {
@@ -54,7 +35,8 @@ const VideoMain = () => {
       muted
       autoPlay
       playsInline
-      preload="none"
+      preload="metadata"
+
     >
       <source src="/assets/images/main.mp4" type="video/mp4" />
       Your browser does not support the video tag.
