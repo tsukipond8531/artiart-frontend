@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Rate } from 'antd';
 import Input from 'components/Common/Input';
 import { IoIosSend } from 'react-icons/io';
-import feedback from "../../../../public/assets/images/review.png";
+import feedback from '../../../../public/assets/images/review.png';
 import Image from 'next/image';
 import Pagination from 'components/Common/Pagination';
 
@@ -36,7 +36,7 @@ const Review: React.FC = () => {
 
   const currentItems = UsersView.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+    currentPage * ITEMS_PER_PAGE,
   );
 
   return (
@@ -48,7 +48,11 @@ const Review: React.FC = () => {
               <Image src={feedback} width={50} height={50} alt="feedback" />
               <div>
                 <HeadingH6 title={array.name} />
-                <Rate className='reviewstar' disabled defaultValue={array.star} />
+                <Rate
+                  className="reviewstar"
+                  disabled
+                  defaultValue={array.star}
+                />
               </div>
             </div>
             <Para14 title={array.description} />
@@ -62,14 +66,24 @@ const Review: React.FC = () => {
       </div>
       <div className="w-full md:w-2/6">
         <div className="bg-primary p-2 md:p-4 space-y-3">
-          <HeadingH3 title={"Add A Review"} />
-          <Para14 title={"Your Email Address Will Not Be Published. Required Fields Are Marked *"} />
+          <HeadingH3 title={'Add A Review'} />
+          <Para14
+            title={
+              'Your Email Address Will Not Be Published. Required Fields Are Marked *'
+            }
+          />
           <Rate />
           <form className="space-y-3">
             <Input type="text" name="Your Name *" placeholder="Your Name *" />
-            <Input type="email" name="Your Email Address " placeholder="Your Email Address *" />
-            <Input type="text" name="Your Name *" placeholder="Your Name *" />
-            <textarea className="peer p-4 block w-full border rounded-md border-gray-200 text-sm placeholder:text-slate-400 disabled:opacity-50 disabled:pointer-events-none autofill:pb-2" placeholder="Your Review *" />
+            <Input
+              type="email"
+              name="Your Email Address "
+              placeholder="Your Email Address *"
+            />
+            <textarea
+              className="peer p-4 block w-full border rounded-md border-gray-200 text-sm placeholder:text-slate-400 disabled:opacity-50 disabled:pointer-events-none autofill:pb-2"
+              placeholder="Your Review *"
+            />
             <button className="bg-black text-white py-3 px-4 rounded-none flex items-center gap-2">
               <IoIosSend size={25} /> Submit Review
             </button>
