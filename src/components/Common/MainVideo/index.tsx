@@ -1,5 +1,4 @@
-'use client';
-import React from 'react';
+
 const VideoMain = () => {
   return (
     <video
@@ -9,6 +8,7 @@ const VideoMain = () => {
       muted
       autoPlay
       playsInline
+      preload="none"
     >
       <source src="/assets/images/main.mp4" type="video/mp4" />
     </video>
