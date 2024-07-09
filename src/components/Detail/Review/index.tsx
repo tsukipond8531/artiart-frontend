@@ -18,6 +18,7 @@ const Review: React.FC = ({ reviews, productId, fetchReviews }: any) => {
   const [formData, setFormData] = useState({
     productId: productId,
     name: '',
+    email:'',
     description: '',
     star: 0,
   });
@@ -53,6 +54,7 @@ const Review: React.FC = ({ reviews, productId, fetchReviews }: any) => {
       setFormData({
         productId: productId,
         name: '',
+        email:'',
         description: '',
         star: 0,
       });
@@ -76,7 +78,7 @@ const Review: React.FC = ({ reviews, productId, fetchReviews }: any) => {
                   <Image src={feedback} width={50} height={50} alt="feedback" />
                   <div>
                     <HeadingH6 title={array.name} />
-                    <Rate className='reviewstar' disabled defaultValue={array.star} />
+                    <Rate className='reviewstar' disabled value={array.star} />
                   </div>
                 </div>
                 <Para14 title={array.description} />
@@ -102,6 +104,7 @@ const Review: React.FC = ({ reviews, productId, fetchReviews }: any) => {
 
           <form className="space-y-3" onSubmit={handleSubmit}>
             <Input type="text" name="name" placeholder="Your Name *" value={formData.name} onChange={handleChange} />
+            <Input type="text" name="email" placeholder="Your Email *" value={formData.email} onChange={handleChange} />
             <textarea className="peer p-4 block w-full border rounded-md border-gray-200 text-sm placeholder:text-slate-400 disabled:opacity-50 disabled:pointer-events-none autofill:pb-2" placeholder="Your Review *" name="description" value={formData.description} onChange={handleChange} />
             <button 
               type="submit"
