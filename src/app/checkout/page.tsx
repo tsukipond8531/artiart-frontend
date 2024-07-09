@@ -87,6 +87,7 @@ const Checkout = () => {
           { token, orderId, amount: totalPayment, billingData },
         );
         const paymentKey = paymentKeyResponse.data.paymentKey;
+
         window.location.href = `${process.env.NEXT_PUBLIC_PAYMOD_BASE_URL}/iframes/${process.env.NEXT_PUBLIC_PAYMOB_IFRAME_ID}?payment_token=${paymentKey}`;
       } catch (error) {
         showToast(
