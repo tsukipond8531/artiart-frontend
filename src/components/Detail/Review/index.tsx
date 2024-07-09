@@ -104,7 +104,8 @@ const Review: React.FC = ({ reviews, productId, fetchReviews }: any) => {
 
           <form className="space-y-3" onSubmit={handleSubmit}>
             <Input type="text" name="name" placeholder="Your Name *" value={formData.name} onChange={handleChange} />
-            <Input type="text" name="email" placeholder="Your Email *" value={formData.email} onChange={handleChange} />
+            
+            <Input type="email" name="email" placeholder="Your Email *" value={formData.email} onChange={handleChange} />
             <textarea className="peer p-4 block w-full border rounded-md border-gray-200 text-sm placeholder:text-slate-400 disabled:opacity-50 disabled:pointer-events-none autofill:pb-2" placeholder="Your Review *" name="description" value={formData.description} onChange={handleChange} />
             <button 
               type="submit"
