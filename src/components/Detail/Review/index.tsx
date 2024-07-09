@@ -9,6 +9,7 @@ import feedback from "../../../../public/assets/images/review.png";
 import Image from 'next/image';
 import axios from 'axios';
 import Pagination from 'components/Common/Pagination';
+import Loader from 'components/Loader/Loader';
 
 const ITEMS_PER_PAGE = 4;
 
@@ -17,9 +18,11 @@ const Review: React.FC = ({ reviews, productId, fetchReviews }: any) => {
   const [formData, setFormData] = useState({
     productId: productId,
     name: '',
+    email:'',
     description: '',
     star: 0,
   });
+  const [loading, setLoading] = useState(false); // State to manage loading
 
   const totalPages = Math.ceil(reviews.length / ITEMS_PER_PAGE);
 
@@ -43,6 +46,7 @@ const Review: React.FC = ({ reviews, productId, fetchReviews }: any) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true); // Set loading to true when form submission starts
     try {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews/addReview`, formData);
       message.success('Review submitted successfully!');
@@ -50,6 +54,7 @@ const Review: React.FC = ({ reviews, productId, fetchReviews }: any) => {
       setFormData({
         productId: productId,
         name: '',
+        email:'',
         description: '',
         star: 0,
       });
@@ -57,6 +62,8 @@ const Review: React.FC = ({ reviews, productId, fetchReviews }: any) => {
       fetchReviews();
     } catch (error) {
       message.error("Error submitting the form:");
+    } finally {
+      setLoading(false); // Set loading to false when form submission ends
     }
   };
 
@@ -71,7 +78,7 @@ const Review: React.FC = ({ reviews, productId, fetchReviews }: any) => {
                   <Image src={feedback} width={50} height={50} alt="feedback" />
                   <div>
                     <HeadingH6 title={array.name} />
-                    <Rate className='reviewstar' disabled defaultValue={array.star} />
+                    <Rate className='reviewstar' disabled value={array.star} />
                   </div>
                 </div>
                 <Para14 title={array.description} />
@@ -88,7 +95,6 @@ const Review: React.FC = ({ reviews, productId, fetchReviews }: any) => {
             There Is No Reviews Available
           </>
         )}
-
       </div>
       <div className="w-full md:w-2/6">
         <div className="bg-primary p-2 md:p-4 space-y-3">
@@ -98,9 +104,15 @@ const Review: React.FC = ({ reviews, productId, fetchReviews }: any) => {
 
           <form className="space-y-3" onSubmit={handleSubmit}>
             <Input type="text" name="name" placeholder="Your Name *" value={formData.name} onChange={handleChange} />
+            
+            <Input type="email" name="email" placeholder="Your Email *" value={formData.email} onChange={handleChange} />
             <textarea className="peer p-4 block w-full border rounded-md border-gray-200 text-sm placeholder:text-slate-400 disabled:opacity-50 disabled:pointer-events-none autofill:pb-2" placeholder="Your Review *" name="description" value={formData.description} onChange={handleChange} />
-            <button className="bg-black text-white py-3 px-4 rounded-none flex items-center gap-2">
-              <IoIosSend size={25} /> Submit Review
+            <button 
+              type="submit"
+              className="bg-black text-white py-3 px-4 rounded-none flex items-center gap-2"
+              disabled={loading} // Disable button when loading
+            >
+              {loading ? <Loader color="#00000" /> : <><IoIosSend size={25} /> Submit Review</>}
             </button>
           </form>
         </div>

@@ -12,6 +12,7 @@ import React, { useState, useRef } from 'react';
 import { useForm, ValidationError } from '@formspree/react';
 import emailjs from 'emailjs-com';
 import Link from 'next/link';
+import axios from 'axios';
 
 const Contact = () => {
   const formRef = useRef(null);
@@ -32,27 +33,33 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     const form = e.target; // Access the form element
     console.log(formRef.current, 'form');
     if (!formRef.current) return null;
-    // ts-ignore
-    emailjs
-      .sendForm(
-        'service_3le7kke',
-        'template_ewqxd3o',
-        formRef.current,
-        'ml1hpKGA9feca31Sb',
-      )
-      .then((result) => {
-        console.log(result.text);
+
+    try {
+      const response = await axios.post(
+        `${[process.env.NEXT_PUBLIC_BASE_URL]}/api/sendEmail`,
+        formData,
+      );
+      if (response.status === 200) {
         alert('Email sent successfully!');
-      })
-      .catch((error) => {
-        console.error(error.text);
+        setFormData({
+          name: '',
+          email: '',
+          number: '',
+          message: '',
+          subject: '',
+        });
+      } else {
         alert('Email sending failed!');
-      });
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Email sending failed!');
+    }
   };
 
   const handleClick = () => {
@@ -218,7 +225,7 @@ const Contact = () => {
                     rows={4}
                     placeholder="Message"
                     name="message"
-                    maxLength={6}
+                    // maxLength={6}
                     value={formData.message}
                     onChange={handleChange}
                   />
