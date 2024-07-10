@@ -47,7 +47,6 @@ const Checkout = () => {
   useEffect(() => {
     ProductHandler();
   }, []);
-  console.log(Products);
   const parseSubtotal = search ? JSON.parse(search) : null;
   const [billingData, setBillingData] = useState({
     first_name: '',
@@ -121,23 +120,6 @@ const Checkout = () => {
     }
   };
 
-
-
-  
-//   const handlePayment = async () => {
-//     try {
-//       let totalPayment = parseSubtotal > 100 ? parseSubtotal : parseSubtotal + 15;
-//       // Step 1: Authenticate and get the token
-//       const authResponse = await axios.post(
-//         `${process.env.NEXT_PUBLIC_BASE_URL}/api/payment/authenticate`,
-//       );
-//       const token = authResponse.data.token;
-// await payementIntention ()
-
-//     } catch (error) {
-//       console.error('Payment Error:', error);
-//     }
-//   };
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
