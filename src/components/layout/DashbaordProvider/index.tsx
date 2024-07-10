@@ -19,6 +19,7 @@ import { useRouter } from 'next/navigation';
 import ProtectedRoute from 'hooks/AuthHookAdmin';
 import { ProductWithImages } from 'types/interfaces';
 import SEO from 'components/SEO/SEO';
+import Orders from 'components/order/Orders';
 
 const DashboardProvider = ({ children }: any) => {
   const { Header, Sider, Content } = Layout;
@@ -75,6 +76,12 @@ const DashboardProvider = ({ children }: any) => {
       icon: <RiUserSearchLine />,
       label: 'SEO',
       onClick: () => handleAddProductsClick('SEO_FORM'),
+    },
+    {
+      key: '4',
+      icon: <RiUserSearchLine />,
+      label: 'Orders',
+      onClick: () => handleAddProductsClick('Orders'),
     },
   ];
 
@@ -227,7 +234,10 @@ const DashboardProvider = ({ children }: any) => {
             />
           ) : selectedMenu === 'SEO_FORM' ? (
             <SEO />
-          ) : (
+          ) : 
+          selectedMenu === 'Orders' ? <Orders/>:
+          
+          (
             <CategoryForm
               setselecteMenu={setSelectedMenu}
               seteditCategory={setEditCategory}
