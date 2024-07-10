@@ -1,5 +1,4 @@
 'use client'
-import { } from 'next/navigation';
 import { useSearchParams } from 'next/navigation'
 import { useState } from 'react';
 
@@ -10,7 +9,7 @@ export interface PaymentQueryParams {
     id: string | null;
     amount_cents: string| null ;
     success: string | null;
-    integration_id: string | null,
+    // integration_id: string | null,
     currency: string | null,
     is_refund: string | null,
     order: string | null,
@@ -27,7 +26,7 @@ const PostPayhnalder = () => {
     const id = searchParams.get('id')
     const amount_cents = searchParams.get('amount_cents')
     const success = searchParams.get('success')
-    const integration_id = searchParams.get('integration_id')
+    // const integration_id = searchParams.get('integration_id')
     const created_at = searchParams.get('created_at')
     const currency = searchParams.get('currency')
     const is_refund = searchParams.get('is_refund')
@@ -40,7 +39,7 @@ const PostPayhnalder = () => {
         id,
         success,
         amount_cents,
-        integration_id,
+        // integration_id,
         currency,
         is_refund,
         order,

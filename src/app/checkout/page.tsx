@@ -65,68 +65,7 @@ const Checkout = () => {
   });
 
 
-const payementIntention = async()=>{
-  var myHeaders = new Headers();
-myHeaders.append("Authorization", `Token sk_test_626ba4a60a6f9cf4b0bc066ad3de884e93693afd5218ef832e99cbdf76a0fb37`);
-myHeaders.append("Content-Type", "application/json");
 
-var raw = JSON.stringify({
-  "amount": 10,
-  "currency": "AED",
-  "payment_methods": [
-    "card/174077"
-  ],
-  "items": [
-    {
-      "name": "Item name 1",
-      "amount": 10,
-      "description": "Watch",
-      "quantity": 1
-    }
-  ],
-  "billing_data": {
-    "apartment": "6",
-    "first_name": "Ammar",
-    "last_name": "Sadek",
-    "street": "938, Al-Jadeed Bldg",
-    "building": "939",
-    "phone_number": "+96824480228",
-    "country": "uae",
-    "email": "AmmarSadek@gmail.com",
-    "floor": "1",
-    "state": "Alkhuwair"
-  },
-  "special_reference": "ABCDE8121",
-  "customer": {
-    "first_name": "Ammar",
-    "last_name": "Sadek",
-    "email": "AmmarSadek@gmail.com",
-    "extras": {
-      "re": "22"
-    }
-  },
-  "extras": {
-    "ee": 22
-  },
-  "integrations": [
-    "174077",
-    174077
-  ]
-});
-
-var requestOptions:any = {
-  method: 'POST',
-  headers: myHeaders,
-  body: raw,
-  redirect: 'follow'
-};
-
-fetch("https://uae.paymob.com/v1/intention/", requestOptions)
-  .then(response => response.text())
-  .then(result =>{ console.log("result", result)})
-  
-  .catch(error => console.log('error', error));
-}
 
   const handlePayment = async () => {
     try {
