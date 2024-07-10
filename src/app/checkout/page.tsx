@@ -34,7 +34,6 @@ const Checkout = () => {
   const [cartproduct, setCartProduct] = useState<any[]>([]);
   const searchParams = useSearchParams();
   const search = searchParams.get('subtotal');
-  let Products = localStorage.getItem('cart');
   const ProductHandler = () => {
     let Products = localStorage.getItem('cart');
 
@@ -142,7 +141,7 @@ const Checkout = () => {
       setBillingData({ ...billingData, [name]: value });
     }
   };
-  console.log(billingData, 'billingData');
+  console.log(billingData.state, 'billingData.state');
 
   return (
     <>
@@ -249,6 +248,24 @@ const Checkout = () => {
                 />
               </Form.Item>
             </Col>
+
+            <Col span={12}>
+              <Form.Item<FieldType>
+                name="country"
+                rules={[{ required: true, message: 'Select country' }]}
+                label={'Country/Region'}
+              >
+                <SelectInput
+                  name="country"
+                  placeholder={'Country/Region'}
+                  value={billingData.country}
+                  onChange={handleSelectChange}
+                  selectoption={[{ title: 'United Arab Emirates' }]}
+                />
+              </Form.Item>
+            </Col>
+
+
             <Col span={12}>
               <Form.Item<FieldType>
                 label={'State'}
@@ -272,21 +289,7 @@ const Checkout = () => {
                 />
               </Form.Item>
             </Col>
-            <Col span={12}>
-              <Form.Item<FieldType>
-                name="country"
-                rules={[{ required: true, message: 'Select country' }]}
-                label={'Country/Region'}
-              >
-                <SelectInput
-                  name="country"
-                  placeholder={'Country/Region'}
-                  value={billingData.country}
-                  onChange={handleSelectChange}
-                  selectoption={[{ title: 'United Arab Emirates' }]}
-                />
-              </Form.Item>
-            </Col>
+           
           </Row>
 
           <div className="p-2">

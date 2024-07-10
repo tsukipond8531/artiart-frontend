@@ -1,18 +1,20 @@
 'use client'
+import axios from 'axios';
+import { error } from 'console';
 import { useSearchParams } from 'next/navigation'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 
 // types.ts
 export interface PaymentQueryParams {
     id: string | null;
-    amount_cents: string| null ;
+    amount_cents: string | null;
     success: string | null;
-    // integration_id: string | null,
+    integration_id: string | null,
     currency: string | null,
     is_refund: string | null,
-    order: string | null,
+    order_id: string | null,
     pending: string | null,
     is_3d_secure: string | null,
     created_at: string | null
@@ -26,11 +28,11 @@ const PostPayhnalder = () => {
     const id = searchParams.get('id')
     const amount_cents = searchParams.get('amount_cents')
     const success = searchParams.get('success')
-    // const integration_id = searchParams.get('integration_id')
+    const integration_id = searchParams.get('integration_id')
     const created_at = searchParams.get('created_at')
     const currency = searchParams.get('currency')
     const is_refund = searchParams.get('is_refund')
-    const order = searchParams.get('order')
+    const order_id = searchParams.get('order')
     const pending = searchParams.get('pending')
     const is_3d_secure = searchParams.get('is_3d_secure')
 
@@ -39,20 +41,36 @@ const PostPayhnalder = () => {
         id,
         success,
         amount_cents,
-        // integration_id,
+        integration_id,
         currency,
         is_refund,
-        order,
+        order_id,
         pending,
         is_3d_secure,
         created_at
     }
     const [payementDetails, setpayementDetails] = useState<PaymentQueryParams>(paymentObject)
-const dbFunctionHandler =()=>{
-    
-}
+    const dbFunctionHandler = async () => {
+        try {
+            if (!id || !success || !amount_cents || !integration_id || !currency || !order_id || !pending || !is_3d_secure || !created_at) {
+                throw new Error('Missing required fields in request body')
+            }
+            const response = await axios.post(
+                `${[process.env.NEXT_PUBLIC_BASE_URL]}/api/payment/postPayhnalder`, payementDetails,);
+            console.log(response, "response")
+        } catch (error) {
+            console.log(error, "err")
+        }
+
+    }
 
 
+    useEffect(() => {
+        dbFunctionHandler()
+    }, [])
+
+
+    console.log(payementDetails, "payementDetails")
     return (
         <div>
             <h1>Payment Handler</h1>
