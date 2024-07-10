@@ -33,6 +33,7 @@ const Contact = () => {
     }));
   };
 
+  
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const form = e.target; // Access the form element
