@@ -20,6 +20,7 @@ import ProtectedRoute from 'hooks/AuthHookAdmin';
 import { ProductWithImages } from 'types/interfaces';
 import SEO from 'components/SEO/SEO';
 import Orders from 'components/order/Orders';
+import { FcSalesPerformance } from 'react-icons/fc';
 
 const DashboardProvider = ({ children }: any) => {
   const { Header, Sider, Content } = Layout;
@@ -79,7 +80,7 @@ const DashboardProvider = ({ children }: any) => {
     },
     {
       key: '4',
-      icon: <RiUserSearchLine />,
+      icon: <FcSalesPerformance />,
       label: 'Orders',
       onClick: () => handleAddProductsClick('Orders'),
     },

@@ -12,6 +12,10 @@ import axios from 'axios';
 import { Para14 } from 'components/Common/Paragraph';
 import Image from 'next/image';
 import showToast from 'components/Toaster/Toaster';
+import { Select } from 'antd';
+import Loader from 'components/Loader/Loader';
+
+const { Option } = Select;
 
 type FieldType = {
   first_name: string;
@@ -30,8 +34,20 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
 };
 
 
+const selectoption=[
+  { title: 'Dubai' },
+  { title: 'Abu Dhabi' },
+  { title: 'Sharjah' },
+  { title: 'Ajman' },
+  { title: 'Ras Al Khaima' },
+  { title: 'Umm Al Quwain' },
+  { title: 'Fujairah' },
+]
+
+
 const Checkout = () => {
   const [cartproduct, setCartProduct] = useState<any[]>([]);
+  const [loading, setloading] = useState<boolean>(false);
   const searchParams = useSearchParams();
   const search = searchParams.get('subtotal');
   const ProductHandler = () => {
@@ -70,6 +86,7 @@ const Checkout = () => {
       let totalPayment =
         parseSubtotal > 100 ? parseSubtotal : parseSubtotal + 15;
       // Step 1: Authenticate and get the token
+      setloading(true)
       const authResponse = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/payment/authenticate`,
       );
@@ -98,24 +115,10 @@ const Checkout = () => {
           'Something is wrong. Please check the input fields.',
         );
       }
-
-      // const checkPaymentStatus = async () => {
-      //   const paymentStatusResponse = await axios.get(
-      //     `${process.env.NEXT_PUBLIC_BASE_URL}/api/payment/status`,
-      //     { params: { orderId } },
-      //   );
-      //   if (paymentStatusResponse.data.status === 'paid') {
-      //     window.location.href = '/thank-you';
-      //   } else if (paymentStatusResponse.data.status === 'failed') {
-      //     window.location.href = '/payment-failed';
-      //   } else {
-      //     setTimeout(checkPaymentStatus, 5000); // Poll every 5 seconds
-      //   }
-      // };
-
-      // checkPaymentStatus();
     } catch (error) {
       console.error('Payment Error:', error);
+    }finally{
+      setloading(false)
     }
   };
 
@@ -125,23 +128,12 @@ const Checkout = () => {
     setBillingData({ ...billingData, [name]: value });
   };
 
-  const handleSelectChange = (name: string, value: string) => {
-    if (name === 'address') {
-      const [building, street, city] = value
-        .split(',')
-        .map((part) => part.trim());
-      setBillingData({
-        ...billingData,
-        street: street,
-        building: building,
-        city: city,
-        address: value,
-      });
-    } else {
-      setBillingData({ ...billingData, [name]: value });
+  const handleSelectChange = ( value: string) => {
+     setBillingData({ ...billingData, state: value });
     }
-  };
-  console.log(billingData.state, 'billingData.state');
+console.log(billingData, 
+  "billingData"
+)
 
   return (
     <>
@@ -250,32 +242,43 @@ const Checkout = () => {
             </Col>
 
             <Col span={12}>
-              <Form.Item<FieldType>
-                name="country"
-                rules={[{ required: true, message: 'Select country' }]}
-                label={'Country/Region'}
-              >
-                <SelectInput
-                  name="country"
-                  placeholder={'Country/Region'}
-                  value={billingData.country}
-                  onChange={handleSelectChange}
-                  selectoption={[{ title: 'United Arab Emirates' }]}
-                />
-              </Form.Item>
+            <Form.Item<FieldType>
+              name="country"
+              rules={[{ required: true, message: 'Select country' }]}
+              label={'Country/Region'}
+            >
+     
+
+
+<Select
+      className="h-[52px]"
+           placeholder='Country/Region'
+           value={billingData.country}
+     onChange={(value)=>{setBillingData({ ...billingData, country: value })}}
+    >
+      {[{ title: 'United Arab Emirates' }].map((option, index) => (
+        <Option value={option.title} key={index}>
+          {option.title}
+        </Option>
+      ))}
+    </Select>
+
+            </Form.Item>
             </Col>
 
 
             <Col span={12}>
               <Form.Item<FieldType>
-                label={'State'}
+                label='State'
                 name="state"
                 rules={[{ required: true, message: 'Please select state' }]}
               >
-                <SelectInput
+
+                
+                {/* <Select
                   name="state"
-                  placeholder={'Select you state'}
-                  value={billingData.state}
+                  placeholder='Select you state'
+                  value={billingData.state ? billingData.state : 'changes'}
                   onChange={handleSelectChange}
                   selectoption={[
                     { title: 'Dubai' },
@@ -286,7 +289,22 @@ const Checkout = () => {
                     { title: 'Umm Al Quwain' },
                     { title: 'Fujairah' },
                   ]}
-                />
+                /> */}
+
+<Select
+      className="h-[52px]"
+      placeholder='Select you state'
+      value={billingData.state}
+      onChange={handleSelectChange}
+    >
+      {selectoption.map((option, index) => (
+        <Option value={option.title} key={index}>
+          {option.title}
+        </Option>
+      ))}
+    </Select>
+
+
               </Form.Item>
             </Col>
            
@@ -404,8 +422,9 @@ const Checkout = () => {
                       <button
                         className="bg-black rounded-md text-white w-full m-auto p-2 my-5"
                         onClick={handlePayment}
+                        disabled={loading}
                       >
-                        Place Order
+                    { loading ? <Loader color='#fff'/> :   "Place Order"}
                       </button>
                     </div>
                   </div>

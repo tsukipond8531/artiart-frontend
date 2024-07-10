@@ -176,7 +176,6 @@ const getAllOrder = async()=>{
     },[])
   return (
     <div>
-        <button onClick={getAllOrder}>getAllOrder</button>
       {orderLoading ? (
         <div className="flex justify-center mt-10">
           <Loader />

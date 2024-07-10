@@ -54,10 +54,13 @@ const PostPayhnalder = () => {
     }
     const [payementDetails, setpayementDetails] = useState<PaymentQueryParams>(paymentObject)
     const dbFunctionHandler = async () => {
+
+
         try {
             if (!id || !success || !amount_cents || !integration_id || !currency || !order_id || !pending || !is_3d_secure || !created_at) {
                 throw new Error('Missing required fields in request body')
             }
+            if(success) localStorage.removeItem('cart')
             const response = await axios.post(
                 `${[process.env.NEXT_PUBLIC_BASE_URL]}/api/payment/postPayhnalder`, payementDetails,);
             console.log(response, "response")

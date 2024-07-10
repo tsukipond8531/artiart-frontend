@@ -1,3 +1,5 @@
+
+'use client'
 import React from 'react';
 import { Select } from 'antd';
 
@@ -15,25 +17,26 @@ interface SelectInputProps {
   selectoption: Options[];
 }
 
-const SelectInput: React.FC<SelectInputProps> = ({
-  name,
-  placeholder,
-  value,
-  onChange,
-  selectoption,
-}) => (
-  <Select
-    className="h-[52px]"
-    placeholder={placeholder}
-    value={value}
-    onChange={(val) => onChange(name, val)}
-  >
-    {selectoption.map((array, index) => (
-      <Option value={array.title} key={index}>
-        {array.title}
-      </Option>
-    ))}
-  </Select>
-);
+const SelectInput: React.FC<SelectInputProps> = ({ name, placeholder, value, onChange, selectoption }) => {
+  console.log(`Rendering SelectInput: name=${name}, value=${value}`);
+
+  return (
+    <Select
+      className="h-[52px]"
+      placeholder={placeholder}
+      value={value}
+      onChange={(val) => {
+        console.log(`Select onChange: name=${name}, val=${val}`);
+        onChange(name, val);
+      }}
+    >
+      {selectoption.map((option, index) => (
+        <Option value={option.title} key={index}>
+          {option.title}
+        </Option>
+      ))}
+    </Select>
+  );
+};
 
 export default SelectInput;
