@@ -124,10 +124,20 @@ function Orders() {
             dataIndex: 'transactoinDate',
             key: 'date',
             render: (text: any, record: any) => {
-              const createdAt = new Date(record.transactionDate);
-              const formattedDate = `${createdAt.getFullYear()}-${String(
-                createdAt.getMonth() + 1,
-              ).padStart(2, '0')}-${String(createdAt.getDate()).padStart(2, '0')}`;
+                
+                let formattedDate ;
+                if(record.transactionDate){
+                    let  createdAt =   new Date(record.transactionDate);
+                    formattedDate=  `${createdAt.getFullYear()}-${String(
+                        createdAt.getMonth() + 1,
+                      ).padStart(2, '0')}-${String(createdAt.getDate()).padStart(2, '0')}`;
+
+                }
+                else {
+                    formattedDate= "Transaction Not Available"  
+                }
+
+              
               return <span>{formattedDate}</span>;
             },
           },
