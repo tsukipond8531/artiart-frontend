@@ -6,8 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Providers } from '../Providers';
 import React, { Suspense } from 'react';
 import Head from 'next/head';
-import icon from '../../public/assets/images/favicon.ico';
-import Link from 'next/link';
+
 import { GoogleTagManager } from '@next/third-parties/google';
 const inter = Inter({ subsets: ['latin'] });
 
@@ -25,16 +24,17 @@ export default function RootLayout({
     <Providers>
       <html lang="en">
         <GoogleTagManager gtmId="GTM-TPTTH6Q7" />
-      <head>
+        <head>
 
-      <noscript>
-          <div dangerouslySetInnerHTML={{ __html: `&lt;img height="1" width="1" style="display:none"
+          <noscript>
+            <div dangerouslySetInnerHTML={{
+              __html: `&lt;img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=734868487823383&amp;ev=PageView&amp;noscript=1"
             /&gt;` }} />
-        </noscript>
+          </noscript>
 
-        
-      </head>
+
+        </head>
         <body className={inter.className}>
           <GoogleTagManager gtmId="GTM-TPTTH6Q7" />
           <Suspense>
