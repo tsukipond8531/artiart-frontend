@@ -43,7 +43,7 @@ const Footer = () => {
               <Logo className="flex justify-center lg:justify-start" />
               <p className="text-center text-gray-900 text-14">
                 Trusted in more than 100 countries &amp; 5 million customers.
-                Have any query? contact us we are here for you.
+                Have any query? contact us we are here for you!!
               </p>
               <div className="flex  space-x-4 sm:justify-center  ">
                 <Link
