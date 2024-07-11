@@ -7,7 +7,7 @@ import {
   VideoCameraOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
-import { RiUserSearchLine } from 'react-icons/ri';
+import { RiProductHuntLine, RiUserSearchLine } from 'react-icons/ri';
 import Logo from 'components/Common/Logo';
 import AddProductForm from 'components/AddProducts/Products';
 import Allproducts from 'components/AddProducts/Allproducts';
@@ -21,6 +21,8 @@ import { ProductWithImages } from 'types/interfaces';
 import SEO from 'components/SEO/SEO';
 import Orders from 'components/order/Orders';
 import { FcSalesPerformance } from 'react-icons/fc';
+import { MdOutlineCategory } from 'react-icons/md';
+import { GrDocumentPerformance } from 'react-icons/gr';
 
 const DashboardProvider = ({ children }: any) => {
   const { Header, Sider, Content } = Layout;
@@ -62,13 +64,13 @@ const DashboardProvider = ({ children }: any) => {
   const menuArray = [
     {
       key: '1',
-      icon: <UserOutlined />,
+      icon: <RiProductHuntLine />,
       label: 'Add Products',
       onClick: () => handleAddProductsClick('Add All Products'),
     },
     {
       key: '2',
-      icon: <VideoCameraOutlined />,
+      icon: <MdOutlineCategory />,
       label: 'Add Category',
       onClick: () => handleAddProductsClick('Add Category'),
     },
@@ -80,7 +82,7 @@ const DashboardProvider = ({ children }: any) => {
     },
     {
       key: '4',
-      icon: <FcSalesPerformance />,
+      icon: <GrDocumentPerformance />,
       label: 'Orders',
       onClick: () => handleAddProductsClick('Orders'),
     },
