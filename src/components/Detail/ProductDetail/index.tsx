@@ -143,6 +143,8 @@ const ProductDetail = ({ parsedProduct }: any) => {
     },
   ];
 
+  
+
   return (
     <>
       {!parsedProduct ? null : (
