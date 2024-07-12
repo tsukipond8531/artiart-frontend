@@ -11,6 +11,9 @@ import { TbTruckDelivery } from 'react-icons/tb';
 function Orders() {
   const [orders, setOrders] = useState<any[]>([])
   const [orderLoading, setorderLoading] = useState(false)
+  const [searchText, setSearchText] = useState('');
+  const [filteredOrders, setFilteredOrders] = useState<any[]>([]);
+
 console.log(process.env.NEXT_PUBLIC_fenix_baseUrl, "process.env.NEXT_PUBLIC_fenix_baseUrl")
 
 const deliveryCreateHandler =async()=>{
@@ -163,16 +166,24 @@ console.log(authentication_response, "authentication_response")
       return <span><TbTruckDelivery onClick={deliveryCreateHandler} className='cursor-pointer text-cyan-500' size={30}/></span>
       },
     },
-
-
-
-
   ];
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.toLowerCase();
+    setSearchText(value);
+    const filteredData = orders.filter(order =>
+      order.order_id.toLowerCase().includes(value) ||
+      order.email.toLowerCase().includes(value) ||
+      (order.first_name + ' ' + order.last_name).toLowerCase().includes(value)
+    );
+    setFilteredOrders(filteredData);
+  };
 
 
   const getAllOrder = async () => {
     const token = localStorage.getItem('2guysAdminToken');
-    if (!token) return
+    if (!token) return;
+
     const transactionIdColumn = {
       title: 'Transaction ID',
       dataIndex: 'transactionId',
@@ -181,19 +192,14 @@ console.log(authentication_response, "authentication_response")
 
     try {
       setorderLoading(true);
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admins/getAllorders`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admins/getAllorders`, {
         headers: {
           token: token
         }
-      }
-      );
-      response.data.Orders
-
+      });
       setOrders(response.data.Orders);
-      console.log(response.data.Orders, "  response.data.Orders")
+      setFilteredOrders(response.data.Orders);
       if (response.data.Orders.some((order: any) => order.transactionId)) {
-
         columns.push(transactionIdColumn);
       }
     } catch (error) {
@@ -201,11 +207,13 @@ console.log(authentication_response, "authentication_response")
     } finally {
       setorderLoading(false);
     }
+  };
 
-  }
   useEffect(() => {
-    getAllOrder()
-  }, [])
+    getAllOrder();
+  }, []);
+
+  
   return (
     <div>
       {orderLoading ? (
@@ -214,25 +222,33 @@ console.log(authentication_response, "authentication_response")
         </div>
       ) : (
         <>
-          <div className="flex justify-between mb-4 items-center">
-            <p>Orders</p>
-
+          <div className="flex justify-between mb-4 items-center flex-wrap">
+            <input
+              className="lg:p-3 p-2 block outline-none border rounded-md border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+              type="search"
+              placeholder="Search Orders"
+              value={searchText}
+              onChange={handleSearch}
+            />
+            <div>
+              <p>Orders</p>
+            </div>
           </div>
-          {orders && orders.length > 0 ? (
+          {filteredOrders && filteredOrders.length > 0 ? (
             <Table
               className="lg:overfow-x-auto overflow-auto border-slate-100"
-              dataSource={orders}
+              dataSource={filteredOrders}
               columns={columns}
               pagination={false}
               rowKey="_id"
             />
           ) : (
-            'No Orders found found'
+            'No Orders found'
           )}
         </>
       )}
     </div>
-  )
+  );
 }
 
-export default ProtectedRoute(Orders)
+export default ProtectedRoute(Orders);
