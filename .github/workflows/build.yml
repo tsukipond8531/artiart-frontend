@@ -1,18 +1,20 @@
 name: Build on PR
 
 on:
-   push:
+  push:
     branches:
       - main
-   pull_request:
+  pull_request:
     branches:
       - dev
- 
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
@@ -32,13 +34,16 @@ jobs:
           SSH_PASS: ${{ secrets.VPS_PASSWORD }}
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USER: ${{ secrets.VPS_USER }}
-          VPS_PORT: ${{ secrets.VPS_PORT }}  
+          VPS_PORT: ${{ secrets.VPS_PORT }}
         run: |
-          sshpass -p $SSH_PASS ssh -o StrictHostKeyChecking=no -p $VPS_PORT $VPS_USER@$VPS_HOST "
-          cd /var/www/artiart &&
-          git pull origin main &&
-          npm install &&
-          npm run build &&
-          pm2 restart 0 &&
-          exit
-          "
+          echo $SSH_PASS > /tmp/sshpass.txt
+          chmod 600 /tmp/sshpass.txt
+          sshpass -f /tmp/sshpass.txt ssh -o StrictHostKeyChecking=no -p $VPS_PORT $VPS_USER@$VPS_HOST << EOF
+            cd /var/www/artiart
+            git pull origin main
+            npm install
+            npm run build
+            pm2 restart 0
+            exit
+          EOF
+          rm /tmp/sshpass.txt
