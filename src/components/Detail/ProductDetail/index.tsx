@@ -143,7 +143,7 @@ const ProductDetail = ({ parsedProduct }: any) => {
     },
   ];
 
-  
+
 
   return (
     <>
@@ -201,11 +201,10 @@ const ProductDetail = ({ parsedProduct }: any) => {
                     return (
                       <p
                         key={index}
-                        className={`py-2 px-4 w-[45px] h-[40px] rounded-lg focus:outline-none whitespace-nowrap hover:bg-blue-100 cursor-pointer ${
-                          selectedValue === button.colorName
-                            ? `bg-blue-100 border-2 border-blue-500`
-                            : `bg-${button.colorName}-500  ${button.colorName.toLowerCase() == 'black' || button.colorName.toLowerCase() == '#000' ? 'text-white' : 'text-black'} border border-${button.colorName}-600`
-                        }`}
+                        className={`py-2 px-4 w-[45px] h-[40px] rounded-lg focus:outline-none whitespace-nowrap hover:bg-blue-100 cursor-pointer ${selectedValue === button.colorName
+                          ? `bg-blue-100 border-2 border-blue-500`
+                          : `bg-${button.colorName}-500  ${button.colorName.toLowerCase() == 'black' || button.colorName.toLowerCase() == '#000' ? 'text-white' : 'text-black'} border border-${button.colorName}-600`
+                          }`}
                         style={{ backgroundColor: `#${button.colorName}` }}
                         onClick={() =>
                           handleChange({ target: { value: button.colorName } })
@@ -308,7 +307,7 @@ const ProductDetail = ({ parsedProduct }: any) => {
 
             </div>
           </div>
-            <DetailTabs tabs={tabs} />
+          <DetailTabs tabs={tabs} />
         </Container>
       )}
     </>
